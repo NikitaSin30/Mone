@@ -4,7 +4,11 @@ import './index.css';
 import App from './app/App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
+<<<<<<< HEAD
 import './shared/firebase/firebase'
+=======
+
+>>>>>>> 64832354bd56bd6069b552b04e57aad0d33f65d7
 const root = ReactDOM.createRoot(
    document.getElementById('root') as HTMLElement
 );

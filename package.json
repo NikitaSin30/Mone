@@ -10,11 +10,17 @@
     "@types/node": "^16.18.11",
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
+<<<<<<< HEAD
     "firebase": "^9.16.0",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.42.1",
+=======
+    "prop-types": "^15.8.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+>>>>>>> 64832354bd56bd6069b552b04e57aad0d33f65d7
     "react-router": "^6.8.0",
     "react-router-dom": "^6.8.0",
     "typescript": "^4.9.4",
@@ -45,12 +51,15 @@
     ]
   },
   "devDependencies": {
+<<<<<<< HEAD
     "eslint": "^8.33.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react-hooks": "^4.6.0",
     "prettier": "2.8.3",
+=======
+>>>>>>> 64832354bd56bd6069b552b04e57aad0d33f65d7
     "react-scripts": "^5.0.1",
     "tailwindcss": "^3.2.4"
   }
