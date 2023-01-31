@@ -14,14 +14,8 @@
       "resolveJsonModule": true,
       "isolatedModules": true,
       "noEmit": true,
-<<<<<<< HEAD
       "jsx": "react-jsx",
       "baseUrl": "src"
    },
    "include": [ "src/**/*"]
-=======
-      "jsx": "react-jsx"
-   },
-   "include": ["./src/app", "src/App.tsx", "src/index.tsx"]
->>>>>>> 64832354bd56bd6069b552b04e57aad0d33f65d7
 }
