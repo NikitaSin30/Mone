@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-
-=======
->>>>>>> 64832354bd56bd6069b552b04e57aad0d33f65d7
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -10,7 +6,6 @@ html,
 body,
 #root {
    height: 100%;
-<<<<<<< HEAD
    max-width: 100%;
 }
 * {
@@ -18,8 +13,6 @@ body,
   margin: 0;
   border: 0;
   box-sizing: border-box;
-=======
->>>>>>> 64832354bd56bd6069b552b04e57aad0d33f65d7
 }
 .wrapper {
   min-height: 100%;
@@ -27,18 +20,12 @@ body,
   display: flex;
   flex-direction: column;
   color: white;
-<<<<<<< HEAD
   max-width: 100%;
 
-=======
->>>>>>> 64832354bd56bd6069b552b04e57aad0d33f65d7
 }
 
 main {
   flex: 1 1 auto;
-<<<<<<< HEAD
   display: flex;
   /* flex-direction: column; */
-=======
->>>>>>> 64832354bd56bd6069b552b04e57aad0d33f65d7
 }

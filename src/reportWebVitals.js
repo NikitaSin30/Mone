@@ -13,9 +13,6 @@ var reportWebVitals = function (onPerfEntry) {
     }
 };
 exports["default"] = reportWebVitals;
-<<<<<<< HEAD
 
 
 
-=======
->>>>>>> 64832354bd56bd6069b552b04e57aad0d33f65d7
