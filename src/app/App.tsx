@@ -5,8 +5,6 @@ import PersonalArea from '../pages/account/Account';
 import Analysis from '../pages/analysis/Analysis';
 import Authorization from '../pages/authorization/Authorization';
 import Registration from '../pages/registration/Registration';
-   import { getAuth } from "firebase/auth";
-import React from 'react';
 
 
 function App() {
