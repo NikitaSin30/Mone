@@ -1,5 +1,5 @@
 import React from 'react';
-import Login from '../../widgets/login/Login';
+import Login from '../../features/formLogin/FormLogin';
 
 function Authorization(): React.ReactElement {
    return (

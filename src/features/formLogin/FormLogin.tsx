@@ -1,13 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useForm, Resolver } from 'react-hook-form';
-
+import { getUserApi } from 'shared/api/apiMethod';
 type FormValues = {
-   nickName: string;
+   email: string;
    password: string;
 };
 
-function Login(): React.ReactElement {
+function FormLogin(): React.ReactElement {
    const {
       register,
       reset,
@@ -15,10 +15,11 @@ function Login(): React.ReactElement {
       formState: { errors },
    } = useForm<FormValues>({ mode: 'onBlur' });
 
-   function onSubmit<FormValues>(data: FormValues): FormValues {
+   function onLogin(data: FormValues): FormValues {
       const dataForm: FormValues = data;
       reset();
-      console.log(dataForm);
+      const {email,password} = dataForm
+      getUserApi(email,password)
       return dataForm;
    }
 
@@ -26,22 +27,22 @@ function Login(): React.ReactElement {
     <>
       <form
          className="flex gap-4  w-1/2 flex-col  bg text-white bg-slate-900 py-6 px-8 rounded-md shadow-lg"
-         onSubmit={handleSubmit(onSubmit)}
+         onSubmit={handleSubmit(onLogin)}
       >
          <h2 className="text-xl font-bold text-center">Вход</h2>
-         <label htmlFor="nickName">
+         <label htmlFor="email">
             <p className="flex justify-between">
-               <h2>Nick name </h2>{' '}
-               {errors?.nickName && (
+               <h2>Email</h2>{' '}
+               {errors?.email && (
                   <h2 className="text-red-700">
-                     {errors?.nickName?.message || 'Errors'}
+                     {errors?.email?.message || 'Errors'}
                   </h2>
                )}
             </p>
             <input
                className=" flex-1 w-full placeholder-slate-900 text-black font-semibold rounded-md shadow-lg px-2 py-1"
                type="text"
-               {...register('nickName', {
+               {...register('email', {
                   required: 'Обязательное Поле',
                   minLength: {
                      value: 5,
@@ -90,4 +91,4 @@ function Login(): React.ReactElement {
    );
 }
 
-export default Login;
+export default FormLogin;

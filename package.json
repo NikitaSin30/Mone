@@ -24,13 +24,13 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint --ext .ts,.tsx, src --fix",
+    "lint:fix": "npm run lint -- --fix "
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+  "prettier": {
+    "singleQuote": false,
+    "printWidth": 140
   },
   "browserslist": {
     "production": [
@@ -45,6 +45,12 @@
     ]
   },
   "devDependencies": {
+    "eslint": "^8.33.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "prettier": "2.8.3",
     "react-scripts": "^5.0.1",
     "tailwindcss": "^3.2.4"
   }

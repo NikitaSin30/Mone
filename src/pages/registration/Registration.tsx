@@ -1,5 +1,5 @@
 import React from 'react';
-import RegistrationNewUser from '../../widgets/registrationNewUser/RegistrationNewUser'
+import RegistrationNewUser from '../../features/formRegistrationNewUser/FormRegistrationNewUser'
 
 function Registration(): React.ReactElement {
    return (
