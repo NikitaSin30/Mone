@@ -1,13 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useForm, Resolver } from 'react-hook-form';
-import { getUserApi } from 'shared/api/apiMethod';
-type FormValues = {
-   email: string;
-   password: string;
-};
+import { useForm} from 'react-hook-form';
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { Context } from 'shared/context/context';
+import { Navigate } from 'react-router-dom';
+import { GlobalContext } from 'shared/context/context';
+import { FormValues } from "shared/typification/Typification";
+
 
 function FormLogin(): React.ReactElement {
+   const context = React.useContext<GlobalContext>(Context);
+
    const {
       register,
       reset,
@@ -17,14 +20,28 @@ function FormLogin(): React.ReactElement {
 
    function onLogin(data: FormValues): FormValues {
       const dataForm: FormValues = data;
-      reset();
       const {email,password} = dataForm
-      getUserApi(email,password)
+      onLoginRequest(email,password)
+      onSwitchIsLogin()
+      reset();
       return dataForm;
    }
 
-   return (
-    <>
+
+      function onLoginRequest(email: string, password: string) {
+      const auth = getAuth();
+       signInWithEmailAndPassword(auth, email, password)
+      .then((r) => console.log(r.user))
+      .catch((error) => new Error(error.message));
+       }
+
+      function onSwitchIsLogin(): void {
+      context.setIsLogin(!context.isLogin);
+    }
+
+
+   return !context.isLogin ? (
+   //  <>
       <form
          className="flex gap-4  w-1/2 flex-col  bg text-white bg-slate-900 py-6 px-8 rounded-md shadow-lg"
          onSubmit={handleSubmit(onLogin)}
@@ -85,10 +102,11 @@ function FormLogin(): React.ReactElement {
             type="submit"
             value="Войти"
          />
-      <Link className='text-center hover:scale-110' to="/auth">Зарегистрироваться</Link>
+      <Link className='text-center hover:scale-110' to="/registration">Зарегистрироваться</Link>
       </form>
-      </>
-   );
+      // </>
+   ) : <Navigate to='/'/>
+
 }
 
 export default FormLogin;

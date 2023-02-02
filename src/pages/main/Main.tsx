@@ -1,6 +1,12 @@
+import React from 'react';
 import AccountingCards from '../../widgets/accountingСards/AccountingCards'
+import { Context } from 'shared/context/context';
+import { Navigate, redirect } from 'react-router';
+import { GlobalContext } from "shared/context/context";
+
 function Main():React.ReactElement  {
-   return (
+   const context = React.useContext<GlobalContext>(Context);
+   return  context.isLogin ? (
       <>
          <article className=" flex gap-2  flex-col flex-1 w-6/6">
           <AccountingCards></AccountingCards>
@@ -14,7 +20,7 @@ function Main():React.ReactElement  {
             </section>
          </article>
       </>
-   );
+   ) : <Navigate to='/auth'/>
 }
 
 export default Main;
