@@ -1,40 +1,16 @@
 import React from 'react';
 import { useForm, Resolver } from 'react-hook-form';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { setUserApi } from 'shared/api/apiMethod';
+import { Context } from 'shared/context/context';
+import { Navigate } from 'react-router';
+import { GlobalContext } from "shared/context/context";
+import { FormValues } from "shared/typification/Typification";
 
 
-type FormValues = {
-   firstName: string;
-   phoneNumber: string;
-   email: string;
-   country: string;
-   nickName: string;
-   password: string;
-};
+
 
 function FormRegistrationNewUser(): React.ReactElement {
-   // const resolver: Resolver<FormValues> = async (values) => {
-   //   return {
-   //     values: values.firstName ? values : {},
-   //     errors: !values.firstName
-   //       ? {
-   //           firstName: {
-   //             type: 'required',
-   //             message: 'This is required.',
-   //             minLength:{
-   //               values:2,
-   //               message:'Минимум 2 символа'
-   //             }
-   //           },
-   //         }
-   //       : {},
-   //       minLength:{
-   //         values:2,
-   //         message:'Минимум 2 символа'
-   //       }
-   //   };
-   // };
+   const context = React.useContext<GlobalContext>(Context)
 
    const {
       register,
@@ -43,18 +19,35 @@ function FormRegistrationNewUser(): React.ReactElement {
       formState: { errors },
    } = useForm<FormValues>({ mode: 'onBlur' });
 
-   function onRegisterNewUser(data: FormValues): FormValues {
+   function onModifyNewUser(data: FormValues): FormValues {
      const dataForm: FormValues = data;
-     const { email, password } = dataForm;
-     setUserApi(email,password)
-     return dataForm;
+     const { email, password} = dataForm;
+       onRequestRegistration(email, password);
+       setDataContext(dataForm)
+       onSwitchIsLogin()
+       reset();
+       return dataForm;
    }
 
 
-   return (
+    function onRequestRegistration(email: string, password: string) {
+       const auth = getAuth();
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((r) => console.log(r.user))
+        .catch((error) => new Error(error.message));
+    }
+
+    function setDataContext(data:FormValues):void {
+          context.setUser(data);
+    }
+    function onSwitchIsLogin():void {
+          context.setIsLogin(!context.isLogin);
+    }
+
+   return !context.isLogin ? (
      <form
        className="flex gap-4  w-1/2 flex-col  bg text-white bg-slate-900 py-6 px-8 rounded-md shadow-lg"
-       onSubmit={handleSubmit(onRegisterNewUser)}
+       onSubmit={handleSubmit(onModifyNewUser)}
      >
        <h2 className="text-xl font-bold text-center">Регистрация</h2>
        <label htmlFor="firstName">
@@ -65,7 +58,7 @@ function FormRegistrationNewUser(): React.ReactElement {
            className=" flex-1 w-full placeholder-slate-900 text-black font-semibold rounded-md shadow-lg px-2 py-1"
            type="text"
            {...register("firstName", {
-             required: "Обязательное Поле",
+             //  required: "Обязательное Поле",
              minLength: {
                value: 2,
                message: "Минимум 2 символа",
@@ -136,7 +129,7 @@ function FormRegistrationNewUser(): React.ReactElement {
            className=" flex-1 w-full placeholder-slate-900 text-black font-semibold rounded-md shadow-lg px-2 py-1"
            type="text"
            {...register("nickName", {
-             required: "Обязательное Поле",
+             //  required: "Обязательное Поле",
              minLength: {
                value: 5,
                message: "Минимум 5 символов",
@@ -174,7 +167,7 @@ function FormRegistrationNewUser(): React.ReactElement {
          value="Зарегистрироваться"
        />
      </form>
-   );
+   ) : <Navigate to='/'/>
 }
 
 
