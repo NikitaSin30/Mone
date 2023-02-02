@@ -4,7 +4,7 @@ import { Context } from "shared/context/context";
 import UserNotLogin from "entities/user/appbar/UserNotLogin";
 import UserLogin from "entities/user/appbar/UserLogin";
 import { GlobalContext } from "shared/context/context";
-
+// 
 function AppBar(): React.ReactElement {
   const context = React.useContext<GlobalContext>(Context)
   return (
