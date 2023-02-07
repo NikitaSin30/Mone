@@ -5,7 +5,8 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { Context } from 'shared/context/context';
 import { Navigate } from 'react-router-dom';
 import { GlobalContext } from 'shared/context/context';
-import { FormValues } from "shared/typification/Typification";
+import { FormValues } from "features/auth/typification/Typification";
+import { UserStore } from 'shared/store/UserStore';
 
 
 function FormLogin(): React.ReactElement {
@@ -18,20 +19,20 @@ function FormLogin(): React.ReactElement {
       formState: { errors },
    } = useForm<FormValues>({ mode: 'onBlur' });
 
-   function onLogin(data: FormValues): FormValues {
-      const dataForm: FormValues = data;
-      const {email,password} = dataForm
+   function onLogin(data: FormValues): void {
+      const {email,password} = data
       onLoginRequest(email,password)
-      onSwitchIsLogin()
       reset();
-      return dataForm;
    }
 
 
-      function onLoginRequest(email: string, password: string) {
+      function onLoginRequest(email: string, password: string):void {
       const auth = getAuth();
        signInWithEmailAndPassword(auth, email, password)
-      .then((r) => console.log(r.user))
+      .then((data) => {
+          UserStore.setUser(data.user.email!);
+         onSwitchIsLogin();
+      }  )
       .catch((error) => new Error(error.message));
        }
 

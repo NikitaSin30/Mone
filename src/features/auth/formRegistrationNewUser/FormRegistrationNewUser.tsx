@@ -1,15 +1,14 @@
 import React from 'react';
-import { useForm, Resolver } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { Context } from 'shared/context/context';
 import { Navigate } from 'react-router';
 import { GlobalContext } from "shared/context/context";
-import { FormValues } from "shared/typification/Typification";
+import { FormValues } from "features/auth/typification/Typification";
+import { UserStore } from 'shared/store/UserStore';
 
 
-
-
-function FormRegistrationNewUser(): React.ReactElement {
+function  FormRegistrationNewUser   (): React.ReactElement  {
    const context = React.useContext<GlobalContext>(Context)
 
    const {
@@ -19,27 +18,24 @@ function FormRegistrationNewUser(): React.ReactElement {
       formState: { errors },
    } = useForm<FormValues>({ mode: 'onBlur' });
 
-   function onModifyNewUser(data: FormValues): FormValues {
-     const dataForm: FormValues = data;
-     const { email, password} = dataForm;
+   function onModifyNewUser(data: FormValues): void {
+     const { email, password} = data;
        onRequestRegistration(email, password);
-       setDataContext(dataForm)
-       onSwitchIsLogin()
        reset();
-       return dataForm;
    }
 
 
-    function onRequestRegistration(email: string, password: string) {
+    function onRequestRegistration(email: string, password: string):void {
        const auth = getAuth();
       createUserWithEmailAndPassword(auth, email, password)
-        .then((r) => console.log(r.user))
+        .then((data) => {
+          UserStore.setUser(data.user.email!);
+          onSwitchIsLogin()
+        } )
         .catch((error) => new Error(error.message));
     }
 
-    function setDataContext(data:FormValues):void {
-          context.setUser(data);
-    }
+
     function onSwitchIsLogin():void {
           context.setIsLogin(!context.isLogin);
     }

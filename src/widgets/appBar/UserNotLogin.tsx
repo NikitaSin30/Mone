@@ -5,7 +5,7 @@ function UserNotLogin():React.ReactElement {
     return (
       <ul className="flex flex-col gap-3 pt-1">
         <li className="md:hover:scale-105">
-          <Link to="/auth">
+          <Link to="/login">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"

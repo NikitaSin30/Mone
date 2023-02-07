@@ -2,7 +2,7 @@ import React from "react";
 import { Navigate } from "react-router";
 import { Context } from "shared/context/context";
 import { GlobalContext } from "shared/context/context";
-
+import { UserStore } from "shared/store/UserStore";
 
 function Account():React.ReactElement {
    const context = React.useContext<GlobalContext>(Context);
@@ -35,13 +35,13 @@ function Account():React.ReactElement {
              />
            </svg>
          </div>
-         <h2 className="text-xl font-bold sm:text-2xl">Имя Фамилия</h2>
+         <h2 className="text-xl font-bold sm:text-2xl">{UserStore.user.email}</h2>
        </div>
        <div className="flex flex-col flex-1 bg-white  rounded-md shadow-lg py-3 text-lg">
          <div className="flex-1">
-           <h2 className=" px-2 text-xl text-black font-semibold sm:text-2xl ">email: @adaadq.wwr</h2>
-           <h2 className=" px-2 text-xl text-black font-semibold sm:text-2xl ">Телефон: +324242424242</h2>
-           <h2 className=" px-2 text-xl text-black font-semibold sm:text-2xl ">Страна: Нарния</h2>
+           <h2 className=" px-2 text-xl text-black font-semibold sm:text-2xl ">Email: {UserStore.user.email}</h2>
+           {/* <h2 className=" px-2 text-xl text-black font-semibold sm:text-2xl ">Телефон: +324242424242</h2> */}
+           {/* <h2 className=" px-2 text-xl text-black font-semibold sm:text-2xl ">Страна: Нарния</h2> */}
          </div>
          <button
            onClick={onLogOut}
@@ -52,7 +52,7 @@ function Account():React.ReactElement {
        </div>
      </section>
    ) : (
-     <Navigate to="/auth" />
+     <Navigate to="/login" />
    );
 }
 

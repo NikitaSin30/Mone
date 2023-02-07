@@ -1,15 +1,21 @@
 import React from "react"
 
+type User = {
+  firstName?: string;
+  phoneNumber?: string;
+  email: string;
+  country?: string;
+  nickName?: string;
+};
+
 export interface GlobalContext {
-  user: {};
-  setUser: ({}) => void;
   isLogin:boolean,
   setIsLogin:(a:boolean )=> void;
 }
 
-export  const Context = React.createContext <GlobalContext>({
-    user:{},
-    setUser:()=>{},
-    isLogin: false,
-    setIsLogin:()=> {}
-})
+
+
+export  const Context = React.createContext<GlobalContext>({
+  isLogin: false,
+  setIsLogin: () => {},
+});

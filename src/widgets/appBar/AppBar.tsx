@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Context } from "shared/context/context";
-import UserNotLogin from "entities/user/appbar/UserNotLogin";
-import UserLogin from "entities/user/appbar/UserLogin";
+import UserNotLogin from "widgets/appBar/UserNotLogin";
+import UserLogin from "widgets/appBar/UserLogin";
 import { GlobalContext } from "shared/context/context";
-// 
+//
 function AppBar(): React.ReactElement {
   const context = React.useContext<GlobalContext>(Context)
   return (
