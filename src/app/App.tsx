@@ -6,8 +6,7 @@ import Analysis from '../pages/analysis/Analysis';
 import Authorization from '../pages/auth/Authorization';
 import Registration from '../pages/registration/Registration';
 import React from 'react';
-import { Context } from 'shared/context/context';
-import { GlobalContext } from 'shared/context/context';
+import {Context ,GlobalContext } from 'shared/context/context';
 
 
 
