@@ -7,7 +7,7 @@ jobs:
       steps: 
        - name: Print to console  
          run: echo Hello  
-        - name: Print a few lines
-        run: 
-        echo First lines
-        echo Second
+       - name: Print a few lines
+         run: 
+          echo First lines
+          echo Second
