@@ -1,4 +1,4 @@
-import React from "react"
+import React from "react";
 
 type User = {
   firstName?: string;
@@ -9,13 +9,11 @@ type User = {
 };
 
 export interface GlobalContext {
-  isLogin:boolean,
-  setIsLogin:(a:boolean )=> void;
+  isLogin: boolean;
+  setIsLogin: (a: boolean) => void;
 }
 
-
-
-export  const Context = React.createContext<GlobalContext>({
+export const Context = React.createContext<GlobalContext>({
   isLogin: false,
   setIsLogin: () => {},
 });
