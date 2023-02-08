@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import Layout from "../shared/layout/Layout";
 import Main from "../pages/main/Main";
-import PersonalArea from "../pages/account/Account";
+import PersonalArea from '../pages/account/Account';
 import Analysis from "../pages/analysis/Analysis";
 import Authorization from "../pages/auth/Authorization";
 import Registration from "../pages/registration/Registration";

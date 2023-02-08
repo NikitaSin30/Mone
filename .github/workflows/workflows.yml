@@ -8,6 +8,4 @@ jobs:
       - name: Get the repository code
         uses: actions/checkout@v3
       - name: Install dependdecies
-        run: npm install
-      - name: Test application
-        run: npm run rest
+        run: ci
