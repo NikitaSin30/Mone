@@ -1,5 +1,5 @@
-import React from "react";
-import { action, makeObservable, observable } from "mobx";
+import React from 'react';
+import { action, makeObservable, observable } from 'mobx';
 
 type TypeUser = {
   email: string;
@@ -11,17 +11,17 @@ interface IUser {
 }
 
 export class User implements IUser {
-  user = { email: "" };
-  constructor() {
-    makeObservable(this, {
-      user: observable,
-      setUser: action,
-    });
-  }
+    user = { email: '' };
+    constructor() {
+        makeObservable(this, {
+            user    : observable,
+            setUser : action,
+        });
+    }
 
-  setUser(email: string): void {
-    this.user.email = email;
-  }
+    setUser(email: string): void {
+        this.user.email = email;
+    }
 }
 
 export const UserStore = new User();
