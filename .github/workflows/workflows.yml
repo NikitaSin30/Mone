@@ -1,13 +1,13 @@
 name: Test React App
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
-on: [push]
+on: push
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
       - name: Get the repository code
         uses: actions/checkout@v3
-      - name: Install depend
+      - name: Install dependdecies
         run: npm ci
-      - name: Test APP
+      - name: Test application
         run: npm run rest
