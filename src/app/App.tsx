@@ -13,10 +13,13 @@ function App() {
 
     const context: GlobalContext = {
         isLogin,
-        setIsLogin, 
+        onChangeIsLogin,
     };
 
-    
+    function onChangeIsLogin() {
+        setIsLogin(prev => !prev);
+    }
+
     return (
         <>
             <Context.Provider value={context}>

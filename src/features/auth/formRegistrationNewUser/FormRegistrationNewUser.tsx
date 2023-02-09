@@ -29,14 +29,13 @@ function FormRegistrationNewUser(): React.ReactElement {
         createUserWithEmailAndPassword(auth, email, password)
             .then((data) => {
                 UserStore.setUser(data.user.email!);
-                onSwitchIsLogin();
+                context.onChangeIsLogin();
+
             })
             .catch((error) => new Error(error.message));
     }
 
-    function onSwitchIsLogin(): void {
-        context.setIsLogin(!context.isLogin);
-    }
+
 
     return !context.isLogin ? (
         <form

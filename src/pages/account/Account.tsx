@@ -8,7 +8,7 @@ function Account(): React.ReactElement {
     const context = React.useContext<GlobalContext>(Context);
 
     function onLogOut(): void {
-        context.setIsLogin(!context.isLogin);
+        context.onChangeIsLogin();
     }
 
     return context.isLogin ? (
