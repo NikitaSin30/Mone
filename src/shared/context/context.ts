@@ -1,12 +1,5 @@
 import React from 'react';
 
-type User = {
-  firstName?: string;
-  phoneNumber?: string;
-  email: string;
-  country?: string;
-  nickName?: string;
-};
 
 export interface GlobalContext {
   isLogin: boolean;
