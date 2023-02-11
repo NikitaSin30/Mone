@@ -53,6 +53,7 @@ function Modal(props:PropsModal):React.ReactElement {
                 <form
                     className="flex flex-1 w-100 gap-4 flex-col  bg text-white bg-slate-900 py-6 px-8 rounded-md shadow-lg md:w-1/2"
                     onSubmit={handleSubmit(setNewCategorie)}
+                    
                     onClick={(e) => e.stopPropagation()}
                 >
                     <div className="flex justify-end">
