@@ -9,7 +9,7 @@ import Notebook from 'widgets/notebook/Notebook';
 function Main(): React.ReactElement {
     const context = React.useContext<GlobalContext>(Context);
 
-  
+
     return context.isLogin ? (
         <>
             <article className=" flex gap-2  flex-col flex-1 w-6/6">
