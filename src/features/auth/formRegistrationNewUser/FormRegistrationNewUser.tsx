@@ -39,7 +39,7 @@ function FormRegistrationNewUser(): React.ReactElement {
 
     return !context.isLogin ? (
         <form
-            className="flex gap-4  w-1/2 flex-col  bg text-white bg-slate-900 py-6 px-8 rounded-md shadow-lg"
+            className="flex gap-4   flex-col  bg text-white bg-slate-900 py-6 px-8 rounded-md shadow-lg md:w-1/2"
             onSubmit={handleSubmit(onModifyNewUser)}
         >
             <h2 className="text-xl font-bold text-center">Регистрация</h2>

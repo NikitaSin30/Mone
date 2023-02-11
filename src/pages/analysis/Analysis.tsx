@@ -2,34 +2,43 @@ import React, { useContext } from 'react';
 import { Navigate } from 'react-router';
 import { Context } from 'shared/context/context';
 import { GlobalContext } from 'shared/context/context';
-import Modal from 'features/add-categories/Modal';
+import Modal from 'widgets/modals/Modal';
 import { CategoriesStore } from 'shared/store/CategoriesStore';
+import FormModalCategories from 'features/add-categories/FormModalCategories';
+import ErrorModal from 'widgets/modals/ErrorModal';
+
+
 function Analysis(): React.ReactElement {
-    const [modalActive,setModalActive] = React.useState<boolean>(false);
+    const [isModalActive,setIsModalActive] = React.useState<boolean>(false);
+    const [err, setErr] = React.useState<boolean>(false);
+    const context = useContext<GlobalContext>(Context);
     const { categories } = CategoriesStore;
     const isCategories = categories.length > 0 ? true : false;
 
-    const context = useContext<GlobalContext>(Context);
 
     function onChangeActive() {
-        setModalActive(prev => !prev);
+        setIsModalActive(prev => !prev);
+    }
+
+    function onChangeErr() {
+        setErr((prev) => !prev);
     }
 
     return context.isLogin ? (
         <section className=" flex  flex-col flex-1 ">
             <div className=" flex gap-2  flex-col flex-1 ">
                 <div className="h-1/2 text-black bg-white rounded-md shadow-lg  py-2 px-1">
-                    <h2 className="text-center text-lg font-semibold">Графики анализа</h2>
+                    <h2 className="text-center text-xl font-semibold">Графики анализа</h2>
                 </div>
                 <div className="flex-1 h-1/2 flex flex-col text-black bg-white rounded-md shadow-lg  py-2 px-1">
-                    <h2 className="text-center text-lg font-semibold">Ваши категории</h2>
-                    <div className="flex-1 flex justify-center items-center">
-                        <ul className="flex flex-wrap gap-2 w-full  ">
+                    <h2 className="text-center text-xl font-semibold">Ваши категории</h2>
+                    <div className="flex-1 flex">
+                        <ul className="flex flex-wrap flex-col gap-2 w-full pt-2 ">
                             {isCategories
                   && categories.map((categorie, index) => {
                       return (
                           <li
-                              className="w-1/4 flex px-4 py-2 text-white bg-slate-900  items-center
+                              className="flex-none max-h-[40px] flex px-4 py-2 text-white bg-slate-900  items-center
                           justify-between rounded-md shadow-lg"
                               key={index}
                           >
@@ -53,7 +62,17 @@ function Analysis(): React.ReactElement {
                     </div>
                 </div>
             </div>
-            <Modal active={modalActive} onChangeActive={onChangeActive}></Modal>
+            <Modal isActive={isModalActive} onChangeActive={onChangeActive}>
+                {err ? (
+                    <ErrorModal onChangeActive={onChangeActive} onChangeErr={onChangeErr}>
+                        <h2 className="text-xl font-bold text-center">
+                Категрии должны быть уникальны <br /> Попробуйте ещё раз
+                        </h2>
+                    </ErrorModal>
+                ) : (
+                    <FormModalCategories onChangeActive={onChangeActive} onChangeErr={onChangeErr} />
+                )}
+            </Modal>
         </section>
     ) : (
         <Navigate to="/login" />

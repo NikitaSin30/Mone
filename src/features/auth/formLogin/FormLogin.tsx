@@ -39,10 +39,8 @@ function FormLogin(): React.ReactElement {
 
 
     return !context.isLogin ? (
-
-    //  <>
         <form
-            className="flex gap-4  w-1/2 flex-col  bg text-white bg-slate-900 py-6 px-8 rounded-md shadow-lg"
+            className="flex gap-4   flex-col  bg text-white bg-slate-900 py-6 px-8 rounded-md shadow-lg md:w-1/2"
             onSubmit={handleSubmit(onLogin)}
         >
             <h2 className="text-xl font-bold text-center">Вход</h2>
@@ -96,8 +94,6 @@ function FormLogin(): React.ReactElement {
             </Link>
         </form>
     ) : (
-
-    // </>
         <Navigate to="/" />
     );
 }

@@ -16,8 +16,8 @@ class Categories implements ICategories {
     }
     setCatigorie(categorie: string): void {
         this.categories.push(categorie);
-        console.log(this.categories);
     }
+    
 }
 
 export const CategoriesStore = new Categories();
