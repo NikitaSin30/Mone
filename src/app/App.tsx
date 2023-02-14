@@ -8,6 +8,10 @@ import Registration from '../pages/registration/Registration';
 import React from 'react';
 import { Context, GlobalContext } from 'shared/context/context';
 
+
+
+
+
 function App() {
     const [isLogin, setIsLogin] = React.useState<boolean>(false);
 

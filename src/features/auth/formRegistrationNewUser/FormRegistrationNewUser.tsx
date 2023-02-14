@@ -6,6 +6,8 @@ import { Navigate } from 'react-router';
 import { FormValues } from 'features/auth/typification/Typification';
 import { UserStore } from 'shared/store/UserStore';
 
+
+
 function FormRegistrationNewUser(): React.ReactElement {
     const context = React.useContext<GlobalContext>(Context);
 
