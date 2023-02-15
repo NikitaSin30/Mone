@@ -1,43 +1,39 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { CashFlow } from 'shared/store/CashFlowStore';
+import { CashFlowStore } from 'shared/store/CashFlowStore';
+import { IModalIncome , IFormCategorie, IOperationInfo } from 'features/auth/interfaces/interfaces';
 
-interface IModalCategorie {
-  income: string;
-};
 
-interface IPropsForm {
-  onChangeActive: () => void;
-  incomeSphere:string
-};
 
-interface IInfoOperation {
-    income: number,
-    date : Date
-}
 
-function CardModal(props: IPropsForm): React.ReactElement {
-    const { onChangeActive , incomeSphere } = props;
+function ModalIncome(props: IModalIncome): React.ReactElement {
+    const { onChangeActive, incomeTitle } = props;
     const {
         register,
         reset,
         handleSubmit,
         formState: { errors },
-    } = useForm<IModalCategorie>({ mode: 'onBlur' });
+    } = useForm<IFormCategorie>({ mode: 'onBlur' });
 
-    function setNewIncome(data:IModalCategorie) {
-        const { income }  =  data;
+    function setNewIncome(data: IFormCategorie) {
+        const { income, sphere } = data;
 
-        const infoOperation: IInfoOperation =  {
+        const operationInfo: IOperationInfo = {
             income : +income,
+            sphere : sphere,
             date   : new Date(),
         };
 
-        CashFlow.setIncome(+income);
-        CashFlow.setInfoOperation(infoOperation);
+        setDataInStore(operationInfo.income,operationInfo);
         reset();
         onChangeActive();
     }
+
+    function setDataInStore(income:number,operationInfo: IOperationInfo) {
+        CashFlowStore.setIncome(income );
+        CashFlowStore.setInfoOperation(operationInfo);
+    }
+
 
     return (
         <>
@@ -53,17 +49,36 @@ function CardModal(props: IPropsForm): React.ReactElement {
                         </svg>
                     </button>
                 </div>
-                <h2 className="text-xl font-bold text-center">{incomeSphere}</h2>
+                <h2 className="text-xl font-bold text-center">{incomeTitle}</h2>
+                <label htmlFor="sphere">
+                    <p className="flex justify-between">
+                        <h2>Сфера дохода</h2>
+                        {errors?.sphere && <h2 className="text-red-700">{errors?.sphere?.message || 'Errors'}</h2>}
+                    </p>
+                    <input
+                        type="text"
+                        {...register('sphere', {
+                            minLength : {
+                                value   : 2,
+                                message : 'Минимум 2 символа',
+                            },
+                            pattern : {
+                                value   : /[А-Яа-я]{3}/,
+                                message : 'Используйте кириллицу',
+                            },
+                        })}
+                        className=" flex-1 w-full placeholder-slate-900 text-black font-semibold rounded-md shadow-lg px-2 py-1"
+                    />
+                </label>
                 <label htmlFor="income">
                     <p className="flex justify-between">
-                        <h2>Введите сумму дохода</h2> {errors?.income && <h2 className="text-red-700">{errors?.income?.message || 'Errors'}</h2>}
+                        <h2>Cуммa дохода</h2> {errors?.income && <h2 className="text-red-700">{errors?.income?.message || 'Errors'}</h2>}
                     </p>
                     <input
                         className=" flex-1 w-full placeholder-slate-900 text-black font-semibold rounded-md shadow-lg px-2 py-1"
                         type="text"
                         {...register('income', {
-
-                            //  required: "Обязательное Поле",
+                            required  : 'Обязательное Поле',
                             minLength : {
                                 value   : 3,
                                 message : 'Минимум 3 символа',
@@ -76,11 +91,11 @@ function CardModal(props: IPropsForm): React.ReactElement {
                     />
                 </label>
                 <button className="text-center hover:scale-110" type="submit">
-            Добавить
+          Добавить
                 </button>
             </form>
         </>
     );
 }
 
-export default CardModal;
+export default ModalIncome;

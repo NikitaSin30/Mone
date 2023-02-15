@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { Context, GlobalContext } from 'shared/context/context';
 import { Navigate } from 'react-router';
-import { FormValues } from 'features/auth/typification/Typification';
+import { IFormAuth } from 'features/auth/interfaces/interfaces';
 import { UserStore } from 'shared/store/UserStore';
 
 
@@ -16,9 +16,9 @@ function FormRegistrationNewUser(): React.ReactElement {
         reset,
         handleSubmit,
         formState: { errors },
-    } = useForm<FormValues>({ mode: 'onBlur' });
+    } = useForm<IFormAuth>({ mode: 'onBlur' });
 
-    function onModifyNewUser(data: FormValues): void {
+    function onModifyNewUser(data: IFormAuth): void {
         const { email, password } = data;
 
         onRequestRegistration(email, password);

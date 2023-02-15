@@ -1,6 +1,6 @@
 import Income from 'features/add-income/Income';
 import { observer } from 'mobx-react-lite';
-import { CashFlow } from 'shared/store/CashFlowStore';
+import { CashFlowStore } from 'shared/store/CashFlowStore';
 
 const AccoutingCards:React.FC = observer(() => {
 
@@ -29,7 +29,7 @@ const AccoutingCards:React.FC = observer(() => {
                                 />
                             </svg>
                         </div>
-                        <p className="text-white font-bold flex-1">{CashFlow.moneyAccount}</p>
+                        <p className="text-white font-bold flex-1">{CashFlowStore.moneyAccount}</p>
 
                         <form action="" className="flex pb-2 pr-2 flex-row-reverse right-0 justify-between items-center">
                             <input type="checkbox" className="bottom-2 right-5" />
@@ -60,7 +60,7 @@ const AccoutingCards:React.FC = observer(() => {
                                 />
                             </svg>
                         </div>
-                        <p className="text-black font-bold">{CashFlow.spentMoney}</p>
+                        <p className="text-black font-bold">{CashFlowStore.spentMoney}</p>
                     </div>
                 </div>
             </section>

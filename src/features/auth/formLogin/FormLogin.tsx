@@ -5,7 +5,7 @@ import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { Context } from 'shared/context/context';
 import { Navigate } from 'react-router-dom';
 import { GlobalContext } from 'shared/context/context';
-import { FormValues } from 'features/auth/typification/Typification';
+import { IFormAuth } from 'features/auth/interfaces/interfaces';
 import { UserStore } from 'shared/store/UserStore';
 
 function FormLogin(): React.ReactElement {
@@ -16,9 +16,9 @@ function FormLogin(): React.ReactElement {
         reset,
         handleSubmit,
         formState: { errors },
-    } = useForm<FormValues>({ mode: 'onBlur' });
+    } = useForm<IFormAuth>({ mode: 'onBlur' });
 
-    function onLogin(data: FormValues): void {
+    function onLogin(data: IFormAuth): void {
         const { email, password } = data;
 
         onLoginRequest(email, password);
@@ -39,8 +39,6 @@ function FormLogin(): React.ReactElement {
 
 
     return !context.isLogin ? (
-
-    //  <>
         <form
             className="flex gap-4  w-1/2 flex-col  bg text-white bg-slate-900 py-6 px-8 rounded-md shadow-lg"
             onSubmit={handleSubmit(onLogin)}
@@ -96,8 +94,6 @@ function FormLogin(): React.ReactElement {
             </Link>
         </form>
     ) : (
-
-    // </>
         <Navigate to="/" />
     );
 }

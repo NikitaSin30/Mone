@@ -1,16 +1,25 @@
 import React from 'react';
-import CardModal from 'widgets/modals/CardModal';
+import ModalIncome from './ModalIncome';
 import Modal from 'widgets/modals/Modal';
-import { CashFlow } from 'shared/store/CashFlowStore';
+import { CashFlowStore } from 'shared/store/CashFlowStore';
 
 
 function Income() {
     const [isModalActive, setIsModalActive] = React.useState<boolean>(false);
-    const incomeSphere = 'Укажите доход';
+    const incomeTitle = 'Укажите доход';
 
     function onChangeActive() {
         setIsModalActive((prev) => !prev);
     }
+
+    const ModalWindow = () => {
+        return (
+            <Modal isActive={isModalActive} onChangeActive={onChangeActive}>
+                <ModalIncome incomeTitle={incomeTitle} onChangeActive={onChangeActive} />
+            </Modal>
+        );
+    };
+
 
     return (
         <>
@@ -27,7 +36,7 @@ function Income() {
                         />
                     </svg>
                 </div>
-                <p className=" flex-1 text-black font-bold">{CashFlow.incomeCash}</p>
+                <p className=" flex-1 text-black font-bold">{CashFlowStore.incomeCash}</p>
                 <div className="p-2 flex justify-end items-center">
                     <button onClick={onChangeActive}>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="dark" className="w-6 h-6">
@@ -41,9 +50,7 @@ function Income() {
                     </button>
                 </div>
             </div>
-            <Modal isActive={isModalActive} onChangeActive={onChangeActive}>
-                <CardModal incomeSphere={incomeSphere} onChangeActive={onChangeActive}/>
-            </Modal>
+            <ModalWindow></ModalWindow>
         </>
     );
 }

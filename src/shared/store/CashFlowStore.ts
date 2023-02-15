@@ -1,29 +1,18 @@
 import { action, makeObservable, observable } from 'mobx';
+import { IOperationInfo } from 'features/auth/interfaces/interfaces';
+import { ICashStore } from './interfaces/interfaces';
 
 
-type InfoOperation = {
-  income: number;
-  date: Date;
-};
 
-interface ICashStore {
-  infoOperation:Array<any> ,
-  moneyAccount: number;
-  incomeCash: number;
-  spentMoney: number;
-  setIncome(sum: number): void;
-  setSpending(sum: number): void;
-}
-
-
-export class CashFlowStore implements ICashStore {
-    infoOperation = [];
-    moneyAccount = 0;
+export class CashStore implements ICashStore {
+    operationInfo = [];
     incomeCash = 0;
     spentMoney = 100;
+    moneyAccount = this.incomeCash - this.spentMoney;
+
     constructor() {
         makeObservable(this, {
-            infoOperation    : observable,
+            operationInfo    : observable,
             moneyAccount     : observable,
             incomeCash       : observable,
             spentMoney       : observable,
@@ -43,10 +32,9 @@ export class CashFlowStore implements ICashStore {
         this.spentMoney = this.spentMoney + sum;
         this.updateCashAccount();
     }
-    setInfoOperation(data: InfoOperation):void {
+    setInfoOperation(data: IOperationInfo): void {
         console.log(data);
-        
     }
 }
 
-export const CashFlow = new CashFlowStore();
+export const CashFlowStore = new CashStore();
