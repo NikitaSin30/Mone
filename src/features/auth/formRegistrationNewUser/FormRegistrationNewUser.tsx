@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { Context, GlobalContext } from 'shared/context/context';
 import { Navigate } from 'react-router';
-import { FormValues } from 'features/auth/typification/Typification';
+import { FormValues } from 'features/auth/interfaces/interfaces';
 import { UserStore } from 'shared/store/UserStore';
 
 function FormRegistrationNewUser(): React.ReactElement {
@@ -13,7 +13,7 @@ function FormRegistrationNewUser(): React.ReactElement {
         register,
         reset,
         handleSubmit,
-        formState: { errors },
+        formState: { errors,isValid },
     } = useForm<FormValues>({ mode: 'onBlur' });
 
     function onModifyNewUser(data: FormValues): void {
@@ -38,10 +38,7 @@ function FormRegistrationNewUser(): React.ReactElement {
 
 
     return !context.isLogin ? (
-        <form
-            className="flex gap-4   flex-col  bg text-white bg-slate-900 py-6 px-8 rounded-md shadow-lg md:w-1/2"
-            onSubmit={handleSubmit(onModifyNewUser)}
-        >
+        <form className="flex gap-4   flex-col  bg text-white bg-slate-900 py-6 px-8 rounded-md shadow-lg md:w-1/2" onSubmit={handleSubmit(onModifyNewUser)}>
             <h2 className="text-xl font-bold text-center">Регистрация</h2>
             <label htmlFor="firstName">
                 <p className="flex justify-between">
@@ -66,8 +63,7 @@ function FormRegistrationNewUser(): React.ReactElement {
             </label>
             <label htmlFor="phoneNumber">
                 <p className="flex justify-between">
-                    <h2>Номер телефона</h2>{' '}
-                    {errors?.phoneNumber && <h2 className="text-red-700">{errors?.phoneNumber?.message || 'Errors'}</h2>}
+                    <h2>Номер телефона</h2> {errors?.phoneNumber && <h2 className="text-red-700">{errors?.phoneNumber?.message || 'Errors'}</h2>}
                 </p>
                 <input
                     type="phone"
@@ -89,8 +85,7 @@ function FormRegistrationNewUser(): React.ReactElement {
                     {...register('email', {
                         required : 'Обязательное Поле',
                         pattern  : {
-                            value :
-                /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu,
+                            value   : /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu,
                             message : 'Email введен не корректно',
                         },
                     })}
@@ -119,8 +114,7 @@ function FormRegistrationNewUser(): React.ReactElement {
             </label>
             <label htmlFor="nickName">
                 <p className="flex justify-between">
-                    <h2>Nick name </h2>{' '}
-                    {errors?.nickName && <h2 className="text-red-700">{errors?.nickName?.message || 'Errors'}</h2>}
+                    <h2>Nick name </h2> {errors?.nickName && <h2 className="text-red-700">{errors?.nickName?.message || 'Errors'}</h2>}
                 </p>
                 <input
                     className=" flex-1 w-full placeholder-slate-900 text-black font-semibold rounded-md shadow-lg px-2 py-1"
@@ -163,6 +157,7 @@ function FormRegistrationNewUser(): React.ReactElement {
                 className="flex-1 w-full placeholder-slate-900 cursor-pointer bg-white text-slate-900 font-semibold py-3 rounded-md shadow-lg "
                 type="submit"
                 value="Зарегистрироваться"
+                disabled={!isValid}
             />
         </form>
     ) : (

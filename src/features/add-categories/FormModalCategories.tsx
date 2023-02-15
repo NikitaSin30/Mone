@@ -1,37 +1,30 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { CategoriesStore } from 'shared/store/CategoriesStore';
+import { ICategorie, IFormModalCategories } from './interfaces/interfaces';
 
-type ModalCategorie = {
-  categorie: string;
-};
 
-type PropsForm = {
-  onChangeActive: () => void;
-  onChangeErr:()=>void
-};
-
-function FormModalCategories(props: PropsForm): React.ReactElement {
-
-    const { onChangeActive,onChangeErr } = props;
+function FormModalCategories(props: IFormModalCategories): React.ReactElement {
+    const { onChangeActive, onChangeErr } = props;
     const {
         register,
         reset,
         handleSubmit,
-        formState: { errors },
-    } = useForm<ModalCategorie>({ mode: 'onBlur' });
+        formState: { errors , isValid },
+    } = useForm<ICategorie>({ mode: 'onBlur' });
 
-    function setNewCategorie(data: ModalCategorie): void {
+    function setNewCategorie(data: ICategorie): void {
+
         const { categorie } = data;
-        const modifyCategorie = categorie.trim().toUpperCase();
-        const result = modifyCategorie[0].toUpperCase() + modifyCategorie.slice(1).toLowerCase();
+        const validatedCategorie = categorie.trim().toLowerCase();
+        const newCaregorie = validatedCategorie[0].toUpperCase() + validatedCategorie.slice(1);
 
-        const isHasCategorie = CategoriesStore.categories.some((i) => i === result);
+        const isHasCategorie = CategoriesStore.categories.some((i) => i === newCaregorie);
 
-        checkinUniqueNewCategorie(isHasCategorie, result);
+        onCheckUniqueNewCategorie(isHasCategorie, newCaregorie);
     }
 
-    function checkinUniqueNewCategorie(isHasCategorie: boolean, categorie: string):void {
+    function onCheckUniqueNewCategorie(isHasCategorie: boolean, categorie: string): void {
         if (isHasCategorie) {
             onChangeErr();
             reset();
@@ -43,10 +36,8 @@ function FormModalCategories(props: PropsForm): React.ReactElement {
         }
     }
 
-
     return (
         <>
-
             <form
                 className="flex flex-1 w-100 gap-4 flex-col  bg text-white bg-slate-900 py-6 px-8 rounded-md shadow-lg md:w-1/2"
                 onSubmit={handleSubmit(setNewCategorie)}
@@ -81,11 +72,10 @@ function FormModalCategories(props: PropsForm): React.ReactElement {
                         })}
                     />
                 </label>
-                <button className="text-center hover:scale-110" type="submit">
-            Создать
+                <button disabled={!isValid} className="text-center hover:scale-110" type="submit">
+          Создать
                 </button>
             </form>
-
         </>
     );
 }
