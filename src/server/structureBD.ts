@@ -1,7 +1,4 @@
-import { IFormAuth } from 'features/auth/interfaces/interfaces';
-import { IIncomeOperation } from 'shared/store/cashFlowStore/interfaces/interfaces';
-import { ISpendingOperation } from 'shared/store/cashFlowStore/interfaces/interfaces';
-import { IFormAccumulation } from 'features/add-accumulation/interfaces/interfaces';
+
 export const structureCashUser = {
     cash : {
         balance : 0,
