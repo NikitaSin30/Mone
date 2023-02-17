@@ -44,14 +44,16 @@ class ToDo implements ITodo {
     removeAllTasks():void {
         this.tasks = [];
     }
+    
     onCheckUnique(task: string): boolean {
         return this.tasks.some((i) => i.task === task);
     }
+
     onSwitchIsDone(id: string):void {
         this.tasks.map((i) => {
             if (i.id === id) {
                 i.isDone = !i.isDone;
-                
+
                 return i;
             }
 

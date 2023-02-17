@@ -1,10 +1,11 @@
 import { useForm } from 'react-hook-form';
-import { ITaskForm } from './interfaces';
+import { ITaskForm , IInputTask } from './interfaces';
 import { ToDoStore } from 'shared/store/ToDoStore';
 
 
-export const InputTask = () =>{
 
+export const InputTask = (props:IInputTask) =>{
+    const { onChangeIsModalActive, isActive } = props;
     const {
         register,
         reset,
@@ -30,6 +31,7 @@ export const InputTask = () =>{
             reset();
         }
         else {
+            onChangeIsModalActive();
             reset();
         }
 
@@ -42,6 +44,7 @@ export const InputTask = () =>{
             <form className="flex  flex-1 w-full" onSubmit={handleSubmit(onModifyNewUser)}>
                 <label htmlFor="task" className="w-full">
                     <input
+                        disabled={ isActive}
                         placeholder="Введите задачу"
                         className=" flex-1 rounded-l-md w-full h-full placeholder-slate-900 text-black font-semibold
                          outline-none border-solid border-slate-900 border-b-4
@@ -62,7 +65,7 @@ export const InputTask = () =>{
                     />
                 </label>
                 <button
-                    disabled={!isValid}
+                    disabled={!isValid || isActive}
                     className="  placeholder-slate-900 px-4 text-white cursor-pointer bg-slate-900 font-semibold py-3
                     rounded-r-md shadow-lg hover:text-green-600"
                     type="submit"
