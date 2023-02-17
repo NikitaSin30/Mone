@@ -1,12 +1,15 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Context, GlobalContext } from 'shared/context/context';
-import { Navigate } from 'react-router';
 import { IFormAuth } from 'features/auth/interfaces/interfaces';
 import { serviceAuth } from '../service/serviceAuth';
+import { Input } from 'widgets/inputs/Input';
+import { Button } from 'widgets/modals/ui/button/Button';
+
+
 
 function FormRegistrationNewUser(): React.ReactElement {
-    const { isLogin, onChangeIsLogin }  = React.useContext<GlobalContext>(Context);
+    const { onChangeIsLogin }  = React.useContext<GlobalContext>(Context);
     const {
         register,
         reset,
@@ -15,127 +18,41 @@ function FormRegistrationNewUser(): React.ReactElement {
     } = useForm<IFormAuth>({ mode: 'onBlur' });
 
 
-    async function onModifyNewUser( user: IFormAuth) {
+    async function onRegistration( user: IFormAuth) {
         try {
             await serviceAuth.midlewareRegistration(user, onChangeIsLogin);
         }
         catch (error) {
             console.log('Ошибка');
-
         }
-        reset();
+        finally {
+            reset();
+        }
     }
 
 
-    return !isLogin ? (
-        <form className="flex gap-1   flex-col  bg text-white bg-slate-900 py-6 px-8 rounded-md shadow-lg md:w-1/2" onSubmit={handleSubmit(onModifyNewUser)}>
+    return (
+        <form className="flex gap-1   flex-col  bg text-white bg-slate-900 py-6 px-8 rounded-md shadow-lg md:w-1/2" onSubmit={handleSubmit(onRegistration)}>
             <h2 className="text-xl font-bold text-center">Регистрация</h2>
-            <div className="flex justify-between">
-                <span>Имя</span> {errors?.firstName && <span className="text-red-700">{errors?.firstName?.message || 'Errors'}</span>}
-            </div>
-            <input
-                className=" flex-1 w-full placeholder-slate-900 text-black font-semibold rounded-md shadow-lg px-2 py-1"
-                type="text"
-                {...register('firstName', {
-                    minLength : {
-                        value   : 2,
-                        message : 'Минимум 2 символа',
-                    },
-                    pattern : {
-                        value   : /[А-Яа-я]{3}/,
-                        message : 'Используйте кириллицу',
-                    },
-                })}
-            />
-            <div className="flex justify-between">
-                <span>Номер телефона</span> {errors?.phoneNumber && <span className="text-red-700">{errors?.phoneNumber?.message || 'Errors'}</span>}
-            </div>
-            <input
-                type="phone"
-                {...register('phoneNumber', {
-                    pattern : {
-                        value   : /^\s*[\d]+(?:,[\d]+)?\s*$/,
-                        message : 'Используйте только цифры',
-                    },
-                })}
-                className=" flex-1 w-full placeholder-slate-900 text-black font-semibold rounded-md shadow-lg px-2 py-1"
-            />
             <div className="flex justify-between">
                 <span>Email </span> {errors?.email && <span className="text-red-700">{errors?.email?.message || 'Error'}</span>}
             </div>
-            <input
-                type="email"
-                {...register('email', {
-                    required : 'Обязательное Поле',
-                    pattern  : {
-                        value   : /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu,
-                        message : 'Email введен не корректно',
-                    },
-                })}
-                className=" flex-1 w-full placeholder-slate-900 text-black font-semibold rounded-md shadow-lg px-2 py-1"
-            />
+            <Input caseType="email" register={register} labelTitle="email" />
             <div className="flex justify-between">
                 <span>Страна</span>
                 {errors?.country && <span className="text-red-700">{errors?.country?.message || 'Errors'}</span>}
             </div>
-            <input
-                type="text"
-                {...register('country', {
-                    minLength : {
-                        value   : 2,
-                        message : 'Минимум 2 символа',
-                    },
-                    pattern : {
-                        value   : /[А-Яа-я]{3}/,
-                        message : 'Используйте кириллицу',
-                    },
-                })}
-                className=" flex-1 w-full placeholder-slate-900 text-black font-semibold rounded-md shadow-lg px-2 py-1"
-            />
+            <Input caseType="country" register={register} labelTitle="country" />
             <div className="flex justify-between">
-                <span>Nick name </span> {errors?.nickName && <span className="text-red-700">{errors?.nickName?.message || 'Errors'}</span>}
+                <span>Nickname </span> {errors?.nickName && <span className="text-red-700">{errors?.nickName?.message || 'Errors'}</span>}
             </div>
-            <input
-                className=" flex-1 w-full placeholder-slate-900 text-black font-semibold rounded-md shadow-lg px-2 py-1"
-                type="text"
-                {...register('nickName', {
-                    minLength : {
-                        value   : 5,
-                        message : 'Минимум 5 символов',
-                    },
-                    pattern : {
-                        value   : /[A-Za-z]{5}/,
-                        message : 'Используйте латиницу',
-                    },
-                })}
-            />
+            <Input caseType="nickname" register={register} labelTitle="nickname" />
             <div className="flex justify-between">
                 <span>Пароль</span> {errors?.password && <span className="text-red-700">{errors?.password?.message || 'Error'}</span>}
             </div>
-            <input
-                type="text"
-                {...register('password', {
-                    required  : 'Обязательное Поле',
-                    minLength : {
-                        value   : 6,
-                        message : 'Минимум 6 символов',
-                    },
-                    pattern : {
-                        value   : /(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,}/g,
-                        message : 'Введите латиницу разных регистров и число',
-                    },
-                })}
-                className=" flex-1 w-full placeholder-slate-900 text-black font-semibold rounded-md shadow-lg px-2 py-1"
-            />
-            <input
-                className="flex-1 w-full placeholder-slate-900 cursor-pointer bg-white text-slate-900 font-semibold py-3 rounded-md shadow-lg "
-                type="submit"
-                value="Зарегистрироваться"
-                disabled={!isValid}
-            />
+            <Input caseType="password" register={register} labelTitle="password" />
+            <Button isValid={isValid} title="Зарегистрироваться" />
         </form>
-    ) : (
-        <Navigate to="/" />
     );
 }
 

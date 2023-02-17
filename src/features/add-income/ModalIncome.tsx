@@ -18,19 +18,20 @@ const ModalIncome = (props: IModal) => {
         formState: { errors, isValid },
     } = useForm<IFormCategorie>({ mode: 'onBlur' });
 
-    async function setNewIncome({ income, sphere }: IFormCategorie) {
+    async function onAddIncome({ income, sphere }: IFormCategorie) {
         try {
             await serviceIncome.midilwareAddIncome(income,sphere);
         }
         catch (error) {
             console.log('Ошибка');
         }
+        finally {
+            reset();
+            switchShowModal();
+        }
 
-        reset();
-        switchShowModal();
+
     }
-
-
 
     function onСloseModal(e: SyntheticEvent) {
         e.stopPropagation();
@@ -44,18 +45,17 @@ const ModalIncome = (props: IModal) => {
                     <button onClick={(e) => onСloseModal(e)} className="rounded-full w-6 h-6 self-end overflow-hidden hover:scale-110">
                         {CloseIcon}
                     </button>
-                    <form className="flex flex-1 w-100 gap-1 flex-col  bg text-white"
-                        onSubmit={handleSubmit(setNewIncome)} onClick={(e) => e.stopPropagation()}>
+                    <form className="flex flex-1 w-100 gap-1 flex-col  bg text-white" onSubmit={handleSubmit(onAddIncome)} onClick={(e) => e.stopPropagation()}>
                         <span className="text-xl font-bold text-center">Введите доход</span>
                         <div className="flex justify-between">
                             <span>Сфера дохода</span>
                             {errors?.sphere && <span className="text-red-700">{errors?.sphere?.message || 'Errors'}</span>}
                         </div>
-                        <Input type="text" register={register} labelTitle="sphere" />
+                        <Input caseType="textRus" register={register} labelTitle="sphere" />
                         <div className="flex justify-between">
                             <span>Cуммa дохода</span> {errors?.income && <span className="text-red-700">{errors?.income?.message || 'Errors'}</span>}
                         </div>
-                        <Input type="number" labelTitle="income" register={register} />
+                        <Input caseType="number" labelTitle="income" register={register} />
                         <Button isValid={isValid} title="Добавить" />
                     </form>
                 </div>

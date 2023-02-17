@@ -14,7 +14,7 @@ export const BuilderTask = (props:IInputTask) =>{
     } = useForm<ITaskForm>({ mode: 'onBlur' });
 
 
-    function onCreateTask({ task }: ITaskForm) {
+    function onAddTask({ task }: ITaskForm) {
         serviceTodo.middlewareAddTask(task, switchShowModalErr);
         reset();
     }
@@ -23,8 +23,8 @@ export const BuilderTask = (props:IInputTask) =>{
     return (
         <>
             <div className="flex justify-between w-full mt-4">{errors?.task && <span className="text-red-700">{errors?.task?.message || 'Errors'}</span>}</div>
-            <form className="flex  w-full" onSubmit={handleSubmit(onCreateTask)}>
-                <Input register={register} type="text" labelTitle="task" />
+            <form className="flex  w-full" onSubmit={handleSubmit(onAddTask)}>
+                <Input register={register} caseType="text" labelTitle="task" />
                 <Button isValid={isValid} title="Создать" />
             </form>
         </>

@@ -29,7 +29,7 @@ const SpendingModal = (props: IModal) => {
     } = useForm<IFormSpending>({ mode: 'onBlur' });
 
 
-    async function addNewSpending( newSpending : IFormSpending) {
+    async function onAddSpending( newSpending : IFormSpending) {
 
         try {
             await serviceSpending.midlewareAddSpending(newSpending);
@@ -37,14 +37,11 @@ const SpendingModal = (props: IModal) => {
         catch (error) {
             console.log('Ошибка');
         }
-
-        cleanInputs();
-        switchShowModal();
-    }
-
-    function cleanInputs() {
-        setValueSelect('');
-        reset();
+        finally {
+            setValueSelect('');
+            reset();
+            switchShowModal();
+        }
     }
 
     function getValueSelect(categorie:string):void {
@@ -66,7 +63,7 @@ const SpendingModal = (props: IModal) => {
                     </button>
                     <form
                         className="flex flex-1 w-100 gap-1 flex-col  bg text-white py-6 px-8  "
-                        onSubmit={handleSubmit(addNewSpending)}
+                        onSubmit={handleSubmit(onAddSpending)}
                         onClick={(e) => e.stopPropagation()}
                     >
                         <span className="text-xl font-bold text-center">Добавить трату</span>
@@ -85,7 +82,7 @@ const SpendingModal = (props: IModal) => {
                         <div className="flex justify-between">
                             <span>Сумма</span> {errors?.spentMoney && <span className="text-red-700">{errors?.spentMoney?.message || 'Errors'}</span>}
                         </div>
-                        <Input type="number" labelTitle="spentMoney" register={register} />
+                        <Input caseType="number" labelTitle="spentMoney" register={register} />
                         <Button title="Добавить" isValid={isValid} />
                     </form>
                 </div>

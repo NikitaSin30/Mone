@@ -9,7 +9,7 @@ import { serviceAccumulation } from './service/serviceAccumulation';
 
 
 
-function AccumulationModal(props: IModal): React.ReactElement {
+const AccumulationModal = (props: IModal): React.ReactElement => {
     const { switchShowModal, switchShowModalErr, isModalActive } = props;
     const styleModal = isModalActive ? 'w-full  h-full bg-opacity-20 bg-black  fixed top-0 left-0 flex items-center justify-center ' : 'hidden';
 
@@ -20,14 +20,17 @@ function AccumulationModal(props: IModal): React.ReactElement {
         formState: { errors, isValid },
     } = useForm<IFormAccumulation>({ mode: 'onBlur' });
 
-    async function onSubmit({ accumulation }: IFormAccumulation) {
+    async function onAddAccumulation({ accumulation }: IFormAccumulation) {
         try {
             await serviceAccumulation.midlewareAddAccumulation(accumulation, showModalError, switchShowModal);
         }
         catch (error) {
             console.log('Ошибка');
         }
-        reset();
+        finally {
+            reset();
+        }
+
     }
 
     function showModalError() {
@@ -49,20 +52,20 @@ function AccumulationModal(props: IModal): React.ReactElement {
                     </button>
                     <form
                         className="flex flex-1 w-100 gap-1 flex-col  bg text-white py-6 px-8  "
-                        onSubmit={handleSubmit(onSubmit)}
+                        onSubmit={handleSubmit(onAddAccumulation)}
                         onClick={(e) => e.stopPropagation()}
                     >
                         <span className="text-xl font-bold text-center">Сколько хотите отложить ?</span>
                         <div className="flex justify-between">
                             <span>Cуммa </span> {errors?.accumulation && <span className="text-red-700">{errors?.accumulation?.message || 'Errors'}</span>}
                         </div>
-                        <Input type="number" labelTitle="accumulation" register={register} />
+                        <Input caseType="number" labelTitle="accumulation" register={register} />
                         <Button isValid={isValid} title="Добаавить " />
                     </form>
                 </div>
             </div>
         </>
     );
-}
+};
 
 export default AccumulationModal;

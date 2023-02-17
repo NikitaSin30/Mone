@@ -19,7 +19,7 @@ const FormModalCategories = (props: IModal) => {
         formState: { errors, isValid },
     } = useForm<IFormCategorie>({ mode: 'onBlur' });
 
-    function setNewCategorie({ categorie }: IFormCategorie): void {
+    function onAddCategorie({ categorie }: IFormCategorie): void {
 
         serviceCategories.midlewareAddCategorie(categorie, showModalError, switchShowModal);
         reset();
@@ -42,14 +42,12 @@ const FormModalCategories = (props: IModal) => {
                         {CloseIcon}
                     </button>
                     <form className="flex flex-1 w-100 gap-1 flex-col  bg text-white"
-                        onSubmit={handleSubmit(setNewCategorie)}
-                        onClick={(e) => e.stopPropagation()}
-                    >
+                        onSubmit={handleSubmit(onAddCategorie)} onClick={(e) => e.stopPropagation()}>
                         <span className="text-xl font-bold text-center">Новая категория</span>
                         <div className="flex justify-between">
                             <span>Введите категорию</span> {errors?.categorie && <span className="text-red-700">{errors?.categorie?.message || 'Errors'}</span>}
                         </div>
-                        <Input type="text" register={register} labelTitle="categorie" />
+                        <Input caseType="textRus" register={register} labelTitle="categorie" />
                         <Button isValid={isValid} title="Создать" />
                     </form>
                 </div>
