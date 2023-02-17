@@ -15,6 +15,8 @@ export const ToDo = observer(()=>{
         setIsModalActive((prev) => !prev);
     }
 
+
+
     return (
         <div className=" flex-1 flex-col px-3 text-black bg-gray-100   rounded-md w-full shadow-lg">
             <div className="flex-1 flex flex-col h-full w-full ">
@@ -27,13 +29,14 @@ export const ToDo = observer(()=>{
                     >
               ShopList
                     </Link>
-                    <button
+                    { ToDoStore.tasks.length > 0
+                    && <button
                         onClick={() => ToDoStore.removeAllTasks()}
                         className=" text-orange-800 font-semibold text-sm
                 border-solid border-slate-900 border-2 py-1 px-2 rounded-lg mb-2 hover:text-red-900 hover:bg-slate-800"
                     >
               Очистить список
-                    </button>
+                    </button> }
                 </div>
                 <div className="flex flex-col h-full gap-2">
                     {ToDoStore.tasks.map((item) => {

@@ -18,11 +18,17 @@ export const InputTask = (props:IInputTask) =>{
 
         const validaitedTask = task.trim().toLowerCase();
         const newValidaitedTask = validaitedTask[0].toUpperCase() + validaitedTask.slice(1);
-        const unique = ToDoStore.onCheckUnique(newValidaitedTask);
 
-        if (!unique) {
+        onCheckTask(newValidaitedTask);
+
+    }
+
+    function onCheckTask(task:string):void {
+        const isUnique = ToDoStore.onCheckUnique(task);
+
+        if (!isUnique) {
             const newTask = {
-                task   : newValidaitedTask,
+                task   : task,
                 isDone : false,
                 id     : task,
             };
@@ -34,7 +40,6 @@ export const InputTask = (props:IInputTask) =>{
             onChangeIsModalActive();
             reset();
         }
-
     }
 
     return (
