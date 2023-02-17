@@ -4,12 +4,12 @@ import { Context } from 'shared/context/context';
 import { Navigate } from 'react-router';
 import { GlobalContext } from 'shared/context/context';
 import CashFlow from 'widgets/cashFlow/CashFlow';
-import Notebook from 'widgets/notebook/Notebook';
+import Notebook from 'pages/noteBook/Notebook';
 
 function Main(): React.ReactElement {
     const context = React.useContext<GlobalContext>(Context);
 
-  
+
     return context.isLogin ? (
         <>
             <article className=" flex gap-2  flex-col flex-1 w-6/6">
