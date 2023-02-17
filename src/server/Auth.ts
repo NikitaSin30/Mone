@@ -15,7 +15,7 @@ export class Auth {
 
     async registerUser(user: IFormAuth, switchStatus: () => void) {
 
-        createUserWithEmailAndPassword(AUTH, user.email, user.password)
+        await createUserWithEmailAndPassword(AUTH, user.email, user.password)
             .then((data) => {
                 const sctructureUserDB = {
                     id   : data.user.uid,
@@ -35,7 +35,7 @@ export class Auth {
 
     async writeUser(uid: string, infoUser: any) {
         try {
-            set(ref(db, 'users/' + uid), infoUser);
+            await set(ref(db, 'users/' + uid), infoUser);
         }
         catch (error) {
             throw new Error('Что-то пошло не так');
