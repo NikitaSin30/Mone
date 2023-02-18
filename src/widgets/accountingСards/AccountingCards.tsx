@@ -1,9 +1,9 @@
 function AccoutingCards(): React.ReactElement {
     return (
-        <section className="flex-1 max-h-[240px] gap-2 flex  md:max-h-[200px] md:gap-3 ">
-            <section className="flex-1 w-2/4 flex">
+        <section className="flex-1  gap-2 flex flex-col  md:gap-3 ">
+            <section className="flex-1 flex">
                 <div className="flex  flex-1 gap-2 flex-col  md:flex-row md:gap-3 ">
-                    <div className="flex-1 relative min-h-[90px] flex flex-col  px-2 bg-slate-900 rounded-md shadow-lg ">
+                    <div className="flex-1  min-h-[130px] relative  flex flex-col  px-2 bg-slate-900 rounded-md shadow-lg ">
                         <div className="flex  justify-between gap-2 items-center">
                             <h2 className="font-semibold text-lg">На счёте</h2>
                             <svg
@@ -29,15 +29,10 @@ function AccoutingCards(): React.ReactElement {
                             <input type="checkbox" className="bottom-2 right-5" />
                         </form>
                     </div>
-                    <div className="flex-1  flex flex-col px-2 bg-white  rounded-md shadow-lg">
+                    <div className="flex-1 min-h-[130px] flex flex-col px-2 bg-white  rounded-md shadow-lg">
                         <div className="flex gap-2 items-center justify-between">
                             <h2 className="text-slate-900 font-semibold text-lg">Доход</h2>
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 24 24"
-                                fill="dark"
-                                className="w-6 h-8 md:w-14 md:h-12 "
-                            >
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="dark" className="w-6 h-8 md:w-14 md:h-12 ">
                                 <path d="M4.5 3.75a3 3 0 00-3 3v.75h21v-.75a3 3 0 00-3-3h-15z" />
                                 <path
                                     fillRule="evenodd"
@@ -49,7 +44,7 @@ function AccoutingCards(): React.ReactElement {
                         </div>
                         <p className="text-black font-bold">12333</p>
                     </div>
-                    <div className="flex-1 flex flex-col overflow-hidden  px-2 bg-white rounded-md shadow-lg">
+                    <div className="flex-1 min-h-[130px] flex flex-col overflow-hidden  px-2 bg-white rounded-md shadow-lg">
                         <div className="flex gap-2 items-center justify-between">
                             <h2 className="text-black font-semibold text-lg">Расход</h2>
                             <svg
@@ -77,16 +72,11 @@ function AccoutingCards(): React.ReactElement {
                     </div>
                 </div>
             </section>
-            <aside className="flex justify-end flex-1 max-w-[140px] sm:max-w-[220px] lg:max-w-[440px]">
+            <aside className="flex min-h-[130px] justify-end flex-1">
                 <div className="flex-1  bg-white  gap-2 w-full rounded-md shadow-lg  justify-between ">
                     <div className="flex items-center justify-between">
                         <h2 className="text-black font-semibold px-2 text-lg">Накоплено</h2>
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            fill="dark"
-                            className="w-6 h-8 md:w-14 md:h-12 "
-                        >
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="dark" className="w-6 h-8 md:w-14 md:h-12 ">
                             <path d="M11.584 2.376a.75.75 0 01.832 0l9 6a.75.75 0 11-.832 1.248L12 3.901 3.416 9.624a.75.75 0 01-.832-1.248l9-6z" />
                             <path
                                 fillRule="evenodd"

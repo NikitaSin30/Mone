@@ -1,11 +1,11 @@
 import { useForm } from 'react-hook-form';
-import { ITaskForm , IInputTask } from './interfaces';
+import { ITaskForm , IInputTask } from './interfaces/interfaces';
 import { ToDoStore } from 'shared/store/ToDoStore';
 
 
 
 export const InputTask = (props:IInputTask) =>{
-    const { onChangeIsModalActive, isActive } = props;
+    const { onChangeIsModalActive,onChangeErr, isActive } = props;
     const {
         register,
         reset,
@@ -37,6 +37,7 @@ export const InputTask = (props:IInputTask) =>{
             reset();
         }
         else {
+            onChangeErr();
             onChangeIsModalActive();
             reset();
         }
