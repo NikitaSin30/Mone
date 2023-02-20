@@ -15,7 +15,7 @@ function FormLogin(): React.ReactElement {
         register,
         reset,
         handleSubmit,
-        formState: { errors },
+        formState: { errors,isValid },
     } = useForm<IFormAuth>({ mode: 'onBlur' });
 
     function onLogin(data: IFormAuth): void {
@@ -39,10 +39,7 @@ function FormLogin(): React.ReactElement {
 
 
     return !context.isLogin ? (
-        <form
-            className="flex gap-4  w-1/2 flex-col  bg text-white bg-slate-900 py-6 px-8 rounded-md shadow-lg"
-            onSubmit={handleSubmit(onLogin)}
-        >
+        <form className="flex gap-4   flex-col  bg text-white bg-slate-900 py-6 px-8 rounded-md shadow-lg md:w-1/2" onSubmit={handleSubmit(onLogin)}>
             <h2 className="text-xl font-bold text-center">Вход</h2>
             <label htmlFor="email">
                 <p className="flex justify-between">
@@ -88,9 +85,10 @@ function FormLogin(): React.ReactElement {
                 className="flex-1 w-full placeholder-slate-900 cursor-pointer bg-white text-slate-900 font-semibold py-3 rounded-md shadow-lg "
                 type="submit"
                 value="Войти"
+                disabled={!isValid}
             />
             <Link className="text-center hover:scale-110" to="/registration">
-        Зарегистрироваться
+          Зарегистрироваться
             </Link>
         </form>
     ) : (

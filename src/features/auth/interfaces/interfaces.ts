@@ -15,5 +15,3 @@ export interface IFormCategorie {
 export interface IModalIncome {
   onChangeActive: () => void;
 }
-
-

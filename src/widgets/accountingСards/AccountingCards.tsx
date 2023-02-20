@@ -6,10 +6,10 @@ const AccoutingCards:React.FC = observer(() => {
 
 
     return (
-        <section className="flex-1 max-h-[240px] gap-2 flex  md:max-h-[200px] md:gap-3 ">
-            <section className="flex-1 w-2/4 flex">
+        <section className="flex-1  gap-2 flex flex-col  md:gap-3 ">
+            <section className="flex-1 flex">
                 <div className="flex  flex-1 gap-2 flex-col  md:flex-row md:gap-3 ">
-                    <div className="flex-1 relative min-h-[90px] flex flex-col  px-2 bg-slate-900 rounded-md shadow-lg ">
+                    <div className="flex-1  min-h-[130px] relative  flex flex-col  px-2 bg-slate-900 rounded-md shadow-lg ">
                         <div className="flex  justify-between gap-2 items-center">
                             <h2 className="font-semibold text-lg">На счёте</h2>
                             <svg
@@ -64,7 +64,7 @@ const AccoutingCards:React.FC = observer(() => {
                     </div>
                 </div>
             </section>
-            <aside className="flex justify-end flex-1 max-w-[140px] sm:max-w-[220px] lg:max-w-[440px]">
+            <aside className="flex min-h-[130px] justify-end flex-1">
                 <div className="flex-1  bg-white  gap-2 w-full rounded-md shadow-lg  justify-between ">
                     <div className="flex items-center justify-between">
                         <h2 className="text-black font-semibold px-2 text-lg">Накоплено</h2>
