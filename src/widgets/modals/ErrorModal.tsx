@@ -24,7 +24,8 @@ function ErrorModal(props:IError):React.ReactElement {
                 </button>
             </div>
             {children}
-            <button onClick={onCloseModal} className="text-center hover:scale-110 text-black bg-white rounded-md shadow-lg">
+            <button onClick={onCloseModal} className="text-center hover:bg-slate-900 hover:text-white border-solid border-2
+             border-white text-black bg-white rounded-md shadow-lg">
           Закрыть
             </button>
         </div>
