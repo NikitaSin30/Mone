@@ -3,6 +3,10 @@ import { useForm } from 'react-hook-form';
 import { CategoriesStore } from 'shared/store/CategoriesStore';
 import { ICategorie, IFormModalCategories } from './interfaces/interfaces';
 
+interface INewCat {
+  categorie: string;
+  spentMoney: number;
+}
 
 function FormModalCategories(props: IFormModalCategories): React.ReactElement {
     const { onChangeActive, onChangeErr } = props;
@@ -17,20 +21,25 @@ function FormModalCategories(props: IFormModalCategories): React.ReactElement {
 
         const { categorie } = data;
         const validatedCategorie = categorie.trim().toLowerCase();
-        const newCaregorie = validatedCategorie[0].toUpperCase() + validatedCategorie.slice(1);
+        const resultValidatedCategorie = validatedCategorie[0].toUpperCase() + validatedCategorie.slice(1);
 
-        const isHasCategorie = CategoriesStore.categories.some((i) => i === newCaregorie);
-
-        onCheckUniqueNewCategorie(isHasCategorie, newCaregorie);
+        onCheckUniqueNewCategorie(resultValidatedCategorie);
     }
 
-    function onCheckUniqueNewCategorie(isHasCategorie: boolean, categorie: string): void {
+    function onCheckUniqueNewCategorie( categorie: string ): void {
+        const isHasCategorie = CategoriesStore.categories.some((i) => i.categorie === categorie);
+
         if (isHasCategorie) {
             onChangeErr();
             reset();
         }
         else {
-            CategoriesStore.setCatigorie(categorie);
+            const newCategorie = {
+                categorie  : categorie,
+                spentMoney : 0,
+            };
+
+            CategoriesStore.setCatigorie(newCategorie);
             onChangeActive();
             reset();
         }
