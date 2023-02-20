@@ -6,7 +6,6 @@ import { CashFlowStore } from 'shared/store/CashFlowStore';
 
 function Income() {
     const [isModalActive, setIsModalActive] = React.useState<boolean>(false);
-    const incomeTitle = 'Укажите доход';
 
     function onChangeActive() {
         setIsModalActive((prev) => !prev);
@@ -15,7 +14,7 @@ function Income() {
     const ModalWindow = () => {
         return (
             <Modal isActive={isModalActive} onChangeActive={onChangeActive}>
-                <ModalIncome incomeTitle={incomeTitle} onChangeActive={onChangeActive} />
+                <ModalIncome onChangeActive={onChangeActive} />
             </Modal>
         );
     };

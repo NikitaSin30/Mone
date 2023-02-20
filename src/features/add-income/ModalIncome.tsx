@@ -1,13 +1,13 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { CashFlowStore } from 'shared/store/CashFlowStore';
-import { IModalIncome , IFormCategorie, IOperationInfo } from 'features/auth/interfaces/interfaces';
-
+import { IModalIncome , IFormCategorie } from 'features/auth/interfaces/interfaces';
+import { IOperation } from 'shared/store/interfaces/interfaces';
 
 
 
 function ModalIncome(props: IModalIncome): React.ReactElement {
-    const { onChangeActive, incomeTitle } = props;
+    const { onChangeActive } = props;
     const {
         register,
         reset,
@@ -18,20 +18,19 @@ function ModalIncome(props: IModalIncome): React.ReactElement {
     function setNewIncome(data: IFormCategorie) {
         const { income, sphere } = data;
 
-        const operationInfo: IOperationInfo = {
+        const operation: IOperation = {
             income : +income,
             sphere : sphere,
             date   : new Date(),
         };
 
-        setDataInStore(operationInfo.income,operationInfo);
+        setDataInStore(operation.income);
         reset();
         onChangeActive();
     }
 
-    function setDataInStore(income:number,operationInfo: IOperationInfo) {
+    function setDataInStore(income:number) {
         CashFlowStore.setIncome(income );
-        CashFlowStore.setInfoOperation(operationInfo);
     }
 
 
@@ -49,7 +48,7 @@ function ModalIncome(props: IModalIncome): React.ReactElement {
                         </svg>
                     </button>
                 </div>
-                <h2 className="text-xl font-bold text-center">{incomeTitle}</h2>
+                <h2 className="text-xl font-bold text-center">Введите доход</h2>
                 <label htmlFor="sphere">
                     <p className="flex justify-between">
                         <h2>Сфера дохода</h2>

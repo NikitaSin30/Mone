@@ -1,5 +1,11 @@
+export interface IOperation {
+  income: number;
+  sphere: string;
+  date?: Date;
+}
+
 export interface ICashStore {
-  operationInfo: Array<{}>;
+  operation?: IOperation[];
   moneyAccount: number;
   incomeCash: number;
   spentMoney: number;

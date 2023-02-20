@@ -14,11 +14,6 @@ export interface IFormCategorie {
 
 export interface IModalIncome {
   onChangeActive: () => void;
-  incomeTitle: string;
 }
 
-export interface IOperationInfo {
-  income: number;
-  sphere: string;
-  date: Date;
-}
+
