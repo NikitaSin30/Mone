@@ -1,4 +1,10 @@
-function AccoutingCards(): React.ReactElement {
+import Income from 'features/add-income/Income';
+import { observer } from 'mobx-react-lite';
+import { CashFlowStore } from 'shared/store/CashFlowStore';
+
+const AccoutingCards:React.FC = observer(() => {
+
+
     return (
         <section className="flex-1  gap-2 flex flex-col  md:gap-3 ">
             <section className="flex-1 flex">
@@ -23,28 +29,14 @@ function AccoutingCards(): React.ReactElement {
                                 />
                             </svg>
                         </div>
-                        <p className="text-white font-bold flex-1">12333</p>
+                        <p className="text-white font-bold flex-1">{CashFlowStore.moneyAccount}</p>
 
                         <form action="" className="flex pb-2 pr-2 flex-row-reverse right-0 justify-between items-center">
                             <input type="checkbox" className="bottom-2 right-5" />
                         </form>
                     </div>
-                    <div className="flex-1 min-h-[130px] flex flex-col px-2 bg-white  rounded-md shadow-lg">
-                        <div className="flex gap-2 items-center justify-between">
-                            <h2 className="text-slate-900 font-semibold text-lg">Доход</h2>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="dark" className="w-6 h-8 md:w-14 md:h-12 ">
-                                <path d="M4.5 3.75a3 3 0 00-3 3v.75h21v-.75a3 3 0 00-3-3h-15z" />
-                                <path
-                                    fillRule="evenodd"
-                                    d="M22.5 9.75h-21v7.5a3 3 0 003 3h15a3 3 0 003-3v-7.5zm-18 3.75a.75.75 0 01.75-.75h6a.75.75 0 010
-                                    1.5h-6a.75.75 0 01-.75-.75zm.75 2.25a.75.75 0 000 1.5h3a.75.75 0 000-1.5h-3z"
-                                    clipRule="evenodd"
-                                />
-                            </svg>
-                        </div>
-                        <p className="text-black font-bold">12333</p>
-                    </div>
-                    <div className="flex-1 min-h-[130px] flex flex-col overflow-hidden  px-2 bg-white rounded-md shadow-lg">
+                    <Income />
+                    <div className="flex-1 flex flex-col overflow-hidden  px-2 bg-white rounded-md shadow-lg">
                         <div className="flex gap-2 items-center justify-between">
                             <h2 className="text-black font-semibold text-lg">Расход</h2>
                             <svg
@@ -68,7 +60,7 @@ function AccoutingCards(): React.ReactElement {
                                 />
                             </svg>
                         </div>
-                        <p className="text-black font-bold">12333</p>
+                        <p className="text-black font-bold">{CashFlowStore.spentMoney}</p>
                     </div>
                 </div>
             </section>
@@ -93,6 +85,6 @@ function AccoutingCards(): React.ReactElement {
             </aside>
         </section>
     );
-}
+});
 
 export default AccoutingCards;
