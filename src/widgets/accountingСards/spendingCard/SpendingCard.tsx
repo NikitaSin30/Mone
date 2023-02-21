@@ -2,7 +2,7 @@ import React from 'react';
 import { observer } from 'mobx-react-lite';
 import Modal from 'widgets/modals/Modal';
 import SpendingModal from 'features/add-spending/SpendingModal';
-
+import { CashFlowStore } from 'shared/store/CashFlowStore';
 export const SpendingCard = observer(() =>{
     const [isActiveModal, setIsModalActive] = React.useState<boolean>(false);
 
@@ -28,7 +28,7 @@ export const SpendingCard = observer(() =>{
                     />
                 </svg>
             </div>
-            <div className="text-black font-bold h-full">12333</div>
+            <div className="text-black font-bold h-full">{CashFlowStore.spentMoney}</div>
             <div className="mb-1 flex justify-end items-center">
                 <button onClick={onChangeActive}>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="dark" className="w-6 h-6 hover:scale-110">

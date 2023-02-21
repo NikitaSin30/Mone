@@ -1,8 +1,8 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { CategoriesStore } from 'shared/store/CategoriesStore';
-
-// import { CashFlowStore } from 'shared/store/CashFlowStore';
+import { CashFlowStore } from 'shared/store/CashFlowStore';
+import { ICategorie } from 'shared/store/CategoriesStore';
 import { ISpendingModal, IFormSpending } from 'features/add-spending/interfaces/interfaces';
 
 
@@ -12,25 +12,25 @@ function SpendingModal(props: ISpendingModal): React.ReactElement {
         register,
         reset,
         handleSubmit,
-        formState: { errors },
+        formState: { errors,isValid },
     } = useForm<IFormSpending>({ mode: 'onBlur' });
 
     function addNewSpending(data: IFormSpending) {
         const { categorie, spentMoney } = data;
-        const a = {
-            categorie ,
+        const newSpending = {
+            categorie  : categorie ,
             spentMoney : +spentMoney,
         };
 
-        CategoriesStore.setNewSpanding(a);
+        setNewSpending(spentMoney, newSpending);
         reset();
         onChangeActive();
     }
 
-    // function setDataInStore() {
-    //     CashFlowStore.setIncome(income);
-    //     CashFlowStore.setInfoOperation(operationInfo);
-    // }
+    function setNewSpending(spentMoney:string, spending: ICategorie) {
+        CashFlowStore.setSpending(+spentMoney);
+        CategoriesStore.setNewSpandingInCategorie(spending);
+    }
 
     const OptionSelect =  () => {
         return (
@@ -97,7 +97,7 @@ function SpendingModal(props: ISpendingModal): React.ReactElement {
                         })}
                     />
                 </label>
-                <button className="text-center hover:scale-110" type="submit">
+                <button disabled={!isValid} className="text-center hover:scale-110" type="submit">
             Добавить
                 </button>
             </form>

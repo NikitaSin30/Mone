@@ -3,8 +3,10 @@ import { useForm } from 'react-hook-form';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { Context, GlobalContext } from 'shared/context/context';
 import { Navigate } from 'react-router';
-import { FormValues } from 'features/auth/interfaces/interfaces';
+import { IFormAuth } from 'features/auth/interfaces/interfaces';
 import { UserStore } from 'shared/store/UserStore';
+
+
 
 function FormRegistrationNewUser(): React.ReactElement {
     const context = React.useContext<GlobalContext>(Context);
@@ -13,10 +15,10 @@ function FormRegistrationNewUser(): React.ReactElement {
         register,
         reset,
         handleSubmit,
-        formState: { errors,isValid },
-    } = useForm<FormValues>({ mode: 'onBlur' });
+        formState: { errors, isValid },
+    } = useForm<IFormAuth>({ mode: 'onBlur' });
 
-    function onModifyNewUser(data: FormValues): void {
+    function onModifyNewUser(data: IFormAuth): void {
         const { email, password } = data;
 
         onRequestRegistration(email, password);

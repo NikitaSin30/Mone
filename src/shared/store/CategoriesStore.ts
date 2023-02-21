@@ -1,6 +1,6 @@
 import { action, makeObservable, observable } from 'mobx';
 
-interface ICategorie {
+export interface ICategorie {
   categorie: string;
   spentMoney: number;
 }
@@ -20,18 +20,14 @@ class Categories implements ICategories {
         });
     }
     setCatigorie(categorie: ICategorie): void {
-
         this.categories.push(categorie);
-        console.log(this.categories);
     }
-    setNewSpanding(categorie:ICategorie) : void {
+    setNewSpandingInCategorie(categorie:ICategorie) : void {
         this.categories = this.categories.map((i) => (i.categorie === categorie.categorie ? {
             ...i,
             spentMoney : categorie.spentMoney + i.spentMoney,
         } : i),
         );
-        console.log(this.categories);
-
     }
 }
 export const CategoriesStore = new Categories();
