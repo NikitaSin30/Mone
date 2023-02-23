@@ -10,7 +10,7 @@ import { UserStore } from 'shared/store/UserStore';
 
 function FormRegistrationNewUser(): React.ReactElement {
     const { isLogin, onChangeIsLogin }  = React.useContext<GlobalContext>(Context);
-    const { setUser } = UserStore;
+
     const {
         register,
         reset,
@@ -30,7 +30,7 @@ function FormRegistrationNewUser(): React.ReactElement {
 
         createUserWithEmailAndPassword(auth, email, password)
             .then((data) => {
-                setUser(data.user.email!);
+                UserStore.setUser(data.user.email!);
                 onChangeIsLogin();
 
             })

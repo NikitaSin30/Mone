@@ -7,7 +7,7 @@ import { CloseIcon } from 'widgets/modals/assets/assets';
 
 function FormModalCategories(props: IFormModalCategories): React.ReactElement {
     const { onChangeActive, onChangeErr } = props;
-    const { setCatigorie, categories } = CategoriesStore;
+    const { categories } = CategoriesStore;
     const {
         register,
         reset,
@@ -35,7 +35,7 @@ function FormModalCategories(props: IFormModalCategories): React.ReactElement {
             spentMoney : 0,
         };
 
-        setCatigorie(newCategorie);
+        CategoriesStore.setCatigorie(newCategorie);
 
         onChangeActive();
         reset();

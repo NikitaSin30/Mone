@@ -10,7 +10,7 @@ import { UserStore } from 'shared/store/UserStore';
 
 function FormLogin(): React.ReactElement {
     const { isLogin,onChangeIsLogin } = React.useContext<GlobalContext>(Context);
-    const { setUser } = UserStore;
+
     const {
         register,
         reset,
@@ -30,10 +30,8 @@ function FormLogin(): React.ReactElement {
 
         signInWithEmailAndPassword(auth, email, password)
             .then((data) => {
-                console.log(data);
-
-                setUser(data.user.email!);
                 onChangeIsLogin();
+                UserStore.setUser(data.user.email!);
             })
             .catch((error) => new Error(error.message));
     }
