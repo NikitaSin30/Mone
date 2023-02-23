@@ -1,16 +1,14 @@
 import React from 'react';
 import { CategoriesStore } from 'shared/store/CategoriesStore';
-import { ICategorieItem } from '../interfaces/interfaces';
 import Modal from 'widgets/modals/Modal';
 import { DeleteModal } from 'widgets/modals/DeleteCategorie';
+import { ICategorie } from 'shared/store/interfaces/interfaces';
 
 
-
-export const CategorieItem = (props:ICategorieItem) =>{
+export const CategorieItem = (props:ICategorie) =>{
     const { categorie, id } = props;
 
     const [isModalActive,setIsModalActive] = React.useState<boolean>(false);
-
 
     function onChangeActive():void {
         setIsModalActive(prev => !prev);

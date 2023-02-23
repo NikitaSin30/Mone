@@ -1,8 +1,8 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { CategoriesStore } from 'shared/store/CategoriesStore';
-import { ICategorie, IFormModalCategories, INewCategorie } from './interfaces/interfaces';
-
+import { IFormCategorie, IFormModalCategories } from './interfaces/interfaces';
+import { ICategorie } from 'shared/store/interfaces/interfaces';
 
 
 function FormModalCategories(props: IFormModalCategories): React.ReactElement {
@@ -12,16 +12,16 @@ function FormModalCategories(props: IFormModalCategories): React.ReactElement {
         reset,
         handleSubmit,
         formState: { errors , isValid },
-    } = useForm<ICategorie>({ mode: 'onBlur' });
+    } = useForm<IFormCategorie>({ mode: 'onBlur' });
 
-    function setNewCategorie(data: ICategorie): void {
+    function setNewCategorie(data: IFormCategorie): void {
 
         const { categorie } = data;
         const validatedCategorie = categorie.trim().toLowerCase();
         const newCaregorie = validatedCategorie[0].toUpperCase() + validatedCategorie.slice(1);
 
         const isHasCategorie = CategoriesStore.categories.some((i) => i.categorie === newCaregorie);
-        const newValidCategorie : INewCategorie = {
+        const newValidCategorie : ICategorie = {
             categorie : newCaregorie ,
             id        : newCaregorie,
         };
@@ -29,7 +29,7 @@ function FormModalCategories(props: IFormModalCategories): React.ReactElement {
         onCheckUniqueNewCategorie(isHasCategorie, newValidCategorie);
     }
 
-    function onCheckUniqueNewCategorie(isHasCategorie: boolean, categorie: INewCategorie): void {
+    function onCheckUniqueNewCategorie(isHasCategorie: boolean, categorie: ICategorie): void {
         if (isHasCategorie) {
             onChangeErr();
             reset();

@@ -1,9 +1,6 @@
 import { action, makeObservable, observable } from 'mobx';
+import { ICategorie } from './interfaces/interfaces';
 
-interface ICategorie {
-    categorie:string,
-    id:string,
-}
 
 interface ICategories {
   categories: Array<ICategorie>;

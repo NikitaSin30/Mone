@@ -10,7 +10,6 @@ const Categories:React.FC = observer(() =>{
     const [isModalActive, setIsModalActive] = React.useState<boolean>(false);
     const [err, setErr] = React.useState<boolean>(false);
     const { categories } = CategoriesStore;
-    const isCategories = categories.length > 0 ? true : false;
 
     function onChangeActive() {
         setIsModalActive((prev) => !prev);
@@ -32,16 +31,17 @@ const Categories:React.FC = observer(() =>{
         );
     };
 
+    
+
     return (
         <>
             <div className="flex-1 h-1/2 flex flex-col text-black bg-white rounded-md shadow-lg  py-2 px-1">
                 <h2 className="text-center text-xl font-semibold">Ваши категории</h2>
                 <div className="flex-1 flex">
                     <ul className="flex flex-wrap flex-col gap-2 w-full pt-2 ">
-                        {isCategories
-                && categories.map((categorie) => {
-                    return <CategorieItem key={categorie.id} categorie={categorie.categorie} id={categorie.id} />;
-                })}
+                        {categories?.map(({ categorie , id }) => {
+                            return <CategorieItem key={id} categorie={categorie} id={id} />;
+                        })}
                     </ul>
                 </div>
                 <div className="flex justify-center items-center">

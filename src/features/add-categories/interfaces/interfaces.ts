@@ -1,11 +1,8 @@
-export interface ICategorie {
+export interface IFormCategorie {
   categorie: string;
 }
 
-export interface INewCategorie {
-  categorie: string;
-  id: string;
-}
+
 
 export interface IFormModalCategories {
   onChangeActive: () => void;
