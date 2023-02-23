@@ -9,8 +9,8 @@ import { UserStore } from 'shared/store/UserStore';
 
 
 function FormRegistrationNewUser(): React.ReactElement {
-    const context = React.useContext<GlobalContext>(Context);
-
+    const { isLogin, onChangeIsLogin }  = React.useContext<GlobalContext>(Context);
+    const { setUser } = UserStore;
     const {
         register,
         reset,
@@ -30,8 +30,8 @@ function FormRegistrationNewUser(): React.ReactElement {
 
         createUserWithEmailAndPassword(auth, email, password)
             .then((data) => {
-                UserStore.setUser(data.user.email!);
-                context.onChangeIsLogin();
+                setUser(data.user.email!);
+                onChangeIsLogin();
 
             })
             .catch((error) => new Error(error.message));
@@ -39,13 +39,13 @@ function FormRegistrationNewUser(): React.ReactElement {
 
 
 
-    return !context.isLogin ? (
+    return !isLogin ? (
         <form className="flex gap-4   flex-col  bg text-white bg-slate-900 py-6 px-8 rounded-md shadow-lg md:w-1/2" onSubmit={handleSubmit(onModifyNewUser)}>
             <h2 className="text-xl font-bold text-center">Регистрация</h2>
             <label htmlFor="firstName">
-                <p className="flex justify-between">
+                <span className="flex justify-between">
                     <h2>Имя</h2> {errors?.firstName && <h2 className="text-red-700">{errors?.firstName?.message || 'Errors'}</h2>}
-                </p>
+                </span>
                 <input
                     className=" flex-1 w-full placeholder-slate-900 text-black font-semibold rounded-md shadow-lg px-2 py-1"
                     type="text"
@@ -64,9 +64,9 @@ function FormRegistrationNewUser(): React.ReactElement {
                 />
             </label>
             <label htmlFor="phoneNumber">
-                <p className="flex justify-between">
+                <span className="flex justify-between">
                     <h2>Номер телефона</h2> {errors?.phoneNumber && <h2 className="text-red-700">{errors?.phoneNumber?.message || 'Errors'}</h2>}
-                </p>
+                </span>
                 <input
                     type="phone"
                     {...register('phoneNumber', {
@@ -79,9 +79,9 @@ function FormRegistrationNewUser(): React.ReactElement {
                 />
             </label>
             <label htmlFor="email">
-                <p className="flex justify-between">
+                <span className="flex justify-between">
                     <h2>Email </h2> {errors?.email && <h2 className="text-red-700">{errors?.email?.message || 'Error'}</h2>}
-                </p>
+                </span>
                 <input
                     type="email"
                     {...register('email', {
@@ -95,10 +95,10 @@ function FormRegistrationNewUser(): React.ReactElement {
                 />
             </label>
             <label htmlFor="country">
-                <p className="flex justify-between">
+                <span className="flex justify-between">
                     <h2>Страна</h2>
                     {errors?.country && <h2 className="text-red-700">{errors?.country?.message || 'Errors'}</h2>}
-                </p>
+                </span>
                 <input
                     type="text"
                     {...register('country', {
@@ -115,9 +115,9 @@ function FormRegistrationNewUser(): React.ReactElement {
                 />
             </label>
             <label htmlFor="nickName">
-                <p className="flex justify-between">
+                <span className="flex justify-between">
                     <h2>Nick name </h2> {errors?.nickName && <h2 className="text-red-700">{errors?.nickName?.message || 'Errors'}</h2>}
-                </p>
+                </span>
                 <input
                     className=" flex-1 w-full placeholder-slate-900 text-black font-semibold rounded-md shadow-lg px-2 py-1"
                     type="text"
@@ -136,9 +136,9 @@ function FormRegistrationNewUser(): React.ReactElement {
                 />
             </label>
             <label htmlFor="password">
-                <p className="flex justify-between">
+                <span className="flex justify-between">
                     <h2>Пароль</h2> {errors?.password && <h2 className="text-red-700">{errors?.password?.message || 'Error'}</h2>}
-                </p>
+                </span>
                 <input
                     type="text"
                     {...register('password', {

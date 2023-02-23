@@ -4,12 +4,20 @@ import { CategoriesStore } from 'shared/store/CategoriesStore';
 import { CashFlowStore } from 'shared/store/CashFlowStore';
 import { ICategorie } from 'shared/store/CategoriesStore';
 import { ISpendingModal, IFormSpending } from 'features/add-spending/interfaces/interfaces';
+import { Select } from 'widgets/select/Select';
+import { CloseIcon } from 'widgets/modals/assets/assets';
 
 
 function SpendingModal(props: ISpendingModal): React.ReactElement {
+    const [isActiveSelect, setIsActiveSelect] = React.useState<boolean>(false);
+    const [valueInput, setValueInput] = React.useState<string>('');
+    const selected = valueInput ? valueInput : 'Выберити категию';
+
     const { onChangeActive } = props;
+    const { categories } = CategoriesStore;
     const {
         register,
+        setValue,
         reset,
         handleSubmit,
         formState: { errors,isValid },
@@ -23,7 +31,7 @@ function SpendingModal(props: ISpendingModal): React.ReactElement {
         };
 
         setNewSpending(spentMoney, newSpending);
-        reset();
+        onCleanInputs();
         onChangeActive();
     }
 
@@ -32,23 +40,22 @@ function SpendingModal(props: ISpendingModal): React.ReactElement {
         CategoriesStore.setNewSpandingInCategorie(spending);
     }
 
-    const OptionSelect =  () => {
-        return (
-            <>
-                {CategoriesStore.categories.length < 1 ? (
-                    <option value="">Добавьте котегорию на странице аналитика</option>
-                ) : (
-                    CategoriesStore.categories.map((categorie) => {
-                        return (
-                            <option key={categorie.categorie} value={categorie.categorie}>
-                                {categorie.categorie}
-                            </option>
-                        );
-                    })
-                )}
-            </>
-        );
-    };
+    function onCleanInputs() {
+        setValueInput('');
+        reset();
+    }
+
+    function getValueInput(categorie:string):void {
+        setValue('categorie', categorie);
+        setValueInput(categorie);
+        console.log(valueInput);
+    } ;
+
+
+
+    function toggleActiveSelect():void {
+        setIsActiveSelect(prev => !prev);
+    }
 
 
     return (
@@ -60,27 +67,27 @@ function SpendingModal(props: ISpendingModal): React.ReactElement {
             >
                 <div className="flex justify-end">
                     <button onClick={onChangeActive} className="rounded-full w-6 h-6 overflow-hidden hover:scale-110">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
+                        <CloseIcon/>
                     </button>
                 </div>
                 <h2 className="text-xl font-bold text-center">Добавить трату</h2>
                 <label htmlFor="categorie">
-                    <p className="flex justify-between">
+                    <span className="flex justify-between">
                         <h2>Категория трат</h2>
-                    </p>
-                    <select
-                        className="flex-1 w-full placeholder-slate-900 text-black font-semibold rounded-md shadow-lg px-2 py-1"
-                        {...register('categorie', { required: true })}
+                    </span>
+                    <div
+                        onClick={toggleActiveSelect}
+                        className="flex-1 cursor-pointer bg-white h-8
+                         text-black font-semibold rounded-md shadow-lg py-1"
                     >
-                        <OptionSelect />
-                    </select>
+                        <div {...register('categorie', { required: true })}>{selected}</div>
+                        <Select isActiveSelect={isActiveSelect} categories={categories} getValueInput={getValueInput}></Select>
+                    </div>
                 </label>
                 <label htmlFor="spentMoney">
-                    <p className="flex justify-between">
+                    <span className="flex justify-between">
                         <h2>Сумма</h2> {errors?.spentMoney && <h2 className="text-red-700">{errors?.spentMoney?.message || 'Errors'}</h2>}
-                    </p>
+                    </span>
                     <input
                         className=" flex-1 w-full placeholder-slate-900 text-black font-semibold rounded-md shadow-lg px-2 py-1"
                         type="text"

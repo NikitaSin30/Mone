@@ -22,11 +22,11 @@ class Categories implements ICategories {
     setCatigorie(categorie: ICategorie): void {
         this.categories.push(categorie);
     }
-    setNewSpandingInCategorie(categorie:ICategorie) : void {
-        this.categories = this.categories.map((i) => (i.categorie === categorie.categorie ? {
-            ...i,
-            spentMoney : categorie.spentMoney + i.spentMoney,
-        } : i),
+    setNewSpandingInCategorie(newSpending:ICategorie) : void {
+        this.categories = this.categories.map((categorie) => (categorie.categorie === newSpending.categorie ? {
+            ...categorie,
+            spentMoney : newSpending.spentMoney + categorie.spentMoney,
+        } : categorie),
         );
     }
 }
