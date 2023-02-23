@@ -8,7 +8,7 @@ import { CloseIcon } from 'widgets/modals/assets/assets';
 
 function ModalIncome(props: IModalIncome): React.ReactElement {
     const { onChangeActive } = props;
-    const { setIncome } = CashFlowStore;
+
     const {
         register,
         reset,
@@ -25,7 +25,7 @@ function ModalIncome(props: IModalIncome): React.ReactElement {
             date   : new Date(),
         };
 
-        setIncome(operation.income);
+        CashFlowStore.setIncome(operation.income);
         reset();
         onChangeActive();
     }
