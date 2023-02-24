@@ -3,9 +3,10 @@ import { CategoriesStore } from 'shared/store/CategoriesStore';
 import Modal from 'widgets/modals/Modal';
 import { DeleteModal } from 'widgets/modals/DeleteCategorie';
 import { ICategorie } from 'shared/store/interfaces/interfaces';
+import { observer } from 'mobx-react-lite';
 
 
-export const CategorieItem = (props:ICategorie) =>{
+export const CategorieItem = observer((props:ICategorie) =>{
     const { categorie, id } = props;
 
     const [isModalActive,setIsModalActive] = React.useState<boolean>(false);
@@ -43,4 +44,4 @@ export const CategorieItem = (props:ICategorie) =>{
             </Modal>
         </>
     );
-};
+});
