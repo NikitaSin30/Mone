@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { CategoriesStore } from 'shared/store/CategoriesStore';
-import { ICategorie, IFormModalCategories } from './interfaces/interfaces';
+import { IFormCategorie, IFormModalCategories } from './interfaces/interfaces';
 import { CloseIcon } from 'widgets/modals/assets/assets';
 
 
@@ -13,9 +13,9 @@ function FormModalCategories(props: IFormModalCategories): React.ReactElement {
         reset,
         handleSubmit,
         formState: { errors , isValid },
-    } = useForm<ICategorie>({ mode: 'onBlur' });
+    } = useForm<IFormCategorie>({ mode: 'onBlur' });
 
-    function setNewCategorie(data: ICategorie): void {
+    function setNewCategorie(data: IFormCategorie): void {
 
         const { categorie } = data;
         const validatedCategorie = categorie.trim().toLowerCase();
@@ -33,6 +33,7 @@ function FormModalCategories(props: IFormModalCategories): React.ReactElement {
         const newCategorie = {
             categorie  : categorie,
             spentMoney : 0,
+            id         : categorie,
         };
 
         CategoriesStore.setCatigorie(newCategorie);

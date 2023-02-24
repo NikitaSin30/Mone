@@ -5,10 +5,10 @@ import Modal from 'widgets/modals/Modal';
 import ErrorModal from 'widgets/modals/ErrorModal';
 import FormModalCategories from 'features/add-categories/FormModalCategories';
 
+
 const Categories:React.FC = observer(() =>{
     const [isModalActive, setIsModalActive] = React.useState<boolean>(false);
     const [err, setErr] = React.useState<boolean>(false);
-
 
     function onChangeActive() {
         setIsModalActive((prev) => !prev);
@@ -17,7 +17,6 @@ const Categories:React.FC = observer(() =>{
     function onChangeErr() {
         setErr((prev) => !prev);
     }
-
 
     const ContentModal = () => {
         return err ? (
@@ -30,6 +29,8 @@ const Categories:React.FC = observer(() =>{
             <FormModalCategories onChangeActive={onChangeActive} onChangeErr={onChangeErr} />
         );
     };
+
+
 
     return (
         <>
@@ -47,7 +48,7 @@ const Categories:React.FC = observer(() =>{
                 </div>
             </div>
             <Modal isActive={isModalActive} onChangeActive={onChangeActive}>
-                <ContentModal/>
+                <ContentModal />
             </Modal>
         </>
     );

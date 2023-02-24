@@ -10,3 +10,9 @@ export interface IError {
   children: React.ReactNode;
 }
 
+export interface IDeleteModal {
+  onSuccesDelete: (id: string) => void;
+  onChangeActive: () => void;
+  categorie: string;
+  id: string;
+}

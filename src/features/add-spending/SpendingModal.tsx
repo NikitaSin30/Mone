@@ -2,7 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { CategoriesStore } from 'shared/store/CategoriesStore';
 import { CashFlowStore } from 'shared/store/CashFlowStore';
-import { ICategorie } from 'shared/store/CategoriesStore';
+import { ICategorie } from 'shared/store/interfaces/interfaces';
 import { ISpendingModal, IFormSpending } from 'features/add-spending/interfaces/interfaces';
 import { Select } from 'widgets/select/Select';
 import { CloseIcon } from 'widgets/modals/assets/assets';
@@ -35,7 +35,7 @@ function SpendingModal(props: ISpendingModal): React.ReactElement {
         onChangeActive();
     }
 
-    function setNewSpending(spentMoney:string, spending: ICategorie) {
+    function setNewSpending(spentMoney: string, spending: ICategorie) {
         CashFlowStore.setSpending(+spentMoney);
         CategoriesStore.setNewSpandingInCategorie(spending);
     }

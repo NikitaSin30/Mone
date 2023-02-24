@@ -1,4 +1,4 @@
-import { ICategorie } from 'shared/store/CategoriesStore';
+import { ICategorie } from 'shared/store/interfaces/interfaces';
 
 
 interface ISelect {

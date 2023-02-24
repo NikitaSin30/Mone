@@ -8,7 +8,6 @@ import { GlobalContext } from 'shared/context/context';
 function AppBar(): React.ReactElement {
     const { isLogin } = React.useContext<GlobalContext>(Context);
 
-
     return (
         <nav className="flex  max-w-full  justify-center items-start md:py-1 min-w-[50px] lg:min-w-[100px] bg-slate-900 rounded-md shadow-lg  ">
             {isLogin ? <UserLogin /> : <UserNotLogin />}

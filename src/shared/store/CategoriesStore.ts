@@ -1,14 +1,11 @@
 import { action, makeObservable, observable } from 'mobx';
-
-export interface ICategorie {
-  categorie: string;
-  spentMoney: number;
-}
+import { ICategorie } from './interfaces/interfaces';
 
 
 interface ICategories {
   categories: Array<ICategorie>;
-  setCatigorie(categorie: ICategorie): void;
+  setCatigorie(categorie:ICategorie) : void
+  removeCategorie(id:string) :void
 }
 
 class Categories implements ICategories {
@@ -22,11 +19,18 @@ class Categories implements ICategories {
     setCatigorie(categorie: ICategorie): void {
         this.categories.push(categorie);
     }
-    setNewSpandingInCategorie(newSpending:ICategorie) : void {
-        this.categories = this.categories.map((categorie) => (categorie.categorie === newSpending.categorie ? {
-            ...categorie,
-            spentMoney : newSpending.spentMoney + categorie.spentMoney,
-        } : categorie),
+    removeCategorie(id: string): void {
+        this.categories = this.categories.filter((cat) => cat.id !== id);
+    }
+
+    setNewSpandingInCategorie(newSpending: ICategorie): void {
+        this.categories = this.categories.map((categorie) =>
+            categorie.id === newSpending.id
+                ? {
+                    ...categorie,
+                    spentMoney : newSpending.spentMoney + categorie.spentMoney,
+                }
+                : categorie,
         );
     }
 }
