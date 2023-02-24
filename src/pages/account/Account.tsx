@@ -5,13 +5,10 @@ import { GlobalContext } from 'shared/context/context';
 import { UserStore } from 'shared/store/UserStore';
 
 function Account(): React.ReactElement {
-    const context = React.useContext<GlobalContext>(Context);
+    const { isLogin, onChangeIsLogin } = React.useContext<GlobalContext>(Context);
+    const { user } = UserStore;
 
-    function onLogOut(): void {
-        context.onChangeIsLogin();
-    }
-
-    return context.isLogin ? (
+    return isLogin ? (
         <section className=" flex gap-2  flex-col flex-1 w-6/6">
             <div className="flex items-center gap-2  bg-slate-900 rounded-md shadow-lg">
                 <div>
@@ -26,15 +23,13 @@ function Account(): React.ReactElement {
                         <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zM18.75 10.5h.008v.008h-.008V10.5z" />
                     </svg>
                 </div>
-                <h2 className="text-xl font-bold sm:text-2xl">{UserStore.user.email}</h2>
+                <h2 className="text-xl font-bold sm:text-2xl">{user.email}</h2>
             </div>
             <div className="flex flex-col flex-1 bg-white  rounded-md shadow-lg py-3 text-lg">
                 <div className="flex-1">
-                    <h2 className=" px-2 text-xl text-black font-semibold sm:text-2xl ">Email: {UserStore.user.email}</h2>
-                    {/* <h2 className=" px-2 text-xl text-black font-semibold sm:text-2xl ">Телефон: +324242424242</h2> */}
-                    {/* <h2 className=" px-2 text-xl text-black font-semibold sm:text-2xl ">Страна: Нарния</h2> */}
+                    <h2 className=" px-2 text-xl text-black font-semibold sm:text-2xl ">Email: {user.email}</h2>
                 </div>
-                <button onClick={onLogOut} className="text-md  flex flex-col items-center justify-center px-2 py-2 bg-slate-900 font-semibold
+                <button onClick={onChangeIsLogin} className="text-md  flex flex-col items-center justify-center px-2 py-2 bg-slate-900 font-semibold
                 rounded-md sm:text-xl">
             Выйти из аккаунта
                 </button>

@@ -3,11 +3,12 @@ import { useForm } from 'react-hook-form';
 import { CashFlowStore } from 'shared/store/CashFlowStore';
 import { IModalIncome , IFormCategorie } from 'features/auth/interfaces/interfaces';
 import { IOperation } from 'shared/store/interfaces/interfaces';
-
+import { CloseIcon } from 'widgets/modals/assets/assets';
 
 
 function ModalIncome(props: IModalIncome): React.ReactElement {
     const { onChangeActive } = props;
+
     const {
         register,
         reset,
@@ -24,13 +25,9 @@ function ModalIncome(props: IModalIncome): React.ReactElement {
             date   : new Date(),
         };
 
-        setDataInStore(operation.income);
+        CashFlowStore.setIncome(operation.income);
         reset();
         onChangeActive();
-    }
-
-    function setDataInStore(income:number) {
-        CashFlowStore.setIncome(income );
     }
 
 
@@ -43,17 +40,15 @@ function ModalIncome(props: IModalIncome): React.ReactElement {
             >
                 <div className="flex justify-end">
                     <button onClick={onChangeActive} className="rounded-full w-6 h-6 overflow-hidden hover:scale-110">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
+                        <CloseIcon/>
                     </button>
                 </div>
                 <h2 className="text-xl font-bold text-center">Введите доход</h2>
                 <label htmlFor="sphere">
-                    <p className="flex justify-between">
+                    <span className="flex justify-between">
                         <h2>Сфера дохода</h2>
                         {errors?.sphere && <h2 className="text-red-700">{errors?.sphere?.message || 'Errors'}</h2>}
-                    </p>
+                    </span>
                     <input
                         type="text"
                         {...register('sphere', {
@@ -70,9 +65,9 @@ function ModalIncome(props: IModalIncome): React.ReactElement {
                     />
                 </label>
                 <label htmlFor="income">
-                    <p className="flex justify-between">
+                    <span className="flex justify-between">
                         <h2>Cуммa дохода</h2> {errors?.income && <h2 className="text-red-700">{errors?.income?.message || 'Errors'}</h2>}
-                    </p>
+                    </span>
                     <input
                         className=" flex-1 w-full placeholder-slate-900 text-black font-semibold rounded-md shadow-lg px-2 py-1"
                         type="text"

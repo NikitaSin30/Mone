@@ -9,3 +9,4 @@ export interface IError {
   onChangeErr: () => void;
   children: React.ReactNode;
 }
+
