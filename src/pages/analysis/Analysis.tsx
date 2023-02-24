@@ -5,9 +5,9 @@ import { GlobalContext } from 'shared/context/context';
 import Categories from 'widgets/categories/Categories';
 
 function Analysis(): React.ReactElement {
-    const context = useContext<GlobalContext>(Context);
+    const { isLogin } = useContext<GlobalContext>(Context);
 
-    return context.isLogin ? (
+    return isLogin ? (
         <section className=" flex  flex-col flex-1 ">
             <div className=" flex gap-2  flex-col flex-1 ">
                 <div className="h-1/2 text-black bg-white rounded-md shadow-lg  py-2 px-1">

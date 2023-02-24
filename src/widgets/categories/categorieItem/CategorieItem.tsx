@@ -39,7 +39,7 @@ export const CategorieItem = (props:ICategorie) =>{
                 </button>
             </li>
             <Modal isActive={isModalActive} onChangeActive={onChangeActive}>
-                <DeleteModal id={id} categorie={categorie} onSuccesDelete={onSuccesDelete} onChangeActive={onChangeActive}/>
+                <DeleteModal id={id!} categorie={categorie} onSuccesDelete={onSuccesDelete} onChangeActive={onChangeActive}/>
             </Modal>
         </>
     );

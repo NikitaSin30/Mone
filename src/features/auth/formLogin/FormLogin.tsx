@@ -5,20 +5,20 @@ import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { Context } from 'shared/context/context';
 import { Navigate } from 'react-router-dom';
 import { GlobalContext } from 'shared/context/context';
-import { FormValues } from 'features/auth/interfaces/interfaces';
+import { IFormAuth } from 'features/auth/interfaces/interfaces';
 import { UserStore } from 'shared/store/UserStore';
 
 function FormLogin(): React.ReactElement {
-    const context = React.useContext<GlobalContext>(Context);
+    const { isLogin,onChangeIsLogin } = React.useContext<GlobalContext>(Context);
 
     const {
         register,
         reset,
         handleSubmit,
         formState: { errors,isValid },
-    } = useForm<FormValues>({ mode: 'onBlur' });
+    } = useForm<IFormAuth>({ mode: 'onBlur' });
 
-    function onLogin(data: FormValues): void {
+    function onLogin(data: IFormAuth): void {
         const { email, password } = data;
 
         onLoginRequest(email, password);
@@ -30,21 +30,23 @@ function FormLogin(): React.ReactElement {
 
         signInWithEmailAndPassword(auth, email, password)
             .then((data) => {
+                onChangeIsLogin();
                 UserStore.setUser(data.user.email!);
-                context.onChangeIsLogin();
             })
             .catch((error) => new Error(error.message));
     }
 
 
 
-    return !context.isLogin ? (
+
+
+    return !isLogin ? (
         <form className="flex gap-4   flex-col  bg text-white bg-slate-900 py-6 px-8 rounded-md shadow-lg md:w-1/2" onSubmit={handleSubmit(onLogin)}>
             <h2 className="text-xl font-bold text-center">Вход</h2>
             <label htmlFor="email">
-                <p className="flex justify-between">
+                <span className="flex justify-between">
                     <h2>Email</h2> {errors?.email && <h2 className="text-red-700">{errors?.email?.message || 'Errors'}</h2>}
-                </p>
+                </span>
                 <input
                     className=" flex-1 w-full placeholder-slate-900 text-black font-semibold rounded-md shadow-lg px-2 py-1"
                     type="text"
@@ -62,9 +64,9 @@ function FormLogin(): React.ReactElement {
                 />
             </label>
             <label htmlFor="password">
-                <p className="flex justify-between">
+                <span className="flex justify-between">
                     <h2>Пароль</h2> {errors?.password && <h2 className="text-red-700">{errors?.password?.message || 'Error'}</h2>}
-                </p>
+                </span>
                 <input
                     type="text"
                     {...register('password', {

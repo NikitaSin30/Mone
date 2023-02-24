@@ -3,10 +3,14 @@ import Layout from '../shared/layout/Layout';
 import Main from '../pages/main/Main';
 import PersonalArea from '../pages/account/Account';
 import Analysis from '../pages/analysis/Analysis';
-import Authorization from '../pages/auth/Authorization';
-import Registration from '../pages/registration/Registration';
+import Authorization from '../pages/auth/authorization/Authorization';
+import Registration from '../pages/auth/registration/Registration';
 import React from 'react';
 import { Context, GlobalContext } from 'shared/context/context';
+
+
+
+
 
 function App() {
     const [isLogin, setIsLogin] = React.useState<boolean>(false);
@@ -19,6 +23,7 @@ function App() {
     function onChangeIsLogin() {
         setIsLogin(prev => !prev);
     }
+
 
     return (
         <>

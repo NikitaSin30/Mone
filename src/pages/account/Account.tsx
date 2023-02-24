@@ -5,14 +5,11 @@ import { GlobalContext } from 'shared/context/context';
 import { UserStore } from 'shared/store/UserStore';
 
 function Account(): React.ReactElement {
-    const context = React.useContext<GlobalContext>(Context);
     const { email } = UserStore.user;
+    const { isLogin, onChangeIsLogin } = React.useContext<GlobalContext>(Context);
 
-    function onLogOut(): void {
-        context.onChangeIsLogin();
-    }
 
-    return context.isLogin ? (
+    return isLogin ? (
         <section className=" flex gap-2  flex-col flex-1 w-6/6">
             <div className="flex items-center gap-2  bg-slate-900 rounded-md shadow-lg">
                 <div>
@@ -35,7 +32,7 @@ function Account(): React.ReactElement {
                     {/* <h2 className=" px-2 text-xl text-black font-semibold sm:text-2xl ">Телефон: +324242424242</h2> */}
                     {/* <h2 className=" px-2 text-xl text-black font-semibold sm:text-2xl ">Страна: Нарния</h2> */}
                 </div>
-                <button onClick={onLogOut} className="text-md  flex flex-col items-center justify-center px-2 py-2 bg-slate-900 font-semibold
+                <button onClick={onChangeIsLogin} className="text-md  flex flex-col items-center justify-center px-2 py-2 bg-slate-900 font-semibold
                 rounded-md sm:text-xl">
             Выйти из аккаунта
                 </button>
