@@ -22,3 +22,18 @@ export interface IUser {
   user: TUser;
   setUser(email: string): void;
 }
+
+export interface ICategorie {
+  categorie: string;
+  id?: string;
+  spentMoney: number;
+}
+
+export type TypeUser = {
+  email: string;
+};
+
+export interface IUser {
+  user: TypeUser;
+  setUser(email: string): void;
+}
