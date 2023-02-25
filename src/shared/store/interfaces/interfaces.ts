@@ -5,12 +5,13 @@ export interface IOperation {
 }
 
 export interface ICashStore {
-  operation?: IOperation[];
   moneyAccount: number;
   incomeCash: number;
   spentMoney: number;
+  accumulation: number;
   setIncome(sum: number): void;
   setSpending(sum: number): void;
+  setAccumulation(sum:number) : void;
 }
 
 export type TUser = {

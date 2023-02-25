@@ -6,9 +6,11 @@ import ErrorModal from 'widgets/modals/ErrorModal';
 import FormModalCategories from 'features/add-categories/FormModalCategories';
 
 
+
 const Categories:React.FC = observer(() =>{
     const [isModalActive, setIsModalActive] = React.useState<boolean>(false);
     const [err, setErr] = React.useState<boolean>(false);
+
 
     function onChangeActive() {
         setIsModalActive((prev) => !prev);
@@ -37,7 +39,7 @@ const Categories:React.FC = observer(() =>{
             <div className="flex-1 h-1/2 flex flex-col text-black bg-white rounded-md shadow-lg  py-2 px-1">
                 <h2 className="text-center text-xl font-semibold">Ваши категории</h2>
                 <div className="flex-1 flex">
-                    <CatagoriesList/>
+                    <CatagoriesList />
                 </div>
                 <div className="flex justify-center items-center">
                     <button onClick={onChangeActive} className="rounded-full overflow-hidden hover:scale-110 ">

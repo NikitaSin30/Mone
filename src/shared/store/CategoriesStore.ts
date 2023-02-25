@@ -12,15 +12,19 @@ class Categories implements ICategories {
     categories: Array<ICategorie> = [];
     constructor() {
         makeObservable(this, {
-            categories   : observable,
-            setCatigorie : action,
+            categories      : observable,
+            setCatigorie    : action,
+            removeCategorie : action,
         });
     }
     setCatigorie(categorie: ICategorie): void {
         this.categories.push(categorie);
     }
     removeCategorie(id: string): void {
-        this.categories = this.categories.filter((cat) => cat.id !== id);
+        console.log(id);
+        this.categories = this.categories.filter((categorie) => categorie.id !== id);
+        console.log(this.categories);
+
     }
 
     setNewSpandingInCategorie(newSpending: ICategorie): void {

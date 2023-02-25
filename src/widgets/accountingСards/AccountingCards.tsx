@@ -2,10 +2,10 @@ import { SpendingCard } from './spendingCard/SpendingCard';
 import Income from 'features/add-income/Income';
 import { observer } from 'mobx-react-lite';
 import { CashFlowStore } from 'shared/store/CashFlowStore';
+import { Accumulation } from 'features/add-accumulation/Accumulation';
 import { WalletIcon } from 'pages/main/assets/assets';
-import { AccumulationIcon } from 'pages/main/assets/assets';
-const AccoutingCards:React.FC = observer(() => {
 
+const AccoutingCards:React.FC = observer(() => {
 
     return (
         <section className="flex-1  gap-2 flex flex-col  md:gap-3 ">
@@ -27,12 +27,7 @@ const AccoutingCards:React.FC = observer(() => {
                 </div>
             </section>
             <aside className="flex min-h-[130px] justify-end flex-1">
-                <div className="flex-1  bg-white  gap-2 w-full rounded-md shadow-lg  justify-between ">
-                    <div className="flex items-center justify-between">
-                        <h2 className="text-black font-semibold px-2 text-lg">Накоплено</h2>
-                        <AccumulationIcon/>
-                    </div>
-                </div>
+                <Accumulation/>
             </aside>
         </section>
     );
