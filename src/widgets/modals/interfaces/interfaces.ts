@@ -1,10 +1,18 @@
 export interface IModal {
   isActive: boolean;
-  onSwitchModal:() => void;
+  onChangeActive: () => void;
   children: React.ReactNode;
 }
 
 export interface IError {
-  onSwitchModal: () => void
+  onChangeActive: () => void;
+  onChangeErr: () => void;
   children: React.ReactNode;
+}
+
+export interface IDeleteModal {
+  onSuccesDelete: (id: string) => void;
+  onChangeActive: () => void;
+  categorie: string;
+  id: string;
 }

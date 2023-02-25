@@ -3,10 +3,10 @@ import React from 'react';
 
 export interface GlobalContext {
   isLogin: boolean;
-  onChangeIsLogin: () => void
+  onChangeIsLogin: () => void,
 }
 
 export const Context = React.createContext<GlobalContext>({
     isLogin         : false,
-    onChangeIsLogin : () => undefined,
+    onChangeIsLogin : () => null,
 });

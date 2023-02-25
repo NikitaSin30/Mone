@@ -2,7 +2,7 @@ import React from 'react';
 import { observer } from 'mobx-react-lite';
 import { InputTask } from 'features/addTasks/InputTask';
 import { ToDoStore } from 'shared/store/ToDoStore';
-import { ToDoItem } from '../../../widgets/todoItem/TodoItem';
+import { TodoList } from 'widgets/todo/todoList/TodoList';
 import { Link } from 'react-router-dom';
 import ErrorModal from 'widgets/modals/ErrorModal';
 import Modal from 'widgets/modals/Modal';
@@ -11,12 +11,11 @@ import Modal from 'widgets/modals/Modal';
 export const ToDo = observer(()=>{
     const [isModalActive, setIsModalActive] = React.useState<boolean>(false);
     const [err, setErr] = React.useState<boolean>(false);
+    const { tasks } = ToDoStore;
+    const isHasTask = tasks.length > 0;
 
-    function onSwitchModal(): void {
-        onChangeActive();
-        onChangeErr();
-    }
 
+    
     function onChangeActive() {
         setIsModalActive((prev) => !prev);
     }
@@ -27,9 +26,9 @@ export const ToDo = observer(()=>{
 
     const ContentModal = () => {
         return err ? (
-            <ErrorModal onSwitchModal={onSwitchModal}>
+            <ErrorModal onChangeActive={onChangeActive} onChangeErr={onChangeErr}>
                 <h2 className="text-xl font-bold text-center">
-              Категрии должны быть уникальны <br /> Попробуйте ещё раз
+              Категории должны быть уникальны <br /> Попробуйте ещё раз
                 </h2>
             </ErrorModal>
         ) : null;
@@ -47,7 +46,7 @@ export const ToDo = observer(()=>{
                     >
               ShopList
                     </Link>
-                    {ToDoStore.tasks.length > 0 && (
+                    {isHasTask && (
                         <button
                             onClick={() => ToDoStore.removeAllTasks()}
                             className=" text-orange-800 font-semibold text-sm
@@ -57,14 +56,10 @@ export const ToDo = observer(()=>{
                         </button>
                     )}
                 </div>
-                <div className="flex flex-col h-full gap-2">
-                    {ToDoStore.tasks.map((item) => {
-                        return <ToDoItem key={item.id} task={item.task} isDone={item.isDone} id={item.id} />;
-                    })}
-                </div>
+                <TodoList/>
                 <InputTask isActive={isModalActive} onChangeErr={onChangeErr} onChangeIsModalActive={onChangeActive}></InputTask>
             </div>
-            <Modal isActive={isModalActive} onSwitchModal={onSwitchModal}>
+            <Modal isActive={isModalActive} onChangeActive={onChangeActive}>
                 <ContentModal />
             </Modal>
         </div>

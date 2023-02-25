@@ -1,12 +1,15 @@
 import { IError } from './interfaces/interfaces';
-
+import { CloseIcon } from './assets/assets';
 
 
 function ErrorModal(props:IError):React.ReactElement {
-    const { onSwitchModal, children } = props;
+    const { onChangeErr, onChangeActive, children } = props;
 
 
-
+    function onSwitchModal() {
+        onChangeActive();
+        onChangeErr();
+    }
 
 
     return (
@@ -16,13 +19,12 @@ function ErrorModal(props:IError):React.ReactElement {
         >
             <div className="flex justify-end">
                 <button onClick={onSwitchModal} className="rounded-full overflow-hidden hover:scale-110">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
+                    <CloseIcon/>
                 </button>
             </div>
             {children}
-            <button onClick={onSwitchModal} className="text-center hover:scale-110 text-black bg-white rounded-md shadow-lg">
+            <button onClick={onSwitchModal} className="text-center hover:bg-slate-900 hover:text-white border-solid border-2
+             border-white text-black bg-white rounded-md shadow-lg">
           Закрыть
             </button>
         </div>

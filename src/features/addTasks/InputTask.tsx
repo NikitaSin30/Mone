@@ -13,8 +13,8 @@ export const InputTask = (props:IInputTask) =>{
         formState: { errors,isValid },
     } = useForm<ITaskForm>({ mode: 'onBlur' });
 
-    function onModifyNewUser(data: ITaskForm): void {
-        const { task } = data;
+    function onModifyNewUser(newTask: ITaskForm): void {
+        const { task } = newTask;
 
         const validaitedTask = task.trim().toLowerCase();
         const newValidaitedTask = validaitedTask[0].toUpperCase() + validaitedTask.slice(1);
@@ -24,23 +24,25 @@ export const InputTask = (props:IInputTask) =>{
     }
 
     function onCheckTask(task:string):void {
-        const isUnique = ToDoStore.onCheckUnique(task);
+        const isHasInStore = ToDoStore.onCheckUnique(task);
 
-        if (!isUnique) {
-            const newTask = {
-                task   : task,
-                isDone : false,
-                id     : task,
-            };
+        if (isHasInStore) return showError();
 
-            ToDoStore.setNewTask(newTask);
-            reset();
-        }
-        else {
-            onChangeErr();
-            onChangeIsModalActive();
-            reset();
-        }
+        const newTask = {
+            task   : task,
+            isDone : false,
+            id     : task,
+        };
+
+        ToDoStore.addTask(newTask);
+        reset();
+
+    }
+
+    function showError() {
+        onChangeErr();
+        onChangeIsModalActive();
+        reset();
     }
 
     return (
@@ -50,7 +52,7 @@ export const InputTask = (props:IInputTask) =>{
             <form className="flex  flex-1 w-full" onSubmit={handleSubmit(onModifyNewUser)}>
                 <label htmlFor="task" className="w-full">
                     <input
-                        disabled={ isActive}
+                        disabled={isActive}
                         placeholder="Введите задачу"
                         className=" flex-1 rounded-l-md w-full h-full placeholder-slate-900 text-black font-semibold
                          outline-none border-solid border-slate-900 border-b-4

@@ -1,13 +1,5 @@
 import { action, makeObservable, observable } from 'mobx';
-
-type TypeUser = {
-  email: string;
-};
-
-interface IUser {
-  user: TypeUser;
-  setUser(email: string): void;
-}
+import { IUser } from './interfaces/interfaces';
 
 export class User implements IUser {
     user = { email: '' };

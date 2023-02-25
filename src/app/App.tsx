@@ -3,13 +3,17 @@ import Layout from '../shared/layout/Layout';
 import Main from '../pages/main/Main';
 import PersonalArea from '../pages/account/Account';
 import Analysis from '../pages/analysis/Analysis';
-import Authorization from '../pages/auth/Authorization';
-import Registration from '../pages/registration/Registration';
+import Authorization from '../pages/auth/authorization/Authorization';
+import Registration from '../pages/auth/registration/Registration';
 import React from 'react';
 import { Context, GlobalContext } from 'shared/context/context';
 import Notebook from 'pages/noteBook/Notebook';
 import { ToDo } from 'pages/noteBook/toDo/ToDo';
 import { ShopList } from 'pages/noteBook/shopList/ShopList';
+
+
+
+
 
 function App() {
     const [isLogin, setIsLogin] = React.useState<boolean>(false);
@@ -22,6 +26,7 @@ function App() {
     function onChangeIsLogin() {
         setIsLogin(prev => !prev);
     }
+
 
     return (
         <>
