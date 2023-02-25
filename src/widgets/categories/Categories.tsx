@@ -12,6 +12,12 @@ const Categories:React.FC = observer(() =>{
     const [err, setErr] = React.useState<boolean>(false);
 
 
+
+    function onSwitchModal():void {
+        setIsModalActive((prev) => !prev);
+        setErr((prev) => !prev);
+    }
+
     function onChangeActive() {
         setIsModalActive((prev) => !prev);
     }
@@ -22,9 +28,9 @@ const Categories:React.FC = observer(() =>{
 
     const ContentModal = () => {
         return err ? (
-            <ErrorModal onChangeActive={onChangeActive} onChangeErr={onChangeErr}>
+            <ErrorModal onChangeActive={onSwitchModal} onChangeErr={onChangeErr}>
                 <h2 className="text-xl font-bold text-center">
-                  Категрии должны быть уникальны <br /> Попробуйте ещё раз
+              Категрии должны быть уникальны <br /> Попробуйте ещё раз
                 </h2>
             </ErrorModal>
         ) : (

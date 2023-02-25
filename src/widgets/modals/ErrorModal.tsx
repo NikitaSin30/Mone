@@ -2,14 +2,15 @@ import { IError } from './interfaces/interfaces';
 import { CloseIcon } from './assets/assets';
 
 
-
 function ErrorModal(props:IError):React.ReactElement {
-    const { onChangeActive,onChangeErr,children } = props;
+    const { onChangeErr, onChangeActive, children } = props;
 
-    function onCloseModal():void {
+
+    function onSwitchModal() {
         onChangeActive();
         onChangeErr();
     }
+
 
     return (
         <div
@@ -17,12 +18,12 @@ function ErrorModal(props:IError):React.ReactElement {
             onClick={(e) => e.stopPropagation()}
         >
             <div className="flex justify-end">
-                <button onClick={onCloseModal} className="rounded-full overflow-hidden hover:scale-110">
+                <button onClick={onSwitchModal} className="rounded-full overflow-hidden hover:scale-110">
                     <CloseIcon/>
                 </button>
             </div>
             {children}
-            <button onClick={onCloseModal} className="text-center hover:bg-slate-900 hover:text-white border-solid border-2
+            <button onClick={onSwitchModal} className="text-center hover:bg-slate-900 hover:text-white border-solid border-2
              border-white text-black bg-white rounded-md shadow-lg">
           Закрыть
             </button>

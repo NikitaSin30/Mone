@@ -1,4 +1,6 @@
+
 import React from 'react';
+
 import { IModal } from './interfaces/interfaces';
 
 

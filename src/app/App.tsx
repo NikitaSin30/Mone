@@ -7,6 +7,9 @@ import Authorization from '../pages/auth/authorization/Authorization';
 import Registration from '../pages/auth/registration/Registration';
 import React from 'react';
 import { Context, GlobalContext } from 'shared/context/context';
+import Notebook from 'pages/noteBook/Notebook';
+import { ToDo } from 'pages/noteBook/toDo/ToDo';
+import { ShopList } from 'pages/noteBook/shopList/ShopList';
 
 
 
@@ -35,6 +38,9 @@ function App() {
                         <Route path="/analysis" element={<Analysis />} />
                         <Route path="/login" element={<Authorization />} />
                         <Route path="/registration" element={<Registration />} />
+                        <Route path="/notebook" element={<Notebook />} />
+                        <Route path="/notebook/todo" element={<ToDo />} />
+                        <Route path="/notebook/shopList" element={<ShopList/>} />
                     </Route>
                 </Routes>
             </Context.Provider>

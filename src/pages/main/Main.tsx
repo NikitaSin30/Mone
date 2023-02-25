@@ -4,9 +4,8 @@ import { Context } from 'shared/context/context';
 import { Navigate } from 'react-router';
 import { GlobalContext } from 'shared/context/context';
 import CashFlow from 'widgets/cashFlow/CashFlow';
+import animation from '../../shared/ui/animation/animation.json';
 import Lottie from 'lottie-react';
-import animation from 'shared/ui/animation/animation.json';
-
 function Main(): React.ReactElement {
     const { isLogin } = React.useContext<GlobalContext>(Context);
 
