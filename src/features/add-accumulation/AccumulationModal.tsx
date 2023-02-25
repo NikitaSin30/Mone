@@ -2,6 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { CashFlowStore } from 'shared/store/CashFlowStore';
 import { IMadalAccumulation,IFormAccumulation } from './interfaces/interfaces';
+import { CloseIcon } from 'widgets/modals/assets/assets';
 
 
 
@@ -21,15 +22,20 @@ function AccumulationModal(props: IMadalAccumulation): React.ReactElement {
     }
 
     function onCheckHasMoneyForAccumulation(sum : number) {
-        if (CashFlowStore.moneyAccount < sum) {
-            onChangeErr();
-            reset();
-        }
-        else {
-            CashFlowStore.setAccumulation(sum);
-            reset();
-            onChangeActive();
-        }
+        if (CashFlowStore.moneyAccount < sum) return showError();
+
+        addAccumulation(sum);
+    }
+
+    function showError() {
+        onChangeErr();
+        reset();
+    }
+
+    function addAccumulation(sum:number) {
+        CashFlowStore.setAccumulation(sum);
+        reset();
+        onChangeActive();
     }
 
     return (
@@ -41,16 +47,14 @@ function AccumulationModal(props: IMadalAccumulation): React.ReactElement {
             >
                 <div className="flex justify-end">
                     <button onClick={onChangeActive} className="rounded-full w-6 h-6 overflow-hidden hover:scale-110">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
+                        <CloseIcon/>
                     </button>
                 </div>
                 <h2 className="text-xl font-bold text-center">Сколько хотите отложить ?</h2>
                 <label htmlFor="accumulation">
-                    <p className="flex justify-between">
+                    <span className="flex justify-between">
                         <h2>Cуммa </h2> {errors?.accumulation && <h2 className="text-red-700">{errors?.accumulation?.message || 'Errors'}</h2>}
-                    </p>
+                    </span>
                     <input
                         className=" flex-1 w-full placeholder-slate-900 text-black font-semibold rounded-md shadow-lg px-2 py-1"
                         type="text"
