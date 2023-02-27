@@ -42,7 +42,7 @@ const Categories:React.FC = observer(() =>{
 
     return (
         <>
-            <div className="flex-1 h-1/2 flex flex-col text-black bg-white rounded-md shadow-lg  py-2 px-1">
+            <div className="flex-1  h-1/2 flex flex-col text-black bg-card rounded-2xl shadow-black shadow-md   py-2 px-1">
                 <h2 className="text-center text-xl font-semibold">Ваши категории</h2>
                 <div className="flex-1 flex">
                     <CatagoriesList />

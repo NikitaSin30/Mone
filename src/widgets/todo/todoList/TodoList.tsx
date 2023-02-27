@@ -9,7 +9,7 @@ export const TodoList = observer(() => {
 
 
     return (
-        <div className="flex flex-col h-full gap-2">
+        <div className="flex flex-1 flex-col h-full gap-2">
             {tasks?.map((item) => {
                 return <ToDoItem key={item.id} task={item.task} isDone={item.isDone} id={item.id}
                     onToggleStatus={() => ToDoStore.toggleStatusByIdTask(item.id)} />;

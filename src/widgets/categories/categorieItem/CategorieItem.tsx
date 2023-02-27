@@ -6,6 +6,9 @@ import { ICategorie } from 'shared/store/interfaces/interfaces';
 import { observer } from 'mobx-react-lite';
 import { DeleteIcon } from 'pages/main/assets/assets';
 
+
+
+
 export const CategorieItem = observer((props:ICategorie) =>{
     const { categorie, id } = props;
 
