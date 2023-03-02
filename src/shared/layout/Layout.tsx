@@ -5,7 +5,7 @@ function Layout(): React.ReactElement {
     return (
         <>
             <div className="wrapper flex gap-3 flex-col max-w-full">
-                <main className="flex-1 flex  max-w-full gap-2 bg-slate-300 md:gap-3">
+                <main className="flex-1 flex flex-col sm:flex-row  max-w-full gap-2  bg-main md:gap-3">
                     <AppBar></AppBar>
                     <Outlet />
                 </main>

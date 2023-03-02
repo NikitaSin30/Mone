@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { CashFlowStore } from 'shared/store/CashFlowStore';
 import { IModalIncome , IFormCategorie } from 'features/auth/interfaces/interfaces';
 import { IOperation } from 'shared/store/interfaces/interfaces';
-import { CloseIcon } from 'widgets/modals/assets/assets';
+import { CloseIcon } from 'widgets/modals/assets/CloseIcon';
 
 
 function ModalIncome(props: IModalIncome): React.ReactElement {

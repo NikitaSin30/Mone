@@ -15,7 +15,7 @@ export const ToDo = observer(()=>{
     const isHasTask = tasks.length > 0;
 
 
-    
+
     function onChangeActive() {
         setIsModalActive((prev) => !prev);
     }
@@ -35,7 +35,7 @@ export const ToDo = observer(()=>{
     };
 
     return (
-        <div className=" flex-1 flex-col px-3 text-black bg-gray-100   rounded-md w-full shadow-lg">
+        <div className=" flex flex-1 flex-col px-3 text-black bg-card   rounded-md w-full shadow-lg">
             <div className="flex-1 flex flex-col h-full w-full ">
                 <h2 className="flex self-center mb-2 text-lg font-semibold">Список дел</h2>
                 <div className="flex justify-between items-center">

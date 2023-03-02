@@ -5,7 +5,7 @@ import { CashFlowStore } from 'shared/store/CashFlowStore';
 import { ICategorie } from 'shared/store/interfaces/interfaces';
 import { ISpendingModal, IFormSpending } from 'features/add-spending/interfaces/interfaces';
 import { Select } from 'widgets/select/Select';
-import { CloseIcon } from 'widgets/modals/assets/assets';
+import { CloseIcon } from 'widgets/modals/assets/CloseIcon';
 
 
 function SpendingModal(props: ISpendingModal): React.ReactElement {
