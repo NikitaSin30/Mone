@@ -1,11 +1,10 @@
 import React from 'react';
-import { CardItem } from '../cardItem/CardItem';
-import { IncomeIcon } from 'pages/main/assets/assets';
+import { IncomeIcon } from 'pages/main/assets/IncomeIcon';
 import Modal from 'widgets/modals/Modal';
 import ModalIncome from 'features/add-income/ModalIncome';
 import { CashFlowStore } from 'shared/store/CashFlowStore';
 import { observer } from 'mobx-react-lite';
-
+import { HOCCreateCard } from 'shared/hoc/HOCCreateCard';
 
 
 export const IncomeCard = observer(() => {
@@ -17,11 +16,11 @@ export const IncomeCard = observer(() => {
     const incomeTitle = 'Доход';
     const { incomeCash } = CashFlowStore;
 
+    const Card = HOCCreateCard(incomeTitle, incomeCash,IncomeIcon);
+
     return (
         <>
-            <CardItem title={incomeTitle} onChangeActive={onChangeActive} moneyCard={incomeCash}>
-                <IncomeIcon></IncomeIcon>
-            </CardItem>
+            <Card onChangeActive={onChangeActive}></Card>
             <Modal isActive={isModalActive} onChangeActive={onChangeActive}>
                 <ModalIncome onChangeActive={onChangeActive}></ModalIncome>
             </Modal>

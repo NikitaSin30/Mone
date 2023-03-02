@@ -1,4 +1,4 @@
-import { DeleteIcon } from 'pages/main/assets/assets';
+import { DeleteIcon } from 'widgets/todo/assets/DeleteIcon';
 import { ToDoStore } from 'shared/store/ToDoStore';
 import { ITodoItem } from '../interfaces/interfaces';
 

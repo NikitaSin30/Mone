@@ -4,7 +4,7 @@ import Modal from 'widgets/modals/Modal';
 import { DeleteModal } from 'widgets/modals/DeleteCategorie';
 import { ICategorie } from 'shared/store/interfaces/interfaces';
 import { observer } from 'mobx-react-lite';
-import { DeleteIcon } from 'pages/main/assets/assets';
+import { DeleteIcon } from 'widgets/todo/assets/DeleteIcon';
 
 
 

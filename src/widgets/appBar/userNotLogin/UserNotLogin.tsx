@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { LoginIcon, RegistrationIcon } from '../assets/assets';
-
+import { LoginIcon } from './assets/LoginIcon';
+import { RegistrationIcon } from './assets/RegistrationIcon';
 
 
 function UserNotLogin(): React.ReactElement {
@@ -9,12 +9,12 @@ function UserNotLogin(): React.ReactElement {
         <ul className="flex items-center sm:flex-col gap-3 pt-1">
             <li className="md:hover:scale-105">
                 <Link to="/login">
-                    <LoginIcon />
+                    { LoginIcon }
                 </Link>
             </li>
             <li className="md:hover:scale-105">
                 <Link to="/registration">
-                    <RegistrationIcon />
+                    { RegistrationIcon }
                 </Link>
             </li>
         </ul>

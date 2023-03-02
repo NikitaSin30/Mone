@@ -2,7 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { CategoriesStore } from 'shared/store/CategoriesStore';
 import { IFormCategorie, IFormModalCategories } from './interfaces/interfaces';
-import { CloseIcon } from 'widgets/modals/assets/assets';
+import { CloseIcon } from 'widgets/modals/assets/CloseIcon';
 
 
 function FormModalCategories(props: IFormModalCategories): React.ReactElement {

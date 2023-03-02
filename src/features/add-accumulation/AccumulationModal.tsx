@@ -1,12 +1,12 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { CashFlowStore } from 'shared/store/CashFlowStore';
-import { IMadalAccumulation,IFormAccumulation } from './interfaces/interfaces';
-import { CloseIcon } from 'widgets/modals/assets/assets';
+import { IModalAccumulation,IFormAccumulation } from './interfaces/interfaces';
+import { CloseIcon } from 'widgets/modals/assets/CloseIcon';
 
 
 
-function AccumulationModal(props: IMadalAccumulation): React.ReactElement {
+function AccumulationModal(props: IModalAccumulation): React.ReactElement {
     const { onChangeActive, onChangeErr } = props;
     const {
         register,

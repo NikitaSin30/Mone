@@ -1,4 +1,4 @@
-export interface IMadalAccumulation {
+export interface IModalAccumulation {
   onChangeActive: () => void;
   onChangeErr:() => void
 }

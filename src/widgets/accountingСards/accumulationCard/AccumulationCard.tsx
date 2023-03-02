@@ -3,9 +3,9 @@ import AccumulationModal from 'features/add-accumulation/AccumulationModal';
 import Modal from 'widgets/modals/Modal';
 import { CashFlowStore } from 'shared/store/CashFlowStore';
 import ErrorModal from 'widgets/modals/ErrorModal';
-import { AccumulationIcon } from 'pages/main/assets/assets';
-import { CardItem } from '../cardItem/CardItem';
+import { AccumulationIcon } from 'pages/main/assets/AccumulationIcon';
 import { observer } from 'mobx-react-lite';
+import { HOCCreateCard } from 'shared/hoc/HOCCreateCard';
 
 
 
@@ -39,11 +39,11 @@ export const AccumulationCard = observer(() => {
         );
     };
 
+    const Card = HOCCreateCard(accumulationTitle,accumulation,AccumulationIcon);
+
     return (
         <>
-            <CardItem title={accumulationTitle} onChangeActive={onChangeActive} moneyCard={accumulation}>
-                <AccumulationIcon />
-            </CardItem>
+            <Card onChangeActive={onChangeActive}/>
             <Modal isActive={isModalActive} onChangeActive={onChangeActive}>
                 <ContentModal />
             </Modal>

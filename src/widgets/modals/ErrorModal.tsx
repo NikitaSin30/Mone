@@ -1,5 +1,5 @@
 import { IError } from './interfaces/interfaces';
-import { CloseIcon } from './assets/assets';
+import { CloseIcon } from './assets/CloseIcon';
 
 
 function ErrorModal(props:IError):React.ReactElement {

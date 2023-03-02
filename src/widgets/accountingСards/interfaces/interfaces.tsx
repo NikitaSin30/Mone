@@ -1,6 +1,3 @@
-export interface ICardItem {
-  title: string;
-  moneyCard: number;
+export interface ICard {
   onChangeActive?: () => void;
-  children: React.ReactNode;
 }
