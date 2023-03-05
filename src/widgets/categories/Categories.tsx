@@ -1,7 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { CatagoriesList } from './categoriesList/CategoteisList';
-import Modal from 'widgets/modals/Modal';
 import ErrorModal from 'widgets/modals/ErrorModal';
 import FormModalCategories from 'features/add-categories/FormModalCategories';
 
@@ -9,40 +8,22 @@ import FormModalCategories from 'features/add-categories/FormModalCategories';
 
 const Categories:React.FC = observer(() =>{
     const [isModalActive, setIsModalActive] = React.useState<boolean>(false);
-    const [err, setErr] = React.useState<boolean>(false);
+    const [isErr, setIsErr] = React.useState<boolean>(false);
+    const titleError = '  Категрии должны быть уникальны';
 
-
-
-    function onSwitchModal():void {
-        setIsModalActive((prev) => !prev);
-        setErr((prev) => !prev);
-    }
 
     function onChangeActive() {
         setIsModalActive((prev) => !prev);
     }
 
     function onChangeErr() {
-        setErr((prev) => !prev);
+        setIsErr((prev) => !prev);
     }
-
-    const ContentModal = () => {
-        return err ? (
-            <ErrorModal onChangeActive={onSwitchModal} onChangeErr={onChangeErr}>
-                <h2 className="text-xl font-bold text-center">
-              Категрии должны быть уникальны <br /> Попробуйте ещё раз
-                </h2>
-            </ErrorModal>
-        ) : (
-            <FormModalCategories onChangeActive={onChangeActive} onChangeErr={onChangeErr} />
-        );
-    };
-
 
 
     return (
         <>
-            <div className="flex-1  h-1/2 flex flex-col text-black bg-card rounded-2xl shadow-black shadow-md   py-2 px-1">
+            <div className="flex-initial h-80 flex flex-col text-black bg-card rounded-2xl shadow-black shadow-md   py-2 px-1">
                 <h2 className="text-center text-xl font-semibold">Ваши категории</h2>
                 <div className="flex-1 flex">
                     <CatagoriesList />
@@ -55,9 +36,8 @@ const Categories:React.FC = observer(() =>{
                     </button>
                 </div>
             </div>
-            <Modal isActive={isModalActive} onChangeActive={onChangeActive}>
-                <ContentModal />
-            </Modal>
+            <FormModalCategories isActive={isModalActive} onChangeActive={onChangeActive} onChangeErr={onChangeErr} />
+            {isErr && <ErrorModal title={titleError} onChangeErr={onChangeErr} />}
         </>
     );
 });

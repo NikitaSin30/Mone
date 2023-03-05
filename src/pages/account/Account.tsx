@@ -4,12 +4,17 @@ import { Context } from 'shared/context/context';
 import { GlobalContext } from 'shared/context/context';
 import { UserStore } from 'shared/store/UserStore';
 
-function Account(): React.ReactElement {
-    const { email } = UserStore.user;
+
+
+const Account = () => {
     const { isLogin, onChangeIsLogin } = React.useContext<GlobalContext>(Context);
 
+    if (!isLogin) return <Navigate to="/login" />;
 
-    return isLogin ? (
+    const { email } = UserStore.user;
+
+
+    return (
         <section className=" flex gap-2  flex-col flex-1 w-6/6">
             <div className="flex items-center gap-2  bg-slate-900 rounded-md shadow-lg">
                 <div>
@@ -38,9 +43,7 @@ function Account(): React.ReactElement {
                 </button>
             </div>
         </section>
-    ) : (
-        <Navigate to="/login" />
     );
-}
+};
 
 export default Account;

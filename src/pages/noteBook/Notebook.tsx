@@ -1,6 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-function Notebook(): React.ReactElement {
+import { GlobalContext } from 'shared/context/context';
+import { Context } from 'shared/context/context';
+import { Navigate } from 'react-router-dom';
+
+
+
+const Notebook = () => {
+    const { isLogin } = React.useContext<GlobalContext>(Context);
+
+    if (!isLogin) return <Navigate to="/login" />;
+
     return (
         <div className="flex  flex-1 items-center justify-center w-6/6 h-6/6 gap-2 md:gap-3">
             <Link
@@ -20,6 +30,6 @@ function Notebook(): React.ReactElement {
 
         </div>
     );
-}
+};
 
 export default Notebook;

@@ -5,9 +5,8 @@ export interface IModal {
 }
 
 export interface IError {
-  onChangeActive: () => void;
   onChangeErr: () => void;
-  children: React.ReactNode;
+  title:string
 }
 
 export interface IDeleteModal {

@@ -1,11 +1,9 @@
 import React from 'react';
 import { CategoriesStore } from 'shared/store/CategoriesStore';
-import Modal from 'widgets/modals/Modal';
-import { DeleteModal } from 'widgets/modals/DeleteCategorie';
+import { DeleteModal } from 'widgets/modals/DeleteModal';
 import { ICategorie } from 'shared/store/interfaces/interfaces';
 import { observer } from 'mobx-react-lite';
 import { DeleteIcon } from 'widgets/todo/assets/DeleteIcon';
-
 
 
 
@@ -30,12 +28,10 @@ export const CategorieItem = observer((props:ICategorie) =>{
             >
                 <h2 className="font-semibold text-md">{categorie}</h2>
                 <button onClick={onChangeActive} className='hover:scale-110'>
-                    <DeleteIcon/>
+                    {DeleteIcon}
                 </button>
             </li>
-            <Modal isActive={isModalActive} onChangeActive={onChangeActive}>
-                <DeleteModal id={id!} categorie={categorie} onSuccesDelete={onSuccesDelete} onChangeActive={onChangeActive}/>
-            </Modal>
+            {isModalActive && <DeleteModal id={id!} categorie={categorie} onSuccesDelete={onSuccesDelete} onChangeActive={onChangeActive}/>}
         </>
     );
 });

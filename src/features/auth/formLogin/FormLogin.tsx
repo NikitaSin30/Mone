@@ -8,9 +8,10 @@ import { GlobalContext } from 'shared/context/context';
 import { IFormAuth } from 'features/auth/interfaces/interfaces';
 import { UserStore } from 'shared/store/UserStore';
 
+
+
 function FormLogin(): React.ReactElement {
     const { isLogin,onChangeIsLogin } = React.useContext<GlobalContext>(Context);
-
     const {
         register,
         reset,
@@ -18,14 +19,15 @@ function FormLogin(): React.ReactElement {
         formState: { errors,isValid },
     } = useForm<IFormAuth>({ mode: 'onBlur' });
 
+
     function onLogin(data: IFormAuth): void {
         const { email, password } = data;
 
-        onLoginRequest(email, password);
+        loginRequest(email, password);
         reset();
     }
 
-    function onLoginRequest(email: string, password: string): void {
+    function loginRequest(email: string, password: string): void {
         const auth = getAuth();
 
         signInWithEmailAndPassword(auth, email, password)
@@ -35,9 +37,6 @@ function FormLogin(): React.ReactElement {
             })
             .catch((error) => new Error(error.message));
     }
-
-
-
 
 
     return !isLogin ? (

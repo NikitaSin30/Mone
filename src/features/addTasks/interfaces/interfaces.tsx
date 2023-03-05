@@ -3,7 +3,5 @@ export interface ITaskForm {
 }
 
 export interface IInputTask {
-  onChangeIsModalActive: () => void;
   onChangeErr:() => void;
-  isActive: boolean;
 }

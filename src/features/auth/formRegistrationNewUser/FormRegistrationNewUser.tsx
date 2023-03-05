@@ -10,7 +10,6 @@ import { UserStore } from 'shared/store/UserStore';
 
 function FormRegistrationNewUser(): React.ReactElement {
     const { isLogin, onChangeIsLogin }  = React.useContext<GlobalContext>(Context);
-
     const {
         register,
         reset,
@@ -18,14 +17,15 @@ function FormRegistrationNewUser(): React.ReactElement {
         formState: { errors, isValid },
     } = useForm<IFormAuth>({ mode: 'onBlur' });
 
+
     function onModifyNewUser(data: IFormAuth): void {
         const { email, password } = data;
 
-        onRequestRegistration(email, password);
+        requestRegistration(email, password);
         reset();
     }
 
-    function onRequestRegistration(email: string, password: string): void {
+    function requestRegistration(email: string, password: string): void {
         const auth = getAuth();
 
         createUserWithEmailAndPassword(auth, email, password)
@@ -36,7 +36,6 @@ function FormRegistrationNewUser(): React.ReactElement {
             })
             .catch((error) => new Error(error.message));
     }
-
 
 
     return !isLogin ? (
@@ -50,8 +49,6 @@ function FormRegistrationNewUser(): React.ReactElement {
                     className=" flex-1 w-full placeholder-slate-900 text-black font-semibold rounded-md shadow-lg px-2 py-1"
                     type="text"
                     {...register('firstName', {
-
-                        //  required: "Обязательное Поле",
                         minLength : {
                             value   : 2,
                             message : 'Минимум 2 символа',
@@ -122,8 +119,6 @@ function FormRegistrationNewUser(): React.ReactElement {
                     className=" flex-1 w-full placeholder-slate-900 text-black font-semibold rounded-md shadow-lg px-2 py-1"
                     type="text"
                     {...register('nickName', {
-
-                        //  required: "Обязательное Поле",
                         minLength : {
                             value   : 5,
                             message : 'Минимум 5 символов',

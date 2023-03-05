@@ -1,11 +1,10 @@
 import React from 'react';
 import AccumulationModal from 'features/add-accumulation/AccumulationModal';
-import Modal from 'widgets/modals/Modal';
 import { CashFlowStore } from 'shared/store/CashFlowStore';
 import ErrorModal from 'widgets/modals/ErrorModal';
 import { AccumulationIcon } from 'pages/main/assets/AccumulationIcon';
 import { observer } from 'mobx-react-lite';
-import { HOCCreateCard } from 'shared/hoc/HOCCreateCard';
+import { CardItem } from '../CardItem/CardItem';
 
 
 
@@ -15,6 +14,8 @@ export const AccumulationCard = observer(() => {
     const { accumulation } = CashFlowStore;
     const accumulationTitle = 'Накоплено';
 
+    const titleError = 'У вас нет данной суммы на счёте';
+
     function onChangeActive() {
         setIsModalActive((prev) => !prev);
     }
@@ -22,31 +23,11 @@ export const AccumulationCard = observer(() => {
         setIsErr((prev) => !prev);
     }
 
-    const ContentModal = () => {
-        return (
-            <>
-                {isErr ? (
-                    <ErrorModal onChangeActive={onChangeActive} onChangeErr={onChangeErr}>
-                        <h2 className="text-xl font-bold text-center">
-              У вас нет данной суммы на счёте , чтобы её отложить
-                            <br />
-                        </h2>
-                    </ErrorModal>
-                ) : (
-                    <AccumulationModal onChangeActive={onChangeActive} onChangeErr={onChangeErr} />
-                )}
-            </>
-        );
-    };
-
-    const Card = HOCCreateCard(accumulationTitle,accumulation,AccumulationIcon);
-
     return (
         <>
-            <Card onChangeActive={onChangeActive}/>
-            <Modal isActive={isModalActive} onChangeActive={onChangeActive}>
-                <ContentModal />
-            </Modal>
+            <CardItem title={accumulationTitle} money={accumulation} iconCard={AccumulationIcon} onChangeActive={onChangeActive} />
+            <AccumulationModal isActive={isModalActive} onChangeActive={onChangeActive} onChangeErr={onChangeErr} />
+            {isErr && <ErrorModal title={titleError} onChangeErr={onChangeErr} />}
         </>
     );
 });

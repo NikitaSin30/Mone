@@ -4,6 +4,7 @@ import { LoginIcon } from './assets/LoginIcon';
 import { RegistrationIcon } from './assets/RegistrationIcon';
 
 
+
 function UserNotLogin(): React.ReactElement {
     return (
         <ul className="flex items-center sm:flex-col gap-3 pt-1">
