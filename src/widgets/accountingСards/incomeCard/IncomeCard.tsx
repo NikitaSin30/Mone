@@ -4,7 +4,7 @@ import ModalIncome from 'features/add-income/ModalIncome';
 import { CashFlowStore } from 'shared/store/CashFlowStore';
 import { observer } from 'mobx-react-lite';
 import { CardItem } from '../CardItem/CardItem';
-import { ETitleCard } from 'shared/enum/enums';
+import { ETitleCard } from 'shared/enums/enums';
 
 
 export const IncomeCard = observer(() => {

@@ -4,8 +4,3 @@ export interface IFormCategorie {
 
 
 
-export interface IFormModalCategories {
-  onChangeActive: () => void;
-  onChangeErr: () => void;
-  isActive:boolean
-}

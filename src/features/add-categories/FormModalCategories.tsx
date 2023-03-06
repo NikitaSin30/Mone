@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { CategoriesStore } from 'shared/store/CategoriesStore';
-import { IFormCategorie, IFormModalCategories } from './interfaces/interfaces';
+import { IFormCategorie } from './interfaces/interfaces';
 import { Button } from 'widgets/modals/ui/button/Button';
 import { Input } from 'widgets/inputs/Input';
 import { CloseIcon } from 'widgets/modals/assets/CloseIcon';
@@ -20,8 +20,7 @@ const FormModalCategories = (props: IModal) => {
         formState: { errors, isValid },
     } = useForm<IFormCategorie>({ mode: 'onBlur' });
 
-    function setNewCategorie(data: IFormCategorie): void {
-        const { categorie } = data;
+    function setNewCategorie({ categorie }: IFormCategorie): void {
         const validatedCategorie = categorie.trim().toLowerCase();
         const newCategorie = validatedCategorie[0].toUpperCase() + validatedCategorie.slice(1);
 

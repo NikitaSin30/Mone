@@ -5,8 +5,8 @@ import ErrorModal from 'widgets/modals/ErrorModal';
 import { AccumulationIcon } from 'pages/main/assets/AccumulationIcon';
 import { observer } from 'mobx-react-lite';
 import { CardItem } from '../CardItem/CardItem';
-import { ETitleModalErr } from 'shared/enum/enums';
-import { ETitleCard } from 'shared/enum/enums';
+import { ETitleModalErr } from 'shared/enums/enums';
+import { ETitleCard } from 'shared/enums/enums';
 
 export const AccumulationCard = observer(() => {
     const [isModalActive, setIsModalActive] = React.useState<boolean>(false);

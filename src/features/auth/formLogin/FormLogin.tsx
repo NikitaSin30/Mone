@@ -20,8 +20,7 @@ function FormLogin(): React.ReactElement {
     } = useForm<IFormAuth>({ mode: 'onBlur' });
 
 
-    function onLogin(data: IFormAuth): void {
-        const { email, password } = data;
+    function onLogin({ email,password }: IFormAuth): void {
 
         authorizeUser(email, password);
         reset();

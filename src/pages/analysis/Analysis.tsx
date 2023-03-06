@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { Navigate } from 'react-router';
 import { Context } from 'shared/context/context';
 import { GlobalContext } from 'shared/context/context';

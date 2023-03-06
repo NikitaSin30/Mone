@@ -18,8 +18,7 @@ function FormRegistrationNewUser(): React.ReactElement {
     } = useForm<IFormAuth>({ mode: 'onBlur' });
 
 
-    function onModifyNewUser(data: IFormAuth): void {
-        const { email, password } = data;
+    function onModifyNewUser({ email,password }: IFormAuth): void {
 
         registerUser(email, password);
         reset();

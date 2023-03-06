@@ -28,8 +28,8 @@ const SpendingModal = (props: IModal) => {
     } = useForm<IFormSpending>({ mode: 'onBlur' });
 
 
-    function addNewSpending(data: IFormSpending) {
-        const { categorie, spentMoney } = data;
+    function addNewSpending({ categorie,spentMoney }: IFormSpending) {
+
         const newSpending = {
             categorie  : categorie ,
             spentMoney : spentMoney,

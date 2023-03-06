@@ -6,7 +6,8 @@ export const Input = (props:IInput) => {
 
     const { register, labelTitle, type }  = props;
 
-    const validation = type === 'text' ? VALIDATION_STRING : VALIDATION_NUMBER;
+    const isTypeInputText = type === 'text';
+    const validation = isTypeInputText ? VALIDATION_STRING : VALIDATION_NUMBER;
 
 
     return (

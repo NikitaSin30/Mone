@@ -14,8 +14,7 @@ export const InputTask = (props:IInputTask) =>{
     } = useForm<ITaskForm>({ mode: 'onBlur' });
 
 
-    function onModifyNewUser(newTask: ITaskForm): void {
-        const { task } = newTask;
+    function onModifyNewUser({ task }: ITaskForm): void {
 
         const validaitedTask = task.trim().toLowerCase();
         const newValidaitedTask = validaitedTask[0].toUpperCase() + validaitedTask.slice(1);

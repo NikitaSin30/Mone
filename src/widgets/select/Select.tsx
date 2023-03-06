@@ -12,6 +12,7 @@ export const Select = (props:ISelect) => {
         selected,
         labelTitle,
     } = props;
+    
     const style = isActiveSelect ? 'block' : 'hidden';
 
     return (

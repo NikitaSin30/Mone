@@ -21,8 +21,7 @@ const ModalIncome = (props: IModal) => {
     } = useForm<IFormCategorie>({ mode: 'onBlur' });
 
 
-    function setNewIncome(data: IFormCategorie) {
-        const { income, sphere } = data;
+    function setNewIncome({ income,sphere }: IFormCategorie) {
 
         const operation: IOperation = {
             income : income,

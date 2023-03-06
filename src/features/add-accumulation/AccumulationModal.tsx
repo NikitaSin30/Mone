@@ -20,8 +20,7 @@ function AccumulationModal(props: IModal): React.ReactElement {
         formState: { errors, isValid },
     } = useForm<IFormAccumulation>({ mode: 'onBlur' });
 
-    function setNewIncome(data: IFormAccumulation) {
-        const { accumulation } = data;
+    function setNewIncome({ accumulation }: IFormAccumulation) {
 
         checkHasMoneyForAccumulation(accumulation);
     }

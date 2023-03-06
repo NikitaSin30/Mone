@@ -8,7 +8,7 @@ import ErrorModal from 'widgets/modals/ErrorModal';
 import { GlobalContext } from 'shared/context/context';
 import { Context } from 'shared/context/context';
 import { Navigate } from 'react-router-dom';
-import { ETitleModalErr } from 'shared/enum/enums';
+import { ETitleModalErr } from 'shared/enums/enums';
 
 
 export const ToDo = observer(()=>{
