@@ -4,9 +4,10 @@ import { ICardItem } from '../interfaces/interfaces';
 
 
 export const CardItem = (props: ICardItem) => {
-    const { title, money, iconCard, onChangeActive } = props;
+    const { title, money, iconCard, switchShowModal } = props;
 
-    const isAddIcon = title !== 'На счёте' ? AddIcon : null;
+    const isOnBalance = title !== 'На счёте';
+    const isAddIcon = isOnBalance ? AddIcon : null;
 
     return (
         <div
@@ -19,7 +20,7 @@ export const CardItem = (props: ICardItem) => {
                 {iconCard}
             </div>
             <div className="text-white flex items-center  font-bold text-4xl h-full">{money}</div>
-            <button onClick={onChangeActive} className="hover:scale-110 self-end">
+            <button onClick={switchShowModal} className="hover:scale-110 self-end">
                 {isAddIcon}
             </button>
         </div>

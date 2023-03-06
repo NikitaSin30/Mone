@@ -4,22 +4,22 @@ import SpendingModal from 'features/add-spending/SpendingModal';
 import { CashFlowStore } from 'shared/store/CashFlowStore';
 import { SpendingIcon } from 'pages/main/assets/SpendingIcon';
 import { CardItem } from '../CardItem/CardItem';
-
+import { ETitleCard } from 'shared/enum/enums';
 
 
 export const SpendingCard = observer(() =>{
     const [isModalActive, setIsModalActive] = React.useState<boolean>(false);
     const { spentMoney } = CashFlowStore;
-    const spentTitle = 'Потрачено';
+    const { spendingCard } = ETitleCard;
 
-    function onChangeActive() {
-        setIsModalActive((prev) => !prev);
+    function switchShowModal() {
+        setIsModalActive((isModalActive) => !isModalActive);
     }
 
     return (
         <>
-            <CardItem title={spentTitle} money={spentMoney} iconCard={SpendingIcon} onChangeActive={onChangeActive}/>
-            <SpendingModal isActive={isModalActive} onChangeActive={onChangeActive} />
+            <CardItem title={spendingCard} money={spentMoney} iconCard={SpendingIcon} switchShowModal={switchShowModal} />
+            <SpendingModal isModalActive={isModalActive} switchShowModal={switchShowModal} />
         </>
     );
 });

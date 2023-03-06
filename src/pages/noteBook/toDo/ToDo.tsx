@@ -8,7 +8,7 @@ import ErrorModal from 'widgets/modals/ErrorModal';
 import { GlobalContext } from 'shared/context/context';
 import { Context } from 'shared/context/context';
 import { Navigate } from 'react-router-dom';
-
+import { ETitleModalErr } from 'shared/enum/enums';
 
 
 export const ToDo = observer(()=>{
@@ -16,14 +16,15 @@ export const ToDo = observer(()=>{
 
     if (!isLogin) return <Navigate to="/login" />;
 
-    const [isErr, setIsErr] = React.useState<boolean>(false);
+    const [isErrModalActive, setIsErrModalActive] = React.useState<boolean>(false);
+
     const { tasks } = ToDoStore;
     const isHasTask = tasks.length > 0;
-    const titleError = 'Категории должны быть уникальны';
+    const { uniqueCategorie } = ETitleModalErr;
 
 
-    function onChangeErr() {
-        setIsErr((prev) => !prev);
+    function switchShowModalErr() {
+        setIsErrModalActive((isErrModalActive) => !isErrModalActive);
     }
 
     return (
@@ -48,10 +49,10 @@ export const ToDo = observer(()=>{
                         </button>
                     )}
                 </div>
-                <TodoList/>
-                <InputTask onChangeErr={onChangeErr}/>
+                <TodoList />
+                <InputTask switchShowModalErr={switchShowModalErr} />
             </div>
-            { isErr && <ErrorModal title={titleError} onChangeErr={onChangeErr}/>}
+            {isErrModalActive && <ErrorModal title={uniqueCategorie} switchShowModalErr={switchShowModalErr} />}
         </div>
     );
 });

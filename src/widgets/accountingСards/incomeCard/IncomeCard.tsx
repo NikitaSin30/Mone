@@ -4,23 +4,24 @@ import ModalIncome from 'features/add-income/ModalIncome';
 import { CashFlowStore } from 'shared/store/CashFlowStore';
 import { observer } from 'mobx-react-lite';
 import { CardItem } from '../CardItem/CardItem';
-
+import { ETitleCard } from 'shared/enum/enums';
 
 
 export const IncomeCard = observer(() => {
     const [isModalActive, setIsModalActive] = React.useState<boolean>(false);
 
-    function onChangeActive() {
-        setIsModalActive((prev) => !prev);
+    function switchModalActive() {
+        setIsModalActive((IsModalActive) => !IsModalActive);
     }
-    const incomeTitle = 'Доход';
+
+    const { incomeCard } = ETitleCard;
     const { incomeCash } = CashFlowStore;
 
 
     return (
         <>
-            <CardItem onChangeActive={onChangeActive} title={incomeTitle} money = {incomeCash} iconCard = {IncomeIcon}/>
-            <ModalIncome isActive={isModalActive} onChangeActive={onChangeActive}/>
+            <CardItem switchShowModal={switchModalActive} title={incomeCard} money={incomeCash} iconCard={IncomeIcon} />
+            <ModalIncome isModalActive={isModalActive} switchShowModal={switchModalActive} />
         </>
     );
 });

@@ -12,11 +12,11 @@ export const CategorieItem = observer((props:ICategorie) =>{
 
     const [isModalActive,setIsModalActive] = React.useState<boolean>(false);
 
-    function onChangeActive():void {
-        setIsModalActive(prev => !prev);
+    function switchShowModal(): void {
+        setIsModalActive((isModalActive) => !isModalActive);
     }
     function onSuccesDelete(id:string) {
-        setIsModalActive(prev => !prev);
+        setIsModalActive((isModalActive) => !isModalActive);
         CategoriesStore.removeCategorie(id);
     }
 
@@ -27,11 +27,11 @@ export const CategorieItem = observer((props:ICategorie) =>{
                           justify-between rounded-md shadow-lg"
             >
                 <h2 className="font-semibold text-md">{categorie}</h2>
-                <button onClick={onChangeActive} className='hover:scale-110'>
+                <button onClick={switchShowModal} className="hover:scale-110">
                     {DeleteIcon}
                 </button>
             </li>
-            {isModalActive && <DeleteModal id={id!} categorie={categorie} onSuccesDelete={onSuccesDelete} onChangeActive={onChangeActive}/>}
+            {isModalActive && <DeleteModal id={id!} categorie={categorie} onSuccesDelete={onSuccesDelete} switchShowModal={switchShowModal} />}
         </>
     );
 });

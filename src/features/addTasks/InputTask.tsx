@@ -5,7 +5,7 @@ import { ToDoStore } from 'shared/store/ToDoStore';
 
 
 export const InputTask = (props:IInputTask) =>{
-    const { onChangeErr } = props;
+    const { switchShowModalErr } = props;
     const {
         register,
         reset,
@@ -20,13 +20,13 @@ export const InputTask = (props:IInputTask) =>{
         const validaitedTask = task.trim().toLowerCase();
         const newValidaitedTask = validaitedTask[0].toUpperCase() + validaitedTask.slice(1);
 
-        checkTask(newValidaitedTask);
+        addTask(newValidaitedTask);
     }
 
-    function checkTask(task:string):void {
+    function addTask(task:string):void {
         const isHasInStore = ToDoStore.onCheckUnique(task);
 
-        if (isHasInStore) return showError();
+        if (isHasInStore) return showErrorModal();
 
         const newTask = {
             task   : task,
@@ -38,17 +38,16 @@ export const InputTask = (props:IInputTask) =>{
         reset();
     }
 
-    function showError() {
-        onChangeErr();
+    function showErrorModal() {
+        switchShowModalErr();
         reset();
     }
 
     return (
         <>
-            <p className="flex justify-between w-full mt-4">{errors?.task && <h2 className="text-red-700">{errors?.task?.message || 'Errors'}</h2>}</p>
-
+            <div className="flex justify-between w-full mt-4">{errors?.task && <span className="text-red-700">{errors?.task?.message || 'Errors'}</span>}</div>
             <form className="flex  w-full" onSubmit={handleSubmit(onModifyNewUser)}>
-                <label htmlFor="task" className="w-full">
+                <div className="w-full">
                     <input
                         placeholder="Введите задачу"
                         className=" flex-1 rounded-l-md w-full h-full placeholder-slate-900 text-black font-semibold
@@ -66,7 +65,7 @@ export const InputTask = (props:IInputTask) =>{
                             },
                         })}
                     />
-                </label>
+                </div>
                 <button
                     disabled={!isValid }
                     className="  placeholder-slate-900 px-4 text-white cursor-pointer bg-slate-900 font-semibold py-3

@@ -1,6 +1,6 @@
 import { IButtonModal } from './interfaces/interfaces';
 
-export const ButtonModal = (props:IButtonModal) => {
+export const Button = (props:IButtonModal) => {
     const { isValid,title } = props;
     const hoverStyle = isValid && 'hover:scale-110';
 

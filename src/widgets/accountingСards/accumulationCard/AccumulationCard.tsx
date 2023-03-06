@@ -5,29 +5,29 @@ import ErrorModal from 'widgets/modals/ErrorModal';
 import { AccumulationIcon } from 'pages/main/assets/AccumulationIcon';
 import { observer } from 'mobx-react-lite';
 import { CardItem } from '../CardItem/CardItem';
-
-
+import { ETitleModalErr } from 'shared/enum/enums';
+import { ETitleCard } from 'shared/enum/enums';
 
 export const AccumulationCard = observer(() => {
     const [isModalActive, setIsModalActive] = React.useState<boolean>(false);
-    const [isErr, setIsErr] = React.useState<boolean>(false);
+    const [isErrModalActive, setIsErrModalActive] = React.useState<boolean>(false);
     const { accumulation } = CashFlowStore;
-    const accumulationTitle = 'Накоплено';
+    const { accumulationCard } = ETitleCard;
 
-    const titleError = 'У вас нет данной суммы на счёте';
+    const { accumulationErr } = ETitleModalErr;
 
-    function onChangeActive() {
-        setIsModalActive((prev) => !prev);
+    function switchisModalActive() {
+        setIsModalActive((IsModalActive) => !IsModalActive);
     }
-    function onChangeErr() {
-        setIsErr((prev) => !prev);
+    function switchShowModalErr() {
+        setIsErrModalActive((prev) => !prev);
     }
 
     return (
         <>
-            <CardItem title={accumulationTitle} money={accumulation} iconCard={AccumulationIcon} onChangeActive={onChangeActive} />
-            <AccumulationModal isActive={isModalActive} onChangeActive={onChangeActive} onChangeErr={onChangeErr} />
-            {isErr && <ErrorModal title={titleError} onChangeErr={onChangeErr} />}
+            <CardItem title={accumulationCard} money={accumulation} iconCard={AccumulationIcon} switchShowModal={switchisModalActive} />
+            <AccumulationModal isModalActive={isModalActive} switchShowModal={switchisModalActive} switchShowModalErr={switchShowModalErr} />
+            {isErrModalActive && <ErrorModal title={accumulationErr} switchShowModalErr={switchShowModalErr} />}
         </>
     );
 });

@@ -5,5 +5,5 @@ export interface ISpendingModal {
 
 export interface IFormSpending {
   categorie: string;
-  spentMoney: string;
+  spentMoney: number;
 }

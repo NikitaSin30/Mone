@@ -1,9 +1,9 @@
 export interface IModalAccumulation {
-  onChangeActive: () => void;
-  onChangeErr:() => void
-  isActive:boolean
+  switchShowModal: () => void;
+  switchShowModalErr: () => void;
+  isModalActive: boolean;
 }
 
 export interface IFormAccumulation {
-  accumulation: string;
+  accumulation: number;
 }

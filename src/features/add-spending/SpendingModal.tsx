@@ -5,18 +5,19 @@ import { CashFlowStore } from 'shared/store/CashFlowStore';
 import { ICategorie } from 'shared/store/interfaces/interfaces';
 import { ISpendingModal, IFormSpending } from 'features/add-spending/interfaces/interfaces';
 import { Select } from 'widgets/select/Select';
-import { InputMoney } from 'widgets/inputs/inputMoney';
-import { ButtonModal } from 'widgets/modals/ui/button/ButtonModal';
-import { ButtonCloseModal } from 'widgets/modals/ui/button/ButtonCloseModal';
+import { Input } from 'widgets/inputs/Input';
+import { Button } from 'widgets/modals/ui/button/Button';
+import { CloseIcon } from 'widgets/modals/assets/CloseIcon';
+import { IModal } from 'widgets/modals/interfaces/interfaces';
 
 
 
-const SpendingModal = (props: ISpendingModal) => {
-    const { onChangeActive, isActive } = props;
+const SpendingModal = (props: IModal) => {
+    const { switchShowModal, isModalActive } = props;
     const [isActiveSelect, setIsActiveSelect] = React.useState<boolean>(false);
     const [valueSelect, setValueSelect] = React.useState<string>('');
     const selected = valueSelect ? valueSelect : 'Выберити категию';
-    const styleModal = isActive ? 'w-full  h-full bg-opacity-20 bg-black  fixed top-0 left-0 flex items-center justify-center ' : 'hidden';
+    const styleModal = isModalActive ? 'w-full  h-full bg-opacity-20 bg-black  fixed top-0 left-0 flex items-center justify-center ' : 'hidden';
     const { categories } = CategoriesStore;
     const {
         register,
@@ -31,16 +32,16 @@ const SpendingModal = (props: ISpendingModal) => {
         const { categorie, spentMoney } = data;
         const newSpending = {
             categorie  : categorie ,
-            spentMoney : +spentMoney,
+            spentMoney : spentMoney,
         };
 
         setNewSpending(spentMoney, newSpending);
         cleanInputs();
-        onChangeActive();
+        switchShowModal();
     }
 
-    function setNewSpending(spentMoney: string, spending: ICategorie) {
-        CashFlowStore.setSpending(+spentMoney);
+    function setNewSpending(spentMoney: number, spending: ICategorie) {
+        CashFlowStore.setSpending(spentMoney);
         CategoriesStore.setNewSpandingInCategorie(spending);
     }
 
@@ -49,51 +50,49 @@ const SpendingModal = (props: ISpendingModal) => {
         reset();
     }
 
-    function getValueSelecet(categorie:string):void {
+    function getValueSelect(categorie:string):void {
         setValue('categorie', categorie);
         setValueSelect(categorie);
     } ;
 
 
     function toggleActiveSelect():void {
-        setIsActiveSelect(prev => !prev);
+        setIsActiveSelect((isActiveSelect) => !isActiveSelect);
     }
 
 
 
     return (
         <>
-            <div className={styleModal} onClick={onChangeActive}>
+            <div className={styleModal} onClick={switchShowModal}>
                 <form
-                    className="flex flex-1 w-100 gap-4 flex-col  bg text-white bg-slate-900 py-6 px-8 rounded-md shadow-lg md:w-1/2"
+                    className="flex flex-1 w-100 gap-1 flex-col  bg text-white bg-slate-900 py-6 px-8 rounded-md shadow-lg md:w-1/2"
                     onSubmit={handleSubmit(addNewSpending)}
                     onClick={(e) => e.stopPropagation()}
                 >
                     <div className="flex justify-end">
-                        <ButtonCloseModal onChangeActive={onChangeActive} />
+                        <button onClick={switchShowModal} className="rounded-full w-6 h-6 overflow-hidden hover:scale-110">
+                            {CloseIcon}
+                        </button>
                     </div>
-                    <h2 className="text-xl font-bold text-center">Добавить трату</h2>
-                    <label htmlFor="categorie">
-                        <span className="flex justify-between">
-                            <h2>Категория трат</h2>
-                        </span>
-                        <Select
-                            isActiveSelect={isActiveSelect}
-                            categories={categories}
-                            getValueSelect={getValueSelecet}
-                            selected={selected}
-                            toggleActiveSelect={toggleActiveSelect}
-                            register={register}
-                            labelTitle="categorie"
-                        />
-                    </label>
-                    <label htmlFor="spentMoney">
-                        <span className="flex justify-between">
-                            <h2>Сумма</h2> {errors?.spentMoney && <h2 className="text-red-700">{errors?.spentMoney?.message || 'Errors'}</h2>}
-                        </span>
-                        <InputMoney labelTitle="spentMoney" register={register} />
-                    </label>
-                    <ButtonModal title="Добавить" isValid={isValid} />
+                    <span className="text-xl font-bold text-center">Добавить трату</span>
+                    <div className="flex justify-between">
+                        <span>Категория трат</span>
+                    </div>
+                    <Select
+                        isActiveSelect={isActiveSelect}
+                        categories={categories}
+                        getValueSelect={getValueSelect}
+                        selected={selected}
+                        toggleActiveSelect={toggleActiveSelect}
+                        register={register}
+                        labelTitle="categorie"
+                    />
+                    <div className="flex justify-between">
+                        <span>Сумма</span> {errors?.spentMoney && <span className="text-red-700">{errors?.spentMoney?.message || 'Errors'}</span>}
+                    </div>
+                    <Input type="number" labelTitle="spentMoney" register={register} />
+                    <Button title="Добавить" isValid={isValid} />
                 </form>
             </div>
         </>
