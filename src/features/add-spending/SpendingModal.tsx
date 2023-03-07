@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { SyntheticEvent } from 'react';
 import { useForm } from 'react-hook-form';
 import { CategoriesStore } from 'shared/store/CategoriesStore';
 import { CashFlowStore } from 'shared/store/CashFlowStore';
 import { ICategorie } from 'shared/store/interfaces/interfaces';
-import { ISpendingModal, IFormSpending } from 'features/add-spending/interfaces/interfaces';
+import { IFormSpending } from 'features/add-spending/interfaces/interfaces';
 import { Select } from 'widgets/select/Select';
 import { Input } from 'widgets/inputs/Input';
 import { Button } from 'widgets/modals/ui/button/Button';
@@ -60,40 +60,43 @@ const SpendingModal = (props: IModal) => {
         setIsActiveSelect((isActiveSelect) => !isActiveSelect);
     }
 
-
+    function onСloseModal(e: SyntheticEvent) {
+        e.stopPropagation();
+        switchShowModal();
+    }
 
     return (
         <>
             <div className={styleModal} onClick={switchShowModal}>
-                <form
-                    className="flex flex-1 w-100 gap-1 flex-col  bg text-white bg-slate-900 py-6 px-8 rounded-md shadow-lg md:w-1/2"
-                    onSubmit={handleSubmit(addNewSpending)}
-                    onClick={(e) => e.stopPropagation()}
-                >
-                    <div className="flex justify-end">
-                        <button onClick={switchShowModal} className="rounded-full w-6 h-6 overflow-hidden hover:scale-110">
-                            {CloseIcon}
-                        </button>
-                    </div>
-                    <span className="text-xl font-bold text-center">Добавить трату</span>
-                    <div className="flex justify-between">
-                        <span>Категория трат</span>
-                    </div>
-                    <Select
-                        isActiveSelect={isActiveSelect}
-                        categories={categories}
-                        getValueSelect={getValueSelect}
-                        selected={selected}
-                        toggleActiveSelect={toggleActiveSelect}
-                        register={register}
-                        labelTitle="categorie"
-                    />
-                    <div className="flex justify-between">
-                        <span>Сумма</span> {errors?.spentMoney && <span className="text-red-700">{errors?.spentMoney?.message || 'Errors'}</span>}
-                    </div>
-                    <Input type="number" labelTitle="spentMoney" register={register} />
-                    <Button title="Добавить" isValid={isValid} />
-                </form>
+                <div className="flex flex-1 w-full gap-1 flex-col  bg text-white bg-slate-900  rounded-md shadow-lg md:w-1/2 p-1 ">
+                    <button onClick={(e) => onСloseModal(e)} className="rounded-full w-6 h-6 self-end overflow-hidden hover:scale-110">
+                        {CloseIcon}
+                    </button>
+                    <form
+                        className="flex flex-1 w-100 gap-1 flex-col  bg text-white py-6 px-8  "
+                        onSubmit={handleSubmit(addNewSpending)}
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <span className="text-xl font-bold text-center">Добавить трату</span>
+                        <div className="flex justify-between">
+                            <span>Категория трат</span>
+                        </div>
+                        <Select
+                            isActiveSelect={isActiveSelect}
+                            categories={categories}
+                            getValueSelect={getValueSelect}
+                            selected={selected}
+                            toggleActiveSelect={toggleActiveSelect}
+                            register={register}
+                            labelTitle="categorie"
+                        />
+                        <div className="flex justify-between">
+                            <span>Сумма</span> {errors?.spentMoney && <span className="text-red-700">{errors?.spentMoney?.message || 'Errors'}</span>}
+                        </div>
+                        <Input type="number" labelTitle="spentMoney" register={register} />
+                        <Button title="Добавить" isValid={isValid} />
+                    </form>
+                </div>
             </div>
         </>
     );

@@ -23,6 +23,8 @@ export const AccumulationCard = observer(() => {
         setIsErrModalActive((prev) => !prev);
     }
 
+    
+
     return (
         <>
             <CardItem title={accumulationCard} money={accumulation} iconCard={AccumulationIcon} switchShowModal={switchisModalActive} />

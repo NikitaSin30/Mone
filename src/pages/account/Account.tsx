@@ -33,9 +33,7 @@ const Account = () => {
             </div>
             <div className="flex flex-col flex-1 bg-white  rounded-md shadow-lg py-3 text-lg">
                 <div className="flex-1">
-                    <h2 className=" px-2 text-xl text-black font-semibold sm:text-2xl ">Email: {email}</h2>
-                    {/* <h2 className=" px-2 text-xl text-black font-semibold sm:text-2xl ">Телефон: +324242424242</h2> */}
-                    {/* <h2 className=" px-2 text-xl text-black font-semibold sm:text-2xl ">Страна: Нарния</h2> */}
+                    <span className=" px-2 text-xl text-black font-semibold sm:text-2xl ">Email: {email}</span>
                 </div>
                 <button onClick={onChangeIsLogin} className="text-md  flex flex-col items-center justify-center px-2 py-2 bg-slate-900 font-semibold
                 rounded-md sm:text-xl">

@@ -7,7 +7,9 @@ import { CardItem } from '../CardItem/CardItem';
 import { ETitleCard } from 'shared/enums/enums';
 
 
+
 export const IncomeCard = observer(() => {
+
     const [isModalActive, setIsModalActive] = React.useState<boolean>(false);
 
     function switchModalActive() {
