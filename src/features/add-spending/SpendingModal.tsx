@@ -1,19 +1,23 @@
-import React from 'react';
+import React, { SyntheticEvent } from 'react';
 import { useForm } from 'react-hook-form';
 import { CategoriesStore } from 'shared/store/CategoriesStore';
 import { CashFlowStore } from 'shared/store/CashFlowStore';
 import { ICategorie } from 'shared/store/interfaces/interfaces';
-import { ISpendingModal, IFormSpending } from 'features/add-spending/interfaces/interfaces';
+import { IFormSpending } from 'features/add-spending/interfaces/interfaces';
 import { Select } from 'widgets/select/Select';
+import { Input } from 'widgets/inputs/Input';
+import { Button } from 'widgets/modals/ui/button/Button';
 import { CloseIcon } from 'widgets/modals/assets/CloseIcon';
+import { IModal } from 'widgets/modals/interfaces/interfaces';
 
 
-function SpendingModal(props: ISpendingModal): React.ReactElement {
+
+const SpendingModal = (props: IModal) => {
+    const { switchShowModal, isModalActive } = props;
     const [isActiveSelect, setIsActiveSelect] = React.useState<boolean>(false);
-    const [valueInput, setValueInput] = React.useState<string>('');
-    const selected = valueInput ? valueInput : 'Выберити категию';
-
-    const { onChangeActive } = props;
+    const [valueSelect, setValueSelect] = React.useState<string>('');
+    const selected = valueSelect ? valueSelect : 'Выберити категию';
+    const styleModal = isModalActive ? 'w-full  h-full bg-opacity-20 bg-black  fixed top-0 left-0 flex items-center justify-center ' : 'hidden';
     const { categories } = CategoriesStore;
     const {
         register,
@@ -23,93 +27,79 @@ function SpendingModal(props: ISpendingModal): React.ReactElement {
         formState: { errors,isValid },
     } = useForm<IFormSpending>({ mode: 'onBlur' });
 
-    function addNewSpending(data: IFormSpending) {
-        const { categorie, spentMoney } = data;
+
+    function addNewSpending({ categorie,spentMoney }: IFormSpending) {
+
         const newSpending = {
             categorie  : categorie ,
-            spentMoney : +spentMoney,
+            spentMoney : spentMoney,
         };
 
         setNewSpending(spentMoney, newSpending);
-        onCleanInputs();
-        onChangeActive();
+        cleanInputs();
+        switchShowModal();
     }
 
-    function setNewSpending(spentMoney: string, spending: ICategorie) {
-        CashFlowStore.setSpending(+spentMoney);
+    function setNewSpending(spentMoney: number, spending: ICategorie) {
+        CashFlowStore.setSpending(spentMoney);
         CategoriesStore.setNewSpandingInCategorie(spending);
     }
 
-    function onCleanInputs() {
-        setValueInput('');
+    function cleanInputs() {
+        setValueSelect('');
         reset();
     }
 
-    function getValueInput(categorie:string):void {
+    function getValueSelect(categorie:string):void {
         setValue('categorie', categorie);
-        setValueInput(categorie);
-        console.log(valueInput);
+        setValueSelect(categorie);
     } ;
 
 
-
     function toggleActiveSelect():void {
-        setIsActiveSelect(prev => !prev);
+        setIsActiveSelect((isActiveSelect) => !isActiveSelect);
     }
 
+    function onСloseModal(e: SyntheticEvent) {
+        e.stopPropagation();
+        switchShowModal();
+    }
 
     return (
         <>
-            <form
-                className="flex flex-1 w-100 gap-4 flex-col  bg text-white bg-slate-900 py-6 px-8 rounded-md shadow-lg md:w-1/2"
-                onSubmit={handleSubmit(addNewSpending)}
-                onClick={(e) => e.stopPropagation()}
-            >
-                <div className="flex justify-end">
-                    <button onClick={onChangeActive} className="rounded-full w-6 h-6 overflow-hidden hover:scale-110">
-                        <CloseIcon/>
+            <div className={styleModal} onClick={switchShowModal}>
+                <div className="flex flex-1 w-full gap-1 flex-col  bg text-white bg-slate-900  rounded-md shadow-lg md:w-1/2 p-1 ">
+                    <button onClick={(e) => onСloseModal(e)} className="rounded-full w-6 h-6 self-end overflow-hidden hover:scale-110">
+                        {CloseIcon}
                     </button>
-                </div>
-                <h2 className="text-xl font-bold text-center">Добавить трату</h2>
-                <label htmlFor="categorie">
-                    <span className="flex justify-between">
-                        <h2>Категория трат</h2>
-                    </span>
-                    <div
-                        onClick={toggleActiveSelect}
-                        className="flex-1 cursor-pointer bg-white h-8
-                         text-black font-semibold rounded-md shadow-lg py-1"
+                    <form
+                        className="flex flex-1 w-100 gap-1 flex-col  bg text-white py-6 px-8  "
+                        onSubmit={handleSubmit(addNewSpending)}
+                        onClick={(e) => e.stopPropagation()}
                     >
-                        <div {...register('categorie', { required: true })}>{selected}</div>
-                        <Select isActiveSelect={isActiveSelect} categories={categories} getValueInput={getValueInput}></Select>
-                    </div>
-                </label>
-                <label htmlFor="spentMoney">
-                    <span className="flex justify-between">
-                        <h2>Сумма</h2> {errors?.spentMoney && <h2 className="text-red-700">{errors?.spentMoney?.message || 'Errors'}</h2>}
-                    </span>
-                    <input
-                        className=" flex-1 w-full placeholder-slate-900 text-black font-semibold rounded-md shadow-lg px-2 py-1"
-                        type="text"
-                        {...register('spentMoney', {
-                            required  : 'Обязательное Поле',
-                            minLength : {
-                                value   : 3,
-                                message : 'Минимум 3 символа',
-                            },
-                            pattern : {
-                                value   : /^\s*[\d]+(?:,[\d]+)?\s*$/,
-                                message : 'Используйте только цифры',
-                            },
-                        })}
-                    />
-                </label>
-                <button disabled={!isValid} className="text-center hover:scale-110" type="submit">
-            Добавить
-                </button>
-            </form>
+                        <span className="text-xl font-bold text-center">Добавить трату</span>
+                        <div className="flex justify-between">
+                            <span>Категория трат</span>
+                        </div>
+                        <Select
+                            isActiveSelect={isActiveSelect}
+                            categories={categories}
+                            getValueSelect={getValueSelect}
+                            selected={selected}
+                            toggleActiveSelect={toggleActiveSelect}
+                            register={register}
+                            labelTitle="categorie"
+                        />
+                        <div className="flex justify-between">
+                            <span>Сумма</span> {errors?.spentMoney && <span className="text-red-700">{errors?.spentMoney?.message || 'Errors'}</span>}
+                        </div>
+                        <Input type="number" labelTitle="spentMoney" register={register} />
+                        <Button title="Добавить" isValid={isValid} />
+                    </form>
+                </div>
+            </div>
         </>
     );
-}
+};
 
 export default SpendingModal;

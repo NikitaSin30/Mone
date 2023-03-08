@@ -1,3 +1,7 @@
-export interface ICard {
-  onChangeActive?: () => void;
+
+export interface ICardItem {
+  title: string;
+  money: number;
+  iconCard: JSX.Element;
+  switchShowModal?: () => void;
 }

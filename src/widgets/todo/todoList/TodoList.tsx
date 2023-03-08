@@ -7,7 +7,6 @@ import { ToDoStore } from 'shared/store/ToDoStore';
 export const TodoList = observer(() => {
     const { tasks } = ToDoStore;
 
-
     return (
         <div className="flex flex-1 flex-col h-full gap-2">
             {tasks?.map((item) => {

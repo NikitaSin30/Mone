@@ -5,34 +5,28 @@ import { ToDoStore } from 'shared/store/ToDoStore';
 import { TodoList } from 'widgets/todo/todoList/TodoList';
 import { Link } from 'react-router-dom';
 import ErrorModal from 'widgets/modals/ErrorModal';
-import Modal from 'widgets/modals/Modal';
+import { GlobalContext } from 'shared/context/context';
+import { Context } from 'shared/context/context';
+import { Navigate } from 'react-router-dom';
+import { ETitleModalErr } from 'shared/enums/enums';
+
 
 
 export const ToDo = observer(()=>{
-    const [isModalActive, setIsModalActive] = React.useState<boolean>(false);
-    const [err, setErr] = React.useState<boolean>(false);
+    const { isLogin } = React.useContext<GlobalContext>(Context);
+
+    if (!isLogin) return <Navigate to="/login" />;
+
+    const [isErrModalActive, setIsErrModalActive] = React.useState<boolean>(false);
+
     const { tasks } = ToDoStore;
     const isHasTask = tasks.length > 0;
+    const { uniqueCategorie } = ETitleModalErr;
 
 
-
-    function onChangeActive() {
-        setIsModalActive((prev) => !prev);
+    function switchShowModalErr() {
+        setIsErrModalActive((isErrModalActive) => !isErrModalActive);
     }
-    function onChangeErr() {
-        setErr((prev) => !prev);
-    }
-
-
-    const ContentModal = () => {
-        return err ? (
-            <ErrorModal onChangeActive={onChangeActive} onChangeErr={onChangeErr}>
-                <h2 className="text-xl font-bold text-center">
-              Категории должны быть уникальны <br /> Попробуйте ещё раз
-                </h2>
-            </ErrorModal>
-        ) : null;
-    };
 
     return (
         <div className=" flex flex-1 flex-col px-3 text-black bg-card   rounded-md w-full shadow-lg">
@@ -56,12 +50,10 @@ export const ToDo = observer(()=>{
                         </button>
                     )}
                 </div>
-                <TodoList/>
-                <InputTask isActive={isModalActive} onChangeErr={onChangeErr} onChangeIsModalActive={onChangeActive}></InputTask>
+                <TodoList />
+                <InputTask switchShowModalErr={switchShowModalErr} />
             </div>
-            <Modal isActive={isModalActive} onChangeActive={onChangeActive}>
-                <ContentModal />
-            </Modal>
+            {isErrModalActive && <ErrorModal title={uniqueCategorie} switchShowModalErr={switchShowModalErr} />}
         </div>
     );
 });

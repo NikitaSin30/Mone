@@ -5,7 +5,7 @@ import { ToDoStore } from 'shared/store/ToDoStore';
 
 
 export const InputTask = (props:IInputTask) =>{
-    const { onChangeIsModalActive,onChangeErr, isActive } = props;
+    const { switchShowModalErr } = props;
     const {
         register,
         reset,
@@ -13,20 +13,19 @@ export const InputTask = (props:IInputTask) =>{
         formState: { errors,isValid },
     } = useForm<ITaskForm>({ mode: 'onBlur' });
 
-    function onModifyNewUser(newTask: ITaskForm): void {
-        const { task } = newTask;
+
+    function onModifyNewUser({ task }: ITaskForm): void {
 
         const validaitedTask = task.trim().toLowerCase();
         const newValidaitedTask = validaitedTask[0].toUpperCase() + validaitedTask.slice(1);
 
-        onCheckTask(newValidaitedTask);
-
+        addTask(newValidaitedTask);
     }
 
-    function onCheckTask(task:string):void {
+    function addTask(task:string):void {
         const isHasInStore = ToDoStore.onCheckUnique(task);
 
-        if (isHasInStore) return showError();
+        if (isHasInStore) return showErrorModal();
 
         const newTask = {
             task   : task,
@@ -36,31 +35,25 @@ export const InputTask = (props:IInputTask) =>{
 
         ToDoStore.addTask(newTask);
         reset();
-
     }
 
-    function showError() {
-        onChangeErr();
-        onChangeIsModalActive();
+    function showErrorModal() {
+        switchShowModalErr();
         reset();
     }
 
     return (
         <>
-            <p className="flex justify-between w-full mt-4">{errors?.task && <h2 className="text-red-700">{errors?.task?.message || 'Errors'}</h2>}</p>
-
+            <div className="flex justify-between w-full mt-4">{errors?.task && <span className="text-red-700">{errors?.task?.message || 'Errors'}</span>}</div>
             <form className="flex  w-full" onSubmit={handleSubmit(onModifyNewUser)}>
-                <label htmlFor="task" className="w-full">
+                <div className="w-full">
                     <input
-                        disabled={isActive}
                         placeholder="Введите задачу"
                         className=" flex-1 rounded-l-md w-full h-full placeholder-slate-900 text-black font-semibold
                          outline-none border-solid border-slate-900 border-b-4
                      px-2 py-1 focus:shadow-lg shadow-gray-50"
                         type="text"
                         {...register('task', {
-
-                            //  required: "Обязательное Поле",
                             minLength : {
                                 value   : 2,
                                 message : 'Минимум 2 символа',
@@ -71,9 +64,9 @@ export const InputTask = (props:IInputTask) =>{
                             },
                         })}
                     />
-                </label>
+                </div>
                 <button
-                    disabled={!isValid || isActive}
+                    disabled={!isValid }
                     className="  placeholder-slate-900 px-4 text-white cursor-pointer bg-slate-900 font-semibold py-3
                     rounded-r-md shadow-lg hover:text-green-600"
                     type="submit"

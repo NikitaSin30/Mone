@@ -1,19 +1,18 @@
 import { CashFlowStore } from 'shared/store/CashFlowStore';
 import { observer } from 'mobx-react-lite';
 import { WalletIcon } from 'pages/main/assets/WalletIcon';
-import { HOCCreateCard } from 'shared/hoc/HOCCreateCard';
+import { CardItem } from '../CardItem/CardItem';
+import { ETitleCard } from 'shared/enums/enums';
 
 
 export const BalanceCard = observer(() => {
 
-    const moneyInAccountTitle = 'На cчёте';
+    const { balanceCard } = ETitleCard;
     const { moneyAccount } = CashFlowStore;
-
-    const Card = HOCCreateCard(moneyInAccountTitle,moneyAccount,WalletIcon);
 
     return (
         <>
-            <Card/>
+            <CardItem title={balanceCard} money={moneyAccount} iconCard={WalletIcon} />
         </>
     );
 });

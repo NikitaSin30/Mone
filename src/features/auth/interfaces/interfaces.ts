@@ -7,11 +7,4 @@ export interface IFormAuth {
   password: string;
 }
 
-export interface IFormCategorie {
-  income: string;
-  sphere: string;
-}
 
-export interface IModalIncome {
-  onChangeActive: () => void;
-}

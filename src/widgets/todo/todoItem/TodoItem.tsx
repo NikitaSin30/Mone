@@ -3,6 +3,7 @@ import { ToDoStore } from 'shared/store/ToDoStore';
 import { ITodoItem } from '../interfaces/interfaces';
 
 
+
 export const ToDoItem =  ( props:ITodoItem ) =>{
     const { task, isDone, id, onToggleStatus } = props;
 
@@ -22,7 +23,7 @@ export const ToDoItem =  ( props:ITodoItem ) =>{
                     {isDone && <div className="bg-green-500 h-2 w-2 rounded-full"></div>}
                 </button>
                 <button className="cursor-pointer hover:scale-110" onClick={() => ToDoStore.removeTask(id)}>
-                    <DeleteIcon />
+                    {DeleteIcon}
                 </button>
             </div>
         </div>

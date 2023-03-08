@@ -1,7 +1,9 @@
-import React from 'react';
 import Login from '../../../features/auth/formLogin/FormLogin';
 
-function Authorization(): React.ReactElement {
+
+
+const Authorization = () => {
+    
     return (
         <>
             <section className="flex-1 flex flex-col items-center justify-center">
@@ -9,6 +11,6 @@ function Authorization(): React.ReactElement {
             </section>
         </>
     );
-}
+};
 
 export default Authorization;

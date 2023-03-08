@@ -1,11 +1,9 @@
 import React from 'react';
 import { CategoriesStore } from 'shared/store/CategoriesStore';
-import Modal from 'widgets/modals/Modal';
-import { DeleteModal } from 'widgets/modals/DeleteCategorie';
+import { DeleteModal } from 'widgets/modals/DeleteModal';
 import { ICategorie } from 'shared/store/interfaces/interfaces';
 import { observer } from 'mobx-react-lite';
 import { DeleteIcon } from 'widgets/todo/assets/DeleteIcon';
-
 
 
 
@@ -14,11 +12,11 @@ export const CategorieItem = observer((props:ICategorie) =>{
 
     const [isModalActive,setIsModalActive] = React.useState<boolean>(false);
 
-    function onChangeActive():void {
-        setIsModalActive(prev => !prev);
+    function switchShowModal(): void {
+        setIsModalActive((isModalActive) => !isModalActive);
     }
     function onSuccesDelete(id:string) {
-        setIsModalActive(prev => !prev);
+        setIsModalActive((isModalActive) => !isModalActive);
         CategoriesStore.removeCategorie(id);
     }
 
@@ -29,13 +27,11 @@ export const CategorieItem = observer((props:ICategorie) =>{
                           justify-between rounded-md shadow-lg"
             >
                 <h2 className="font-semibold text-md">{categorie}</h2>
-                <button onClick={onChangeActive} className='hover:scale-110'>
-                    <DeleteIcon/>
+                <button onClick={switchShowModal} className="hover:scale-110">
+                    {DeleteIcon}
                 </button>
             </li>
-            <Modal isActive={isModalActive} onChangeActive={onChangeActive}>
-                <DeleteModal id={id!} categorie={categorie} onSuccesDelete={onSuccesDelete} onChangeActive={onChangeActive}/>
-            </Modal>
+            {isModalActive && <DeleteModal id={id!} categorie={categorie} onSuccesDelete={onSuccesDelete} switchShowModal={switchShowModal} />}
         </>
     );
 });

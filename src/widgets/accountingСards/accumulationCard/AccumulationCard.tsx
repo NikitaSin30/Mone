@@ -1,52 +1,35 @@
 import React from 'react';
 import AccumulationModal from 'features/add-accumulation/AccumulationModal';
-import Modal from 'widgets/modals/Modal';
 import { CashFlowStore } from 'shared/store/CashFlowStore';
 import ErrorModal from 'widgets/modals/ErrorModal';
 import { AccumulationIcon } from 'pages/main/assets/AccumulationIcon';
 import { observer } from 'mobx-react-lite';
-import { HOCCreateCard } from 'shared/hoc/HOCCreateCard';
-
-
+import { CardItem } from '../CardItem/CardItem';
+import { ETitleModalErr } from 'shared/enums/enums';
+import { ETitleCard } from 'shared/enums/enums';
 
 export const AccumulationCard = observer(() => {
     const [isModalActive, setIsModalActive] = React.useState<boolean>(false);
-    const [isErr, setIsErr] = React.useState<boolean>(false);
+    const [isErrModalActive, setIsErrModalActive] = React.useState<boolean>(false);
     const { accumulation } = CashFlowStore;
-    const accumulationTitle = 'Накоплено';
+    const { accumulationCard } = ETitleCard;
 
-    function onChangeActive() {
-        setIsModalActive((prev) => !prev);
+    const { accumulationErr } = ETitleModalErr;
+
+    function switchisModalActive() {
+        setIsModalActive((IsModalActive) => !IsModalActive);
     }
-    function onChangeErr() {
-        setIsErr((prev) => !prev);
+    function switchShowModalErr() {
+        setIsErrModalActive((prev) => !prev);
     }
 
-    const ContentModal = () => {
-        return (
-            <>
-                {isErr ? (
-                    <ErrorModal onChangeActive={onChangeActive} onChangeErr={onChangeErr}>
-                        <h2 className="text-xl font-bold text-center">
-              У вас нет данной суммы на счёте , чтобы её отложить
-                            <br />
-                        </h2>
-                    </ErrorModal>
-                ) : (
-                    <AccumulationModal onChangeActive={onChangeActive} onChangeErr={onChangeErr} />
-                )}
-            </>
-        );
-    };
-
-    const Card = HOCCreateCard(accumulationTitle,accumulation,AccumulationIcon);
+    
 
     return (
         <>
-            <Card onChangeActive={onChangeActive}/>
-            <Modal isActive={isModalActive} onChangeActive={onChangeActive}>
-                <ContentModal />
-            </Modal>
+            <CardItem title={accumulationCard} money={accumulation} iconCard={AccumulationIcon} switchShowModal={switchisModalActive} />
+            <AccumulationModal isModalActive={isModalActive} switchShowModal={switchisModalActive} switchShowModalErr={switchShowModalErr} />
+            {isErrModalActive && <ErrorModal title={accumulationErr} switchShowModalErr={switchShowModalErr} />}
         </>
     );
 });
