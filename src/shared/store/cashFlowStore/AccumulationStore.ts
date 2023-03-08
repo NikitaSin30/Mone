@@ -12,6 +12,7 @@ export class AccumulationStore implements IAccumulationStore {
             setAccumulation : action,
         });
     }
+    
     setAccumulation(sum: number): void {
         this.accumulation = this.accumulation + sum;
         balanceStore.updateCashAccount();
