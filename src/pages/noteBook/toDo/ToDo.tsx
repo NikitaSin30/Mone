@@ -12,6 +12,9 @@ import { ETitleModalErr } from 'shared/enums/enums';
 
 
 
+const { tasks } = ToDoStore;
+const isHasTask = tasks.length > 0;
+const { uniqueCategorie } = ETitleModalErr;
 
 export const ToDo = observer(()=>{
     const { isLogin } = React.useContext<GlobalContext>(Context);
@@ -20,9 +23,6 @@ export const ToDo = observer(()=>{
 
     const [isErrModalActive, setIsErrModalActive] = React.useState<boolean>(false);
 
-    const { tasks } = ToDoStore;
-    const isHasTask = tasks.length > 0;
-    const { uniqueCategorie } = ETitleModalErr;
 
 
     function switchShowModalErr() {

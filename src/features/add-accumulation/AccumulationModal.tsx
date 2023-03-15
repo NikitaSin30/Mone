@@ -23,10 +23,10 @@ function AccumulationModal(props: IModal): React.ReactElement {
         checkHasMoneyForAccumulation(accumulation);
     }
 
-    function checkHasMoneyForAccumulation(sum: number) {
-        if (balanceStore.moneyAccount < sum) return showModalError();
-        
-        addAccumulation(sum);
+    function checkHasMoneyForAccumulation(newAccumulation: number) {
+        if (balanceStore.moneyAccount < newAccumulation) return showModalError();
+
+        addAccumulation(newAccumulation);
     }
 
     function showModalError() {
@@ -36,7 +36,7 @@ function AccumulationModal(props: IModal): React.ReactElement {
     }
 
     function addAccumulation(sum: number) {
-        accumulationStore.setAccumulation(sum);
+        accumulationStore.addAccumulation(sum);
         reset();
         switchShowModal();
     }

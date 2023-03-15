@@ -28,7 +28,7 @@ const ModalIncome = (props: IModal) => {
             date   : new Date(),
         };
 
-        incomeStore.setIncome(operation.income);
+        incomeStore.addIncome(operation.income);
         reset();
         switchShowModal();
     }

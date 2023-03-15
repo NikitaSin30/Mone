@@ -1,31 +1,21 @@
 import { makeObservable, observable } from 'mobx';
-import { incomeStore } from './IncomeStore';
-import { spendingStore } from './SpendingStore';
-import { accumulationStore } from './AccumulationStore';
 import { IBalanceStore } from './interfaces/interfaces';
 
 
 
 export class BalanceStore implements IBalanceStore {
-    moneyAccount:number;
-    income: number;
-    accumulation: number;
-    spending: number;
+    moneyAccount = 0;
 
-    constructor(income: any, spending: any, accumulation: any) {
-        this.income = income;
-        this.accumulation = accumulation;
-        this.spending = spending;
-        this.moneyAccount = this.income - this.spending - this.accumulation;
-
+    constructor() {
         makeObservable(this, {
             moneyAccount : observable,
 
         });
     }
 
-    updateCashAccount(): void {
-        this.moneyAccount = this.income - this.spending - this.accumulation;
+    updateCashAccount(newBalance: number ): void {
+        this.moneyAccount = newBalance;
     }
 }
-export const balanceStore = new BalanceStore(incomeStore,spendingStore, accumulationStore);
+
+export const balanceStore = new BalanceStore();

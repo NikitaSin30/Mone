@@ -9,13 +9,15 @@ export class AccumulationStore implements IAccumulationStore {
     constructor() {
         makeObservable(this, {
             accumulation    : observable,
-            setAccumulation : action,
+            addAccumulation : action,
         });
     }
-    
-    setAccumulation(sum: number): void {
-        this.accumulation = this.accumulation + sum;
-        balanceStore.updateCashAccount();
+
+    addAccumulation(newAccumulation: number): void {
+        this.accumulation = this.accumulation + newAccumulation;
+        const updatedBalance = balanceStore.moneyAccount - newAccumulation;
+
+        balanceStore.updateCashAccount(updatedBalance);
     }
 }
 

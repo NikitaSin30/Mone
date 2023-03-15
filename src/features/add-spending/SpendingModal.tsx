@@ -40,7 +40,7 @@ const SpendingModal = (props: IModal) => {
     }
 
     function setNewSpending(spentMoney: number, spending: ICategorie) {
-        spendingStore.setSpending(spentMoney);
+        spendingStore.addSpending(spentMoney);
         CategoriesStore.setNewSpandingInCategorie(spending);
     }
 

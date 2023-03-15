@@ -1,23 +1,22 @@
 import { action, makeObservable, observable } from 'mobx';
 import { balanceStore } from './BalanceStore';
-
-interface ISpendingStore{
-    spending: number,
-    setSpending:(sum:number) => void
-}
-
+import { ISpendingStore } from './interfaces/interfaces';
 
 class SpendingStore implements ISpendingStore {
     spending = 0;
+
     constructor() {
         makeObservable(this, {
             spending    : observable,
-            setSpending : action,
+            addSpending : action,
         });
     }
-    setSpending(sum: number): void {
-        this.spending = this.spending + sum;
-        balanceStore.updateCashAccount();
+
+    addSpending(newSpending: number): void {
+        this.spending = this.spending + newSpending;
+        const updatedBalance = balanceStore.moneyAccount - newSpending;
+
+        balanceStore.updateCashAccount(updatedBalance);
     }
 }
 

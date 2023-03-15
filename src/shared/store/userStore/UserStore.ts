@@ -14,8 +14,6 @@ export class User implements IUser {
     setUser(email: string, userId:string): void {
         this.user.email = email;
         this.userId = userId;
-        console.log(userId);
-        
     }
 }
 
