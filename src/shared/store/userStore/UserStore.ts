@@ -1,8 +1,9 @@
 import { action, makeObservable, observable } from 'mobx';
-import { IUser } from './interfaces/interfaces';
+import { IUser } from './interfaces.ts/interfaces';
 
 export class User implements IUser {
     user = { email: '' };
+    userId = '';
     constructor() {
         makeObservable(this, {
             user    : observable,
@@ -10,8 +11,9 @@ export class User implements IUser {
         });
     }
 
-    setUser(email: string): void {
+    setUser(email: string, userId:string): void {
         this.user.email = email;
+        this.userId = userId;
     }
 }
 

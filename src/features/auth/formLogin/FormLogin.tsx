@@ -6,7 +6,7 @@ import { Context } from 'shared/context/context';
 import { Navigate } from 'react-router-dom';
 import { GlobalContext } from 'shared/context/context';
 import { IFormAuth } from 'features/auth/interfaces/interfaces';
-import { UserStore } from 'shared/store/UserStore';
+import { UserStore } from 'shared/store/userStore/UserStore';
 
 
 
@@ -32,7 +32,7 @@ function FormLogin(): React.ReactElement {
         signInWithEmailAndPassword(auth, email, password)
             .then((data) => {
                 onChangeIsLogin();
-                UserStore.setUser(data.user.email!);
+                UserStore.setUser(data.user.email!,data.user.uid);
             })
             .catch((error) => new Error(error.message));
     }

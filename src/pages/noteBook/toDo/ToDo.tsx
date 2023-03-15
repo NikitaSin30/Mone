@@ -1,7 +1,7 @@
 import React from 'react';
 import { observer } from 'mobx-react-lite';
 import { InputTask } from 'features/addTasks/InputTask';
-import { ToDoStore } from 'shared/store/ToDoStore';
+import { ToDoStore } from 'shared/store/toDoStore/ToDoStore';
 import { TodoList } from 'widgets/todo/todoList/TodoList';
 import { Link } from 'react-router-dom';
 import ErrorModal from 'widgets/modals/ErrorModal';
@@ -12,6 +12,10 @@ import { ETitleModalErr } from 'shared/enums/enums';
 
 
 
+const { tasks } = ToDoStore;
+const isHasTask = tasks.length > 0;
+const { uniqueCategorie } = ETitleModalErr;
+
 export const ToDo = observer(()=>{
     const { isLogin } = React.useContext<GlobalContext>(Context);
 
@@ -19,9 +23,6 @@ export const ToDo = observer(()=>{
 
     const [isErrModalActive, setIsErrModalActive] = React.useState<boolean>(false);
 
-    const { tasks } = ToDoStore;
-    const isHasTask = tasks.length > 0;
-    const { uniqueCategorie } = ETitleModalErr;
 
 
     function switchShowModalErr() {

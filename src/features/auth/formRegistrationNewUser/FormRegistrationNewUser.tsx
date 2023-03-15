@@ -4,7 +4,8 @@ import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { Context, GlobalContext } from 'shared/context/context';
 import { Navigate } from 'react-router';
 import { IFormAuth } from 'features/auth/interfaces/interfaces';
-import { UserStore } from 'shared/store/UserStore';
+import { UserStore } from 'shared/store/userStore/UserStore';
+
 
 
 
@@ -18,24 +19,25 @@ function FormRegistrationNewUser(): React.ReactElement {
     } = useForm<IFormAuth>({ mode: 'onBlur' });
 
 
-    function onModifyNewUser({ email,password }: IFormAuth): void {
+    function onModifyNewUser( user: IFormAuth): void {
+        const { email, password } = user;
 
         registerUser(email, password);
         reset();
     }
+
 
     function registerUser(email: string, password: string): void {
         const auth = getAuth();
 
         createUserWithEmailAndPassword(auth, email, password)
             .then((data) => {
-                UserStore.setUser(data.user.email!);
-                onChangeIsLogin();
 
+                UserStore.setUser(data.user.email!,data.user.uid);
+                onChangeIsLogin();
             })
             .catch((error) => new Error(error.message));
     }
-
 
     return !isLogin ? (
         <form className="flex gap-1   flex-col  bg text-white bg-slate-900 py-6 px-8 rounded-md shadow-lg md:w-1/2" onSubmit={handleSubmit(onModifyNewUser)}>

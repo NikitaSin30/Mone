@@ -1,12 +1,12 @@
 import { SyntheticEvent } from 'react';
 import { useForm } from 'react-hook-form';
-import { CashFlowStore } from 'shared/store/CashFlowStore';
-import { IOperation } from 'shared/store/interfaces/interfaces';
+import { IOperation } from './interfaces/interfaces';
 import { Input } from 'widgets/inputs/Input';
 import { Button } from 'widgets/modals/ui/button/Button';
 import { CloseIcon } from 'widgets/modals/assets/CloseIcon';
 import { IFormCategorie } from './interfaces/interfaces';
 import { IModal } from 'widgets/modals/interfaces/interfaces';
+import { incomeStore } from 'shared/store/cashFlowStore/IncomeStore';
 
 
 
@@ -28,10 +28,12 @@ const ModalIncome = (props: IModal) => {
             date   : new Date(),
         };
 
-        CashFlowStore.setIncome(operation.income);
+        incomeStore.addIncome(operation.income);
         reset();
         switchShowModal();
     }
+
+
 
     function onСloseModal(e: SyntheticEvent) {
         e.stopPropagation();
