@@ -32,7 +32,7 @@ function FormLogin(): React.ReactElement {
         signInWithEmailAndPassword(auth, email, password)
             .then((data) => {
                 onChangeIsLogin();
-                UserStore.setUser(data.user.email!);
+                UserStore.setUser(data.user.email!,data.user.uid);
             })
             .catch((error) => new Error(error.message));
     }

@@ -10,6 +10,7 @@ import { incomeStore } from 'shared/store/cashFlowStore/IncomeStore';
 
 
 
+
 const ModalIncome = (props: IModal) => {
     const { switchShowModal, isModalActive } = props;
     const styleModal = isModalActive ? 'w-full  h-full bg-opacity-20 bg-black  fixed top-0 left-0 flex items-center justify-center ' : 'hidden';
@@ -31,6 +32,8 @@ const ModalIncome = (props: IModal) => {
         reset();
         switchShowModal();
     }
+
+
 
     function onСloseModal(e: SyntheticEvent) {
         e.stopPropagation();

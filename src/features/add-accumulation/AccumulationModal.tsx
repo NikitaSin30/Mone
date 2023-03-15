@@ -25,7 +25,7 @@ function AccumulationModal(props: IModal): React.ReactElement {
 
     function checkHasMoneyForAccumulation(sum: number) {
         if (balanceStore.moneyAccount < sum) return showModalError();
-
+        
         addAccumulation(sum);
     }
 

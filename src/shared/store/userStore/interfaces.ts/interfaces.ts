@@ -4,5 +4,5 @@ export type TUser = {
 
 export interface IUser {
   user: TUser;
-  setUser(email: string): void;
+  setUser(email: string,userId:string): void;
 }

@@ -16,7 +16,9 @@ export const IncomeCard = observer(() => {
     }
 
     const { incomeCard } = ETitleCard;
+
     const { income } = incomeStore;
+
 
 
     return (

@@ -45,8 +45,8 @@ const FormModalCategories = (props: IModal) => {
 
     function showModalError(): void {
         switchShowModal();
-    switchShowModalErr!();
-    reset();
+        switchShowModalErr!();
+        reset();
     }
     function onСloseModal(e: SyntheticEvent) {
         e.stopPropagation();
