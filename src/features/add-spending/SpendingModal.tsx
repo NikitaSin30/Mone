@@ -9,6 +9,9 @@ import { Button } from 'widgets/modals/ui/button/Button';
 import { CloseIcon } from 'widgets/modals/assets/CloseIcon';
 import { IModal } from 'widgets/modals/interfaces/interfaces';
 import { spendingStore } from 'shared/store/cashFlowStore/SpendingStore';
+import { cashDB } from 'api/CashDB';
+import { UserStore } from 'shared/store/userStore/UserStore';
+
 
 
 const SpendingModal = (props: IModal) => {
@@ -18,6 +21,7 @@ const SpendingModal = (props: IModal) => {
     const selected = valueSelect ? valueSelect : 'Выберити категию';
     const styleModal = isModalActive ? 'w-full  h-full bg-opacity-20 bg-black  fixed top-0 left-0 flex items-center justify-center ' : 'hidden';
     const { categories } = CategoriesStore;
+
     const {
         register,
         setValue,
@@ -27,14 +31,10 @@ const SpendingModal = (props: IModal) => {
     } = useForm<IFormSpending>({ mode: 'onBlur' });
 
 
-    function addNewSpending({ categorie,spentMoney }: IFormSpending) {
+    async function addNewSpending( newSpending: IFormSpending) {
 
-        const newSpending = {
-            categorie  : categorie ,
-            spentMoney : spentMoney,
-        };
-
-        setNewSpending(spentMoney, newSpending);
+        await cashDB.addSpending(UserStore.userId, newSpending);
+        setNewSpending(newSpending.spentMoney, newSpending);
         cleanInputs();
         switchShowModal();
     }

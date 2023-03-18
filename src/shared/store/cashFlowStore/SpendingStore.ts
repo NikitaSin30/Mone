@@ -7,8 +7,9 @@ class SpendingStore implements ISpendingStore {
 
     constructor() {
         makeObservable(this, {
-            spending    : observable,
-            addSpending : action,
+            spending          : observable,
+            addSpending       : action,
+            getSpendingWithDB : action,
         });
     }
 
@@ -17,6 +18,9 @@ class SpendingStore implements ISpendingStore {
         const updatedBalance = balanceStore.moneyAccount - newSpending;
 
         balanceStore.updateCashAccount(updatedBalance);
+    }
+    getSpendingWithDB(spending:number):void {
+        this.spending = spending;
     }
 }
 

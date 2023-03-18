@@ -19,8 +19,6 @@ export const IncomeCard = observer(() => {
 
     const { income } = incomeStore;
 
-
-
     return (
         <>
             <CardItem switchShowModal={switchModalActive} title={incomeCard} money={income} iconCard={IncomeIcon} />

@@ -7,3 +7,5 @@ export interface IFormSpending {
   categorie: string;
   spentMoney: number;
 }
+
+

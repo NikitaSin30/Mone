@@ -1,4 +1,4 @@
-import { makeObservable, observable } from 'mobx';
+import { action, makeObservable, observable } from 'mobx';
 import { IBalanceStore } from './interfaces/interfaces';
 
 
@@ -8,13 +8,18 @@ export class BalanceStore implements IBalanceStore {
 
     constructor() {
         makeObservable(this, {
-            moneyAccount : observable,
-
+            moneyAccount      : observable,
+            updateCashAccount : action,
+            getBalanceWithDB  : action,
         });
     }
 
     updateCashAccount(newBalance: number ): void {
         this.moneyAccount = newBalance;
+    }
+
+    getBalanceWithDB(sum:number):void {
+        this.moneyAccount = sum;
     }
 }
 

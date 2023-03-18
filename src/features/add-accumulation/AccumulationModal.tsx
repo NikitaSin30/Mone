@@ -7,6 +7,8 @@ import { CloseIcon } from 'widgets/modals/assets/CloseIcon';
 import { IModal } from 'widgets/modals/interfaces/interfaces';
 import { accumulationStore } from 'shared/store/cashFlowStore/AccumulationStore';
 import { balanceStore } from 'shared/store/cashFlowStore/BalanceStore';
+import { cashDB } from 'api/CashDB';
+import { UserStore } from 'shared/store/userStore/UserStore';
 
 function AccumulationModal(props: IModal): React.ReactElement {
     const { switchShowModal, switchShowModalErr, isModalActive } = props;
@@ -35,7 +37,8 @@ function AccumulationModal(props: IModal): React.ReactElement {
         reset();
     }
 
-    function addAccumulation(sum: number) {
+    async function addAccumulation(sum: number) {
+        await cashDB.addAccumulation(UserStore.userId,sum);
         accumulationStore.addAccumulation(sum);
         reset();
         switchShowModal();

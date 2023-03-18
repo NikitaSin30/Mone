@@ -1,8 +1,7 @@
-export type TUser = {
-  email: string;
-};
+import { IFormAuth } from 'features/auth/interfaces/interfaces';
 
 export interface IUser {
-  user: TUser;
-  setUser(email: string,userId:string): void;
+  user: IFormAuth;
+  userId : string
+  setUser(user: IFormAuth , userId: string): void;
 }

@@ -1,12 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { Context } from 'shared/context/context';
 import { Navigate } from 'react-router-dom';
 import { GlobalContext } from 'shared/context/context';
 import { IFormAuth } from 'features/auth/interfaces/interfaces';
-import { UserStore } from 'shared/store/userStore/UserStore';
+import { connectBD } from 'api/Auth';
 
 
 
@@ -22,21 +21,9 @@ function FormLogin(): React.ReactElement {
 
     function onLogin({ email,password }: IFormAuth): void {
 
-        authorizeUser(email, password);
+        connectBD.authorizeUser(email, password,onChangeIsLogin);
         reset();
     }
-
-    function authorizeUser(email: string, password: string): void {
-        const auth = getAuth();
-
-        signInWithEmailAndPassword(auth, email, password)
-            .then((data) => {
-                onChangeIsLogin();
-                UserStore.setUser(data.user.email!,data.user.uid);
-            })
-            .catch((error) => new Error(error.message));
-    }
-
 
     return !isLogin ? (
         <form className="flex gap-1   flex-col  bg text-white bg-slate-900 py-6 px-8 rounded-md shadow-lg md:w-1/2" onSubmit={handleSubmit(onLogin)}>

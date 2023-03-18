@@ -9,16 +9,20 @@ export class IncomeStore implements IIncomeStore {
 
     constructor() {
         makeObservable(this, {
-            income    : observable,
-            addIncome : action,
+            income             : observable,
+            addIncome          : action,
+            getIncomeWithStore : action,
         });
     }
-    
+
     addIncome(newItcome: number): void {
         this.income = this.income + newItcome;
         const updatedBalance = balanceStore.moneyAccount + newItcome;
-
+        
         balanceStore.updateCashAccount(updatedBalance);
+    }
+    getIncomeWithStore(itcome:number):void {
+        this.income = itcome;
     }
 }
 

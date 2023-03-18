@@ -8,8 +8,9 @@ export class AccumulationStore implements IAccumulationStore {
 
     constructor() {
         makeObservable(this, {
-            accumulation    : observable,
-            addAccumulation : action,
+            accumulation          : observable,
+            addAccumulation       : action,
+            getAccumulationWithDB : action,
         });
     }
 
@@ -18,6 +19,9 @@ export class AccumulationStore implements IAccumulationStore {
         const updatedBalance = balanceStore.moneyAccount - newAccumulation;
 
         balanceStore.updateCashAccount(updatedBalance);
+    }
+    getAccumulationWithDB(accumulation:number) : void {
+        this.accumulation = accumulation;
     }
 }
 
