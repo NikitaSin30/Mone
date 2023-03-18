@@ -50,7 +50,7 @@ class CashDB {
             updates['users/' + userId + '/cash/spending/operation/' + newIncomeKey] = spending;
             updates['users/' + userId + '/cash/spending/allSpending'] = spending.spentMoney + spendingStore.spending;
             updates['users/' + userId + '/cash/balance'] = balanceStore.moneyAccount - spending.spentMoney;
-
+            
             update(ref(db), updates);
         }
         catch (error) {

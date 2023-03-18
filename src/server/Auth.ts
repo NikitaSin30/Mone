@@ -1,6 +1,6 @@
 import { db } from 'shared/firebase/firebase';
 import { ref, set, onValue } from 'firebase/database';
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { UserStore } from 'shared/store/userStore/UserStore';
 import { IFormAuth } from 'features/auth/interfaces/interfaces';
 import { incomeStore } from 'shared/store/cashFlowStore/IncomeStore';
@@ -11,18 +11,22 @@ import { balanceStore } from 'shared/store/cashFlowStore/BalanceStore';
 import { AUTH } from './constans';
 
 export class Auth {
-    async registerUser(user: IFormAuth, switchStatus: () => void) {
 
+
+    async registerUser(user: IFormAuth, switchStatus: () => void) {
 
         createUserWithEmailAndPassword(AUTH, user.email, user.password)
             .then((data) => {
-                const infoUser = {
+                const sctructureUserDB = {
                     id   : data.user.uid,
                     info : { ...user },
                     ...structureCashUser,
                 };
 
-                this.writeUser(data.user.uid, infoUser);
+                data.user.getIdTokenResult()
+                    .then((data) => localStorage.setItem('token', data.token));
+
+                this.writeUser(data.user.uid, sctructureUserDB);
                 UserStore.setUser(user, data.user.uid);
                 switchStatus();
             })
@@ -42,6 +46,7 @@ export class Auth {
 
         signInWithEmailAndPassword(AUTH, email, password)
             .then((data) => {
+
                 this.getUserWithDB(data.user.uid);
                 switchStatus();
             })

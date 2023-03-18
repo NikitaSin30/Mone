@@ -5,12 +5,13 @@ import { Context } from 'shared/context/context';
 import { Navigate } from 'react-router-dom';
 import { GlobalContext } from 'shared/context/context';
 import { IFormAuth } from 'features/auth/interfaces/interfaces';
-import { connectBD } from 'api/Auth';
+import { connectBD } from 'server/Auth';
 
 
 
 function FormLogin(): React.ReactElement {
     const { isLogin,onChangeIsLogin } = React.useContext<GlobalContext>(Context);
+    
     const {
         register,
         reset,

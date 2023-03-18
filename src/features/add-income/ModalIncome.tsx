@@ -7,7 +7,7 @@ import { CloseIcon } from 'widgets/modals/assets/CloseIcon';
 import { IFormCategorie } from './interfaces/interfaces';
 import { IModal } from 'widgets/modals/interfaces/interfaces';
 import { incomeStore } from 'shared/store/cashFlowStore/IncomeStore';
-import { cashDB } from 'api/CashDB';
+import { cashDB } from 'server/CashDB';
 import { UserStore } from 'shared/store/userStore/UserStore';
 
 

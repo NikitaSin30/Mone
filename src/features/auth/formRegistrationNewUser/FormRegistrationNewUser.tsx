@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { Context, GlobalContext } from 'shared/context/context';
 import { Navigate } from 'react-router';
 import { IFormAuth } from 'features/auth/interfaces/interfaces';
-import { connectBD } from 'api/Auth';
+import { connectBD } from 'server/Auth';
 
 
 function FormRegistrationNewUser(): React.ReactElement {
