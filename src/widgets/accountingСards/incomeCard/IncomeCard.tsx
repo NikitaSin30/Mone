@@ -1,22 +1,18 @@
-import React from 'react';
 import { IncomeIcon } from 'pages/main/assets/IncomeIcon';
 import ModalIncome from 'features/add-income/ModalIncome';
 import { observer } from 'mobx-react-lite';
 import { CardItem } from '../CardItem/CardItem';
 import { ETitleCard } from 'shared/enums/enums';
 import { incomeStore } from 'shared/store/cashFlowStore/IncomeStore';
+import { useToggle } from 'shared/hooks/useToggle/useToggle';
 
+
+
+const { incomeCard } = ETitleCard;
 
 export const IncomeCard = observer(() => {
 
-    const [isModalActive, setIsModalActive] = React.useState<boolean>(false);
-
-    function switchModalActive() {
-        setIsModalActive((IsModalActive) => !IsModalActive);
-    }
-
-    const { incomeCard } = ETitleCard;
-
+    const { value: isModalActive, toggle: switchModalActive } = useToggle(false);
     const { income } = incomeStore;
 
     return (

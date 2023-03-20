@@ -15,14 +15,41 @@ class ToDo implements ITodo {
         makeObservable(this, {
             tasks                : observable,
             addTask              : action,
-            onCheckUnique        : action,
             toggleStatusByIdTask : action,
             removeTask           : action,
             removeAllTasks       : action,
         });
     }
-    addTask(task: ITask): void {
-        this.tasks.push(task);
+
+    private onCheckUnique(newTask: string): boolean {
+        return this.tasks.some(({ task }) => task === newTask);
+    }
+
+    private modifyNewtas(task: string) {
+        const validaitedTask = task.trim().toLowerCase();
+        const newValidaitedTask = validaitedTask[0].toUpperCase() + validaitedTask.slice(1);
+
+        return newValidaitedTask;
+    }
+    private createNewTask(task: string) : ITask {
+        const newTask = {
+            task   : task,
+            isDone : false,
+            id     : task,
+        };
+
+        return newTask;
+    }
+
+    addTask(task: string, fn: () => void): void | Function {
+        const validatedTask = this.modifyNewtas(task);
+        const unique = this.onCheckUnique(validatedTask);
+
+        if (unique) return fn();
+
+        const newTask = this.createNewTask(task);
+
+        this.tasks.push(newTask);
     }
 
     removeTask(id: string): void {
@@ -32,17 +59,13 @@ class ToDo implements ITodo {
         this.tasks = [];
     }
 
-    onCheckUnique(task: string): boolean {
-        return this.tasks.some((i) => i.task === task);
-    }
-
     toggleStatusByIdTask(id: string): void {
-        this.tasks.map((i) => {
-            if (i.id === id) i.isDone = !i.isDone;
+        this.tasks.map((task) => {
+            if (task.id === id) task.isDone = !task.isDone;
 
-            return i;
+            return task;
         });
     }
 }
 
-export const ToDoStore = new ToDo();
+export const toDoStore = new ToDo();

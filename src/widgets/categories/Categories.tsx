@@ -1,23 +1,17 @@
-import { observer } from 'mobx-react-lite';
 import React from 'react';
+import { observer } from 'mobx-react-lite';
 import { CatagoriesList } from './categoriesList/CategoteisList';
 import ErrorModal from 'widgets/modals/ErrorModal';
 import FormModalCategories from 'features/add-categories/FormModalCategories';
 import { ETitleModalErr } from 'shared/enums/enums';
+import { useToggle } from 'shared/hooks/useToggle/useToggle';
+import { AddIcon } from 'pages/main/assets/AddIcon';
 
+const { uniqueCategorie } = ETitleModalErr;
 
-const Categories:React.FC = observer(() =>{
-    const [isModalActive, setIsModalActive] = React.useState<boolean>(false);
-    const [isErrModalActive, setIsErrModalActive] = React.useState<boolean>(false);
-    const { uniqueCategorie } = ETitleModalErr;
-
-    function switchShowModal() {
-        setIsModalActive((IsModalActive) => !IsModalActive);
-    }
-    function switchShowModalErr() {
-        setIsErrModalActive((isErrModalActive) => !isErrModalActive);
-    }
-
+const Categories: React.FC = observer(() => {
+    const { value: isModalActive, toggle: switchShowModal } = useToggle(false);
+    const { value: isErrModalActive, toggle: switchShowModalErr } = useToggle(false);
 
     return (
         <>
@@ -28,9 +22,7 @@ const Categories:React.FC = observer(() =>{
                 </div>
                 <div className="flex justify-center items-center">
                     <button onClick={switchShowModal} className="rounded-full overflow-hidden hover:scale-110 ">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-10">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
+                        {AddIcon}
                     </button>
                 </div>
             </div>
@@ -39,6 +31,5 @@ const Categories:React.FC = observer(() =>{
         </>
     );
 });
-
 
 export default Categories;

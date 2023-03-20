@@ -10,7 +10,7 @@ import { CloseIcon } from 'widgets/modals/assets/CloseIcon';
 import { IModal } from 'widgets/modals/interfaces/interfaces';
 import { spendingStore } from 'shared/store/cashFlowStore/SpendingStore';
 import { cashDB } from 'server/CashDB';
-import { UserStore } from 'shared/store/userStore/UserStore';
+import { userStore } from 'shared/store/userStore/UserStore';
 
 
 
@@ -33,7 +33,7 @@ const SpendingModal = (props: IModal) => {
 
     async function addNewSpending( newSpending: IFormSpending) {
 
-        await cashDB.addSpending(UserStore.userId, newSpending);
+        await cashDB.addSpending(userStore.userId, newSpending);
         setNewSpending(newSpending.spentMoney, newSpending);
         cleanInputs();
         switchShowModal();

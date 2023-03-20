@@ -1,7 +1,7 @@
 import { db } from 'shared/firebase/firebase';
 import { ref, set, onValue } from 'firebase/database';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
-import { UserStore } from 'shared/store/userStore/UserStore';
+import { userStore } from 'shared/store/userStore/UserStore';
 import { IFormAuth } from 'features/auth/interfaces/interfaces';
 import { incomeStore } from 'shared/store/cashFlowStore/IncomeStore';
 import { spendingStore } from 'shared/store/cashFlowStore/SpendingStore';
@@ -12,10 +12,9 @@ import { AUTH } from './constans';
 
 export class Auth {
 
-
     async registerUser(user: IFormAuth, switchStatus: () => void) {
 
-        createUserWithEmailAndPassword(AUTH, user.email, user.password)
+        await createUserWithEmailAndPassword(AUTH, user.email, user.password)
             .then((data) => {
                 const sctructureUserDB = {
                     id   : data.user.uid,
@@ -27,7 +26,7 @@ export class Auth {
                     .then((data) => localStorage.setItem('token', data.token));
 
                 this.writeUser(data.user.uid, sctructureUserDB);
-                UserStore.setUser(user, data.user.uid);
+                userStore.setUser(user, data.user.uid);
                 switchStatus();
             })
             .catch((error) => new Error(error.message));
@@ -35,7 +34,7 @@ export class Auth {
 
     async writeUser(uid: string, infoUser: any) {
         try {
-            set(ref(db, 'users/' + uid), infoUser);
+            await set(ref(db, 'users/' + uid), infoUser);
         }
         catch (error) {
             throw new Error('Что-то пошло не так');
@@ -44,7 +43,7 @@ export class Auth {
 
     async authorizeUser(email: string, password: string, switchStatus: () => void) {
 
-        signInWithEmailAndPassword(AUTH, email, password)
+        await signInWithEmailAndPassword(AUTH, email, password)
             .then((data) => {
 
                 this.getUserWithDB(data.user.uid);
@@ -60,7 +59,7 @@ export class Auth {
             onValue(userRef, (snapshot) => {
                 const data = snapshot.val();
 
-                UserStore.setUser(data.info, userId);
+                userStore.setUser(data.info, userId);
                 balanceStore.getBalanceWithDB(data.cash.balance);
                 incomeStore.getIncomeWithStore(data.cash.income.allIncome);
                 spendingStore.getSpendingWithDB(data.cash.spending.allSpending);

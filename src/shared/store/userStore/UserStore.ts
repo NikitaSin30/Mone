@@ -19,4 +19,4 @@ export class User implements IUser {
     }
 }
 
-export const UserStore = new User();
+export const userStore = new User();

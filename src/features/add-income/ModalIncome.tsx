@@ -8,7 +8,7 @@ import { IFormCategorie } from './interfaces/interfaces';
 import { IModal } from 'widgets/modals/interfaces/interfaces';
 import { incomeStore } from 'shared/store/cashFlowStore/IncomeStore';
 import { cashDB } from 'server/CashDB';
-import { UserStore } from 'shared/store/userStore/UserStore';
+import { userStore } from 'shared/store/userStore/UserStore';
 
 
 
@@ -31,7 +31,7 @@ const ModalIncome = (props: IModal) => {
         };
 
         incomeStore.addIncome(operation.income);
-        await cashDB.addIncome(UserStore.userId,operation);
+        await cashDB.addIncome(userStore.userId,operation);
 
         reset();
         switchShowModal();
