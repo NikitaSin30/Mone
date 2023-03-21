@@ -1,18 +1,17 @@
 import { SyntheticEvent } from 'react';
 import { useForm } from 'react-hook-form';
-import { CategoriesStore } from 'shared/store/categoriesStore/CategoriesStore';
 import { IFormCategorie } from './interfaces/interfaces';
 import { Button } from 'widgets/modals/ui/button/Button';
 import { Input } from 'widgets/inputs/Input';
 import { CloseIcon } from 'widgets/modals/assets/CloseIcon';
 import { IModal } from 'widgets/modals/interfaces/interfaces';
-
+import { serviceCategories } from './service/serviceCategories';
 
 
 const FormModalCategories = (props: IModal) => {
     const { switchShowModal, switchShowModalErr, isModalActive } = props;
     const styleModal = isModalActive ? 'w-full  h-full bg-opacity-20 bg-black  fixed top-0 left-0 flex items-center justify-center ' : 'hidden';
-    const { categories } = CategoriesStore;
+
     const {
         register,
         reset,
@@ -21,32 +20,14 @@ const FormModalCategories = (props: IModal) => {
     } = useForm<IFormCategorie>({ mode: 'onBlur' });
 
     function setNewCategorie({ categorie }: IFormCategorie): void {
-        const validatedCategorie = categorie.trim().toLowerCase();
-        const newCategorie = validatedCategorie[0].toUpperCase() + validatedCategorie.slice(1);
 
-        checkUniqueNewCategorie(newCategorie);
-    }
-
-    function checkUniqueNewCategorie(categorie: string): void | Function {
-        const isHasCategorie = categories.some((i) => i.categorie === categorie);
-
-        if (isHasCategorie) return showModalError();
-
-        const newCategorie = {
-            categorie  : categorie,
-            spentMoney : 0,
-            id         : categorie,
-        };
-
-        CategoriesStore.setCatigorie(newCategorie);
-        switchShowModal();
+        serviceCategories.midlewareAddCategorie(categorie, showModalError, switchShowModal);
         reset();
     }
 
     function showModalError(): void {
         switchShowModal();
         switchShowModalErr!();
-        reset();
     }
     function onСloseModal(e: SyntheticEvent) {
         e.stopPropagation();

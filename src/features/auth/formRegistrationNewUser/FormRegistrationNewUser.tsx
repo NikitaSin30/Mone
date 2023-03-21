@@ -3,8 +3,7 @@ import { useForm } from 'react-hook-form';
 import { Context, GlobalContext } from 'shared/context/context';
 import { Navigate } from 'react-router';
 import { IFormAuth } from 'features/auth/interfaces/interfaces';
-import { connectBD } from 'server/Auth';
-
+import { serviceAuth } from '../service/serviceAuth';
 
 function FormRegistrationNewUser(): React.ReactElement {
     const { isLogin, onChangeIsLogin }  = React.useContext<GlobalContext>(Context);
@@ -16,8 +15,14 @@ function FormRegistrationNewUser(): React.ReactElement {
     } = useForm<IFormAuth>({ mode: 'onBlur' });
 
 
-    function onModifyNewUser( user: IFormAuth) {
-        connectBD.registerUser(user,onChangeIsLogin);
+    async function onModifyNewUser( user: IFormAuth) {
+        try {
+            await serviceAuth.midlewareRegistration(user, onChangeIsLogin);
+        }
+        catch (error) {
+            console.log('Ошибка');
+
+        }
         reset();
     }
 

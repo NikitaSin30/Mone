@@ -1,26 +1,24 @@
 import React, { SyntheticEvent } from 'react';
 import { useForm } from 'react-hook-form';
-import { CategoriesStore } from 'shared/store/categoriesStore/CategoriesStore';
-import { ICategorie } from 'shared/store/categoriesStore/interfaces/interfaces';
+import { categoriesStore } from 'shared/store/categoriesStore/CategoriesStore';
 import { IFormSpending } from 'features/add-spending/interfaces/interfaces';
 import { Select } from 'widgets/select/Select';
 import { Input } from 'widgets/inputs/Input';
 import { Button } from 'widgets/modals/ui/button/Button';
 import { CloseIcon } from 'widgets/modals/assets/CloseIcon';
 import { IModal } from 'widgets/modals/interfaces/interfaces';
-import { spendingStore } from 'shared/store/cashFlowStore/SpendingStore';
-import { cashDB } from 'server/CashDB';
-import { UserStore } from 'shared/store/userStore/UserStore';
+import { useToggle } from 'shared/hooks/useToggle/useToggle';
+import { serviceSpending } from './service/serviceSpending';
 
 
 
 const SpendingModal = (props: IModal) => {
     const { switchShowModal, isModalActive } = props;
-    const [isActiveSelect, setIsActiveSelect] = React.useState<boolean>(false);
+    const { value: isActiveSelect, toggle: toggleActiveSelect } = useToggle(false);
     const [valueSelect, setValueSelect] = React.useState<string>('');
     const selected = valueSelect ? valueSelect : 'Выберити категию';
     const styleModal = isModalActive ? 'w-full  h-full bg-opacity-20 bg-black  fixed top-0 left-0 flex items-center justify-center ' : 'hidden';
-    const { categories } = CategoriesStore;
+    const { categories } = categoriesStore;
 
     const {
         register,
@@ -31,17 +29,17 @@ const SpendingModal = (props: IModal) => {
     } = useForm<IFormSpending>({ mode: 'onBlur' });
 
 
-    async function addNewSpending( newSpending: IFormSpending) {
+    async function addNewSpending( newSpending : IFormSpending) {
 
-        await cashDB.addSpending(UserStore.userId, newSpending);
-        setNewSpending(newSpending.spentMoney, newSpending);
+        try {
+            await serviceSpending.midlewareAddSpending(newSpending);
+        }
+        catch (error) {
+            console.log('Ошибка');
+        }
+
         cleanInputs();
         switchShowModal();
-    }
-
-    function setNewSpending(spentMoney: number, spending: ICategorie) {
-        spendingStore.addSpending(spentMoney);
-        CategoriesStore.setNewSpandingInCategorie(spending);
     }
 
     function cleanInputs() {
@@ -53,11 +51,6 @@ const SpendingModal = (props: IModal) => {
         setValue('categorie', categorie);
         setValueSelect(categorie);
     } ;
-
-
-    function toggleActiveSelect():void {
-        setIsActiveSelect((isActiveSelect) => !isActiveSelect);
-    }
 
     function onСloseModal(e: SyntheticEvent) {
         e.stopPropagation();

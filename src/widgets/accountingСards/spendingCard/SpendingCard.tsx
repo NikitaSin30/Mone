@@ -5,16 +5,16 @@ import { SpendingIcon } from 'pages/main/assets/SpendingIcon';
 import { CardItem } from '../CardItem/CardItem';
 import { ETitleCard } from 'shared/enums/enums';
 import { spendingStore } from 'shared/store/cashFlowStore/SpendingStore';
+import { useToggle } from 'shared/hooks/useToggle/useToggle';
 
+
+
+const { spendingCard } = ETitleCard;
 
 export const SpendingCard = observer(() =>{
-    const [isModalActive, setIsModalActive] = React.useState<boolean>(false);
+    const { value: isModalActive, toggle: switchShowModal } = useToggle(false);
     const { spending } = spendingStore;
-    const { spendingCard } = ETitleCard;
 
-    function switchShowModal() {
-        setIsModalActive((isModalActive) => !isModalActive);
-    }
 
     return (
         <>

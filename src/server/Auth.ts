@@ -1,7 +1,7 @@
 import { db } from 'shared/firebase/firebase';
 import { ref, set, onValue } from 'firebase/database';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
-import { UserStore } from 'shared/store/userStore/UserStore';
+import { userStore } from 'shared/store/userStore/UserStore';
 import { IFormAuth } from 'features/auth/interfaces/interfaces';
 import { incomeStore } from 'shared/store/cashFlowStore/IncomeStore';
 import { spendingStore } from 'shared/store/cashFlowStore/SpendingStore';
@@ -10,11 +10,15 @@ import { structureCashUser } from './structureBD';
 import { balanceStore } from 'shared/store/cashFlowStore/BalanceStore';
 import { AUTH } from './constans';
 
-export class Auth {
+class Auth {
 
+    async registration(user: IFormAuth, switchStatus: () => void) {
 
+<<<<<<< HEAD
     async registerUser(user: IFormAuth, switchStatus: () => void) {
 
+=======
+>>>>>>> T14_add_dataBase_firebase
         await createUserWithEmailAndPassword(AUTH, user.email, user.password)
             .then((data) => {
                 const sctructureUserDB = {
@@ -27,13 +31,13 @@ export class Auth {
                     .then((data) => localStorage.setItem('token', data.token));
 
                 this.writeUser(data.user.uid, sctructureUserDB);
-                UserStore.setUser(user, data.user.uid);
+                userStore.setUser(user, data.user.uid);
                 switchStatus();
             })
             .catch((error) => new Error(error.message));
     }
 
-    async writeUser(uid: string, infoUser: any) {
+    private async writeUser(uid: string, infoUser: any) {
         try {
             await set(ref(db, 'users/' + uid), infoUser);
         }
@@ -42,9 +46,9 @@ export class Auth {
         }
     }
 
-    async authorizeUser(email: string, password: string, switchStatus: () => void) {
+    async login(email: string, password: string, switchStatus: () => void) {
 
-        signInWithEmailAndPassword(AUTH, email, password)
+        await signInWithEmailAndPassword(AUTH, email, password)
             .then((data) => {
 
                 this.getUserWithDB(data.user.uid);
@@ -53,14 +57,14 @@ export class Auth {
             .catch((error) => new Error(error.message));
     }
 
-    async getUserWithDB(userId: string) {
+    private async getUserWithDB(userId: string) {
         try {
             const userRef = ref(db, 'users/' + userId);
 
             onValue(userRef, (snapshot) => {
                 const data = snapshot.val();
 
-                UserStore.setUser(data.info, userId);
+                userStore.setUser(data.info, userId);
                 balanceStore.getBalanceWithDB(data.cash.balance);
                 incomeStore.getIncomeWithStore(data.cash.income.allIncome);
                 spendingStore.getSpendingWithDB(data.cash.spending.allSpending);
@@ -74,4 +78,4 @@ export class Auth {
 }
 
 
-export const connectBD = new Auth();
+export const auth = new Auth();

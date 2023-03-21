@@ -2,25 +2,20 @@ import { action, makeObservable, observable } from 'mobx';
 import { ITodo, ITask } from './interfaces/interfaces';
 
 
-class ToDo implements ITodo {
-    tasks = [
-        {
-            task   : '',
-            isDone : false,
-            id     : '',
-        },
-    ];
+class ToDoStore implements ITodo {
+    tasks:ITask[] = [];
+
     constructor() {
-        this.tasks = [];
         makeObservable(this, {
             tasks                : observable,
             addTask              : action,
-            onCheckUnique        : action,
             toggleStatusByIdTask : action,
             removeTask           : action,
             removeAllTasks       : action,
         });
     }
+
+
     addTask(task: ITask): void {
         this.tasks.push(task);
     }
@@ -32,17 +27,13 @@ class ToDo implements ITodo {
         this.tasks = [];
     }
 
-    onCheckUnique(task: string): boolean {
-        return this.tasks.some((i) => i.task === task);
-    }
-
     toggleStatusByIdTask(id: string): void {
-        this.tasks.map((i) => {
-            if (i.id === id) i.isDone = !i.isDone;
+        this.tasks.map((task) => {
+            if (task.id === id) task.isDone = !task.isDone;
 
-            return i;
+            return task;
         });
     }
 }
 
-export const ToDoStore = new ToDo();
+export const toDoStore = new ToDoStore();

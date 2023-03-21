@@ -1,29 +1,25 @@
 import { action, makeObservable, observable } from 'mobx';
-import { ICategories,ICategorie } from './interfaces/interfaces';
+import { ICategoriesStore, ICategorie } from './interfaces/interfaces';
 
 
 
-
-class Categories implements ICategories {
-    categories: Array<ICategorie> = [];
+class CategoriesStore implements ICategoriesStore {
+    categories: ICategorie[] = [];
     constructor() {
         makeObservable(this, {
             categories      : observable,
-            setCatigorie    : action,
+            addCatigorie    : action,
             removeCategorie : action,
         });
     }
-    setCatigorie(categorie: ICategorie): void {
+    addCatigorie(categorie: ICategorie): void {
         this.categories.push(categorie);
     }
     removeCategorie(id: string): void {
-        console.log(id);
         this.categories = this.categories.filter((categorie) => categorie.id !== id);
-        console.log(this.categories);
-
     }
 
-    setNewSpandingInCategorie(newSpending: ICategorie): void {
+    updateSpandingInCategorie(newSpending: ICategorie): void {
         this.categories = this.categories.map((categorie) =>
             categorie.id === newSpending.id
                 ? {
@@ -34,4 +30,4 @@ class Categories implements ICategories {
         );
     }
 }
-export const CategoriesStore = new Categories();
+export const categoriesStore = new CategoriesStore();

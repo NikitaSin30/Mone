@@ -3,9 +3,7 @@ import { VALIDATION_STRING, VALIDATION_NUMBER } from './validation/validation';
 
 
 export const Input = (props:IInput) => {
-
     const { register, labelTitle, type }  = props;
-
     const isTypeInputText = type === 'text';
     const validation = isTypeInputText ? VALIDATION_STRING : VALIDATION_NUMBER;
 

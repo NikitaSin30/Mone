@@ -5,13 +5,12 @@ import { Context } from 'shared/context/context';
 import { Navigate } from 'react-router-dom';
 import { GlobalContext } from 'shared/context/context';
 import { IFormAuth } from 'features/auth/interfaces/interfaces';
-import { connectBD } from 'server/Auth';
-
+import { serviceAuth } from '../service/serviceAuth';
 
 
 function FormLogin(): React.ReactElement {
     const { isLogin,onChangeIsLogin } = React.useContext<GlobalContext>(Context);
-    
+
     const {
         register,
         reset,
@@ -20,9 +19,14 @@ function FormLogin(): React.ReactElement {
     } = useForm<IFormAuth>({ mode: 'onBlur' });
 
 
-    function onLogin({ email,password }: IFormAuth): void {
+    async function onLogin({ email,password }: IFormAuth) {
+        try {
+            await serviceAuth.midlewareLogin(email, password, onChangeIsLogin);
+        }
+        catch (error) {
+            console.log('Ошибка');
+        }
 
-        connectBD.authorizeUser(email, password,onChangeIsLogin);
         reset();
     }
 

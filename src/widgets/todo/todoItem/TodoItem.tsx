@@ -1,12 +1,11 @@
 import { DeleteIcon } from 'widgets/todo/assets/DeleteIcon';
-import { ToDoStore } from 'shared/store/toDoStore/ToDoStore';
+import { toDoStore } from 'shared/store/toDoStore/ToDoStore';
 import { ITodoItem } from '../interfaces/interfaces';
 
 
 
 export const ToDoItem =  ( props:ITodoItem ) =>{
     const { task, isDone, id, onToggleStatus } = props;
-
     const completed = isDone ? 'border-green-600' : 'border-red-900';
 
     return (
@@ -22,7 +21,7 @@ export const ToDoItem =  ( props:ITodoItem ) =>{
                 >
                     {isDone && <div className="bg-green-500 h-2 w-2 rounded-full"></div>}
                 </button>
-                <button className="cursor-pointer hover:scale-110" onClick={() => ToDoStore.removeTask(id)}>
+                <button className="cursor-pointer hover:scale-110" onClick={() => toDoStore.removeTask(id)}>
                     {DeleteIcon}
                 </button>
             </div>

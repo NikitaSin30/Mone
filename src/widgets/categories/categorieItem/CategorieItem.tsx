@@ -1,23 +1,21 @@
 import React from 'react';
-import { CategoriesStore } from 'shared/store/categoriesStore/CategoriesStore';
+import { categoriesStore } from 'shared/store/categoriesStore/CategoriesStore';
 import { DeleteModal } from 'widgets/modals/DeleteModal';
 import { ICategorie } from 'shared/store/categoriesStore/interfaces/interfaces';
 import { observer } from 'mobx-react-lite';
 import { DeleteIcon } from 'widgets/todo/assets/DeleteIcon';
-
+import { useToggle } from 'shared/hooks/useToggle/useToggle';
 
 
 export const CategorieItem = observer((props:ICategorie) =>{
     const { categorie, id } = props;
 
-    const [isModalActive,setIsModalActive] = React.useState<boolean>(false);
+    const { value: isModalActive, toggle: switchShowModal } = useToggle(false);
 
-    function switchShowModal(): void {
-        setIsModalActive((isModalActive) => !isModalActive);
-    }
+
     function onSuccesDelete(id:string) {
-        setIsModalActive((isModalActive) => !isModalActive);
-        CategoriesStore.removeCategorie(id);
+        switchShowModal();
+        categoriesStore.removeCategorie(id);
     }
 
     return (
