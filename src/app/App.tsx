@@ -23,7 +23,6 @@ export const App = () => {
     };
 
 
-
     return (
         <>
             <Context.Provider value={context}>
@@ -35,13 +34,11 @@ export const App = () => {
                         <Route path="/notebook" element={isLogin ? <Notebook /> : <Navigate to="/login" />} />
                         <Route path="/notebook/todo" element={isLogin ? <ToDo /> : <Navigate to="/login" />} />
                         <Route path="/notebook/shopList" element={isLogin ? <ShopList /> : <Navigate to="/login" />} />
-                        <Route path="/login" element={<Authorization />} />
-                        <Route path="/registration" element={<Registration />} />
+                        <Route path="/login" element={!isLogin ? <Authorization /> : <Navigate to="/" />} />
+                        <Route path="/registration" element={!isLogin ? <Registration /> : <Navigate to="/" />} />
                     </Route>
                 </Routes>
             </Context.Provider>
         </>
     );
 };
-
-

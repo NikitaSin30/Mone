@@ -4,7 +4,7 @@ import { BuilderTask } from 'features/addTasks/BuilderTask';
 import { TasksList } from 'widgets/todo/todoList/TasksList';
 import ErrorModal from 'widgets/modals/ErrorModal';
 import { ETitleModalErr } from 'shared/enums/enums';
-import { TodoHeader } from './TodoHeader';
+import { TodoHeader } from '../../../widgets/todo/TodoHeader';
 import { useToggle } from 'shared/hooks/useToggle/useToggle';
 
 const { uniqueCategorie } = ETitleModalErr;

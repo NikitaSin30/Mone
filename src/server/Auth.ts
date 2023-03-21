@@ -10,9 +10,9 @@ import { structureCashUser } from './structureBD';
 import { balanceStore } from 'shared/store/cashFlowStore/BalanceStore';
 import { AUTH } from './constans';
 
-export class Auth {
+class Auth {
 
-    async registerUser(user: IFormAuth, switchStatus: () => void) {
+    async registration(user: IFormAuth, switchStatus: () => void) {
 
         await createUserWithEmailAndPassword(AUTH, user.email, user.password)
             .then((data) => {
@@ -32,7 +32,7 @@ export class Auth {
             .catch((error) => new Error(error.message));
     }
 
-    async writeUser(uid: string, infoUser: any) {
+    private async writeUser(uid: string, infoUser: any) {
         try {
             await set(ref(db, 'users/' + uid), infoUser);
         }
@@ -41,7 +41,7 @@ export class Auth {
         }
     }
 
-    async authorizeUser(email: string, password: string, switchStatus: () => void) {
+    async login(email: string, password: string, switchStatus: () => void) {
 
         await signInWithEmailAndPassword(AUTH, email, password)
             .then((data) => {
@@ -52,7 +52,7 @@ export class Auth {
             .catch((error) => new Error(error.message));
     }
 
-    async getUserWithDB(userId: string) {
+    private async getUserWithDB(userId: string) {
         try {
             const userRef = ref(db, 'users/' + userId);
 
@@ -73,4 +73,4 @@ export class Auth {
 }
 
 
-export const connectBD = new Auth();
+export const auth = new Auth();

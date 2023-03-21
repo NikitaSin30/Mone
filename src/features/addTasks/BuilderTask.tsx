@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { ITaskForm , IInputTask } from './interfaces/interfaces';
-import { toDoStore } from 'shared/store/toDoStore/ToDoStore';
+import { serviceTodo } from 'features/addTasks/service/serviceTodo';
 import { Input } from 'widgets/inputs/Input';
 import { Button } from 'widgets/modals/ui/button/Button';
 
@@ -15,7 +15,7 @@ export const BuilderTask = (props:IInputTask) =>{
 
 
     function onCreateTask({ task }: ITaskForm) {
-        toDoStore.addTask(task, switchShowModalErr);
+        serviceTodo.middlewareAddTask(task, switchShowModalErr);
         reset();
     }
 

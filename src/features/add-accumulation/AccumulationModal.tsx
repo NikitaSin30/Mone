@@ -5,10 +5,9 @@ import { Input } from 'widgets/inputs/Input';
 import { Button } from 'widgets/modals/ui/button/Button';
 import { CloseIcon } from 'widgets/modals/assets/CloseIcon';
 import { IModal } from 'widgets/modals/interfaces/interfaces';
-import { accumulationStore } from 'shared/store/cashFlowStore/AccumulationStore';
-import { balanceStore } from 'shared/store/cashFlowStore/BalanceStore';
-import { cashDB } from 'server/CashDB';
-import { userStore } from 'shared/store/userStore/UserStore';
+import { serviceAccumulation } from './service/serviceAccumulation';
+
+
 
 function AccumulationModal(props: IModal): React.ReactElement {
     const { switchShowModal, switchShowModalErr, isModalActive } = props;
@@ -21,28 +20,21 @@ function AccumulationModal(props: IModal): React.ReactElement {
         formState: { errors, isValid },
     } = useForm<IFormAccumulation>({ mode: 'onBlur' });
 
-    function setNewIncome({ accumulation }: IFormAccumulation) {
-        checkHasMoneyForAccumulation(accumulation);
-    }
-
-    function checkHasMoneyForAccumulation(newAccumulation: number) {
-        if (balanceStore.moneyAccount < newAccumulation) return showModalError();
-
-        addAccumulation(newAccumulation);
+    async function onSubmit({ accumulation }: IFormAccumulation) {
+        try {
+            await serviceAccumulation.midlewareAddAccumulation(accumulation, showModalError, switchShowModal);
+        }
+        catch (error) {
+            console.log('Ошибка');
+        }
+        reset();
     }
 
     function showModalError() {
         switchShowModal();
         switchShowModalErr!();
-        reset();
     }
 
-    async function addAccumulation(sum: number) {
-        await cashDB.addAccumulation(userStore.userId,sum);
-        accumulationStore.addAccumulation(sum);
-        reset();
-        switchShowModal();
-    }
     function onСloseModal(e: SyntheticEvent) {
         e.stopPropagation();
         switchShowModal();
@@ -57,7 +49,7 @@ function AccumulationModal(props: IModal): React.ReactElement {
                     </button>
                     <form
                         className="flex flex-1 w-100 gap-1 flex-col  bg text-white py-6 px-8  "
-                        onSubmit={handleSubmit(setNewIncome)}
+                        onSubmit={handleSubmit(onSubmit)}
                         onClick={(e) => e.stopPropagation()}
                     >
                         <span className="text-xl font-bold text-center">Сколько хотите отложить ?</span>

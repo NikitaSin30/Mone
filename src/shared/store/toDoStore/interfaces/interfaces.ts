@@ -6,7 +6,7 @@ export interface ITask {
 
 export interface ITodo {
   tasks: ITask[];
-  addTask: (task: string, fn:()=>void) => void | Function;
+  addTask: (task: ITask) => void;
   removeTask: (id: string) => void;
   toggleStatusByIdTask: (id: string) => void;
   removeAllTasks: () => void;

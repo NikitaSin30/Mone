@@ -7,12 +7,24 @@ export interface IAccumulationStore {
   addAccumulation: (newAccumulation: number) => void;
 }
 
-export interface ISpendingStore {
+export interface ISpendingOperation {
   spending: number;
-  addSpending: (newSpending: number) => void;
+  categorie: string;
+  date: Date;
 }
 
+export interface ISpendingStore {
+  spending: number;
+  spendingOperations: ISpendingOperation[]
+  addSpending: (operation: ISpendingOperation) => void;
+}
+export interface IIncomeOperation {
+  income: number;
+  sphere: string;
+  date: Date;
+}
 export interface IIncomeStore {
   income: number;
-  addIncome: (newItcome: number) => void;
+  incomeOperations: IIncomeOperation[];
+  addIncome: (operation:IIncomeOperation) => void;
 }
