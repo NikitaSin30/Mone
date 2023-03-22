@@ -14,11 +14,6 @@ class Auth {
 
     async registration(user: IFormAuth, switchStatus: () => void) {
 
-<<<<<<< HEAD
-    async registerUser(user: IFormAuth, switchStatus: () => void) {
-
-=======
->>>>>>> T14_add_dataBase_firebase
         await createUserWithEmailAndPassword(AUTH, user.email, user.password)
             .then((data) => {
                 const sctructureUserDB = {

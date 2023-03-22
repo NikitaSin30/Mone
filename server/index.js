@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const authRouter = require('./authRouter');
-const PORT = 5000;
+const PORT = 3000;
 
 const app = express();
 
