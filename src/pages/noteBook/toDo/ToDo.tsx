@@ -12,6 +12,8 @@ const { uniqueCategorie } = ETitleModalErr;
 export const ToDo = observer(()=>{
     const { value: isErrModalActive, toggle: switchShowModalErr } = useToggle(false);
 
+
+
     return (
         <div className=" flex flex-1 flex-col px-3 text-black bg-card   rounded-md w-full shadow-lg">
             <div className="flex-1 flex flex-col h-full w-full ">
