@@ -4,6 +4,8 @@ import { serviceTodo } from 'features/addTasks/service/serviceTodo';
 import { Input } from 'widgets/inputs/Input';
 import { Button } from 'widgets/modals/ui/button/Button';
 
+
+
 export const BuilderTask = (props:IInputTask) =>{
     const { switchShowModalErr } = props;
     const {
@@ -15,8 +17,16 @@ export const BuilderTask = (props:IInputTask) =>{
 
 
     function onAddTask({ task }: ITaskForm) {
-        serviceTodo.middlewareAddTask(task, switchShowModalErr);
-        reset();
+        try {
+            serviceTodo.middlewareAddTask(task, switchShowModalErr);
+        }
+        catch (error) {
+            console.log('Ошибка');
+        }
+        finally {
+            reset();
+        }
+
     }
 
 

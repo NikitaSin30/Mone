@@ -1,4 +1,3 @@
-import { SyntheticEvent } from 'react';
 import { useForm } from 'react-hook-form';
 import { IFormCategorie } from './interfaces/interfaces';
 import { Button } from 'widgets/modals/ui/button/Button';
@@ -19,8 +18,8 @@ const FormModalCategories = (props: IModal) => {
         formState: { errors, isValid },
     } = useForm<IFormCategorie>({ mode: 'onBlur' });
 
-    function onAddCategorie({ categorie }: IFormCategorie): void {
 
+    function onAddCategorie({ categorie }: IFormCategorie): void {
         serviceCategories.midlewareAddCategorie(categorie, showModalError, switchShowModal);
         reset();
     }
@@ -29,28 +28,25 @@ const FormModalCategories = (props: IModal) => {
         switchShowModal();
         switchShowModalErr!();
     }
-    function onСloseModal(e: SyntheticEvent) {
-        e.stopPropagation();
-        switchShowModal();
-    }
 
     return (
         <>
             <div className={styleModal} onClick={switchShowModal}>
-                <div className="flex flex-1 w-full gap-1 flex-col  bg text-white bg-slate-900  rounded-md shadow-lg md:w-1/2 p-1">
-                    <button onClick={(e) => onСloseModal(e)} className="rounded-full w-6 h-6 self-end overflow-hidden hover:scale-110">
+                <form
+                    className="flex flex-1 w-100 gap-1 flex-col  bg-slate-900  text-white"
+                    onSubmit={handleSubmit(onAddCategorie)}
+                    onClick={(e) => e.stopPropagation()}
+                >
+                    <div onClick={switchShowModal} className="rounded-full  w-6 h-6 self-end  hover:scale-110">
                         {CloseIcon}
-                    </button>
-                    <form className="flex flex-1 w-100 gap-1 flex-col  bg text-white"
-                        onSubmit={handleSubmit(onAddCategorie)} onClick={(e) => e.stopPropagation()}>
-                        <span className="text-xl font-bold text-center">Новая категория</span>
-                        <div className="flex justify-between">
-                            <span>Введите категорию</span> {errors?.categorie && <span className="text-red-700">{errors?.categorie?.message || 'Errors'}</span>}
-                        </div>
-                        <Input caseType="textRus" register={register} labelTitle="categorie" />
-                        <Button isValid={isValid} title="Создать" />
-                    </form>
-                </div>
+                    </div>
+                    <span className="text-xl font-bold text-center">Новая категория</span>
+                    <div className="flex justify-between">
+                        <span>Введите категорию</span> {errors?.categorie && <span className="text-red-700">{errors?.categorie?.message || 'Errors'}</span>}
+                    </div>
+                    <Input caseType="textRus" register={register} labelTitle="categorie" />
+                    <Button isValid={isValid} title="Создать" />
+                </form>
             </div>
         </>
     );

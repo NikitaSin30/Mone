@@ -1,4 +1,4 @@
-import React, { SyntheticEvent } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { categoriesStore } from 'shared/store/categoriesStore/CategoriesStore';
 import { IFormSpending } from 'features/add-spending/interfaces/interfaces';
@@ -49,43 +49,37 @@ const SpendingModal = (props: IModal) => {
         setValueSelect(categorie);
     } ;
 
-    function onСloseModal(e: SyntheticEvent) {
-        e.stopPropagation();
-        switchShowModal();
-    }
 
     return (
         <>
             <div className={styleModal} onClick={switchShowModal}>
-                <div className="flex flex-1 w-full gap-1 flex-col  bg text-white bg-slate-900  rounded-md shadow-lg md:w-1/2 p-1 ">
-                    <button onClick={(e) => onСloseModal(e)} className="rounded-full w-6 h-6 self-end overflow-hidden hover:scale-110">
+                <form
+                    className="flex flex-1 w-100 gap-1 flex-col  bg-slate-900 text-white py-6 px-8  "
+                    onSubmit={handleSubmit(onAddSpending)}
+                    onClick={(e) => e.stopPropagation()}
+                >
+                    <div onClick={switchShowModal} className="rounded-full  w-6 h-6 self-end  hover:scale-110">
                         {CloseIcon}
-                    </button>
-                    <form
-                        className="flex flex-1 w-100 gap-1 flex-col  bg text-white py-6 px-8  "
-                        onSubmit={handleSubmit(onAddSpending)}
-                        onClick={(e) => e.stopPropagation()}
-                    >
-                        <span className="text-xl font-bold text-center">Добавить трату</span>
-                        <div className="flex justify-between">
-                            <span>Категория трат</span>
-                        </div>
-                        <Select
-                            isActiveSelect={isActiveSelect}
-                            categories={categories}
-                            getValueSelect={getValueSelect}
-                            selected={selected}
-                            toggleActiveSelect={toggleActiveSelect}
-                            register={register}
-                            labelTitle="categorie"
-                        />
-                        <div className="flex justify-between">
-                            <span>Сумма</span> {errors?.spentMoney && <span className="text-red-700">{errors?.spentMoney?.message || 'Errors'}</span>}
-                        </div>
-                        <Input caseType="number" labelTitle="spentMoney" register={register} />
-                        <Button title="Добавить" isValid={isValid} />
-                    </form>
-                </div>
+                    </div>
+                    <span className="text-xl font-bold text-center">Добавить трату</span>
+                    <div className="flex justify-between">
+                        <span>Категория трат</span>
+                    </div>
+                    <Select
+                        isActiveSelect={isActiveSelect}
+                        categories={categories}
+                        getValueSelect={getValueSelect}
+                        selected={selected}
+                        toggleActiveSelect={toggleActiveSelect}
+                        register={register}
+                        labelTitle="categorie"
+                    />
+                    <div className="flex justify-between">
+                        <span>Сумма</span> {errors?.spentMoney && <span className="text-red-700">{errors?.spentMoney?.message || 'Errors'}</span>}
+                    </div>
+                    <Input caseType="number" labelTitle="spentMoney" register={register} />
+                    <Button title="Добавить" isValid={isValid} />
+                </form>
             </div>
         </>
     );

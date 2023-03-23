@@ -1,4 +1,3 @@
-import { SyntheticEvent } from 'react';
 import { useForm } from 'react-hook-form';
 import { Input } from 'widgets/inputs/Input';
 import { Button } from 'widgets/modals/ui/button/Button';
@@ -29,36 +28,32 @@ const ModalIncome = (props: IModal) => {
             reset();
             switchShowModal();
         }
-
-
     }
 
-    function onСloseModal(e: SyntheticEvent) {
-        e.stopPropagation();
-        switchShowModal();
-    }
 
     return (
         <>
             <div className={styleModal} onClick={switchShowModal}>
-                <div className="flex flex-1 w-full gap-1 flex-col  bg text-white bg-slate-900  rounded-md shadow-lg md:w-1/2 p-1">
-                    <button onClick={(e) => onСloseModal(e)} className="rounded-full w-6 h-6 self-end overflow-hidden hover:scale-110">
+                <form
+                    className="flex flex-1 w-100 bg-slate-900 gap-1 flex-col  bg text-white"
+                    onSubmit={handleSubmit(onAddIncome)}
+                    onClick={(e) => e.stopPropagation()}
+                >
+                    <div onClick={switchShowModal} className="rounded-full w-6 h-6 self-end overflow-hidden hover:scale-110">
                         {CloseIcon}
-                    </button>
-                    <form className="flex flex-1 w-100 gap-1 flex-col  bg text-white" onSubmit={handleSubmit(onAddIncome)} onClick={(e) => e.stopPropagation()}>
-                        <span className="text-xl font-bold text-center">Введите доход</span>
-                        <div className="flex justify-between">
-                            <span>Сфера дохода</span>
-                            {errors?.sphere && <span className="text-red-700">{errors?.sphere?.message || 'Errors'}</span>}
-                        </div>
-                        <Input caseType="textRus" register={register} labelTitle="sphere" />
-                        <div className="flex justify-between">
-                            <span>Cуммa дохода</span> {errors?.income && <span className="text-red-700">{errors?.income?.message || 'Errors'}</span>}
-                        </div>
-                        <Input caseType="number" labelTitle="income" register={register} />
-                        <Button isValid={isValid} title="Добавить" />
-                    </form>
-                </div>
+                    </div>
+                    <span className="text-xl font-bold text-center">Введите доход</span>
+                    <div className="flex justify-between">
+                        <span>Сфера дохода</span>
+                        {errors?.sphere && <span className="text-red-700">{errors?.sphere?.message || 'Errors'}</span>}
+                    </div>
+                    <Input caseType="textRus" register={register} labelTitle="sphere" />
+                    <div className="flex justify-between">
+                        <span>Cуммa дохода</span> {errors?.income && <span className="text-red-700">{errors?.income?.message || 'Errors'}</span>}
+                    </div>
+                    <Input caseType="number" labelTitle="income" register={register} />
+                    <Button isValid={isValid} title="Добавить" />
+                </form>
             </div>
         </>
     );
