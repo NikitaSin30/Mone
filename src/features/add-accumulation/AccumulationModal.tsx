@@ -1,4 +1,4 @@
-import React, { SyntheticEvent } from 'react';
+import React, { SyntheticEvent, LegacyRef, MutableRefObject } from 'react';
 import { useForm } from 'react-hook-form';
 import { IFormAccumulation } from './interfaces/interfaces';
 import { Input } from 'widgets/inputs/Input';
@@ -12,6 +12,7 @@ import { serviceAccumulation } from './service/serviceAccumulation';
 const AccumulationModal = (props: IModal): React.ReactElement => {
     const { switchShowModal, switchShowModalErr, isModalActive } = props;
     const styleModal = isModalActive ? 'w-full  h-full bg-opacity-20 bg-black  fixed top-0 left-0 flex items-center justify-center ' : 'hidden';
+    const refForm = React.useRef<HTMLFormElement>(null);
 
     const {
         register,
@@ -21,6 +22,8 @@ const AccumulationModal = (props: IModal): React.ReactElement => {
     } = useForm<IFormAccumulation>({ mode: 'onBlur' });
 
     async function onAddAccumulation({ accumulation }: IFormAccumulation) {
+        console.log(refForm);
+        
         try {
             await serviceAccumulation.midlewareAddAccumulation(accumulation, showModalError, switchShowModal);
         }
@@ -32,6 +35,11 @@ const AccumulationModal = (props: IModal): React.ReactElement => {
         }
 
     }
+
+    // function fn(event:SyntheticEvent) {
+
+    // }
+
 
     function showModalError() {
         switchShowModal();
@@ -51,6 +59,7 @@ const AccumulationModal = (props: IModal): React.ReactElement => {
                         {CloseIcon}
                     </button>
                     <form
+                        ref={refForm}
                         className="flex flex-1 w-100 gap-1 flex-col  bg text-white py-6 px-8  "
                         onSubmit={handleSubmit(onAddAccumulation)}
                         onClick={(e) => e.stopPropagation()}

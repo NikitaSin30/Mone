@@ -10,6 +10,7 @@ import { useToggle } from 'shared/hooks/useToggle/useToggle';
 const { uniqueCategorie } = ETitleModalErr;
 
 export const ToDo = observer(()=>{
+
     const { value: isErrModalActive, toggle: switchShowModalErr } = useToggle(false);
 
 
