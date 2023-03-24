@@ -19,7 +19,7 @@ class CashDB {
             updates['users/' + userId + '/cash/income/allIncome'] = incomeOperation.income + incomeStore.income;
             updates['users/' + userId + '/cash/balance'] = balanceStore.moneyAccount + incomeOperation.income;
 
-            update(ref(db), updates);
+            await update(ref(db), updates);
         }
         catch (error) {
             throw new Error('Что-то пошло не так');
@@ -35,7 +35,7 @@ class CashDB {
             updates['users/' + userId + '/cash/accumulation/allAccumulation'] = accumulation + accumulationStore.accumulation;
             updates['users/' + userId + '/cash/balance'] = balanceStore.moneyAccount - accumulation;
 
-            update(ref(db), updates);
+            await update(ref(db), updates);
         }
         catch (error) {
             throw new Error('Что-то пошло не так');
@@ -51,7 +51,7 @@ class CashDB {
             updates['users/' + userId + '/cash/spending/allSpending'] = spending.spentMoney + spendingStore.spending;
             updates['users/' + userId + '/cash/balance'] = balanceStore.moneyAccount - spending.spentMoney;
 
-            update(ref(db), updates);
+            await update(ref(db), updates);
         }
         catch (error) {
             throw new Error('Что-то пошло не так');

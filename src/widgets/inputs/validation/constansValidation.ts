@@ -70,6 +70,3 @@ export const VALIDATION_COUNTRY = {
         message : 'Используйте кириллицу',
     },
 };
-
-
-

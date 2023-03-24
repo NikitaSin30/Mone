@@ -1,8 +1,9 @@
 import { useForm } from 'react-hook-form';
 import { ITaskForm , IInputTask } from './interfaces/interfaces';
-import { serviceTodo } from 'features/addTasks/service/serviceTodo';
+import { todoService } from 'features/addTasks/service/todoService';
 import { Input } from 'widgets/inputs/Input';
 import { Button } from 'widgets/modals/ui/button/Button';
+import { Label } from 'widgets/inputs/label/Label';
 
 
 
@@ -18,7 +19,7 @@ export const BuilderTask = (props:IInputTask) =>{
 
     function onAddTask({ task }: ITaskForm) {
         try {
-            serviceTodo.middlewareAddTask(task, switchShowModalErr);
+            todoService.addTask(task, switchShowModalErr);
         }
         catch (error) {
             console.log('Ошибка');
@@ -32,8 +33,8 @@ export const BuilderTask = (props:IInputTask) =>{
 
     return (
         <>
-            <div className="flex justify-between w-full mt-4">{errors?.task && <span className="text-red-700">{errors?.task?.message || 'Errors'}</span>}</div>
-            <form className="flex  w-full" onSubmit={handleSubmit(onAddTask)}>
+            <form className="flex flex-col  w-full" onSubmit={handleSubmit(onAddTask)}>
+                <Label error={errors.task}/>
                 <Input register={register} caseType="text" labelTitle="task" />
                 <Button isValid={isValid} title="Создать" />
             </form>

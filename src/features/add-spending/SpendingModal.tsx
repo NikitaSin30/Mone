@@ -8,7 +8,8 @@ import { Button } from 'widgets/modals/ui/button/Button';
 import { CloseIcon } from 'widgets/modals/assets/CloseIcon';
 import { IModal } from 'widgets/modals/interfaces/interfaces';
 import { useToggle } from 'shared/hooks/useToggle/useToggle';
-import { serviceSpending } from './service/serviceSpending';
+import { spendingService } from './service/serviceSpending';
+import { Label } from 'widgets/inputs/label/Label';
 
 
 
@@ -32,7 +33,7 @@ const SpendingModal = (props: IModal) => {
     async function onAddSpending( newSpending : IFormSpending) {
 
         try {
-            await serviceSpending.midlewareAddSpending(newSpending);
+            await spendingService.addSpending(newSpending);
         }
         catch (error) {
             console.log('Ошибка');
@@ -77,6 +78,7 @@ const SpendingModal = (props: IModal) => {
                     <div className="flex justify-between">
                         <span>Сумма</span> {errors?.spentMoney && <span className="text-red-700">{errors?.spentMoney?.message || 'Errors'}</span>}
                     </div>
+                    <Label error={errors.spentMoney} />
                     <Input caseType="number" labelTitle="spentMoney" register={register} />
                     <Button title="Добавить" isValid={isValid} />
                 </form>

@@ -5,5 +5,5 @@ export interface IFormCategorie {
 }
 
 export interface IServiceIncome {
-  midilwareAddIncome: (income: number, sphere: string) => void;
+  addIncome: (income: number, sphere: string) => void;
 }

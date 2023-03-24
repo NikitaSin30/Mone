@@ -4,7 +4,9 @@ import { Button } from 'widgets/modals/ui/button/Button';
 import { CloseIcon } from 'widgets/modals/assets/CloseIcon';
 import { IFormCategorie } from './interfaces/interfaces';
 import { IModal } from 'widgets/modals/interfaces/interfaces';
-import { serviceIncome } from './service/serviceIncome';
+import { incomeService } from './service/incomeService';
+import { Label } from 'widgets/inputs/label/Label';
+
 
 
 const ModalIncome = (props: IModal) => {
@@ -19,7 +21,7 @@ const ModalIncome = (props: IModal) => {
 
     async function onAddIncome({ income, sphere }: IFormCategorie) {
         try {
-            await serviceIncome.midilwareAddIncome(income,sphere);
+            await incomeService.addIncome(income, sphere);
         }
         catch (error) {
             console.log('Ошибка');
@@ -43,14 +45,9 @@ const ModalIncome = (props: IModal) => {
                         {CloseIcon}
                     </div>
                     <span className="text-xl font-bold text-center">Введите доход</span>
-                    <div className="flex justify-between">
-                        <span>Сфера дохода</span>
-                        {errors?.sphere && <span className="text-red-700">{errors?.sphere?.message || 'Errors'}</span>}
-                    </div>
+                    <Label error={errors.sphere} />
                     <Input caseType="textRus" register={register} labelTitle="sphere" />
-                    <div className="flex justify-between">
-                        <span>Cуммa дохода</span> {errors?.income && <span className="text-red-700">{errors?.income?.message || 'Errors'}</span>}
-                    </div>
+                    <Label error={errors.income} />
                     <Input caseType="number" labelTitle="income" register={register} />
                     <Button isValid={isValid} title="Добавить" />
                 </form>

@@ -5,14 +5,15 @@ import { userStore } from 'shared/store/userStore/UserStore';
 import { IServiceIncome } from '../interfaces/interfaces';
 
 
-class ServiceIncome implements IServiceIncome {
-    async midilwareAddIncome(income:number, sphere:string) {
+class IncomeService implements IServiceIncome {
+    async addIncome(income:number, sphere:string) {
         const createdOperation = this.createOperations(income,sphere);
 
-        incomeStore.addIncome(createdOperation);
-
         try {
-            await cashDB.addIncome(userStore.userId, createdOperation);
+            await cashDB.addIncome(userStore.userId, createdOperation)
+                .then(()=>{
+                    incomeStore.addIncome(createdOperation);
+                });
         }
         catch (error) {
             if (error instanceof Error) {
@@ -23,7 +24,7 @@ class ServiceIncome implements IServiceIncome {
     }
 
     private createOperations(income:number,sphere:string): IIncomeOperation {
-        const operation: IIncomeOperation = {
+        const operation = {
             income : income,
             sphere : sphere,
             date   : new Date(),
@@ -33,4 +34,4 @@ class ServiceIncome implements IServiceIncome {
     }
 }
 
-export const serviceIncome = new ServiceIncome();
+export const incomeService = new IncomeService();

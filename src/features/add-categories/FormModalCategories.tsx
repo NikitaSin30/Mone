@@ -4,7 +4,8 @@ import { Button } from 'widgets/modals/ui/button/Button';
 import { Input } from 'widgets/inputs/Input';
 import { CloseIcon } from 'widgets/modals/assets/CloseIcon';
 import { IModal } from 'widgets/modals/interfaces/interfaces';
-import { serviceCategories } from './service/serviceCategories';
+import { categoriesService } from './service/categoriesService';
+import { Label } from 'widgets/inputs/label/Label';
 
 
 const FormModalCategories = (props: IModal) => {
@@ -20,7 +21,7 @@ const FormModalCategories = (props: IModal) => {
 
 
     function onAddCategorie({ categorie }: IFormCategorie): void {
-        serviceCategories.midlewareAddCategorie(categorie, showModalError, switchShowModal);
+        categoriesService.addCategorie(categorie, showModalError, switchShowModal);
         reset();
     }
 
@@ -41,9 +42,7 @@ const FormModalCategories = (props: IModal) => {
                         {CloseIcon}
                     </div>
                     <span className="text-xl font-bold text-center">Новая категория</span>
-                    <div className="flex justify-between">
-                        <span>Введите категорию</span> {errors?.categorie && <span className="text-red-700">{errors?.categorie?.message || 'Errors'}</span>}
-                    </div>
+                    <Label error={errors.categorie} />
                     <Input caseType="textRus" register={register} labelTitle="categorie" />
                     <Button isValid={isValid} title="Создать" />
                 </form>

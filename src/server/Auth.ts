@@ -11,30 +11,38 @@ import { balanceStore } from 'shared/store/cashFlowStore/BalanceStore';
 import { AUTH } from './constans';
 
 class Auth {
-
     async registration(user: IFormAuth, switchStatus: () => void) {
+        try {
+            await createUserWithEmailAndPassword(AUTH, user.email, user.password)
+                .then((data) => {
+                    const sctructureUserDB = {
+                        id   : data.user.uid,
+                        info : { ...user },
+                        ...structureCashUser,
+                    };
 
-        await createUserWithEmailAndPassword(AUTH, user.email, user.password)
-            .then((data) => {
-                const sctructureUserDB = {
-                    id   : data.user.uid,
-                    info : { ...user },
-                    ...structureCashUser,
-                };
+                    data.user.getIdTokenResult()
+                        .then((data) => localStorage.setItem('token', data.token))
+                        .catch((err) => {
+                            throw new Error(err);
+                        });
 
-                data.user.getIdTokenResult()
-                    .then((data) => localStorage.setItem('token', data.token));
+                    this.writeUser(data.user.uid, sctructureUserDB, switchStatus,user);
+                });
 
-                this.writeUser(data.user.uid, sctructureUserDB);
-                userStore.setUser(user, data.user.uid);
-                switchStatus();
-            })
-            .catch((error) => new Error(error.message));
+        }
+        catch (err) {
+            throw new Error('Что то пошло не так');
+        }
     }
 
-    private async writeUser(uid: string, infoUser: any) {
+    private async writeUser(uid: string, infoUser: any, switchStatus:()=> void, user:IFormAuth) {
         try {
-            await set(ref(db, 'users/' + uid), infoUser);
+            await set(ref(db, 'users/' + uid), infoUser)
+                .then(() => {
+                    userStore.setUser(user, uid);
+                    switchStatus();
+                });
         }
         catch (error) {
             throw new Error('Что-то пошло не так');
@@ -42,14 +50,14 @@ class Auth {
     }
 
     async login(email: string, password: string, switchStatus: () => void) {
-
         await signInWithEmailAndPassword(AUTH, email, password)
             .then((data) => {
-
                 this.getUserWithDB(data.user.uid);
                 switchStatus();
             })
-            .catch((error) => new Error(error.message));
+            .catch((error) => {
+                throw new Error(error.message);
+            });
     }
 
     private async getUserWithDB(userId: string) {

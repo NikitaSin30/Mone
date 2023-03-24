@@ -4,8 +4,8 @@ import { Input } from 'widgets/inputs/Input';
 import { Button } from 'widgets/modals/ui/button/Button';
 import { CloseIcon } from 'widgets/modals/assets/CloseIcon';
 import { IModal } from 'widgets/modals/interfaces/interfaces';
-import { serviceAccumulation } from './service/serviceAccumulation';
-
+import { accumulationService } from './service/AccumulationService';
+import { Label } from 'widgets/inputs/label/Label';
 
 
 const AccumulationModal = (props: IModal): React.ReactElement => {
@@ -24,7 +24,7 @@ const AccumulationModal = (props: IModal): React.ReactElement => {
     async function onAddAccumulation({ accumulation }: IFormAccumulation) {
 
         try {
-            await serviceAccumulation.midlewareAddAccumulation(accumulation, showModalError, switchShowModal);
+            await accumulationService.AddAccumulation(accumulation, showModalError, switchShowModal);
         }
         catch (error) {
             console.log('Ошибка');
@@ -54,9 +54,7 @@ const AccumulationModal = (props: IModal): React.ReactElement => {
                         {CloseIcon}
                     </div>
                     <span className="text-xl font-bold text-center">Сколько хотите отложить ?</span>
-                    <div className="flex justify-between">
-                        <span>Cуммa </span> {errors?.accumulation && <span className="text-red-700">{errors?.accumulation?.message || 'Errors'}</span>}
-                    </div>
+                    <Label error={errors.accumulation}/>
                     <Input caseType="number" labelTitle="accumulation" register={register} />
                     <Button isValid={isValid} title="Добаавить " />
                 </form>

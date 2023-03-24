@@ -7,16 +7,17 @@ import { cashDB } from 'server/CashDB';
 
 
 
-class ServiceSpending {
-    
-    async midlewareAddSpending( newSpending : IFormSpending ) {
+class SpendingService {
+
+    async addSpending( newSpending : IFormSpending ) {
         const createdOperation =  this.createOperations(newSpending.spentMoney, newSpending.categorie);
 
-        spendingStore.addSpending(createdOperation);
-        categoriesStore.updateSpandingInCategorie(newSpending);
-
         try {
-            await cashDB.addSpending(userStore.userId, newSpending);
+            await cashDB.addSpending(userStore.userId, newSpending)
+                .then(()=>{
+                    spendingStore.addSpending(createdOperation);
+                    categoriesStore.updateSpandingInCategorie(newSpending);
+                });
         }
         catch (error) {
             if (error instanceof Error) {
@@ -26,7 +27,7 @@ class ServiceSpending {
     }
 
     private createOperations(spending: number, categorie: string): ISpendingOperation {
-        const operation: ISpendingOperation = {
+        const operation = {
             spending  : spending,
             categorie : categorie,
             date      : new Date(),
@@ -37,4 +38,4 @@ class ServiceSpending {
 }
 
 
-export const serviceSpending = new ServiceSpending();
+export const spendingService = new SpendingService();
