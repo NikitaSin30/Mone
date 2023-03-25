@@ -9,6 +9,7 @@ import { Label } from 'widgets/inputs/label/Label';
 
 
 
+
 function FormRegistrationNewUser(): React.ReactElement {
     const { onChangeIsLogin }  = React.useContext<GlobalContext>(Context);
     const {
@@ -35,13 +36,13 @@ function FormRegistrationNewUser(): React.ReactElement {
     return (
         <form className="flex gap-1   flex-col  bg text-white bg-slate-900 py-6 px-8 rounded-md shadow-lg md:w-1/2" onSubmit={handleSubmit(onRegistration)}>
             <h2 className="text-xl font-bold text-center">Регистрация</h2>
-            <Label error={errors.email} />
+            <Label error={errors.email} nameLabel='Email'/>
             <Input caseType="email" register={register} labelTitle="email" />
-            <Label error={errors.country} />
+            <Label error={errors.country} nameLabel='Страна' />
             <Input caseType="country" register={register} labelTitle="country" />
-            <Label error={errors.nickName} />
+            <Label error={errors.nickName} nameLabel='Nikcname'/>
             <Input caseType="nickname" register={register} labelTitle="nickname" />
-            <Label error={errors.password} />
+            <Label error={errors.password} nameLabel='Пароль' />
             <Input caseType="password" register={register} labelTitle="password" />
             <Button isValid={isValid} title="Зарегистрироваться" />
         </form>

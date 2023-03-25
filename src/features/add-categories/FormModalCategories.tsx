@@ -42,7 +42,7 @@ const FormModalCategories = (props: IModal) => {
                         {CloseIcon}
                     </div>
                     <span className="text-xl font-bold text-center">Новая категория</span>
-                    <Label error={errors.categorie} />
+                    <Label error={errors.categorie} nameLabel='Введите категорию' />
                     <Input caseType="textRus" register={register} labelTitle="categorie" />
                     <Button isValid={isValid} title="Создать" />
                 </form>

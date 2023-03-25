@@ -13,6 +13,7 @@ import { Label } from 'widgets/inputs/label/Label';
 
 
 
+
 const SpendingModal = (props: IModal) => {
     const { switchShowModal, isModalActive } = props;
     const { value: isActiveSelect, toggle: toggleActiveSelect } = useToggle(false);
@@ -78,7 +79,7 @@ const SpendingModal = (props: IModal) => {
                     <div className="flex justify-between">
                         <span>Сумма</span> {errors?.spentMoney && <span className="text-red-700">{errors?.spentMoney?.message || 'Errors'}</span>}
                     </div>
-                    <Label error={errors.spentMoney} />
+                    <Label error={errors.spentMoney}/>
                     <Input caseType="number" labelTitle="spentMoney" register={register} />
                     <Button title="Добавить" isValid={isValid} />
                 </form>

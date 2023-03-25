@@ -24,7 +24,8 @@
     "react-router": "^6.8.0",
     "react-router-dom": "^6.8.0",
     "typescript": "^4.9.4",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "typescript.tsdk": "node_modules/typescript/lib"
   },
   "scripts": {
     "start": "react-scripts start",

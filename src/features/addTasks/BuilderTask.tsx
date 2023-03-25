@@ -7,6 +7,7 @@ import { Label } from 'widgets/inputs/label/Label';
 
 
 
+
 export const BuilderTask = (props:IInputTask) =>{
     const { switchShowModalErr } = props;
     const {
@@ -34,7 +35,7 @@ export const BuilderTask = (props:IInputTask) =>{
     return (
         <>
             <form className="flex flex-col  w-full" onSubmit={handleSubmit(onAddTask)}>
-                <Label error={errors.task}/>
+                <Label error={errors.task} nameLabel='Введите задачу' />
                 <Input register={register} caseType="text" labelTitle="task" />
                 <Button isValid={isValid} title="Создать" />
             </form>
