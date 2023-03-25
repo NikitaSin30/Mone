@@ -1,6 +1,8 @@
 import { Outlet } from 'react-router-dom';
 import AppBar from '../../widgets/appBar/AppBar';
 
+
+
 function Layout(): React.ReactElement {
     return (
         <>

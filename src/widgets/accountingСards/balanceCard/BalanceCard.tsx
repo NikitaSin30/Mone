@@ -4,11 +4,13 @@ import { CardItem } from '../CardItem/CardItem';
 import { ETitleCard } from 'shared/enums/enums';
 import { balanceStore } from 'shared/store/cashFlowStore/BalanceStore';
 
-export const BalanceCard = observer(() => {
 
-    const { balanceCard } = ETitleCard;
+const { balanceCard } = ETitleCard;
+
+export const BalanceCard = observer(() => {
     const { moneyAccount } = balanceStore;
 
+    
     return (
         <>
             <CardItem title={balanceCard} money={moneyAccount} iconCard={WalletIcon} />

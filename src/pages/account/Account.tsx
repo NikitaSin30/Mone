@@ -1,18 +1,12 @@
 import React from 'react';
-import { Navigate } from 'react-router';
-import { Context } from 'shared/context/context';
-import { GlobalContext } from 'shared/context/context';
-import { UserStore } from 'shared/store/userStore/UserStore';
+import { Context,GlobalContext } from 'shared/context/context';
+import { userStore } from 'shared/store/userStore/UserStore';
 
 
 
 const Account = () => {
-    const { isLogin, onChangeIsLogin } = React.useContext<GlobalContext>(Context);
-
-    if (!isLogin) return <Navigate to="/login" />;
-
-    const { email } = UserStore.user;
-
+    const { onChangeIsLogin } = React.useContext<GlobalContext>(Context);
+    const { email } = userStore.user;
 
     return (
         <section className=" flex gap-2  flex-col flex-1 w-6/6">

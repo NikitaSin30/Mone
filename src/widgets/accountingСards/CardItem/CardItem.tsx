@@ -4,9 +4,7 @@ import { ICardItem } from '../interfaces/interfaces';
 
 
 export const CardItem = (props: ICardItem) => {
-    
     const { title, money, iconCard, switchShowModal } = props;
-
     const isOnBalance = title !== 'На счёте';
     const isAddIcon = isOnBalance ? AddIcon : null;
 
