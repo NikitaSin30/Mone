@@ -6,6 +6,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'mobx-react';
 import './shared/firebase/firebase';
 import { userStore } from 'shared/store/userStore/UserStore';
+
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
 root.render(

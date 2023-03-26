@@ -5,7 +5,7 @@ import { IFormAuth } from 'features/auth/interfaces/interfaces';
 
 export class User implements IUser {
     user!: IFormAuth;
-    userId!: string;
+    userId! : string;
     constructor() {
         makeObservable(this, {
             user    : observable,
@@ -13,9 +13,11 @@ export class User implements IUser {
         });
     }
 
-    setUser(user: IFormAuth, userId: string): void {
+    setUser(user: IFormAuth, userID : string) {
         this.user = user;
-        this.userId = userId;
+        this.userId = userID;
+        console.log(this.user);
+        
     }
 }
 

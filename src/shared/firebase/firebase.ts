@@ -15,7 +15,7 @@ const firebaseConfig = {
     databaseURL       : 'https://wallet-accounting-default-rtdb.europe-west1.firebasedatabase.app/',
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 

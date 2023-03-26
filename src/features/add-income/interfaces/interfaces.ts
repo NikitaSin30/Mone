@@ -4,6 +4,4 @@ export interface IFormCategorie {
   sphere: string;
 }
 
-export interface IServiceIncome {
-  midilwareAddIncome: (income: number, sphere: string) => void;
-}
+

@@ -7,10 +7,13 @@ import { ETitleModalErr } from 'shared/enums/enums';
 import { TodoHeader } from '../../../widgets/todo/TodoHeader';
 import { useToggle } from 'shared/hooks/useToggle/useToggle';
 
+
 const { uniqueCategorie } = ETitleModalErr;
 
 export const ToDo = observer(()=>{
+
     const { value: isErrModalActive, toggle: switchShowModalErr } = useToggle(false);
+
 
     return (
         <div className=" flex flex-1 flex-col px-3 text-black bg-card   rounded-md w-full shadow-lg">

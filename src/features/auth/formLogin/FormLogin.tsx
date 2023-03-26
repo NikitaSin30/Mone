@@ -2,14 +2,16 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { Context } from 'shared/context/context';
-import { Navigate } from 'react-router-dom';
 import { GlobalContext } from 'shared/context/context';
 import { IFormAuth } from 'features/auth/interfaces/interfaces';
-import { serviceAuth } from '../service/serviceAuth';
+import { authService } from '../service/serviceAuth';
+import { Input } from 'widgets/inputs/Input';
+import { Button } from 'widgets/modals/ui/button/Button';
 
 
-function FormLogin(): React.ReactElement {
-    const { isLogin,onChangeIsLogin } = React.useContext<GlobalContext>(Context);
+
+const FormLogin = (): React.ReactElement => {
+    const { onChangeIsLogin } = React.useContext<GlobalContext>(Context);
 
     const {
         register,
@@ -21,67 +23,29 @@ function FormLogin(): React.ReactElement {
 
     async function onLogin({ email,password }: IFormAuth) {
         try {
-            await serviceAuth.midlewareLogin(email, password, onChangeIsLogin);
+            await authService.login(email, password, onChangeIsLogin);
         }
         catch (error) {
             console.log('Ошибка');
         }
-
-        reset();
+        finally {
+            reset();
+        }
     }
 
-    return !isLogin ? (
+    return (
+        <>
         <form className="flex gap-1   flex-col  bg text-white bg-slate-900 py-6 px-8 rounded-md shadow-lg md:w-1/2" onSubmit={handleSubmit(onLogin)}>
             <h2 className="text-xl font-bold text-center">Вход</h2>
-            <div className="flex justify-between">
-                <span>Email</span> {errors?.email && <span className="text-red-700">{errors?.email?.message || 'Errors'}</span>}
-            </div>
-            <input
-                className=" flex-1 w-full placeholder-slate-900 text-black font-semibold rounded-md shadow-lg px-2 py-1"
-                type="text"
-                {...register('email', {
-                    required  : 'Обязательное Поле',
-                    minLength : {
-                        value   : 5,
-                        message : 'Минимум 5 символов',
-                    },
-                    pattern : {
-                        value   : /[A-Za-z]{5}/,
-                        message : 'Используйте латиницу',
-                    },
-                })}
-            />
-            <div className="flex justify-between">
-                <span>Пароль</span> {errors?.password && <span className="text-red-700">{errors?.password?.message || 'Error'}</span>}
-            </div>
-            <input
-                type="text"
-                {...register('password', {
-                    required  : 'Обязательное Поле',
-                    minLength : {
-                        value   : 6,
-                        message : 'Минимум 6 символов',
-                    },
-                    pattern : {
-                        value   : /(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,}/g,
-                        message : 'Введите латиницу разных регистров и число',
-                    },
-                })}
-                className=" flex-1 w-full placeholder-slate-900 text-black font-semibold rounded-md shadow-lg px-2 py-1"
-            />
-            <input
-                className="flex-1 w-full placeholder-slate-900 cursor-pointer bg-white text-slate-900 font-semibold py-3 rounded-md shadow-lg "
-                type="submit"
-                value="Войти"
-                disabled={!isValid}
-            />
-            <Link className="text-center hover:scale-110" to="/registration">
-          Зарегистрироваться
-            </Link>
+             <Input caseType="email" register={register} titleRegister="email" errMessage={errors.email?.message} titleLabel='Email'/>
+             <Input caseType="password" register={register} titleRegister="password" errMessage={errors.password?.message} titleLabel='Пароль'/>
+             <Button isValid={isValid} title="Войти" />
+             <Link className="text-center hover:scale-110" to="/registration">
+                Зарегистрироваться
+             </Link>
         </form>
-    ) : (
-        <Navigate to="/" />
+        </>
     );
-}
+};
 
 export default FormLogin;

@@ -1,10 +1,14 @@
-import { auth } from 'server/Auth';
+import { authAPI } from 'api/AuthApi';
 import { IFormAuth } from '../interfaces/interfaces';
+import { userStore } from '../../../shared/store/userStore/UserStore';
+import { IAuthService } from './IAuthService';
 
-class ServiceAuth {
-    async midlewareLogin(email: string, password: string, switchStatus: () => void) {
+
+
+class AuthService implements IAuthService {
+    async login(email: string, password: string, switchStatus: () => void) {
         try {
-            auth.login(email, password, switchStatus);
+            await authAPI.login(email, password, switchStatus);
         }
         catch (error) {
             if (error instanceof Error) {
@@ -13,9 +17,10 @@ class ServiceAuth {
 
         }
     }
-    async midlewareRegistration(user: IFormAuth, switchStatus: () => void) {
+    async registration(user: IFormAuth, switchStatus: () => void) {
         try {
-            await auth.registration(user,switchStatus);
+             authAPI.registration(user,switchStatus)
+             switchStatus();
         }
         catch (error) {
             if (error instanceof Error) {
@@ -26,4 +31,4 @@ class ServiceAuth {
 }
 
 
-export const serviceAuth = new ServiceAuth();
+export const authService = new AuthService();

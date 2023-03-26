@@ -13,10 +13,8 @@ const Main = () => {
     return (
         <>
             <section className="flex flex-col flex-1 gap-3 ">
-                <div
-                    className="flex flex-1  gap-3 w-full flex-col content-start
-                    sm:flex-row sm:justify-center sm:flex-wrap   "
-                >
+                <div className="flex flex-1  gap-3 w-full flex-col content-start
+                    sm:flex-row sm:justify-center sm:flex-wrap   ">
                     <BalanceCard />
                     <IncomeCard />
                     <SpendingCard />
