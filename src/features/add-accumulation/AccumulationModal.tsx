@@ -24,7 +24,7 @@ const AccumulationModal = (props: IModal): React.ReactElement => {
     async function onAddAccumulation({ accumulation }: IFormAccumulation) {
 
         try {
-            await accumulationService.AddAccumulation(accumulation, showModalError, switchShowModal);
+            await accumulationService.addAccumulation( accumulation, showModalError, switchShowModal);
         }
         catch (error) {
             console.log('Ошибка');

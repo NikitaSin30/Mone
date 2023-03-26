@@ -3,21 +3,20 @@ import { spendingStore } from 'shared/store/cashFlowStore/SpendingStore';
 import { categoriesStore } from 'shared/store/categoriesStore/CategoriesStore';
 import { ISpendingOperation } from 'shared/store/cashFlowStore/interfaces/interfaces';
 import { IFormSpending } from '../interfaces/interfaces';
-import { cashDB } from 'server/CashDB';
+import { cashFlowApi } from 'api/CashFlowApi';
+import { ISpendingService } from './interfaces/interfaces';
 
 
-
-class SpendingService {
+class SpendingService implements ISpendingService {
 
     async addSpending( newSpending : IFormSpending ) {
-        const createdOperation =  this.createOperations(newSpending.spentMoney, newSpending.categorie);
+        const createdOperation =  this.createOperation(newSpending.spentMoney, newSpending.categorie);
 
         try {
-            await cashDB.addSpending(userStore.userId, newSpending)
-                .then(()=>{
-                    spendingStore.addSpending(createdOperation);
-                    categoriesStore.updateSpandingInCategorie(newSpending);
-                });
+            await cashFlowApi.addSpending(userStore.userId, newSpending);
+            spendingStore.addSpending(createdOperation);
+            categoriesStore.updateSpandingInCategorie(newSpending);
+
         }
         catch (error) {
             if (error instanceof Error) {
@@ -26,14 +25,12 @@ class SpendingService {
         }
     }
 
-    private createOperations(spending: number, categorie: string): ISpendingOperation {
-        const operation = {
+    private createOperation(spending: number, categorie: string): ISpendingOperation {
+        return {
             spending  : spending,
             categorie : categorie,
             date      : new Date(),
         };
-
-        return operation;
     }
 }
 

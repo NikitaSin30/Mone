@@ -1,9 +1,9 @@
 import { categoriesStore } from 'shared/store/categoriesStore/CategoriesStore';
 import { ICategorie } from 'shared/store/categoriesStore/interfaces/interfaces';
+import { ICategoriesService } from './interfaces/interfaces';
 
 
-
-class CategoriesService {
+class CategoriesService implements ICategoriesService {
 
     addCategorie(categorie: string, showModalError: () => void, switchShowModal:() => void) {
         const categorieValidated = this.validateCategorie(categorie);
@@ -27,13 +27,13 @@ class CategoriesService {
     }
 
     private createCategorie(uniqueCategorie: string): ICategorie {
-        const newCategorie = {
+        return {
             categorie  : uniqueCategorie,
             spentMoney : 0,
             id         : uniqueCategorie,
         };
 
-        return newCategorie;
+
     }
 }
 

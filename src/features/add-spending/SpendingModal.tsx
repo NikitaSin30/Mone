@@ -76,9 +76,6 @@ const SpendingModal = (props: IModal) => {
                         register={register}
                         labelTitle="categorie"
                     />
-                    <div className="flex justify-between">
-                        <span>Сумма</span> {errors?.spentMoney && <span className="text-red-700">{errors?.spentMoney?.message || 'Errors'}</span>}
-                    </div>
                     <Label error={errors.spentMoney}/>
                     <Input caseType="number" labelTitle="spentMoney" register={register} />
                     <Button title="Добавить" isValid={isValid} />

@@ -1,40 +1,39 @@
-import * as Valadation from './constansValidation';
+import * as Validation from './constansValidation';
 
 
 
-export const createValatation = (typeCase: string) => {
+export const createValidation = (typeCase: string) => {
 
     switch (typeCase) {
         case 'email':
             return {
-                type       : 'text',
-                validation : Valadation.VALIDATION_EMAIL,
+                type       : 'email',
+                validation : Validation.VALIDATION_EMAIL,
             };
         case 'password':
             return {
                 type       : 'password',
-                valadation : Valadation.VALIDATION_PASSWORD,
+                validation : Validation.VALIDATION_PASSWORD,
             };
         case 'country':
             return {
                 type       : 'text',
-                valadation : Valadation.VALIDATION_COUNTRY,
+                validation : Validation.VALIDATION_COUNTRY,
             };
         case 'nickname':
             return {
                 type       : 'text',
-                label      : 'nickname',
-                valadation : Valadation.VALIDATION_NICKNAME,
+                validation : Validation.VALIDATION_NICKNAME,
             };
         case 'number':
             return {
                 type       : 'number',
-                valadation : Valadation.VALIDATION_NUMBER,
+                validation : Validation.VALIDATION_NUMBER,
             };
         case 'textRus':
             return {
                 type       : 'text',
-                valadation : Valadation.VALIDATION_STRING,
+                validation : Validation.VALIDATION_STRING,
             };
 
     }

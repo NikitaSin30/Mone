@@ -9,26 +9,25 @@ import { accumulationStore } from 'shared/store/cashFlowStore/AccumulationStore'
 import { structureCashUser } from './structureBD';
 import { balanceStore } from 'shared/store/cashFlowStore/BalanceStore';
 import { AUTH } from './constans';
+import { IAuthApi } from './interfaces/interfaces';
 
-class Auth {
+
+
+
+class AuthApi implements IAuthApi {
     async registration(user: IFormAuth, switchStatus: () => void) {
         try {
-            await createUserWithEmailAndPassword(AUTH, user.email, user.password)
-                .then((data) => {
-                    const sctructureUserDB = {
-                        id   : data.user.uid,
-                        info : { ...user },
-                        ...structureCashUser,
-                    };
+            const response =  await createUserWithEmailAndPassword(AUTH, user.email, user.password);
+            const token = await response.user.getIdTokenResult();
 
-                    data.user.getIdTokenResult()
-                        .then((data) => localStorage.setItem('token', data.token))
-                        .catch((err) => {
-                            throw new Error(err);
-                        });
+            localStorage.setItem('token', token.token );
+            const sctructureUserDB = {
+                id   : response.user.uid,
+                info : { ...user },
+                ...structureCashUser,
+            };
 
-                    this.writeUser(data.user.uid, sctructureUserDB, switchStatus,user);
-                });
+            await this.addUser(response.user.uid, sctructureUserDB, switchStatus,user);
 
         }
         catch (err) {
@@ -36,13 +35,9 @@ class Auth {
         }
     }
 
-    private async writeUser(uid: string, infoUser: any, switchStatus:()=> void, user:IFormAuth) {
+    private async addUser(uid: string, infoUser: any, switchStatus:()=> void, user:IFormAuth) {
         try {
-            await set(ref(db, 'users/' + uid), infoUser)
-                .then(() => {
-                    userStore.setUser(user, uid);
-                    switchStatus();
-                });
+            await set(ref(db, 'users/' + uid), infoUser);
         }
         catch (error) {
             throw new Error('Что-то пошло не так');
@@ -50,17 +45,18 @@ class Auth {
     }
 
     async login(email: string, password: string, switchStatus: () => void) {
-        await signInWithEmailAndPassword(AUTH, email, password)
-            .then((data) => {
-                this.getUserWithDB(data.user.uid);
-                switchStatus();
-            })
-            .catch((error) => {
-                throw new Error(error.message);
-            });
+        try {
+            const response =  await signInWithEmailAndPassword(AUTH, email, password);
+
+            await this.getUser(response.user.uid);
+            switchStatus();
+        }
+        catch (err) {
+            throw new Error('Ошибка');
+        }
     }
 
-    private async getUserWithDB(userId: string) {
+    private async getUser(userId: string) {
         try {
             const userRef = ref(db, 'users/' + userId);
 
@@ -81,4 +77,4 @@ class Auth {
 }
 
 
-export const auth = new Auth();
+export const authAPI = new AuthApi();

@@ -17,13 +17,11 @@ class TodoService implements ITodoService {
         return newTask;
     }
     private createNewTask(validatedTask: string): ITask {
-        const newTask = {
+        return {
             task   : validatedTask,
             isDone : false,
             id     : validatedTask,
         };
-
-        return newTask;
     }
 
     addTask(task: string, includeModalError: () => void): void {
