@@ -23,7 +23,9 @@ function FormRegistrationNewUser(): React.ReactElement {
             await authService.registration(user, onChangeIsLogin);
         }
         catch (error) {
-            console.log('Ошибка');
+            if (error instanceof Error) {
+                return new Error();
+            }
         }
         finally {
             reset();

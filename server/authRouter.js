@@ -6,6 +6,6 @@ const { check } = require('express-validator');
 router.post('/registration', controller.registration);
 router.post('/login', controller.login);
 
-router.get('/users' , controller.getUser);
+// router.get('/user' , controller.getUser);
 
 module.exports = router;

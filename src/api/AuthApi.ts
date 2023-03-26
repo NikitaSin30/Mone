@@ -13,48 +13,50 @@ import { IAuthApi } from './interfaces/interfaces';
 
 
 
-
 class AuthApi implements IAuthApi {
-    async registration(user: IFormAuth, switchStatus: () => void) {
+
+    async registration(user: IFormAuth) {
         try {
-            const response =  await createUserWithEmailAndPassword(AUTH, user.email, user.password);
-            const token = await response.user.getIdTokenResult();
-
-            localStorage.setItem('token', token.token );
-            const sctructureUserDB = {
-                id   : response.user.uid,
-                info : { ...user },
-                ...structureCashUser,
-            };
-
-            await this.addUser(response.user.uid, sctructureUserDB, switchStatus,);
-
+            const response = await fetch("http://localhost:3002/auth/registration", {
+                method: "POST",
+                headers:  {
+                    "Content-Type": "application/json"},
+                body: JSON.stringify(user)
+            })
+            const result = await response.json()
         }
         catch (err) {
+            console.log(err);
             throw new Error('Что то пошло не так');
         }
     }
 
-     async addUser(uid: string, infoUser: any, switchStatus:()=> void) {
-        try {
-            await set(ref(db, 'users/' + uid), infoUser);
-            userStore.setUser(infoUser,uid)
-            switchStatus()
-        }
-        catch (error) {
-            throw new Error('Что-то пошло не так');
-        }
-    }
 
-    async login(email: string, password: string, switchStatus: () => void) {
+    async login(dataLogin:IFormAuth, switchStatus: () => void) {
         try {
-            const response =  await signInWithEmailAndPassword(AUTH, email, password);
-            await this.getUser(response.user.uid);
-            switchStatus();
+            const response = await fetch("http://localhost:3002/auth/login", {
+                method: "POST",
+                headers: {
+                    "Content-type" : "application/json"
+                },
+                body: JSON.stringify(dataLogin)
+            })
+            const res = await response.json()
+            console.log(res);
+            // switchStatus()
+            return res
+        } catch (error) {
+         console.log('ssss');
+
         }
-        catch (err) {
-            throw new Error('Ошибка');
-        }
+        // try {
+        //     const response =  await signInWithEmailAndPassword(AUTH, email, password);
+        //     await this.getUser(response.user.uid);
+        //     switchStatus();
+        // }
+        // catch (err) {
+        //     throw new Error('Ошибка');
+        // }
     }
 
      async getUser(userId: string) {

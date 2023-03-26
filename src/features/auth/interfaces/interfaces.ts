@@ -4,5 +4,3 @@ export interface IFormAuth {
   nickName?: string;
   password: string;
 }
-
-

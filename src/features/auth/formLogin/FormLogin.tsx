@@ -21,9 +21,9 @@ const FormLogin = (): React.ReactElement => {
     } = useForm<IFormAuth>({ mode: 'onBlur' });
 
 
-    async function onLogin({ email,password }: IFormAuth) {
+    async function onLogin(data: IFormAuth) {
         try {
-            await authService.login(email, password, onChangeIsLogin);
+            await authService.login(data, onChangeIsLogin);
         }
         catch (error) {
             console.log('Ошибка');

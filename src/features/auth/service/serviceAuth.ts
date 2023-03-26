@@ -6,21 +6,21 @@ import { IAuthService } from './IAuthService';
 
 
 class AuthService implements IAuthService {
-    async login(email: string, password: string, switchStatus: () => void) {
+    async login(dataLogin:IFormAuth , switchStatus: () => void) {
         try {
-            await authAPI.login(email, password, switchStatus);
+            await authAPI.login(dataLogin, switchStatus);
         }
         catch (error) {
             if (error instanceof Error) {
-                throw new Error(error.message);
+                throw new Error();
             }
 
         }
     }
     async registration(user: IFormAuth, switchStatus: () => void) {
         try {
-             authAPI.registration(user,switchStatus)
-             switchStatus();
+             authAPI.registration(user)
+            //  switchStatus();
         }
         catch (error) {
             if (error instanceof Error) {

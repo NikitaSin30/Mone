@@ -1,4 +1,5 @@
 const User = require('./models/User');
+const CashFlow = require('./models/CashFlow')
 const bcrypt = require('bcryptjs');
 const { generateAccessToken } = require('./generateToken');
 
@@ -7,7 +8,7 @@ const { generateAccessToken } = require('./generateToken');
 class authController {
     async registration(req, res) {
         try {
-            const { firstName,phoneNumber,email,country,nickName,password } = req.body;
+            const {email,country,nickname,password } = req.body;
             const conditate = await User.findOne({ email });
 
             if (conditate) {
@@ -15,23 +16,32 @@ class authController {
             }
             const hashPassword = bcrypt.hashSync(password,6);
             const user = new User({
-                firstName,
-                phoneNumber,
                 email,
                 country,
-                nickName,
+                nickname,
                 password : hashPassword,
             });
+            const cashFlow = new CashFlow({
+            balance : 0,
+            income : 0,
+            incomeOperations : {},
+            accumulation : 0,
+            accumulationOperations : {},
+            spending : 0,
+            spendingOperations   : {},
+            })
 
             await user.save(user);
+            await cashFlow.save(cashFlow)
 
             return res.json({ message: 'Пользователь был создан' });
         }
         catch (error) {
-            console.log(error);
-            res.status(400).json({ message: 'Reg error' });
+            res.status(400).json({ message: 'Regeeee error' });
         }
     }
+
+
     async login(req, res) {
         try {
             const { email, password } = req.body;
@@ -49,23 +59,19 @@ class authController {
 
 
             const token = generateAccessToken(user._id, user.email);
+                return res.json({user,token})
 
-            return res.json({ token });
         }
         catch (error) {
-            console.log(error);
             res.status(400).json({ message: 'Log err' });
-
         }
     }
-    async getUser(req,res) {
+    async getUser(res,user) {
         try {
-            const users = await User.find();
-
-            res.json(users);
+           return res.json(user);
         }
         catch (error) {
-
+         res.json('ошибка')
         }
     }
 }
