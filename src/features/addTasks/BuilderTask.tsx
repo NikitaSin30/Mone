@@ -3,8 +3,6 @@ import { ITaskForm , IInputTask } from './interfaces/interfaces';
 import { todoService } from 'features/addTasks/service/todoService';
 import { Input } from 'widgets/inputs/Input';
 import { Button } from 'widgets/modals/ui/button/Button';
-import { Label } from 'widgets/inputs/label/Label';
-
 
 
 
@@ -35,8 +33,7 @@ export const BuilderTask = (props:IInputTask) =>{
     return (
         <>
             <form className="flex flex-col  w-full" onSubmit={handleSubmit(onAddTask)}>
-                <Label error={errors.task} nameLabel='Введите задачу' />
-                <Input register={register} caseType="text" labelTitle="task" />
+                <Input register={register} caseType="text" titleRegister="task" titleLabel='ВВедите задчу' errMessage={errors.task?.message} />
                 <Button isValid={isValid} title="Создать" />
             </form>
         </>

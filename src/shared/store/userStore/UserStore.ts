@@ -16,6 +16,8 @@ export class User implements IUser {
     setUser(user: IFormAuth, userID : string) {
         this.user = user;
         this.userId = userID;
+        console.log(this.user);
+        
     }
 }
 

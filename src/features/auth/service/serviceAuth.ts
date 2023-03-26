@@ -1,4 +1,4 @@
-import { authAPI } from 'api/Auth';
+import { authAPI } from 'api/AuthApi';
 import { IFormAuth } from '../interfaces/interfaces';
 import { userStore } from '../../../shared/store/userStore/UserStore';
 import { IAuthService } from './IAuthService';
@@ -19,9 +19,8 @@ class AuthService implements IAuthService {
     }
     async registration(user: IFormAuth, switchStatus: () => void) {
         try {
-            await authAPI.registration(user,switchStatus);
-            userStore.setUser(user);
-            switchStatus();
+             authAPI.registration(user,switchStatus)
+             switchStatus();
         }
         catch (error) {
             if (error instanceof Error) {

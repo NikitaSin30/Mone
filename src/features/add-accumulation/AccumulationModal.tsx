@@ -1,3 +1,4 @@
+import React  from "react";
 import { useForm } from 'react-hook-form';
 import { IFormAccumulation } from './interfaces/interfaces';
 import { Input } from 'widgets/inputs/Input';
@@ -5,7 +6,7 @@ import { Button } from 'widgets/modals/ui/button/Button';
 import { CloseIcon } from 'widgets/modals/assets/CloseIcon';
 import { IModal } from 'widgets/modals/interfaces/interfaces';
 import { accumulationService } from './service/AccumulationService';
-import { Label } from 'widgets/inputs/label/Label';
+
 
 
 const AccumulationModal = (props: IModal): React.ReactElement => {
@@ -54,8 +55,7 @@ const AccumulationModal = (props: IModal): React.ReactElement => {
                         {CloseIcon}
                     </div>
                     <span className="text-xl font-bold text-center">Сколько хотите отложить ?</span>
-                    <Label error={errors.accumulation}/>
-                    <Input caseType="number" labelTitle="accumulation" register={register} />
+                    <Input caseType="number" titleRegister="accumulation" register={register} errMessage={errors.accumulation?.message}/>
                     <Button isValid={isValid} title="Добаавить " />
                 </form>
             </div>

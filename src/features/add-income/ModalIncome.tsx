@@ -5,8 +5,6 @@ import { CloseIcon } from 'widgets/modals/assets/CloseIcon';
 import { IFormCategorie } from './interfaces/interfaces';
 import { IModal } from 'widgets/modals/interfaces/interfaces';
 import { incomeService } from './service/incomeService';
-import { Label } from 'widgets/inputs/label/Label';
-
 
 
 
@@ -46,10 +44,8 @@ const ModalIncome = (props: IModal) => {
                         {CloseIcon}
                     </div>
                     <span className="text-xl font-bold text-center">Введите доход</span>
-                    <Label error={errors.sphere} nameLabel='Сфера дохода'/>
-                    <Input caseType="textRus" register={register} labelTitle="sphere" />
-                    <Label error={errors.income} />
-                    <Input caseType="number" labelTitle="income" register={register} />
+                    <Input caseType="textRus" register={register} titleRegister="sphere" titleLabel='Сфера дохода' errMessage={errors.sphere?.message} />
+                    <Input caseType="number" titleRegister="income" register={register} errMessage={errors.income?.message}/>
                     <Button isValid={isValid} title="Добавить" />
                 </form>
             </div>

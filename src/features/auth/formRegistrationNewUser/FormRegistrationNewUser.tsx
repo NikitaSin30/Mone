@@ -5,8 +5,6 @@ import { IFormAuth } from 'features/auth/interfaces/interfaces';
 import { authService } from '../service/serviceAuth';
 import { Input } from 'widgets/inputs/Input';
 import { Button } from 'widgets/modals/ui/button/Button';
-import { Label } from 'widgets/inputs/label/Label';
-
 
 
 
@@ -36,14 +34,10 @@ function FormRegistrationNewUser(): React.ReactElement {
     return (
         <form className="flex gap-1   flex-col  bg text-white bg-slate-900 py-6 px-8 rounded-md shadow-lg md:w-1/2" onSubmit={handleSubmit(onRegistration)}>
             <h2 className="text-xl font-bold text-center">Регистрация</h2>
-            <Label error={errors.email} nameLabel='Email'/>
-            <Input caseType="email" register={register} labelTitle="email" />
-            <Label error={errors.country} nameLabel='Страна' />
-            <Input caseType="country" register={register} labelTitle="country" />
-            <Label error={errors.nickName} nameLabel='Nikcname'/>
-            <Input caseType="nickname" register={register} labelTitle="nickname" />
-            <Label error={errors.password} nameLabel='Пароль' />
-            <Input caseType="password" register={register} labelTitle="password" />
+            <Input caseType="email" register={register} titleRegister="email" titleLabel='Email' errMessage={errors.email?.message} />
+            <Input caseType="country" register={register} titleRegister="country" titleLabel='Страна' errMessage={errors.country?.message} />
+            <Input caseType="nickname" register={register} titleRegister="nickname" titleLabel='Nickname' errMessage={errors.nickName?.message} />
+            <Input caseType="password" register={register} titleRegister="password" titleLabel='Пароль' errMessage={errors.password?.message}/>
             <Button isValid={isValid} title="Зарегистрироваться" />
         </form>
     );

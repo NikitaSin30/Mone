@@ -1,5 +1,4 @@
 import { categoriesStore } from 'shared/store/categoriesStore/CategoriesStore';
-import { ICategorie } from 'shared/store/categoriesStore/interfaces/interfaces';
 import { ICategoriesService } from './interfaces/interfaces';
 
 
@@ -15,18 +14,18 @@ class CategoriesService implements ICategoriesService {
         categoriesStore.addCatigorie(newCategorie);
         switchShowModal();
     }
-    private checkStoreHasCategorie(validatedCategorie: string): boolean {
+     checkStoreHasCategorie(validatedCategorie: string) {
         return categoriesStore.categories.some(({ categorie }) => categorie === validatedCategorie);
     }
 
-    private validateCategorie(categorie: string): string {
+     validateCategorie(categorie: string) {
         const categorieValidated = categorie.trim().toLowerCase();
         const newCategorie = categorieValidated[0].toUpperCase() + categorieValidated.slice(1);
 
         return newCategorie;
     }
 
-    private createCategorie(uniqueCategorie: string): ICategorie {
+     createCategorie(uniqueCategorie: string) {
         return {
             categorie  : uniqueCategorie,
             spentMoney : 0,

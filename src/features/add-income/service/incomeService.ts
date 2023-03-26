@@ -20,7 +20,7 @@ class IncomeService implements IServiceIncome {
         }
     }
 
-    private createOperations(income:number,sphere:string): IIncomeOperation {
+     createOperations(income:number,sphere:string): IIncomeOperation {
         return {
             income : income,
             sphere : sphere,

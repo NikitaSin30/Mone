@@ -1,12 +1,12 @@
-import { ILabel } from './interfaces/interfaces';
+import { ILabel } from "./interfaces/interfaces";
 import { FieldError } from 'react-hook-form';
 
 
 
-export const Label = <T extends FieldError>({ error, nameLabel = 'Сумма' }:ILabel<T> ) => {
+export const Label =({errMessage,titleLabel = 'Сумма'}:ILabel) => {
     return (
         <div className="flex justify-between">
-            <span>{nameLabel} </span> {error && <span className="text-red-700">{error?.message || 'Errors'}</span>}
+            <span>{titleLabel} </span> { <span className="text-red-700">{errMessage}</span>}
         </div>
     );
 };

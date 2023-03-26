@@ -9,8 +9,6 @@ import { CloseIcon } from 'widgets/modals/assets/CloseIcon';
 import { IModal } from 'widgets/modals/interfaces/interfaces';
 import { useToggle } from 'shared/hooks/useToggle/useToggle';
 import { spendingService } from './service/serviceSpending';
-import { Label } from 'widgets/inputs/label/Label';
-
 
 
 
@@ -76,8 +74,7 @@ const SpendingModal = (props: IModal) => {
                         register={register}
                         labelTitle="categorie"
                     />
-                    <Label error={errors.spentMoney}/>
-                    <Input caseType="number" labelTitle="spentMoney" register={register} />
+                    <Input caseType="number" titleRegister="spentMoney" register={register} errMessage={errors.spentMoney?.message} />
                     <Button title="Добавить" isValid={isValid} />
                 </form>
             </div>

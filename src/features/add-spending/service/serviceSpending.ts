@@ -25,7 +25,7 @@ class SpendingService implements ISpendingService {
         }
     }
 
-    private createOperation(spending: number, categorie: string): ISpendingOperation {
+     createOperation(spending: number, categorie: string) {
         return {
             spending  : spending,
             categorie : categorie,

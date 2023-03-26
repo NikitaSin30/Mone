@@ -25,4 +25,3 @@ class AccumulationService implements IAccumulationService {
 }
 
 export const accumulationService = new AccumulationService();
-

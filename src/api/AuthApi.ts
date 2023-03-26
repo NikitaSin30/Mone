@@ -27,7 +27,7 @@ class AuthApi implements IAuthApi {
                 ...structureCashUser,
             };
 
-            await this.addUser(response.user.uid, sctructureUserDB, switchStatus,user);
+            await this.addUser(response.user.uid, sctructureUserDB, switchStatus,);
 
         }
         catch (err) {
@@ -35,9 +35,11 @@ class AuthApi implements IAuthApi {
         }
     }
 
-    private async addUser(uid: string, infoUser: any, switchStatus:()=> void, user:IFormAuth) {
+     async addUser(uid: string, infoUser: any, switchStatus:()=> void) {
         try {
             await set(ref(db, 'users/' + uid), infoUser);
+            userStore.setUser(infoUser,uid)
+            switchStatus()
         }
         catch (error) {
             throw new Error('Что-то пошло не так');
@@ -47,7 +49,6 @@ class AuthApi implements IAuthApi {
     async login(email: string, password: string, switchStatus: () => void) {
         try {
             const response =  await signInWithEmailAndPassword(AUTH, email, password);
-
             await this.getUser(response.user.uid);
             switchStatus();
         }
@@ -56,7 +57,7 @@ class AuthApi implements IAuthApi {
         }
     }
 
-    private async getUser(userId: string) {
+     async getUser(userId: string) {
         try {
             const userRef = ref(db, 'users/' + userId);
 

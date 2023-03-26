@@ -6,17 +6,17 @@ import { ITodoService } from './interfaces/interfaces';
 
 class TodoService implements ITodoService {
 
-    private onCheckUniqueTask(newTask: string): boolean {
+     onCheckUniqueTask(newTask: string) {
         return toDoStore.tasks.some(({ task }) => task === newTask);
     }
 
-    private modifyNewTask(task: string) {
+     modifyNewTask(task: string) {
         const taskValidaited = task.trim().toLowerCase();
         const newTask = taskValidaited[0].toUpperCase() + taskValidaited.slice(1);
 
         return newTask;
     }
-    private createNewTask(validatedTask: string): ITask {
+     createNewTask(validatedTask: string) {
         return {
             task   : validatedTask,
             isDone : false,
