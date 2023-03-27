@@ -1,4 +1,5 @@
+import { IFormAccumulation } from "features/add-accumulation/interfaces/interfaces";
 
 export interface IAccumulationService {
-    addAccumulation:(newAccumulation: number, showModalError: () => void, switchShowModal: () => void) => Promise<any>
+    addAccumulation:(newAccumulation: IFormAccumulation, showModalError: () => void, switchShowModal: () => void) => Promise<any>
 }

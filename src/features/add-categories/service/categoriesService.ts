@@ -1,19 +1,23 @@
 import { categoriesStore } from 'shared/store/categoriesStore/CategoriesStore';
+import { IFormCategorie } from '../interfaces/interfaces';
 import { ICategoriesService } from './interfaces/interfaces';
 
 
 class CategoriesService implements ICategoriesService {
 
-    addCategorie(categorie: string, showModalError: () => void, switchShowModal:() => void) {
+    addCategorie({categorie}: IFormCategorie, showModalError: () => void, switchShowModal:() => void) {
         const categorieValidated = this.validateCategorie(categorie);
         const hasCategorie = this.checkStoreHasCategorie(categorieValidated);
 
-        if (hasCategorie) return showModalError();
+        if (hasCategorie){
+           return showModalError(),switchShowModal()
+        }
         const newCategorie = this.createCategorie(categorieValidated);
 
         categoriesStore.addCatigorie(newCategorie);
         switchShowModal();
     }
+
      checkStoreHasCategorie(validatedCategorie: string) {
         return categoriesStore.categories.some(({ categorie }) => categorie === validatedCategorie);
     }
@@ -28,7 +32,7 @@ class CategoriesService implements ICategoriesService {
      createCategorie(uniqueCategorie: string) {
         return {
             categorie  : uniqueCategorie,
-            spentMoney : 0,
+            spending : 0,
             id         : uniqueCategorie,
         };
 

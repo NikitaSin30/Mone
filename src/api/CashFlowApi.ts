@@ -15,7 +15,7 @@ import { ICashFlowApi } from './interfaces/interfaces';
 class CashFlowApi implements ICashFlowApi {
     async addIncome(userId: string, incomeOperation: IIncomeOperation) {
         try {
-            const newIncomeKey = push(child(ref(db), 'income')).key;
+            const newIncomeKey =  push(child(ref(db), 'income')).key;
             const updates: any = {};
 
             updates['users/' + userId + '/cash/income/operation/' + newIncomeKey] = incomeOperation;
@@ -51,8 +51,8 @@ class CashFlowApi implements ICashFlowApi {
             const updates: any = {};
 
             updates['users/' + userId + '/cash/spending/operation/' + newIncomeKey] = spending;
-            updates['users/' + userId + '/cash/spending/allSpending'] = spending.spentMoney + spendingStore.spending;
-            updates['users/' + userId + '/cash/balance'] = balanceStore.moneyAccount - spending.spentMoney;
+            updates['users/' + userId + '/cash/spending/allSpending'] = spending.spending + spendingStore.spending;
+            updates['users/' + userId + '/cash/balance'] = balanceStore.moneyAccount - spending.spending;
 
             await update(ref(db), updates);
         }

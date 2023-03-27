@@ -1,6 +1,5 @@
 
 
-
 export const AnalysisGraphs = () => {
 
     return (

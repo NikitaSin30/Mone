@@ -1,5 +1,6 @@
 import { ITask } from 'shared/store/toDoStore/interfaces/interfaces';
 import { toDoStore } from 'shared/store/toDoStore/ToDoStore';
+import { ITaskForm } from '../interfaces/interfaces';
 import { ITodoService } from './interfaces/interfaces';
 
 
@@ -24,7 +25,7 @@ class TodoService implements ITodoService {
         };
     }
 
-    addTask(task: string, includeModalError: () => void): void {
+    addTask({task}: ITaskForm, includeModalError: () => void): void {
         const taskValidaited = this.modifyNewTask(task);
         const hasTask = this.onCheckUniqueTask(taskValidaited);
 

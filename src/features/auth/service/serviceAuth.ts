@@ -1,30 +1,30 @@
 import { authAPI } from 'api/AuthApi';
 import { IFormAuth } from '../interfaces/interfaces';
-import { userStore } from '../../../shared/store/userStore/UserStore';
 import { IAuthService } from './IAuthService';
 
 
 
 class AuthService implements IAuthService {
-    async login(email: string, password: string, switchStatus: () => void) {
+    async login( dataUserLogin:IFormAuth , switchShowModal: () => void) {
         try {
-            await authAPI.login(email, password, switchStatus);
+            await authAPI.login(dataUserLogin.email, dataUserLogin.password);
+            switchShowModal()
         }
         catch (error) {
             if (error instanceof Error) {
-                throw new Error(error.message);
+                new Error(error.message);
             }
 
         }
     }
-    async registration(user: IFormAuth, switchStatus: () => void) {
+    async registration(user: IFormAuth, switchShowModal: () => void) {
         try {
-             authAPI.registration(user,switchStatus)
-             switchStatus();
+             await authAPI.registration(user)
+             switchShowModal();
         }
         catch (error) {
             if (error instanceof Error) {
-                throw new Error(error.message);
+                 new Error(error.message);
             }
         }
     }

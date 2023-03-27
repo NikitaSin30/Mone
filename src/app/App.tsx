@@ -5,7 +5,7 @@ import PersonalArea from '../pages/account/Account';
 import Analysis from '../pages/analysis/Analysis';
 import Authorization from '../pages/auth/authorization/Authorization';
 import Registration from '../pages/auth/registration/Registration';
-import { Context, GlobalContext } from 'shared/context/context';
+import { ContextGlobal, IContextGlobal } from 'shared/context/context';
 import Notebook from 'pages/noteBook/Notebook';
 import { ToDo } from 'pages/noteBook/toDo/ToDo';
 import { ShopList } from 'pages/noteBook/shopList/ShopList';
@@ -17,16 +17,15 @@ import { useToggle } from 'shared/hooks/useToggle/useToggle';
 export const App = () => {
     const { value: isLogin, toggle: onChangeIsLogin } = useToggle(false);
 
-    const context: GlobalContext = {
+    const context: IContextGlobal = {
         isLogin,
         onChangeIsLogin,
     };
 
-    
 
     return (
         <>
-            <Context.Provider value={context}>
+            <ContextGlobal.Provider value={context}>
                 <Routes>
                     <Route path="/" element={<Layout />}>
                         <Route index element={isLogin ? <Main /> : <Navigate to="/login" />} />
@@ -39,7 +38,7 @@ export const App = () => {
                         <Route path="/registration" element={!isLogin ? <Registration /> : <Navigate to="/" />} />
                     </Route>
                 </Routes>
-            </Context.Provider>
+            </ContextGlobal.Provider>
         </>
     );
 };

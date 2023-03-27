@@ -24,7 +24,7 @@ class CategoriesStore implements ICategoriesStore {
             categorie.id === newSpending.id
                 ? {
                     ...categorie,
-                    spentMoney : newSpending.spentMoney + categorie.spentMoney,
+                    spentMoney : newSpending.spending + categorie.spending,
                 }
                 : categorie,
         );

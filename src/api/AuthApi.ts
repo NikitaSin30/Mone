@@ -15,7 +15,7 @@ import { IAuthApi } from './interfaces/interfaces';
 
 
 class AuthApi implements IAuthApi {
-    async registration(user: IFormAuth, switchStatus: () => void) {
+    async registration(user: IFormAuth) {
         try {
             const response =  await createUserWithEmailAndPassword(AUTH, user.email, user.password);
             const token = await response.user.getIdTokenResult();
@@ -27,7 +27,7 @@ class AuthApi implements IAuthApi {
                 ...structureCashUser,
             };
 
-            await this.addUser(response.user.uid, sctructureUserDB, switchStatus,);
+            await this.addUser(response.user.uid, sctructureUserDB);
 
         }
         catch (err) {
@@ -35,22 +35,20 @@ class AuthApi implements IAuthApi {
         }
     }
 
-     async addUser(uid: string, infoUser: any, switchStatus:()=> void) {
+     async addUser(uid: string, infoUser: any) {
         try {
             await set(ref(db, 'users/' + uid), infoUser);
             userStore.setUser(infoUser,uid)
-            switchStatus()
         }
         catch (error) {
             throw new Error('Что-то пошло не так');
         }
     }
 
-    async login(email: string, password: string, switchStatus: () => void) {
+    async login(email: string, password: string) {
         try {
             const response =  await signInWithEmailAndPassword(AUTH, email, password);
             await this.getUser(response.user.uid);
-            switchStatus();
         }
         catch (err) {
             throw new Error('Ошибка');

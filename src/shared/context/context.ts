@@ -1,12 +1,20 @@
 import React from 'react';
 
 
-export interface GlobalContext {
+export interface IContextGlobal {
   isLogin: boolean;
   onChangeIsLogin: () => void,
+  // isModalActive:boolean
+  // switchisModalActive:() => void
+  // isErrModalActive: boolean
+  // switchShowModalErr:() => void
 }
 
-export const Context = React.createContext<GlobalContext>({
-    isLogin         : false,
-    onChangeIsLogin : () => null,
+export const ContextGlobal = React.createContext<IContextGlobal>({
+  isLogin         : false,
+  onChangeIsLogin : () => null,
+  // isModalActive:false,
+  // switchisModalActive:() => null,
+  // isErrModalActive: false,
+  // switchShowModalErr:() => null,
 });
