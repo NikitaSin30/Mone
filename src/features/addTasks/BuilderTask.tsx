@@ -18,8 +18,8 @@ export const BuilderTask = () =>{
         handleSubmit,
         formState: { errors,isValid },
     } = useForm<ITaskForm>({ mode: 'onBlur' });
-  const {switchisModalErrActiveTask} = React.useContext<IContextNotebook>(ContextNotebook)
-  const onAddTask = useService(reset,TASK,switchisModalErrActiveTask)
+    const { switchisModalErrActiveTask } = React.useContext<IContextNotebook>(ContextNotebook);
+    const onAddTask = useService(reset,TASK,switchisModalErrActiveTask);
 
 
     return (

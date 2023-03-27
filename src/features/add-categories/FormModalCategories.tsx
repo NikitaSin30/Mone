@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { IFormCategorie } from './interfaces/interfaces';
 import { Button } from 'widgets/modals/ui/button/Button';
@@ -13,9 +13,9 @@ import { TEXT_RUS } from 'widgets/inputs/validation/constans/constans';
 
 
 const FormModalCategories = () => {
-    const {isModalActiveAnalysis,
+    const { isModalActiveAnalysis,
         switchIsModalActiveAnalysis,
-        switchIsModalErrActiveAnalysis} = React.useContext<IContextAnalysis>(ContextAnalysis)
+        switchIsModalErrActiveAnalysis } = React.useContext<IContextAnalysis>(ContextAnalysis);
     const styleModal = isModalActiveAnalysis ? 'w-full  h-full bg-opacity-20 bg-black  fixed top-0 left-0 flex items-center justify-center ' : 'hidden';
 
     const {
@@ -25,7 +25,7 @@ const FormModalCategories = () => {
         formState: { errors, isValid },
     } = useForm<IFormCategorie>({ mode: 'onBlur' });
 
-    const onAddCategorie = useService(reset,CATEGORIE,switchIsModalActiveAnalysis,switchIsModalErrActiveAnalysis)
+    const onAddCategorie = useService(reset,CATEGORIE,switchIsModalActiveAnalysis,switchIsModalErrActiveAnalysis);
 
 
     return (

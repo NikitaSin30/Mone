@@ -8,7 +8,7 @@ class AuthService implements IAuthService {
     async login( dataUserLogin:IFormAuth , switchShowModal: () => void) {
         try {
             await authAPI.login(dataUserLogin.email, dataUserLogin.password);
-            switchShowModal()
+            switchShowModal();
         }
         catch (error) {
             if (error instanceof Error) {
@@ -19,12 +19,12 @@ class AuthService implements IAuthService {
     }
     async registration(user: IFormAuth, switchShowModal: () => void) {
         try {
-             await authAPI.registration(user)
-             switchShowModal();
+            await authAPI.registration(user);
+            switchShowModal();
         }
         catch (error) {
             if (error instanceof Error) {
-                 new Error(error.message);
+                new Error(error.message);
             }
         }
     }

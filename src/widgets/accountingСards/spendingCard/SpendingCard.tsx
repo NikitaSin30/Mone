@@ -12,7 +12,7 @@ import { ContextMain } from 'pages/main/context/context';
 const { spendingCard } = ETitleCard;
 
 export const SpendingCard = observer(() =>{
-    const {switchIsModalActiveSpending} = React.useContext<IContextMain>(ContextMain)
+    const { switchIsModalActiveSpending } = React.useContext<IContextMain>(ContextMain);
     const { spending } = spendingStore;
 
 

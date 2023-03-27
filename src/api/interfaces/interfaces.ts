@@ -1,6 +1,6 @@
 import { IIncomeOperation } from '../../shared/store/cashFlowStore/interfaces/interfaces';
 import { IFormSpending } from '../../features/add-spending/interfaces/interfaces';
-import {IFormAuth} from "../../features/auth/interfaces/interfaces";
+import { IFormAuth } from '../../features/auth/interfaces/interfaces';
 
 export interface ICashFlowApi {
     addIncome:(userId: string, incomeOperation: IIncomeOperation) => Promise<void>;

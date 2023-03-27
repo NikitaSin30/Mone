@@ -11,22 +11,22 @@ import { IContextMain } from './context/interfaces/interfaces';
 
 
 const Main = () => {
- const { value: isModalActiveIncome, toggle: switchIsModalActiveIncome } = useToggle(false);
- const { value: isModalActiveSpending, toggle: switchIsModalActiveSpending } = useToggle(false);
- const { value: isModalActiveAccumulation, toggle: switchisModalActiveAccumulation } = useToggle(false);
- const { value: isModalErrActiveAccumulation, toggle: switchisModalErrActiveAccumulation } = useToggle(false);
+    const { value: isModalActiveIncome, toggle: switchIsModalActiveIncome } = useToggle(false);
+    const { value: isModalActiveSpending, toggle: switchIsModalActiveSpending } = useToggle(false);
+    const { value: isModalActiveAccumulation, toggle: switchisModalActiveAccumulation } = useToggle(false);
+    const { value: isModalErrActiveAccumulation, toggle: switchisModalErrActiveAccumulation } = useToggle(false);
 
 
-   const context:IContextMain = {
-    isModalActiveIncome,
-    switchIsModalActiveIncome,
-    isModalActiveSpending,
-    switchIsModalActiveSpending,
-    isModalActiveAccumulation,
-    switchisModalActiveAccumulation,
-    isModalErrActiveAccumulation,
-    switchisModalErrActiveAccumulation
-   }
+    const context:IContextMain = {
+        isModalActiveIncome,
+        switchIsModalActiveIncome,
+        isModalActiveSpending,
+        switchIsModalActiveSpending,
+        isModalActiveAccumulation,
+        switchisModalActiveAccumulation,
+        isModalErrActiveAccumulation,
+        switchisModalErrActiveAccumulation,
+    };
 
     return (
         <> <ContextMain.Provider value={context}>
@@ -43,7 +43,7 @@ const Main = () => {
                     <CashFlow />
                 </div>
             </section>
-          </ContextMain.Provider>
+        </ContextMain.Provider>
         </>
     );
 };

@@ -11,7 +11,7 @@ import { ContextAnalysis } from 'pages/analysis/context/context';
 const { uniqueCategorie } = ETitleModalErr;
 
 const Categories: React.FC = observer(() => {
-    const {isModalErrActiveAnalysis,switchIsModalErrActiveAnalysis,switchIsModalActiveAnalysis} = React.useContext<IContextAnalysis>(ContextAnalysis)
+    const { isModalErrActiveAnalysis,switchIsModalErrActiveAnalysis,switchIsModalActiveAnalysis } = React.useContext<IContextAnalysis>(ContextAnalysis);
 
 
     return (

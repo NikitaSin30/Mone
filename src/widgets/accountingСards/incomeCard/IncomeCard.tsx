@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { IncomeIcon } from 'pages/main/assets/IncomeIcon';
 import ModalIncome from 'features/add-income/ModalIncome';
 import { observer } from 'mobx-react-lite';
@@ -13,7 +13,7 @@ import { IContextMain } from 'pages/main/context/interfaces/interfaces';
 const { incomeCard } = ETitleCard;
 
 export const IncomeCard = observer(() => {
-    const {switchIsModalActiveIncome} = React.useContext<IContextMain>(ContextMain)
+    const { switchIsModalActiveIncome } = React.useContext<IContextMain>(ContextMain);
     const { income } = incomeStore;
 
     return (

@@ -16,7 +16,7 @@ import { NUMBER } from 'widgets/inputs/validation/constans/constans';
 
 
 const SpendingModal = () => {
-    const {isModalActiveSpending,switchIsModalActiveSpending} = React.useContext<IContextMain>(ContextMain)
+    const { isModalActiveSpending,switchIsModalActiveSpending } = React.useContext<IContextMain>(ContextMain);
     const { value: isActiveSelect, toggle: toggleActiveSelect } = useToggle(false);
     const [valueSelect, setValueSelect] = React.useState<string>('');
     const selected = valueSelect ? valueSelect : 'Выберити категию';
@@ -31,7 +31,7 @@ const SpendingModal = () => {
         formState: { errors,isValid },
     } = useForm<IFormSpending>({ mode: 'onBlur' });
 
-   const onAddSpending = useService(reset, SPENDING ,switchIsModalActiveSpending,undefined,setValueSelect)
+    const onAddSpending = useService(reset, SPENDING ,switchIsModalActiveSpending,undefined,setValueSelect);
 
     function getValueSelect(categorie:string):void {
         setValue('categorie', categorie);

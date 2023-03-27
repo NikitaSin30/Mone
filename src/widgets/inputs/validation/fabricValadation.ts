@@ -1,5 +1,5 @@
 import * as Validation from './constans/constansValidation';
-import * as CASE from './constans/constans'
+import * as CASE from './constans/constans';
 
 
 export const createValidation = (typeCase: string) => {

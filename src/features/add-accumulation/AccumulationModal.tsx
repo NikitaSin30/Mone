@@ -1,17 +1,17 @@
-import React  from "react";
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { IFormAccumulation } from './interfaces/interfaces';
 import { Input } from 'widgets/inputs/Input';
 import { Button } from 'widgets/modals/ui/button/Button';
 import { CloseIcon } from 'widgets/modals/assets/CloseIcon';
-import { useService } from "shared/hooks/useService/useService";
-import { IContextMain } from "pages/main/context/interfaces/interfaces";
-import { ContextMain } from "pages/main/context/context";
-import { ACCUMULATION } from "shared/hooks/useService/constans/constans";
-import { NUMBER } from "widgets/inputs/validation/constans/constans";
+import { useService } from 'shared/hooks/useService/useService';
+import { IContextMain } from 'pages/main/context/interfaces/interfaces';
+import { ContextMain } from 'pages/main/context/context';
+import { ACCUMULATION } from 'shared/hooks/useService/constans/constans';
+import { NUMBER } from 'widgets/inputs/validation/constans/constans';
 
 const AccumulationModal = (): React.ReactElement => {
-    const {isModalActiveAccumulation,switchisModalActiveAccumulation,switchisModalErrActiveAccumulation} = React.useContext<IContextMain>(ContextMain)
+    const { isModalActiveAccumulation,switchisModalActiveAccumulation,switchisModalErrActiveAccumulation } = React.useContext<IContextMain>(ContextMain);
     const styleModal = isModalActiveAccumulation
         ? 'w-full  h-full  bg-opacity-20 bg-black fixed top-0 left-0 flex items-center justify-center '
         : 'hidden';
@@ -23,7 +23,7 @@ const AccumulationModal = (): React.ReactElement => {
         formState: { errors, isValid },
     } = useForm<IFormAccumulation>({ mode: 'onBlur' });
 
-    const onAddAccumulation = useService(reset,ACCUMULATION,switchisModalActiveAccumulation,switchisModalErrActiveAccumulation)
+    const onAddAccumulation = useService(reset,ACCUMULATION,switchisModalActiveAccumulation,switchisModalErrActiveAccumulation);
 
 
     return (

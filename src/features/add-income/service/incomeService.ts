@@ -7,7 +7,7 @@ import { IFormIncome } from '../interfaces/interfaces';
 
 
 class IncomeService implements IServiceIncome {
-    async addIncome({income,sphere}:IFormIncome,switchShowModal:()=>void) {
+    async addIncome({ income,sphere }:IFormIncome,switchShowModal:()=>void) {
         const createdOperation = this.createOperations(income,sphere);
 
         try {
@@ -19,12 +19,12 @@ class IncomeService implements IServiceIncome {
                 throw new Error(error.message);
             }
         }
-        finally{
-        switchShowModal()
+        finally {
+            switchShowModal();
         }
     }
 
-     createOperations(income:number,sphere:string): IIncomeOperation {
+    createOperations(income:number,sphere:string): IIncomeOperation {
         return {
             income : income,
             sphere : sphere,

@@ -14,7 +14,7 @@ const { accumulationCard } = ETitleCard;
 const { accumulationErr } = ETitleModalErr;
 
 export const AccumulationCard = observer(() => {
-    const {isModalErrActiveAccumulation,switchisModalActiveAccumulation,switchisModalErrActiveAccumulation} = React.useContext<IContextMain>(ContextMain)
+    const { isModalErrActiveAccumulation,switchisModalActiveAccumulation,switchisModalErrActiveAccumulation } = React.useContext<IContextMain>(ContextMain);
     const { accumulation } = accumulationStore;
 
 

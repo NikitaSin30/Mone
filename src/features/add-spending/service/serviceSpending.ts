@@ -23,11 +23,11 @@ class SpendingService implements ISpendingService {
             }
         }
         finally {
-            switchShowModal()
+            switchShowModal();
         }
     }
 
-     createOperation(spending: number, categorie: string) {
+    createOperation(spending: number, categorie: string) {
         return {
             spending  : spending,
             categorie : categorie,

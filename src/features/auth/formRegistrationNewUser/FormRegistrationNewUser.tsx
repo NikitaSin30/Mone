@@ -11,7 +11,7 @@ import { EMAIL,PASSWORD,COUNTRY,NICKNAME } from 'widgets/inputs/validation/const
 
 
 function FormRegistrationNewUser(): React.ReactElement {
-    const {onChangeIsLogin} = React.useContext<IContextGlobal>(ContextGlobal)
+    const { onChangeIsLogin } = React.useContext<IContextGlobal>(ContextGlobal);
 
     const {
         register,
@@ -20,7 +20,7 @@ function FormRegistrationNewUser(): React.ReactElement {
         formState: { errors, isValid },
     } = useForm<IFormAuth>({ mode: 'onBlur' });
 
-    const onRegistration = useService(reset,REGISTRATION,onChangeIsLogin)
+    const onRegistration = useService(reset,REGISTRATION,onChangeIsLogin);
 
     return (
         <form className="flex gap-1 w-full  flex-col  bg text-white bg-slate-900 py-6 px-8 rounded-md shadow-lg md:w-1/2" onSubmit={handleSubmit(onRegistration)}>

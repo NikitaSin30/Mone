@@ -7,9 +7,9 @@ import { IFormAccumulation } from '../interfaces/interfaces';
 
 
 class AccumulationService implements IAccumulationService {
-    async addAccumulation({accumulation}: IFormAccumulation, showModalError: () => void, switchShowModal: () => void) {
+    async addAccumulation({ accumulation }: IFormAccumulation, showModalError: () => void, switchShowModal: () => void) {
         if (balanceStore.moneyAccount < accumulation)
-        return showModalError(),switchShowModal()
+            return showModalError(),switchShowModal();
 
         try {
             await cashFlowApi.addAccumulation(userStore.userId, accumulation);

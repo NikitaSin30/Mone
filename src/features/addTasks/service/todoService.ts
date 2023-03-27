@@ -7,17 +7,17 @@ import { ITodoService } from './interfaces/interfaces';
 
 class TodoService implements ITodoService {
 
-     onCheckUniqueTask(newTask: string) {
+    onCheckUniqueTask(newTask: string) {
         return toDoStore.tasks.some(({ task }) => task === newTask);
     }
 
-     modifyNewTask(task: string) {
+    modifyNewTask(task: string) {
         const taskValidaited = task.trim().toLowerCase();
         const newTask = taskValidaited[0].toUpperCase() + taskValidaited.slice(1);
 
         return newTask;
     }
-     createNewTask(validatedTask: string) {
+    createNewTask(validatedTask: string) {
         return {
             task   : validatedTask,
             isDone : false,
@@ -25,7 +25,7 @@ class TodoService implements ITodoService {
         };
     }
 
-    addTask({task}: ITaskForm, includeModalError: () => void): void {
+    addTask({ task }: ITaskForm, includeModalError: () => void): void {
         const taskValidaited = this.modifyNewTask(task);
         const hasTask = this.onCheckUniqueTask(taskValidaited);
 

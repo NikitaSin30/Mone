@@ -5,25 +5,25 @@ import { ContextAnalysis } from './context/context';
 import { IContextAnalysis } from './context/interfaces/interfaces';
 
 const Analysis = () => {
- const { value: isModalActiveAnalysis, toggle: switchIsModalActiveAnalysis } = useToggle(false);
- const { value: isModalErrActiveAnalysis, toggle: switchIsModalErrActiveAnalysis } = useToggle(false);
+    const { value: isModalActiveAnalysis, toggle: switchIsModalActiveAnalysis } = useToggle(false);
+    const { value: isModalErrActiveAnalysis, toggle: switchIsModalErrActiveAnalysis } = useToggle(false);
 
- const context:IContextAnalysis = {
-     isModalActiveAnalysis,
-   switchIsModalActiveAnalysis,
-   isModalErrActiveAnalysis,
-   switchIsModalErrActiveAnalysis,
- }
+    const context:IContextAnalysis = {
+        isModalActiveAnalysis,
+        switchIsModalActiveAnalysis,
+        isModalErrActiveAnalysis,
+        switchIsModalErrActiveAnalysis,
+    };
 
     return (
-       <ContextAnalysis.Provider value={context}>
-        <section className=" flex  flex-col flex-1 ">
-            <div className=" flex gap-2  flex-col flex-1 ">
-                <AnalysisGraphs/>
-                <Categories/>
-            </div>
-        </section>
-    </ContextAnalysis.Provider>
+        <ContextAnalysis.Provider value={context}>
+            <section className=" flex  flex-col flex-1 ">
+                <div className=" flex gap-2  flex-col flex-1 ">
+                    <AnalysisGraphs/>
+                    <Categories/>
+                </div>
+            </section>
+        </ContextAnalysis.Provider>
     );
 };
 

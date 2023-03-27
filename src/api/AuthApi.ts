@@ -35,10 +35,10 @@ class AuthApi implements IAuthApi {
         }
     }
 
-     async addUser(uid: string, infoUser: any) {
+    async addUser(uid: string, infoUser: any) {
         try {
             await set(ref(db, 'users/' + uid), infoUser);
-            userStore.setUser(infoUser,uid)
+            userStore.setUser(infoUser,uid);
         }
         catch (error) {
             throw new Error('Что-то пошло не так');
@@ -48,6 +48,7 @@ class AuthApi implements IAuthApi {
     async login(email: string, password: string) {
         try {
             const response =  await signInWithEmailAndPassword(AUTH, email, password);
+
             await this.getUser(response.user.uid);
         }
         catch (err) {
@@ -55,7 +56,7 @@ class AuthApi implements IAuthApi {
         }
     }
 
-     async getUser(userId: string) {
+    async getUser(userId: string) {
         try {
             const userRef = ref(db, 'users/' + userId);
 
