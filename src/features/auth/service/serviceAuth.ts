@@ -19,8 +19,7 @@ class AuthService implements IAuthService {
     }
     async registration(user: IFormAuth, switchStatus: () => void) {
         try {
-             authAPI.registration(user,switchStatus)
-             switchStatus();
+            await authAPI.registration(user,switchStatus)
         }
         catch (error) {
             if (error instanceof Error) {

@@ -15,7 +15,7 @@ class SpendingService implements ISpendingService {
         try {
             await cashFlowApi.addSpending(userStore.userId, newSpending);
             spendingStore.addSpending(createdOperation);
-            categoriesStore.updateSpandingInCategorie(newSpending);
+            categoriesStore.updateSpandingInCategorie(newSpending.categorie,newSpending.spentMoney);
 
         }
         catch (error) {

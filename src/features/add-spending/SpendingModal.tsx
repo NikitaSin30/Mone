@@ -30,7 +30,7 @@ const SpendingModal = (props: IModal) => {
 
 
     async function onAddSpending( newSpending : IFormSpending) {
-
+        
         try {
             await spendingService.addSpending(newSpending);
         }

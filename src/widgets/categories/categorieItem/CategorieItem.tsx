@@ -5,7 +5,7 @@ import { ICategorie } from 'shared/store/categoriesStore/interfaces/interfaces';
 import { observer } from 'mobx-react-lite';
 import { DeleteIcon } from 'widgets/todo/assets/DeleteIcon';
 import { useToggle } from 'shared/hooks/useToggle/useToggle';
-
+import { categoriesService } from 'features/add-categories/service/categoriesService';
 
 export const CategorieItem = observer((props:ICategorie) =>{
     const { categorie, id } = props;
@@ -15,7 +15,7 @@ export const CategorieItem = observer((props:ICategorie) =>{
 
     function onSuccesDelete(id:string) {
         switchShowModal();
-        categoriesStore.removeCategorie(id);
+        categoriesService.deleteCategorie(id);
     }
 
     return (
