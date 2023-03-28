@@ -9,7 +9,7 @@ export interface ICashFlowApi {
 }
 
 export interface IAuthApi {
-    registration:(user: IFormAuth, switchStatus: () => void) => Promise<void>;
-    login:(loginData: IFormAuth, switchStatus: () => void) => Promise<void>
+    registration:(user: IFormAuth) => Promise<void>;
+    login:(loginData: IFormAuth) => Promise<void>
 
 }

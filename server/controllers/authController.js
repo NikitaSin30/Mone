@@ -1,7 +1,7 @@
-const User = require('./models/User');
-const CashFlow = require('./models/CashFlow')
+const User = require('../modelsMongo/User');
+const CashFlow = require('../modelsMongo/CashFlow')
 const bcrypt = require('bcryptjs');
-const { generateAccessToken } = require('./generateToken');
+const { generateAccessToken } = require('../token/generateToken');
 
 
 
@@ -34,7 +34,9 @@ class authController {
             await user.save(user);
             await cashFlow.save(cashFlow)
 
-            return res.json({ message: 'Пользователь был создан' });
+            const createdUser = await User.findOne({ email })
+            
+            return res.json({ createdUser });
         }
         catch (error) {
             res.status(400).json({ message: 'Regeeee error' });
@@ -63,7 +65,7 @@ class authController {
 
         }
         catch (error) {
-            res.status(400).json({ message: 'Log err' });
+           return res.status(400).json({ message: 'Log err' });
         }
     }
     async getUser(res,user) {

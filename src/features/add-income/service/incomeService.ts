@@ -10,7 +10,7 @@ class IncomeService implements IServiceIncome {
         const createdOperation = this.createOperations(income,sphere);
 
         try {
-            await cashFlowApi.addIncome(userStore.userId, createdOperation);
+            await cashFlowApi.addIncome(userStore.user._id, createdOperation);
             incomeStore.addIncome(createdOperation);
         }
         catch (error) {
@@ -19,7 +19,6 @@ class IncomeService implements IServiceIncome {
             }
         }
     }
-
      createOperations(income:number,sphere:string): IIncomeOperation {
         return {
             income : income,

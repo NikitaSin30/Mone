@@ -10,7 +10,7 @@ class AccumulationService implements IAccumulationService {
         if (balanceStore.moneyAccount < newAccumulation) return showModalError();
 
         try {
-            await cashFlowApi.addAccumulation(userStore.userId, newAccumulation);
+            await cashFlowApi.addAccumulation(userStore.user._id, newAccumulation);
             accumulationStore.addAccumulation(newAccumulation);
         }
         catch (error) {

@@ -3,4 +3,5 @@ export interface IFormAuth {
   country?: string;
   nickName?: string;
   password: string;
+  _id: string,
 }

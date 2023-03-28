@@ -13,7 +13,7 @@ class SpendingService implements ISpendingService {
         const createdOperation =  this.createOperation(newSpending.spentMoney, newSpending.categorie);
 
         try {
-            await cashFlowApi.addSpending(userStore.userId, newSpending);
+            await cashFlowApi.addSpending(userStore.user._id, newSpending);
             spendingStore.addSpending(createdOperation);
             categoriesStore.updateSpandingInCategorie(newSpending);
 

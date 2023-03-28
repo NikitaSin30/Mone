@@ -6,9 +6,15 @@ import { IAuthService } from './IAuthService';
 
 
 class AuthService implements IAuthService {
-    async login(dataLogin:IFormAuth , switchStatus: () => void) {
+    async login(dataLogin:IFormAuth , switchUI: () => void) {
         try {
-            await authAPI.login(dataLogin, switchStatus);
+           const res = await authAPI.login(dataLogin);
+        //    тут надо метод чтобы цеплять текст ui ?
+        console.log(res);
+
+           switchUI()
+           userStore.setUser(res.user)
+
         }
         catch (error) {
             if (error instanceof Error) {
@@ -17,10 +23,12 @@ class AuthService implements IAuthService {
 
         }
     }
-    async registration(user: IFormAuth, switchStatus: () => void) {
+    async registration(user: IFormAuth, switchUI: () => void) {
         try {
-             authAPI.registration(user)
-            //  switchStatus();
+            const res =  await authAPI.registration(user)
+        //    тут надо метод чтобы цеплять текст ui ?
+         switchUI();
+         userStore.setUser(res.createdUser)
         }
         catch (error) {
             if (error instanceof Error) {

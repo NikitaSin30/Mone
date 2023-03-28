@@ -23,7 +23,14 @@ class AuthApi implements IAuthApi {
                     "Content-Type": "application/json"},
                 body: JSON.stringify(user)
             })
+             if(!response.ok) {
+                throw new Error()
+             }
+             console.log(response);
+
             const result = await response.json()
+
+            return result
         }
         catch (err) {
             console.log(err);
@@ -32,7 +39,7 @@ class AuthApi implements IAuthApi {
     }
 
 
-    async login(dataLogin:IFormAuth, switchStatus: () => void) {
+    async login(dataLogin:IFormAuth) {
         try {
             const response = await fetch("http://localhost:3002/auth/login", {
                 method: "POST",
@@ -41,22 +48,16 @@ class AuthApi implements IAuthApi {
                 },
                 body: JSON.stringify(dataLogin)
             })
+             if(!response.ok) {
+                throw new Error()
+             }
             const res = await response.json()
-            console.log(res);
-            // switchStatus()
             return res
         } catch (error) {
-         console.log('ssss');
+         throw new Error();
+
 
         }
-        // try {
-        //     const response =  await signInWithEmailAndPassword(AUTH, email, password);
-        //     await this.getUser(response.user.uid);
-        //     switchStatus();
-        // }
-        // catch (err) {
-        //     throw new Error('Ошибка');
-        // }
     }
 
      async getUser(userId: string) {
@@ -66,7 +67,7 @@ class AuthApi implements IAuthApi {
             onValue(userRef, (snapshot) => {
                 const data = snapshot.val();
 
-                userStore.setUser(data.info, userId);
+                userStore.setUser(data.info);
                 balanceStore.getBalanceWithDB(data.cash.balance);
                 incomeStore.getIncomeWithStore(data.cash.income.allIncome);
                 spendingStore.getSpendingWithDB(data.cash.spending.allSpending);
