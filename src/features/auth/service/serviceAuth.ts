@@ -1,7 +1,7 @@
-import { authAPI } from 'api/AuthApi';
+import { authAPI } from 'api/authApi';
 import { IFormAuth } from '../interfaces/interfaces';
 import { userStore } from '../../../shared/store/userStore/UserStore';
-import { IAuthService } from './IAuthService';
+import { IAuthService } from './interfaces/IAuthService';
 
 
 

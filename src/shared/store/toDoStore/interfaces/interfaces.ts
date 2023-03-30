@@ -1,13 +1,15 @@
 export interface ITask {
   task: string;
-  isDone: boolean;
   id: string;
+  isDone: boolean;
+  key: string | null;
 }
 
-export interface ITodo {
+export interface ITodoStore {
   tasks: ITask[];
   addTask: (task: ITask) => void;
   removeTask: (id: string) => void;
   toggleStatusByIdTask: (id: string) => void;
   removeAllTasks: () => void;
+  getTask:(id:string) => ITask
 }

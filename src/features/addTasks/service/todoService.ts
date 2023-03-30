@@ -1,39 +1,50 @@
 import { ITask } from 'shared/store/toDoStore/interfaces/interfaces';
 import { toDoStore } from 'shared/store/toDoStore/ToDoStore';
 import { ITodoService } from './interfaces/interfaces';
-
-
-
+import { todoApi } from 'api/todoApi';
+import { userStore } from 'shared/store/userStore/UserStore';
+import { mapperModificationString } from 'shared/mappers/mapperModificationString';
 class TodoService implements ITodoService {
 
-     onCheckUniqueTask(newTask: string) {
-        return toDoStore.tasks.some(({ task }) => task === newTask);
+  async addTask(task: string, includeModalError: () => void) {
+    const taskValidaited = mapperModificationString(task);
+    const hasTask = this.onCheckUniqueTask(taskValidaited);
+
+    if (hasTask) return includeModalError();
+
+    try {
+         const res : ITask = await todoApi.addTask(task,userStore.userId)
+         toDoStore.addTask(res);
+
+    } catch (error) {
+
     }
+  }
 
-     modifyNewTask(task: string) {
-        const taskValidaited = task.trim().toLowerCase();
-        const newTask = taskValidaited[0].toUpperCase() + taskValidaited.slice(1);
+  async deleteTask(id: string) {
+         try {
 
-        return newTask;
-    }
-     createNewTask(validatedTask: string) {
-        return {
-            task   : validatedTask,
-            isDone : false,
-            id     : validatedTask,
-        };
-    }
+            const task: ITask  = toDoStore.getTask(id)
+            await todoApi.deleteTask(task.key!, userStore.userId);
+             toDoStore.removeTask(id)
 
-    addTask(task: string, includeModalError: () => void): void {
-        const taskValidaited = this.modifyNewTask(task);
-        const hasTask = this.onCheckUniqueTask(taskValidaited);
+         } catch (error) {
+           return new Error()
+         }
+  }
+  onCheckUniqueTask(newTask: string) {
+    return toDoStore.tasks.some(({ task }) => task === newTask);
+  }
 
-        if (hasTask) return includeModalError();
 
-        const newTask = this.createNewTask(taskValidaited);
-
-        toDoStore.addTask(newTask);
-    }
+  createNewTask(validatedTask: string, key:string) {
+    return {
+      task: validatedTask,
+      isDone: false,
+      id: validatedTask,
+      key: key
+    };
+  }
 }
 
 

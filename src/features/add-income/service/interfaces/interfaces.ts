@@ -2,5 +2,4 @@ import { IIncomeOperation } from '../../../../shared/store/cashFlowStore/interfa
 
 export interface IServiceIncome {
     addIncome: (income: number, sphere: string) => Promise<void>;
-    createOperations:(income:number,sphere:string) => IIncomeOperation
 }

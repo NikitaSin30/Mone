@@ -1,25 +1,27 @@
 import { ref, child, push, update, remove } from 'firebase/database';
 import { db } from 'shared/firebase/firebase';
-import { IFormCategorie } from 'features/add-income/interfaces/interfaces';
 
 
 
 class CategoriesApi {
+  
   async addCategorie(categorie: string,userId:string) {
-    const categorieItem = {
-        [categorie] : {
-        spending: 0
-        }
-    }
-    try {
 
+    try {
       const newCategorieKey = push(child(ref(db), 'categorie')).key;
+      const categorieItem = {
+         categorie: categorie,
+         id: categorie,
+         spentMoney: 0,
+         key: newCategorieKey
+        }
+
       const updates: any = {};
       updates['users/' + userId + '/categories/' + newCategorieKey] = categorieItem;
 
       await update(ref(db), updates);
 
-      return newCategorieKey
+      return categorieItem
     } catch (error) {
       throw new Error('Что-то пошло не так');
     }

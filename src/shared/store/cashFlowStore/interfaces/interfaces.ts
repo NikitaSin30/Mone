@@ -2,15 +2,27 @@ export interface IBalanceStore {
   moneyAccount: number;
 
 }
+
+
+export interface IAccumulationOperation {
+  accumulation: number;
+  date: Date;
+  key: string | null;
+}
 export interface IAccumulationStore {
   accumulation: number;
-  addAccumulation: (newAccumulation: number) => void;
+  accumulationOperation: IAccumulationOperation[];
+  addAccumulation: (newAccumulation: IAccumulationOperation) => void;
 }
+
+
+
 
 export interface ISpendingOperation {
   spending: number;
   categorie: string;
   date: Date;
+  key: string | null
 }
 
 export interface ISpendingStore {
@@ -18,10 +30,14 @@ export interface ISpendingStore {
   spendingOperations: ISpendingOperation[]
   addSpending: (operation: ISpendingOperation) => void;
 }
+
+
+
 export interface IIncomeOperation {
   income: number;
   sphere: string;
   date: Date;
+  key: string | null
 }
 export interface IIncomeStore {
   income: number;

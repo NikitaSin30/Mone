@@ -18,6 +18,7 @@ class SpendingStore implements ISpendingStore {
     addSpending(operation: ISpendingOperation): void {
         this.spending = this.spending + operation.spending ;
         const updatedBalance = balanceStore.moneyAccount - operation.spending;
+        console.log(this.spendingOperations);
 
         balanceStore.updateCashAccount(updatedBalance);
     }

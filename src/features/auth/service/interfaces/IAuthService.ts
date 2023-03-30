@@ -1,4 +1,4 @@
-import { IFormAuth } from '../interfaces/interfaces';
+import { IFormAuth } from '../../interfaces/interfaces';
 
 
 export interface IAuthService {

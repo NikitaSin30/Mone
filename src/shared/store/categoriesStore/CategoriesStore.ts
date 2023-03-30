@@ -1,5 +1,5 @@
 import { action, makeObservable, observable } from 'mobx';
-import { ICategoriesStore, ICategorie, ICategorie2 } from './interfaces/interfaces';
+import { ICategoriesStore, ICategorie } from './interfaces/interfaces';
 
 
 
