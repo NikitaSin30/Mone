@@ -5,6 +5,7 @@ import { ISpendingOperation } from 'shared/store/cashFlowStore/interfaces/interf
 import { IFormSpending } from '../interfaces/interfaces';
 import { cashFlowApi } from 'api/cashFlowApi';
 import { ISpendingService } from './interfaces/interfaces';
+import { categoriesService } from 'features/add-categories/service/categoriesService';
 
 
 class SpendingService implements ISpendingService {
@@ -14,8 +15,8 @@ class SpendingService implements ISpendingService {
         try {
           const res:ISpendingOperation =  await cashFlowApi.addSpending(userStore.userId, spentMoney,categorie);
             spendingStore.addSpending(res);
-            categoriesStore.updateSpandingInCategorie(res.categorie,res.spending);
-
+            categoriesService.addSpendingInCategorie(res.categorie,res.spending);
+            
         }
         catch (error) {
             if (error instanceof Error) {

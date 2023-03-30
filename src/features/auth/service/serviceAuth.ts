@@ -8,7 +8,8 @@ import { IAuthService } from './interfaces/IAuthService';
 class AuthService implements IAuthService {
     async login(email: string, password: string, switchStatus: () => void) {
         try {
-            await authAPI.login(email, password, switchStatus);
+            await authAPI.login(email, password);
+             switchStatus()
         }
         catch (error) {
             if (error instanceof Error) {
@@ -18,8 +19,11 @@ class AuthService implements IAuthService {
         }
     }
     async registration(user: IFormAuth, switchStatus: () => void) {
+     
         try {
-            await authAPI.registration(user,switchStatus)
+          const userID = await authAPI.registration(user)
+            userStore.setUser(user, userID);
+            switchStatus();
         }
         catch (error) {
             if (error instanceof Error) {

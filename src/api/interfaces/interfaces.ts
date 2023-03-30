@@ -12,14 +12,15 @@ export interface ICashFlowApi {
 }
 
 export interface IAuthApi {
-    registration:(user: IFormAuth, switchStatus: () => void) => Promise<void>;
-    login:(email: string, password: string, switchStatus: () => void) => Promise<void>
-    addUser:(uid: string, infoUser: any, switchStatus:()=> void) => Promise<void>
+    registration:(user: IFormAuth) => Promise<string>;
+    login:(email: string, password: string) => Promise<void>
     getUser:(userId: string)=> Promise<void>
 }
 
 export interface ICategoriesApi {
-  addCategorie:(categorie: string, userId: string) => Promise<ICategorie>
+  addCategorie: (categorie: string, userId: string) => Promise<ICategorie>;
+  deleteCategorie:(key:string,userId: string) => Promise<void>;
+  addSpendingInCategorie: (categorie: ICategorie, userId: string) => Promise<void>;
 }
 
 

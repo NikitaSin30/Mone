@@ -7,10 +7,11 @@ import { ITodoApi } from './interfaces/interfaces';
 
 
 class TodoApi implements ITodoApi {
+
   async addTask(task: string, userId: string) {
 
     try {
-      const newTaskKey = push(child(ref(db), 'task')).key;
+      const newTaskKey =  push(child(ref(db), 'task')).key;
         const taskItem : ITask = {
             task: task,
             id: task,
@@ -24,7 +25,7 @@ class TodoApi implements ITodoApi {
       await update(ref(db), updates);
 
       return taskItem;
-      
+
     } catch (error) {
       throw new Error('Что-то пошло не так');
     }
@@ -37,6 +38,17 @@ class TodoApi implements ITodoApi {
       await update(ref(db), updates);
     } catch (error) {
       throw new Error('Что-то пошло не так');
+    }
+  }
+
+  async updateTask(task:ITask,userId:string) {
+    try {
+      const upadatedTask = { ...task, isDone: !task.isDone };
+      const updates:any = {}
+      updates['users/' + userId + '/task/' + task.key] = upadatedTask;
+      await update(ref(db), updates);
+    } catch (error) {
+      throw new Error('Может лучше в вебкам ? A не IT')
     }
   }
 }

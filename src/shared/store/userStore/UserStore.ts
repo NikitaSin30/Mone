@@ -1,4 +1,4 @@
-import { action, makeObservable, observable } from 'mobx';
+import { action, makeAutoObservable, makeObservable, observable } from 'mobx';
 import { IUser } from './interfaces.ts/interfaces';
 import { IFormAuth } from 'features/auth/interfaces/interfaces';
 
@@ -6,11 +6,10 @@ import { IFormAuth } from 'features/auth/interfaces/interfaces';
 export class User implements IUser {
     user!: IFormAuth;
     userId! : string;
+
+    
     constructor() {
-        makeObservable(this, {
-            user    : observable,
-            setUser : action,
-        });
+    makeAutoObservable(this);
     }
 
     setUser(user: IFormAuth, userID : string) {

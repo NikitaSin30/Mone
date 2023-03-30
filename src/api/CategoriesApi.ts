@@ -1,37 +1,45 @@
 import { ref, child, push, update, remove } from 'firebase/database';
 import { db } from 'shared/firebase/firebase';
+import { ICategorie } from 'shared/store/categoriesStore/interfaces/interfaces';
+import { ICategoriesApi } from './interfaces/interfaces';
 
 
-
-class CategoriesApi {
-  
-  async addCategorie(categorie: string,userId:string) {
-
+class CategoriesApi implements ICategoriesApi {
+  async addCategorie(categorie: string, userId: string) {
     try {
       const newCategorieKey = push(child(ref(db), 'categorie')).key;
       const categorieItem = {
-         categorie: categorie,
-         id: categorie,
-         spentMoney: 0,
-         key: newCategorieKey
-        }
+        categorie: categorie,
+        id: categorie,
+        spentMoney: 0,
+        key: newCategorieKey,
+      };
 
       const updates: any = {};
       updates['users/' + userId + '/categories/' + newCategorieKey] = categorieItem;
 
       await update(ref(db), updates);
 
-      return categorieItem
+      return categorieItem;
     } catch (error) {
       throw new Error('Что-то пошло не так');
     }
   }
 
-  async deleteCategorie(key:string,userId: string,) {
-
+  async deleteCategorie(key: string, userId: string) {
     try {
       const updates: any = {};
-      updates['users/' + userId + '/categories/' + key ] = null;
+      updates['users/' + userId + '/categories/' + key] = null;
+      await update(ref(db), updates);
+    } catch (error) {
+      throw new Error('Что-то пошло не так');
+    }
+  }
+
+  async addSpendingInCategorie(categorie: ICategorie, userId: string){
+    try {
+      const updates: any = {};
+      updates['users/' + userId + '/categories/' + categorie.key] = categorie;
       await update(ref(db), updates);
     } catch (error) {
       throw new Error('Что-то пошло не так');

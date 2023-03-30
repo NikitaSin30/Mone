@@ -2,8 +2,8 @@ import { ITask } from 'shared/store/toDoStore/interfaces/interfaces';
 
 
 export interface ITodoService {
+  deleteTask: (id: string) => Promise<void>;
+  onCheckUniqueTask: (newTask: string) => boolean;
+  addTask: (task: string, includeModalError: () => void) => Promise<void>;
 
-    onCheckUniqueTask: (newTask: string) => boolean;
-    createNewTask: (validatedTask: string,key:string) => ITask;
-    addTask: (task: string, includeModalError: () => void) => void;
 }
