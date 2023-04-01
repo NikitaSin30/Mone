@@ -8,9 +8,9 @@ class CashFlowController {
     try {
         const { income, balance } = await User.findById(id)
         const newBallance = balance - incomeOperation.income;
-        const newSpendingBalance = spending + incomeOperation.income;
+        const newIncome = income  + incomeOperation.income;
 
-        await User.updateOne({ _id: id }, { $set: { income: newSpendingBalance } });
+        await User.updateOne({ _id: id }, { $set: { income: newIncome } });
         await User.updateOne({ _id: id }, { $set: { balance: newBallance } });
         await User.updateOne({ _id: id }, { $push: { incomeOperations : incomeOperation } });
 
@@ -27,9 +27,9 @@ class CashFlowController {
     try {
         const { spending, balance } = await User.findById(id);
         const newBallance = balance - spendingOperation.spending;
-        const newSpendingBalance = spending + spendingOperation.spending;
+        const newSpending = spending + spendingOperation.spending;
 
-        await User.updateOne({ _id: id }, { $set: { spending: newSpendingBalance } });
+        await User.updateOne({ _id: id }, { $set: { spending: newSpending } });
         await User.updateOne({ _id: id }, { $set: { balance: newBallance } });
         await User.updateOne({ _id: id }, { $push: { spendingOperations: spendingOperation } });
 
