@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const authRouter = require('./router/authRouter');
+const cashRouter = require('./router/cashFlowRouter')
 const cors = require('cors')
 const PORT = 3002;
 
@@ -8,7 +9,9 @@ const app = express();
 
 app.use(cors())
 app.use(express.json());
+app.use('/cash', cashRouter);
 app.use('/auth' , authRouter);
+
 
 
 const start = async() => {

@@ -6,7 +6,7 @@ import { userStore } from 'shared/store/userStore/UserStore';
 
 const Account = () => {
     const { onChangeIsLogin } = React.useContext<GlobalContext>(Context);
-    const { email, nickName, country } = userStore.user;
+    const { email, nickname, country } = userStore.user;
 
     return (
         <section className=" flex gap-2  flex-col flex-1 w-6/6">
@@ -23,9 +23,9 @@ const Account = () => {
                         <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zM18.75 10.5h.008v.008h-.008V10.5z" />
                     </svg>
                 </div>
-                <h2 className="text-xl font-bold sm:text-2xl">`Никнейм:${nickName}`</h2>
+                <h2 className="text-xl font-bold sm:text-2xl">`Никнейм:${nickname}`</h2>
                 <h2 className="text-xl font-bold sm:text-2xl">`Почта: ${email}`</h2>
-                <h2 className="text-xl font-bold sm:text-2xl">`Страна : ${email}`</h2>
+                <h2 className="text-xl font-bold sm:text-2xl">`Страна : ${country}`</h2>
             </div>
             <div className="flex flex-col flex-1 bg-white  rounded-md shadow-lg py-3 text-lg">
                 <div className="flex-1">

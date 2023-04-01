@@ -1,28 +1,28 @@
-import { action, makeObservable, observable } from 'mobx';
+import {  makeAutoObservable } from 'mobx';
 import { balanceStore } from './BalanceStore';
-import { IAccumulationStore } from './interfaces/interfaces';
+import { IAccumulationOperation, IAccumulationStore } from './interfaces/interfaces';
 
 
 export class AccumulationStore implements IAccumulationStore {
-    accumulation = 0;
+  accumulation = 0;
+  accumulationOperations:IAccumulationOperation[] = []
 
-    constructor() {
-        makeObservable(this, {
-            accumulation          : observable,
-            addAccumulation       : action,
-            getAccumulationWithDB : action,
-        });
-    }
-
-    addAccumulation(newAccumulation: number): void {
-        this.accumulation = this.accumulation + newAccumulation;
-        const updatedBalance = balanceStore.moneyAccount - newAccumulation;
-
-        balanceStore.updateCashAccount(updatedBalance);
-    }
-    getAccumulationWithDB(accumulation:number) : void {
-        this.accumulation = accumulation;
-    }
+  constructor() {
+    makeAutoObservable(this)
+  }
+  addAccumulation(operationAccumulation:IAccumulationOperation ) {
+    this.accumulation = this.accumulation + operationAccumulation.accumulation;
+    const updatedBalance = balanceStore.moneyAccount - operationAccumulation.accumulation;
+    balanceStore.updateCashAccount(updatedBalance);
+    this.accumulationOperations.push(operationAccumulation)
+  }
+  getAccumulationWithDB(accumulation: number) {
+    this.accumulation = accumulation;
+  }
+  setAccumulation(accumulation:number,operations:IAccumulationOperation[]){
+    this.accumulation = accumulation;
+    this.accumulationOperations = operations
+  }
 }
 
 export const accumulationStore = new AccumulationStore();

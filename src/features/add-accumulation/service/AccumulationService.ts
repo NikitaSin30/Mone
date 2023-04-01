@@ -6,12 +6,18 @@ import { IAccumulationService } from './interfaces/interfaces';
 
 
 class AccumulationService implements IAccumulationService {
+
     async addAccumulation(newAccumulation: number, showModalError: () => void, switchShowModal: () => void) {
         if (balanceStore.moneyAccount < newAccumulation) return showModalError();
+        const createdOperation = this.createOperation(newAccumulation)
+        console.log(createdOperation);
 
         try {
-            await cashFlowApi.addAccumulation(userStore.user._id, newAccumulation);
-            accumulationStore.addAccumulation(newAccumulation);
+           const response =  await cashFlowApi.addAccumulation(userStore.user._id, createdOperation);
+        //    ===== кидать текст в ui
+           console.log(response.message);
+
+            accumulationStore.addAccumulation(createdOperation);
         }
         catch (error) {
             if (error instanceof Error) {
@@ -22,6 +28,11 @@ class AccumulationService implements IAccumulationService {
             switchShowModal();
         }
     }
-}
+    createOperation(accumulation : number) {
+        return {
+            accumulation : accumulation,
+            date      : new Date(),
+        };
+}}
 
 export const accumulationService = new AccumulationService();

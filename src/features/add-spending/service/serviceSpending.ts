@@ -13,7 +13,9 @@ class SpendingService implements ISpendingService {
         const createdOperation =  this.createOperation(newSpending.spentMoney, newSpending.categorie);
 
         try {
-            await cashFlowApi.addSpending(userStore.user._id, newSpending);
+           const response = await cashFlowApi.addSpending(userStore.user._id, createdOperation);
+        //    кидать текс с бэка в ui на секунду
+            console.log(response.message);
             spendingStore.addSpending(createdOperation);
             categoriesStore.updateSpandingInCategorie(newSpending);
 

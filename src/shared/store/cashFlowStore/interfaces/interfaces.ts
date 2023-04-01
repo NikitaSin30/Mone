@@ -1,10 +1,18 @@
 export interface IBalanceStore {
   moneyAccount: number;
-
+  setBalance:(balance:number) => void
+  updateCashAccount:(newBalance: number ) => void
+  getBalanceWithDB:(sum:number) => void
+}
+export interface IAccumulationOperation{
+  accumulation: number,
+  date: Date
 }
 export interface IAccumulationStore {
   accumulation: number;
-  addAccumulation: (newAccumulation: number) => void;
+  accumulationOperations: IAccumulationOperation[];
+  addAccumulation: (newAccumulation: IAccumulationOperation) => void;
+  setAccumulation:(accumulation:number,operations:IAccumulationOperation[]) => void
 }
 
 export interface ISpendingOperation {
@@ -17,6 +25,8 @@ export interface ISpendingStore {
   spending: number;
   spendingOperations: ISpendingOperation[]
   addSpending: (operation: ISpendingOperation) => void;
+  setSpending:(spending:number, spendingOperations : ISpendingOperation[]) => void
+
 }
 export interface IIncomeOperation {
   income: number;

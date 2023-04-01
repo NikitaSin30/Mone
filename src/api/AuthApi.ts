@@ -26,10 +26,8 @@ class AuthApi implements IAuthApi {
              if(!response.ok) {
                 throw new Error()
              }
-             console.log(response);
 
-            const result = await response.json()
-
+            const result:IFormAuth = await response.json()
             return result
         }
         catch (err) {
@@ -52,6 +50,8 @@ class AuthApi implements IAuthApi {
                 throw new Error()
              }
             const res = await response.json()
+            console.log(res);
+
             return res
         } catch (error) {
          throw new Error();
@@ -60,25 +60,8 @@ class AuthApi implements IAuthApi {
         }
     }
 
-     async getUser(userId: string) {
-        try {
-            const userRef = ref(db, 'users/' + userId);
-
-            onValue(userRef, (snapshot) => {
-                const data = snapshot.val();
-
-                userStore.setUser(data.info);
-                balanceStore.getBalanceWithDB(data.cash.balance);
-                incomeStore.getIncomeWithStore(data.cash.income.allIncome);
-                spendingStore.getSpendingWithDB(data.cash.spending.allSpending);
-                accumulationStore.getAccumulationWithDB(data.cash.accumulation.allAccumulation);
-            });
-        }
-        catch (error) {
-            throw new Error('Что-то пошло не так');
-        }
     }
-}
+
 
 
 export const authAPI = new AuthApi();

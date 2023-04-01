@@ -1,4 +1,4 @@
-import { action, makeObservable, observable } from 'mobx';
+import { makeAutoObservable } from 'mobx';
 import { ITodo, ITask } from './interfaces/interfaces';
 
 
@@ -6,13 +6,7 @@ class ToDoStore implements ITodo {
     tasks:ITask[] = [];
 
     constructor() {
-        makeObservable(this, {
-            tasks                : observable,
-            addTask              : action,
-            toggleStatusByIdTask : action,
-            removeTask           : action,
-            removeAllTasks       : action,
-        });
+        makeAutoObservable(this)
     }
 
 

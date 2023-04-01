@@ -10,8 +10,10 @@ class IncomeService implements IServiceIncome {
         const createdOperation = this.createOperations(income,sphere);
 
         try {
-            await cashFlowApi.addIncome(userStore.user._id, createdOperation);
-            incomeStore.addIncome(createdOperation);
+          const response = await cashFlowApi.addIncome(createdOperation, userStore.user._id);
+          //    ===== кидать текст в ui
+          console.log(response.message);
+          incomeStore.addIncome(createdOperation);
         }
         catch (error) {
             if (error instanceof Error) {

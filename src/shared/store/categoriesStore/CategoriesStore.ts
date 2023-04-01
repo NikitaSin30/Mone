@@ -1,4 +1,4 @@
-import { action, makeObservable, observable } from 'mobx';
+import { makeAutoObservable } from 'mobx';
 import { ICategoriesStore, ICategorie } from './interfaces/interfaces';
 
 
@@ -6,11 +6,7 @@ import { ICategoriesStore, ICategorie } from './interfaces/interfaces';
 class CategoriesStore implements ICategoriesStore {
     categories: ICategorie[] = [];
     constructor() {
-        makeObservable(this, {
-            categories      : observable,
-            addCatigorie    : action,
-            removeCategorie : action,
-        });
+        makeAutoObservable(this)
     }
     addCatigorie(categorie: ICategorie): void {
         this.categories.push(categorie);

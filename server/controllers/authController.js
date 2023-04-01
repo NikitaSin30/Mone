@@ -1,42 +1,53 @@
 const User = require('../modelsMongo/User');
-const CashFlow = require('../modelsMongo/CashFlow')
 const bcrypt = require('bcryptjs');
 const { generateAccessToken } = require('../token/generateToken');
 
 
 
-class authController {
+class AuthController {
     async registration(req, res) {
         try {
             const {email,country,nickname,password } = req.body;
-            const conditate = await User.findOne({ email });
 
-            if (conditate) {
-                return res.status(400).json({ message: 'Пользователь уже существует' });
+            const hasEmail = await User.findOne({ email });
+            if (hasEmail) {
+              return res.status(400).json({ message: 'Пользователь c таким email уже существует' });
+            }
+
+            const hasNickname = await User.findOne({ nickname });
+            if (hasNickname) {
+              return res.status(400).json({ message: 'Пользователь c таким nickname уже существует' });
             }
             const hashPassword = bcrypt.hashSync(password,6);
-            const user = new User({
+
+              const user = new User({
                 email,
                 country,
                 nickname,
-                password : hashPassword,
-            });
-            const cashFlow = new CashFlow({
-            balance : 0,
-            income : 0,
-            incomeOperations : {},
-            accumulation : 0,
-            accumulationOperations : {},
-            spending : 0,
-            spendingOperations   : {},
-            })
+                password: hashPassword,
+                balance:0,
+                income:0,
+                incomeOperations:[],
+                spending:0,
+                spendingOperations:[],
+                accumulation: 0,
+                accumulationOperations:[],
+                categories:[],
+                tasks:[]
+              });
 
-            await user.save(user);
-            await cashFlow.save(cashFlow)
+            const saved = await user.save(user);
+            const createdUser = await User.findOne(saved._id);
 
-            const createdUser = await User.findOne({ email })
-            
-            return res.json({ createdUser });
+            const newUser = {
+              email: createdUser.email,
+              country: createdUser.country,
+              nickname: createdUser.nickname,
+              password: createdUser.password,
+              _id: createdUser._id,
+            };
+
+            return res.json(newUser);
         }
         catch (error) {
             res.status(400).json({ message: 'Regeeee error' });
@@ -68,14 +79,6 @@ class authController {
            return res.status(400).json({ message: 'Log err' });
         }
     }
-    async getUser(res,user) {
-        try {
-           return res.json(user);
-        }
-        catch (error) {
-         res.json('ошибка')
-        }
-    }
 }
 
-module.exports = new authController();
+module.exports = new AuthController();

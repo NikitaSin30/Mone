@@ -1,4 +1,4 @@
-import { action, makeObservable, observable } from 'mobx';
+import {  makeAutoObservable } from 'mobx';
 import { balanceStore } from './BalanceStore';
 import { ISpendingStore } from './interfaces/interfaces';
 import { ISpendingOperation } from './interfaces/interfaces';
@@ -8,11 +8,7 @@ class SpendingStore implements ISpendingStore {
     spending = 0;
 
     constructor() {
-        makeObservable(this, {
-            spending          : observable,
-            addSpending       : action,
-            getSpendingWithDB : action,
-        });
+      makeAutoObservable(this)
     }
 
     addSpending(operation: ISpendingOperation): void {
@@ -24,6 +20,11 @@ class SpendingStore implements ISpendingStore {
     getSpendingWithDB(spending: number): void {
         this.spending = spending;
     }
+    setSpending(spending:number, spendingOperations : ISpendingOperation[]){
+        this.spending = spending
+        this.spendingOperations = spendingOperations
+    }
+
 }
 
 export const spendingStore = new SpendingStore();

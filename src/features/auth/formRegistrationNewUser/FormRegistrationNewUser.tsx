@@ -38,7 +38,7 @@ function FormRegistrationNewUser(): React.ReactElement {
             <h2 className="text-xl font-bold text-center">Регистрация</h2>
             <Input caseType="email" register={register} titleRegister="email" titleLabel='Email' errMessage={errors.email?.message} />
             <Input caseType="country" register={register} titleRegister="country" titleLabel='Страна' errMessage={errors.country?.message} />
-            <Input caseType="nickname" register={register} titleRegister="nickname" titleLabel='Nickname' errMessage={errors.nickName?.message} />
+            <Input caseType="nickname" register={register} titleRegister="nickname" titleLabel='Nickname' errMessage={errors.nickname?.message} />
             <Input caseType="password" register={register} titleRegister="password" titleLabel='Пароль' errMessage={errors.password?.message}/>
             <Button isValid={isValid} title="Зарегистрироваться" />
         </form>
