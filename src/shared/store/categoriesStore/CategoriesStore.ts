@@ -1,4 +1,4 @@
-import { action, makeAutoObservable, makeObservable, observable } from 'mobx';
+import { makeAutoObservable } from 'mobx';
 import { ICategoriesStore, ICategorie } from './interfaces/interfaces';
 
 
@@ -17,7 +17,6 @@ class CategoriesStore implements ICategoriesStore {
   }
   getCategorie(id: string) {
     const categorie = this.categories.filter((categorie) => categorie.id === id);
-    console.log(categorie[0]);
     return {...categorie[0]}
   }
 

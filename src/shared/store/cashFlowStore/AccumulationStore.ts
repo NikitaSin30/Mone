@@ -1,4 +1,4 @@
-import { action, makeAutoObservable, makeObservable, observable } from 'mobx';
+import { makeAutoObservable} from 'mobx';
 import { balanceStore } from './BalanceStore';
 import { IAccumulationStore, IAccumulationOperation } from './interfaces/interfaces';
 

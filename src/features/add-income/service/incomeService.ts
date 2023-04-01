@@ -1,5 +1,5 @@
 import { incomeStore } from 'shared/store/cashFlowStore/IncomeStore';
-import { cashFlowApi } from 'api/cashFlowApi';
+import { cashFlowApi } from 'api/CashFlowApi';
 import { IIncomeOperation } from 'shared/store/cashFlowStore/interfaces/interfaces';
 import { userStore } from 'shared/store/userStore/UserStore';
 import { IServiceIncome } from './interfaces/interfaces';

@@ -1,6 +1,6 @@
 import { categoriesStore } from 'shared/store/categoriesStore/CategoriesStore';
 import { ICategoriesService } from './interfaces/interfaces';
-import { categorieApi } from 'api/categoriesApi';
+import { categorieApi } from 'api/CategoriesApi';
 import { userStore } from 'shared/store/userStore/UserStore';
 import {ICategorie} from 'shared/store/categoriesStore/interfaces/interfaces'
 import { mapperModificationString } from 'shared/mappers/mapperModificationString';
