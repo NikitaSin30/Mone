@@ -3,3 +3,4 @@ const router = new Router()
 
 
 router.post('/addcategorie',);
+router.post('/delcategorie',);
