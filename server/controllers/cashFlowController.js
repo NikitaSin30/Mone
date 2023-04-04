@@ -7,7 +7,7 @@ class CashFlowController {
 
     try {
         const { income, balance } = await User.findById(id)
-        const newBallance = balance - incomeOperation.income;
+        const newBallance = balance + incomeOperation.income;
         const newIncome = income  + incomeOperation.income;
 
         await User.updateOne({ _id: id }, { $set: { income: newIncome } });
@@ -59,3 +59,6 @@ class CashFlowController {
 }
 
 module.exports = new CashFlowController()
+
+
+

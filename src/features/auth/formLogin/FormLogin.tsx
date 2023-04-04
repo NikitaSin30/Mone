@@ -11,7 +11,6 @@ import { Button } from 'widgets/modals/ui/button/Button';
 
 
 const FormLogin = (): React.ReactElement => {
-    const { onChangeIsLogin } = React.useContext<GlobalContext>(Context);
 
     const {
         register,
@@ -23,7 +22,7 @@ const FormLogin = (): React.ReactElement => {
 
     async function onLogin(data: IFormAuth) {
         try {
-            await authService.login(data, onChangeIsLogin);
+            await authService.login(data);
         }
         catch (error) {
             console.log('Ошибка');

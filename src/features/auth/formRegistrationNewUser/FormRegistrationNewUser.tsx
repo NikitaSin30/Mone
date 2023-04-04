@@ -9,7 +9,7 @@ import { Button } from 'widgets/modals/ui/button/Button';
 
 
 function FormRegistrationNewUser(): React.ReactElement {
-    const { onChangeIsLogin }  = React.useContext<GlobalContext>(Context);
+    // const { onChangeIsLogin }  = React.useContext<GlobalContext>(Context);
     const {
         register,
         reset,
@@ -20,7 +20,7 @@ function FormRegistrationNewUser(): React.ReactElement {
 
     async function onRegistration( user: IFormAuth) {
         try {
-            await authService.registration(user, onChangeIsLogin);
+            await authService.registration(user);
         }
         catch (error) {
             if (error instanceof Error) {

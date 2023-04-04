@@ -4,16 +4,24 @@ import { IFormAuth } from 'features/auth/interfaces/interfaces';
 
 
 export class User implements IUser {
-    user!: IFormAuth;
+  user!: IFormAuth;
+  isAuth
+  constructor() {
+    this.isAuth = localStorage.getItem('wallet') ? true : false
+    makeAutoObservable(this);
+  }
 
-    constructor() {
-       makeAutoObservable(this)
-    }
+  setUser(user: IFormAuth) {
+    this.user = user;
+    console.log(this.user);
 
-    setUser(user: IFormAuth) {
-        this.user = user;
-        console.log(user);
-    }
+  }
+  setIsAuth(isAuthStatus:boolean) {
+    this.isAuth = isAuthStatus
+    console.log(this.isAuth);
+  }
 }
 
 export const userStore = new User();
+
+

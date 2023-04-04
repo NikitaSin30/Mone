@@ -4,6 +4,8 @@ import { SpendingCard } from 'widgets/accountingСards/spendingCard/SpendingCard
 import { AccumulationCard } from 'widgets/accountingСards/accumulationCard/AccumulationCard';
 import { BalanceCard } from 'widgets/accountingСards/balanceCard/BalanceCard';
 import { AnalysisGraphs } from 'widgets/analysisGraphs/AnalysisGraphs';
+import { authAPI } from 'api/AuthApi';
+import React from 'react';
 
 
 

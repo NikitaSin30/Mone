@@ -1,3 +1,4 @@
+
 import { Route, Routes } from 'react-router-dom';
 import Layout from '../shared/layout/Layout';
 import Main from '../pages/main/Main';
@@ -11,35 +12,64 @@ import { ToDo } from 'pages/noteBook/toDo/ToDo';
 import { ShopList } from 'pages/noteBook/shopList/ShopList';
 import { Navigate } from 'react-router-dom';
 import { useToggle } from 'shared/hooks/useToggle/useToggle';
+import { routesApp } from './RoutesApp';
+import React from 'react';
+import { authService } from 'features/auth/service/serviceAuth';
+import { IFormAuth } from 'features/auth/interfaces/interfaces';
+import { authAPI } from 'api/AuthApi';
+import { userStore } from 'shared/store/userStore/UserStore';
+import { observable } from 'mobx';
+import { observer } from 'mobx-react-lite';
 
+export const App =  observer(() => {
+    // const { value: isLogin, toggle: onChangeIsLogin } = useToggle(false);
+    const {isAuth} = userStore
+    console.log(isAuth);
 
-
-export const App = () => {
-    const { value: isLogin, toggle: onChangeIsLogin } = useToggle(false);
+    // const [isLogin, setIsLogin ] = React.useState(false);
+    // function onChangeIsLogin() {
+    //   setIsLogin(true)
+    // }
 
     const context: GlobalContext = {
-        isLogin,
-        onChangeIsLogin,
+        isAuth,
+        // onChangeIsLogin() => null
     };
+
+   const routes = routesApp(isAuth);
+
+   React.useEffect(()=>{
+
+     authService.auth()
+     .then(() => {
+      // userStore.includeIsAuth()
+      // console.log(userStore.isAuth);
+
+     })
+
+
+   },[])
 
 
 
     return (
-        <>
-            <Context.Provider value={context}>
-                <Routes>
-                    <Route path="/" element={<Layout />}>
-                        <Route index element={isLogin ? <Main /> : <Navigate to="/login" />} />
-                        <Route path="/account" element={isLogin ? <PersonalArea /> : <Navigate to="/login" />} />
-                        <Route path="/analysis" element={isLogin ? <Analysis /> : <Navigate to="/login" />} />
-                        <Route path="/notebook" element={isLogin ? <Notebook /> : <Navigate to="/login" />} />
-                        <Route path="/notebook/todo" element={isLogin ? <ToDo /> : <Navigate to="/login" />} />
-                        <Route path="/notebook/shopList" element={isLogin ? <ShopList /> : <Navigate to="/login" />} />
-                        <Route path="/login" element={!isLogin ? <Authorization /> : <Navigate to="/" />} />
-                        <Route path="/registration" element={!isLogin ? <Registration /> : <Navigate to="/" />} />
-                    </Route>
-                </Routes>
-            </Context.Provider>
-        </>
+      <>
+        <Context.Provider value={context}>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            {/* {routes} */}
+            <Route index element={userStore.isAuth ? <Main /> : <Navigate to="/login" />} />
+            <Route path="/account" element={userStore.isAuth ? <PersonalArea /> : <Navigate to="/login" />} />
+            <Route path="/analysis" element={userStore.isAuth ? <Analysis /> : <Navigate to="/login" />} />
+            <Route path="/notebook" element={userStore.isAuth ? <Notebook /> : <Navigate to="/login" />} />
+            <Route path="/notebook/todo" element={userStore.isAuth ? <ToDo /> : <Navigate to="/login" />} />
+            <Route path="/notebook/shopList" element={userStore.isAuth ? <ShopList /> : <Navigate to="/login" />} />
+            <Route path="/login" element={!userStore.isAuth ? <Authorization /> : <Navigate to="/" />} />
+            <Route path="/registration" element={!userStore.isAuth ? <Registration /> : <Navigate to="/" />} />
+          </Route>
+        </Routes>
+        {/* {RoutesApp} */}
+        </Context.Provider>
+      </>
     );
-};
+});

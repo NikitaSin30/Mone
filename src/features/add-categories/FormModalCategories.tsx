@@ -31,22 +31,22 @@ const FormModalCategories = (props: IModal) => {
     }
 
     return (
-        <>
-            <div className={styleModal} onClick={switchShowModal}>
-                <form
-                    className="flex flex-1 w-100 gap-1 flex-col  bg-slate-900  text-white"
-                    onSubmit={handleSubmit(onAddCategorie)}
-                    onClick={(e) => e.stopPropagation()}
-                >
-                    <div onClick={switchShowModal} className="rounded-full  w-6 h-6 self-end  hover:scale-110">
-                        {CloseIcon}
-                    </div>
-                    <span className="text-xl font-bold text-center">Новая категория</span>
-                    <Input caseType="textRus" register={register} titleRegister="categorie" errMessage={errors.categorie?.message} titleLabel='Введите категорию'/>
-                    <Button isValid={isValid} title="Создать" />
-                </form>
+      <>
+        <div className={styleModal} onClick={switchShowModal}>
+          <form
+            className="flex flex-1 w-100 gap-1 flex-col  bg-slate-900  text-white"
+            onSubmit={handleSubmit(onAddCategorie)}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div onClick={switchShowModal} className="rounded-full  w-6 h-6 self-end  hover:scale-110">
+              {CloseIcon}{' '}
             </div>
-        </>
+            <span className="text-xl font-bold text-center">Новая категория</span>
+            <Input caseType="textRus" register={register} titleRegister="categorie" errMessage={errors.categorie?.message} titleLabel="Введите категорию" />
+            <Button isValid={isValid} title="Создать" />
+          </form>
+        </div>
+      </>
     );
 };
 

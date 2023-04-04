@@ -20,6 +20,10 @@ const User = new Schema({
     type: String,
     required: true,
   },
+  isAuth: {
+    type: Boolean,
+    required: true,
+  },
   balance: {
     type: Number,
   },
