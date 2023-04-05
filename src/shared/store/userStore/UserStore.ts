@@ -1,6 +1,6 @@
 import { action, makeObservable, observable } from 'mobx';
-import { IUser } from './interfaces.ts/interfaces';
-import { IFormAuth } from 'features/auth/interfaces/interfaces';
+import { IUser } from './interfaces.ts';
+import { IFormAuth } from 'features/auth/interfaces';
 
 
 export class User implements IUser {
@@ -17,7 +17,7 @@ export class User implements IUser {
         this.user = user;
         this.userId = userID;
         console.log(this.user);
-        
+
     }
 }
 

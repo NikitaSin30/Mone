@@ -1,4 +1,4 @@
-import { IInput } from './intrfaces/interfaces';
+import { IInput } from './intrfaces';
 import { Label } from './label/Label';
 import { createValidation } from './validation/fabricValadation';
 

@@ -1,4 +1,4 @@
-import { IError } from './interfaces/interfaces';
+import { IError } from './interfaces';
 import { CloseIcon } from './assets/CloseIcon';
 
 

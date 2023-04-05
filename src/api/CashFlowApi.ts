@@ -1,12 +1,12 @@
-import { IIncomeOperation } from 'shared/store/cashFlowStore/interfaces/interfaces';
-import { IFormSpending } from 'features/add-spending/interfaces/interfaces';
+import { IIncomeOperation } from 'shared/store/cashFlowStore/interfaces';
+import { IFormSpending } from 'features/add-spending/interfaces';
 import { ref, child, push, update } from 'firebase/database';
 import { db } from 'shared/firebase/firebase';
 import { accumulationStore } from 'shared/store/cashFlowStore/AccumulationStore';
 import { balanceStore } from 'shared/store/cashFlowStore/BalanceStore';
 import { incomeStore } from 'shared/store/cashFlowStore/IncomeStore';
 import { spendingStore } from 'shared/store/cashFlowStore/SpendingStore';
-import { ICashFlowApi } from './interfaces/interfaces';
+import { ICashFlowApi } from './interfaces';
 
 // type UpdateFunction = (data: Partial<Record<string, any>>, onComplete?: (error: Error | null) => void) => Promise<void>;
 

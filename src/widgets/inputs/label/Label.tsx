@@ -1,4 +1,4 @@
-import { ILabel } from './interfaces/interfaces';
+import { ILabel } from './interfaces';
 
 
 

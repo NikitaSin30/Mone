@@ -1,20 +1,23 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { IFormAccumulation } from './interfaces/interfaces';
+import { IFormAccumulation } from './interfaces';
 import { Input } from 'widgets/inputs/Input';
 import { Button } from 'widgets/modals/ui/button/Button';
 import { CloseIcon } from 'widgets/modals/assets/CloseIcon';
 import { useService } from 'shared/hooks/useService/useService';
-import { IContextMain } from 'pages/main/context/interfaces/interfaces';
+import { IContextMain } from 'pages/main/context/interfaces';
 import { ContextMain } from 'pages/main/context/context';
-import { ACCUMULATION } from 'shared/hooks/useService/constans/constans';
-import { NUMBER } from 'widgets/inputs/validation/constans/constans';
+import { CASE_USESERVICE_ACCUMULATION } from 'shared/hooks/useService/constans';
+import { CASE_TYPE_NUMBER } from 'widgets/inputs/validation/constans';
+import { TITLE_REGISTOR_ACCUMULATION } from 'widgets/inputs/validation/constans';
+import { ACTIVE_MODAL_STYLE,HIDEN_MODAL_STYLE } from 'widgets/modals/constans';
+import { TITLE_BUTTON_ADD } from 'widgets/modals/ui/button/constans';
+
+
 
 const AccumulationModal = (): React.ReactElement => {
     const { isModalActiveAccumulation,switchisModalActiveAccumulation,switchisModalErrActiveAccumulation } = React.useContext<IContextMain>(ContextMain);
-    const styleModal = isModalActiveAccumulation
-        ? 'w-full  h-full  bg-opacity-20 bg-black fixed top-0 left-0 flex items-center justify-center '
-        : 'hidden';
+    const styleModal = isModalActiveAccumulation ? ACTIVE_MODAL_STYLE : HIDEN_MODAL_STYLE;
 
     const {
         register,
@@ -23,7 +26,7 @@ const AccumulationModal = (): React.ReactElement => {
         formState: { errors, isValid },
     } = useForm<IFormAccumulation>({ mode: 'onBlur' });
 
-    const onAddAccumulation = useService(reset,ACCUMULATION,switchisModalActiveAccumulation,switchisModalErrActiveAccumulation);
+    const onAddAccumulation = useService(reset, CASE_USESERVICE_ACCUMULATION, switchisModalActiveAccumulation, switchisModalErrActiveAccumulation);
 
 
     return (
@@ -39,8 +42,12 @@ const AccumulationModal = (): React.ReactElement => {
                         {CloseIcon}
                     </div>
                     <span className="text-xl font-bold text-center">Сколько хотите отложить ?</span>
-                    <Input caseType={NUMBER} titleRegister={ACCUMULATION} register={register} errMessage={errors.accumulation?.message}/>
-                    <Button isValid={isValid} title="Добаавить " />
+                    <Input
+                        caseType={CASE_TYPE_NUMBER}
+                        titleRegister={TITLE_REGISTOR_ACCUMULATION}
+                        register={register}
+                        errMessage={errors.accumulation?.message} />
+                    <Button isValid={isValid} title={TITLE_BUTTON_ADD} />
                 </form>
             </div>
         </>

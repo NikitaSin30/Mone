@@ -1,13 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { IFormAuth } from 'features/auth/interfaces/interfaces';
+import { IFormAuth } from 'features/auth/interfaces';
 import { Input } from 'widgets/inputs/Input';
 import { Button } from 'widgets/modals/ui/button/Button';
 import { useService } from 'shared/hooks/useService/useService';
-import { LOGIN } from 'shared/hooks/useService/constans/constans';
+import { CASE_USESERVICE_LOGIN } from 'shared/hooks/useService/constans';
 import { ContextGlobal, IContextGlobal } from 'shared/context/context';
-import { EMAIL,PASSWORD } from 'widgets/inputs/validation/constans/constans';
+import { CASE_TYPE_EMAIL, CASE_TYPE_PASSWORD } from 'widgets/inputs/validation/constans';
+import { TITLE_REGISTOR_PASSWORD,TITLE_REGISTOR_EMAIL } from 'widgets/inputs/validation/constans';
+import { TITLE_LABEL_PASSWORD,TITLE_LABEL_EMAIL } from 'widgets/inputs/label/constans';
+import { TITLE_BUTTON_LOGIN } from 'widgets/modals/ui/button/constans';
+
+
 
 const FormLogin = (): React.ReactElement => {
     const { onChangeIsLogin } = React.useContext<IContextGlobal>(ContextGlobal);
@@ -18,18 +23,31 @@ const FormLogin = (): React.ReactElement => {
         formState: { errors,isValid },
     } = useForm<IFormAuth>({ mode: 'onBlur' });
 
-    const onLogin = useService(reset, LOGIN,onChangeIsLogin);
+    const onLogin = useService(reset, CASE_USESERVICE_LOGIN, onChangeIsLogin);
 
 
     return (
         <>
-            <form className="flex gap-1 w-full  flex-col  text-white bg-slate-900 py-6 px-8 rounded-xl shadow-lg md:w-1/2" onSubmit={handleSubmit(onLogin)}>
+            <form className="flex gap-1 w-full  flex-col  text-white bg-slate-900 py-6 px-8 rounded-xl shadow-lg md:w-1/2"
+                onSubmit={handleSubmit(onLogin)}>
                 <h2 className="text-xl font-bold text-center">Вход</h2>
-                <Input caseType={EMAIL} register={register} titleRegister={EMAIL} errMessage={errors.email?.message} titleLabel='Email'/>
-                <Input caseType={PASSWORD} register={register} titleRegister={PASSWORD} errMessage={errors.password?.message} titleLabel='Пароль'/>
-                <Button isValid={isValid} title="Войти" />
+                <Input
+                    caseType={CASE_TYPE_EMAIL}
+                    register={register}
+                    titleRegister={TITLE_REGISTOR_EMAIL}
+                    errMessage={errors.email?.message}
+                    titleLabel={TITLE_LABEL_EMAIL}
+                />
+                <Input
+                    caseType={CASE_TYPE_PASSWORD}
+                    register={register}
+                    titleRegister={TITLE_REGISTOR_PASSWORD}
+                    errMessage={errors.password?.message}
+                    titleLabel={TITLE_LABEL_PASSWORD}
+                />
+                <Button isValid={isValid} title={TITLE_BUTTON_LOGIN}/>
                 <Link className="text-center hover:scale-110" to="/registration">
-                Зарегистрироваться
+            Зарегистрироваться
                 </Link>
             </form>
         </>

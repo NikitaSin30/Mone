@@ -6,7 +6,7 @@ import { BalanceCard } from 'widgets/accountingСards/balanceCard/BalanceCard';
 import { AnalysisGraphs } from 'widgets/analysisGraphs/AnalysisGraphs';
 import { useToggle } from 'shared/hooks/useToggle/useToggle';
 import { ContextMain } from './context/context';
-import { IContextMain } from './context/interfaces/interfaces';
+import { IContextMain } from './context/interfaces';
 
 
 

@@ -1,5 +1,5 @@
 import { action, makeObservable, observable } from 'mobx';
-import { ICategoriesStore, ICategorie } from './interfaces/interfaces';
+import { ICategoriesStore, ICategorie } from './interfaces';
 
 
 
@@ -12,14 +12,14 @@ class CategoriesStore implements ICategoriesStore {
             removeCategorie : action,
         });
     }
-    addCatigorie(categorie: ICategorie): void {
+    addCatigorie(categorie: ICategorie) {
         this.categories.push(categorie);
     }
     removeCategorie(id: string): void {
         this.categories = this.categories.filter((categorie) => categorie.id !== id);
     }
 
-    updateSpandingInCategorie(newSpending: ICategorie): void {
+    updateSpandingInCategorie(newSpending: ICategorie) {
         this.categories = this.categories.map((categorie) =>
             categorie.id === newSpending.id
                 ? {

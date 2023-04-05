@@ -3,18 +3,21 @@ import { useForm } from 'react-hook-form';
 import { Input } from 'widgets/inputs/Input';
 import { Button } from 'widgets/modals/ui/button/Button';
 import { CloseIcon } from 'widgets/modals/assets/CloseIcon';
-import { IFormIncome } from './interfaces/interfaces';
+import { IFormIncome } from './interfaces';
 import { useService } from 'shared/hooks/useService/useService';
-import { IContextMain } from 'pages/main/context/interfaces/interfaces';
+import { IContextMain } from 'pages/main/context/interfaces';
 import { ContextMain } from 'pages/main/context/context';
-import { INCOME } from 'shared/hooks/useService/constans/constans';
-import { NUMBER,TEXT_RUS } from 'widgets/inputs/validation/constans/constans';
-
+import { CASE_USESERVICE_INCOME } from 'shared/hooks/useService/constans';
+import { CASE_TYPE_NUMBER, CASE_TYPE_TEXT_RUS } from 'widgets/inputs/validation/constans';
+import { TITLE_REGISTOR_INCOME, TITLE_REGISTOR_SPHERE } from 'widgets/inputs/validation/constans';
+import { TITLE_LABEL_SPHERE } from 'widgets/inputs/label/constans';
+import { ACTIVE_MODAL_STYLE, HIDEN_MODAL_STYLE } from 'widgets/modals/constans';
+import { TITLE_BUTTON_ADD } from 'widgets/modals/ui/button/constans';
 
 
 const ModalIncome = () => {
     const { isModalActiveIncome,switchIsModalActiveIncome } = React.useContext<IContextMain>(ContextMain);
-    const styleModal = isModalActiveIncome ? 'w-full  h-full bg-opacity-20 bg-black  fixed top-0 left-0 flex items-center justify-center ' : 'hidden';
+    const styleModal = isModalActiveIncome ? ACTIVE_MODAL_STYLE : HIDEN_MODAL_STYLE;
     const {
         register,
         reset,
@@ -22,7 +25,7 @@ const ModalIncome = () => {
         formState: { errors, isValid },
     } = useForm<IFormIncome>({ mode: 'onBlur' });
 
-    const onAddIncome = useService(reset,INCOME,switchIsModalActiveIncome);
+    const onAddIncome = useService(reset, CASE_USESERVICE_INCOME, switchIsModalActiveIncome);
 
 
     return (
@@ -37,9 +40,19 @@ const ModalIncome = () => {
                         {CloseIcon}
                     </div>
                     <span className="text-xl font-bold text-center">Введите доход</span>
-                    <Input caseType={TEXT_RUS} register={register} titleRegister="sphere" titleLabel='Сфера дохода' errMessage={errors.sphere?.message} />
-                    <Input caseType={NUMBER} titleRegister={INCOME} register={register} errMessage={errors.income?.message}/>
-                    <Button isValid={isValid} title="Добавить" />
+                    <Input
+                        caseType={CASE_TYPE_TEXT_RUS}
+                        register={register}
+                        titleRegister={TITLE_REGISTOR_SPHERE}
+                        titleLabel={TITLE_LABEL_SPHERE}
+                        errMessage={errors.sphere?.message}
+                    />
+                    <Input
+                        caseType={CASE_TYPE_NUMBER}
+                        titleRegister={TITLE_REGISTOR_INCOME}
+                        register={register}
+                        errMessage={errors.income?.message} />
+                    <Button isValid={isValid} title={TITLE_BUTTON_ADD} />
                 </form>
             </div>
         </>

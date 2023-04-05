@@ -2,14 +2,14 @@ import { db } from 'shared/firebase/firebase';
 import { ref, set, onValue } from 'firebase/database';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { userStore } from 'shared/store/userStore/UserStore';
-import { IFormAuth } from 'features/auth/interfaces/interfaces';
+import { IFormAuth } from 'features/auth/interfaces';
 import { incomeStore } from 'shared/store/cashFlowStore/IncomeStore';
 import { spendingStore } from 'shared/store/cashFlowStore/SpendingStore';
 import { accumulationStore } from 'shared/store/cashFlowStore/AccumulationStore';
 import { structureCashUser } from './structureBD';
 import { balanceStore } from 'shared/store/cashFlowStore/BalanceStore';
 import { AUTH } from './constans';
-import { IAuthApi } from './interfaces/interfaces';
+import { IAuthApi } from './interfaces';
 
 
 

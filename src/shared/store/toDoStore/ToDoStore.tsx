@@ -1,5 +1,5 @@
 import { action, makeObservable, observable } from 'mobx';
-import { ITodo, ITask } from './interfaces/interfaces';
+import { ITodo, ITask } from './interfaces';
 
 
 class ToDoStore implements ITodo {
@@ -16,18 +16,18 @@ class ToDoStore implements ITodo {
     }
 
 
-    addTask(task: ITask): void {
+    addTask(task: ITask) {
         this.tasks.push(task);
     }
 
-    removeTask(id: string): void {
+    removeTask(id: string) {
         this.tasks = this.tasks.filter((task) => task.id !== id);
     }
-    removeAllTasks(): void {
+    removeAllTasks() {
         this.tasks = [];
     }
 
-    toggleStatusByIdTask(id: string): void {
+    toggleStatusByIdTask(id: string) {
         this.tasks.map((task) => {
             if (task.id === id) task.isDone = !task.isDone;
 

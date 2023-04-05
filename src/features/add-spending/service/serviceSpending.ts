@@ -1,9 +1,9 @@
 import { userStore } from 'shared/store/userStore/UserStore';
 import { spendingStore } from 'shared/store/cashFlowStore/SpendingStore';
 import { categoriesStore } from 'shared/store/categoriesStore/CategoriesStore';
-import { IFormSpending } from '../interfaces/interfaces';
+import { IFormSpending } from '../interfaces';
 import { cashFlowApi } from 'api/CashFlowApi';
-import { ISpendingService } from './interfaces/interfaces';
+import { ISpendingService } from './interfaces';
 
 
 class SpendingService implements ISpendingService {

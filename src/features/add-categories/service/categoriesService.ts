@@ -1,6 +1,6 @@
 import { categoriesStore } from 'shared/store/categoriesStore/CategoriesStore';
-import { IFormCategorie } from '../interfaces/interfaces';
-import { ICategoriesService } from './interfaces/interfaces';
+import { IFormCategorie } from '../interfaces';
+import { ICategoriesService } from './interfaces';
 
 
 class CategoriesService implements ICategoriesService {

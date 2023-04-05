@@ -6,7 +6,7 @@ import { CardItem } from '../CardItem/CardItem';
 import { ETitleCard } from 'shared/enums/enums';
 import { incomeStore } from 'shared/store/cashFlowStore/IncomeStore';
 import { ContextMain } from 'pages/main/context/context';
-import { IContextMain } from 'pages/main/context/interfaces/interfaces';
+import { IContextMain } from 'pages/main/context/interfaces';
 
 
 

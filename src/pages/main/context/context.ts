@@ -1,5 +1,5 @@
 import React from 'react';
-import { IContextMain } from './interfaces/interfaces';
+import { IContextMain } from './interfaces';
 
 export const ContextMain = React.createContext<IContextMain>({
     isModalActiveIncome                : false,

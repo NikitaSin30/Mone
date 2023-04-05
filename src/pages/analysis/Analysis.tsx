@@ -2,7 +2,7 @@ import Categories from 'widgets/categories/Categories';
 import { AnalysisGraphs } from 'widgets/analysisGraphs/AnalysisGraphs';
 import { useToggle } from 'shared/hooks/useToggle/useToggle';
 import { ContextAnalysis } from './context/context';
-import { IContextAnalysis } from './context/interfaces/interfaces';
+import { IContextAnalysis } from './context/interfaces';
 
 const Analysis = () => {
     const { value: isModalActiveAnalysis, toggle: switchIsModalActiveAnalysis } = useToggle(false);

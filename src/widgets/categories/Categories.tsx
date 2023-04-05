@@ -5,7 +5,7 @@ import ErrorModal from 'widgets/modals/ErrorModal';
 import FormModalCategories from 'features/add-categories/FormModalCategories';
 import { ETitleModalErr } from 'shared/enums/enums';
 import { AddIcon } from 'pages/main/assets/AddIcon';
-import { IContextAnalysis } from 'pages/analysis/context/interfaces/interfaces';
+import { IContextAnalysis } from 'pages/analysis/context/interfaces';
 import { ContextAnalysis } from 'pages/analysis/context/context';
 
 const { uniqueCategorie } = ETitleModalErr;

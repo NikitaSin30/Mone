@@ -2,8 +2,8 @@ import { balanceStore } from 'shared/store/cashFlowStore/BalanceStore';
 import { cashFlowApi } from 'api/CashFlowApi';
 import { userStore } from 'shared/store/userStore/UserStore';
 import { accumulationStore } from 'shared/store/cashFlowStore/AccumulationStore';
-import { IAccumulationService } from './interfaces/interfaces';
-import { IFormAccumulation } from '../interfaces/interfaces';
+import { IAccumulationService } from './interfaces';
+import { IFormAccumulation } from '../interfaces';
 
 
 class AccumulationService implements IAccumulationService {

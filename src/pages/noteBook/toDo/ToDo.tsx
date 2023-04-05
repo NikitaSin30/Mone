@@ -6,7 +6,7 @@ import ErrorModal from 'widgets/modals/ErrorModal';
 import { ETitleModalErr } from 'shared/enums/enums';
 import { TodoHeader } from '../../../widgets/todo/TodoHeader';
 import { useToggle } from 'shared/hooks/useToggle/useToggle';
-import { IContextNotebook } from '../context/interfaces/interfaces';
+import { IContextNotebook } from '../context/interfaces';
 import { ContextNotebook } from '../context/context';
 
 

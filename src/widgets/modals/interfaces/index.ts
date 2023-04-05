@@ -1,8 +1,3 @@
-// export interface IModal {
-//   switchShowModal?: () => void;
-//   switchShowModalErr?: () => void;
-//   isModalActive?: boolean;
-// }
 
 export interface IError {
   switchShowModalErr: () => void;

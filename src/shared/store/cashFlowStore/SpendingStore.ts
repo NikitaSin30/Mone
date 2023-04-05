@@ -1,7 +1,7 @@
 import { action, makeObservable, observable } from 'mobx';
 import { balanceStore } from './BalanceStore';
-import { ISpendingStore } from './interfaces/interfaces';
-import { ISpendingOperation } from './interfaces/interfaces';
+import { ISpendingStore } from './interfaces';
+import { ISpendingOperation } from './interfaces';
 
 class SpendingStore implements ISpendingStore {
     spendingOperations: ISpendingOperation[] = [];
@@ -15,13 +15,13 @@ class SpendingStore implements ISpendingStore {
         });
     }
 
-    addSpending(operation: ISpendingOperation): void {
+    addSpending(operation: ISpendingOperation) {
         this.spending = this.spending + operation.spending ;
         const updatedBalance = balanceStore.moneyAccount - operation.spending;
 
         balanceStore.updateCashAccount(updatedBalance);
     }
-    getSpendingWithDB(spending: number): void {
+    getSpendingWithDB(spending: number) {
         this.spending = spending;
     }
 }

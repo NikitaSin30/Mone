@@ -1,116 +1,62 @@
 import React from 'react';
-import * as CASE from './constans/constans';
-import { IFormAccumulation } from 'features/add-accumulation/interfaces/interfaces';
+import * as CASE from './constans';
+import { IFormAccumulation } from 'features/add-accumulation/interfaces';
 import { accumulationService } from 'features/add-accumulation/service/AccumulationService';
-import { IFormCategorie } from 'features/add-categories/interfaces/interfaces';
+import { IFormCategorie } from 'features/add-categories/interfaces';
 import { categoriesService } from 'features/add-categories/service/categoriesService';
-import { IFormIncome } from 'features/add-income/interfaces/interfaces';
+import { IFormIncome } from 'features/add-income/interfaces';
 import { incomeService } from 'features/add-income/service/incomeService';
-import { IFormSpending } from 'features/add-spending/interfaces/interfaces';
+import { IFormSpending } from 'features/add-spending/interfaces';
 import { spendingService } from 'features/add-spending/service/serviceSpending';
-import { ITaskForm } from 'features/addTasks/interfaces/interfaces';
+import { ITaskForm } from 'features/addTasks/interfaces';
 import { todoService } from 'features/addTasks/service/todoService';
-import { IFormAuth } from 'features/auth/interfaces/interfaces';
+import { IFormAuth } from 'features/auth/interfaces';
 import { authService } from 'features/auth/service/serviceAuth';
 
 
 
 export const useService = (
     reset:()=>void,
-    label:string,
+    caseLabel:string,
     switchISModal?:() => void,
     switchIsModalErr?:() => void,
+    // eslint-disable-next-line max-params
     setValueSelect? :React.Dispatch<React.SetStateAction<string>> ) => {
 
     return async <T>(formData:T) => {
-
-        switch (label) {
-            case CASE.LOGIN:
-                try {
-                    await authService.login(formData as IFormAuth,switchISModal!);
-                }
-                catch (error) {
-                    new Error();
-                }
-                finally {
-                    reset();
-                }
-                break;
-
-            case CASE.REGISTRATION:
-                try {
-                    await authService.registration(formData as IFormAuth,switchISModal!);
-                }
-                catch (error) {
-                    new Error();
-                }
-                finally {
-                    reset();
-                }
-                break;
-
-            case CASE.INCOME:
-                try {
-                    await incomeService.addIncome(formData as IFormIncome,switchISModal!);
-                }
-                catch (error) {
-                    new Error();
-                }
-                finally {
-                    reset();
-                }
-                break;
-
-            case CASE.ACCUMULATION:
-                try {
-                    await accumulationService.addAccumulation(formData as IFormAccumulation,
-                switchIsModalErr!,
-                switchISModal!);
-                }
-                catch (error) {
-                    new Error();
-                }
-                finally {
-                    reset();
-                }
-                break;
-
-            case CASE.SPENDING:
-                try {
+        try {
+            switch (caseLabel) {
+                case CASE.CASE_USESERVICE_LOGIN:
+                    await authService.login(formData as IFormAuth, switchISModal!);
+                    break;
+                case CASE.CASE_USESERVICE_REGISTRATION:
+                    await authService.registration(formData as IFormAuth, switchISModal!);
+                    break;
+                case CASE.CASE_USESERVICE_INCOME:
+                    await incomeService.addIncome(formData as IFormIncome, switchISModal!);
+                    break;
+                case CASE.CASE_USESERVICE_ACCUMULATION:
+                    await accumulationService.addAccumulation(formData as IFormAccumulation,switchIsModalErr!,switchISModal!);
+                    break;
+                case CASE.CASE_USESERVICE_SPENDING:
                     await spendingService.addSpending(formData as IFormSpending,switchISModal!);
-                }
-                catch (error) {
-                    new Error();
-                }
-                finally {
-              setValueSelect!('');
-              reset();
-                }
-                break;
-
-            case CASE.CATEGORIE:
-                try {
+                    break;
+                case CASE.CASE_USESERVICE_CATEGORIE:
                     categoriesService.addCategorie(formData as IFormCategorie,switchIsModalErr!,switchISModal!);
-                }
-                catch (error) {
-                    new Error();
-                }
-                finally {
-                    reset();
-                }
-                break;
-
-            case CASE.TASK:
-                try {
+                    break;
+                case CASE.CASE_USESERVICE_TASK:
                     todoService.addTask(formData as ITaskForm,switchIsModalErr!);
-                }
-                catch (error) {
-                    new Error();
-                }
-                finally {
-                    reset();
-                }
-                break;
+                    break;
+            }
+        }
+        catch (error) {
+            console.log('Ошибка');
+        }
+        finally {
+            reset();
+            if (setValueSelect) {
+                setValueSelect('');
+            }
         }
     };
 };

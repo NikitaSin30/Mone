@@ -5,7 +5,7 @@ import { SpendingIcon } from 'pages/main/assets/SpendingIcon';
 import { CardItem } from '../CardItem/CardItem';
 import { ETitleCard } from 'shared/enums/enums';
 import { spendingStore } from 'shared/store/cashFlowStore/SpendingStore';
-import { IContextMain } from 'pages/main/context/interfaces/interfaces';
+import { IContextMain } from 'pages/main/context/interfaces';
 import { ContextMain } from 'pages/main/context/context';
 
 

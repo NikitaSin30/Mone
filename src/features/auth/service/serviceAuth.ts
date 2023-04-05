@@ -1,5 +1,5 @@
 import { authAPI } from 'api/AuthApi';
-import { IFormAuth } from '../interfaces/interfaces';
+import { IFormAuth } from '../interfaces';
 import { IAuthService } from './IAuthService';
 
 
@@ -12,7 +12,8 @@ class AuthService implements IAuthService {
         }
         catch (error) {
             if (error instanceof Error) {
-                new Error(error.message);
+                throw new Error();
+
             }
 
         }
@@ -24,7 +25,8 @@ class AuthService implements IAuthService {
         }
         catch (error) {
             if (error instanceof Error) {
-                new Error(error.message);
+                throw new Error();
+
             }
         }
     }

@@ -1,17 +1,21 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { categoriesStore } from 'shared/store/categoriesStore/CategoriesStore';
-import { IFormSpending } from 'features/add-spending/interfaces/interfaces';
+import { IFormSpending } from 'features/add-spending/interfaces';
 import { Select } from 'widgets/select/Select';
 import { Input } from 'widgets/inputs/Input';
 import { Button } from 'widgets/modals/ui/button/Button';
 import { CloseIcon } from 'widgets/modals/assets/CloseIcon';
 import { useToggle } from 'shared/hooks/useToggle/useToggle';
 import { useService } from 'shared/hooks/useService/useService';
-import { IContextMain } from 'pages/main/context/interfaces/interfaces';
+import { IContextMain } from 'pages/main/context/interfaces';
 import { ContextMain } from 'pages/main/context/context';
-import { SPENDING } from 'shared/hooks/useService/constans/constans';
-import { NUMBER } from 'widgets/inputs/validation/constans/constans';
+import { CASE_USESERVICE_SPENDING } from 'shared/hooks/useService/constans';
+import { CASE_TYPE_NUMBER } from 'widgets/inputs/validation/constans';
+import { TITLE_REGISTOR_SPENDING, TITLE_REGISTOR_CATEGORIE } from 'widgets/inputs/validation/constans';
+import { TITLE_LABEL_SELECT } from 'widgets/inputs/label/constans';
+import { ACTIVE_MODAL_STYLE, HIDEN_MODAL_STYLE } from 'widgets/modals/constans';
+import { TITLE_BUTTON_ADD } from 'widgets/modals/ui/button/constans';
 
 
 
@@ -19,8 +23,8 @@ const SpendingModal = () => {
     const { isModalActiveSpending,switchIsModalActiveSpending } = React.useContext<IContextMain>(ContextMain);
     const { value: isActiveSelect, toggle: toggleActiveSelect } = useToggle(false);
     const [valueSelect, setValueSelect] = React.useState<string>('');
-    const selected = valueSelect ? valueSelect : 'Выберити категию';
-    const styleModal = isModalActiveSpending ? 'w-full  h-full bg-opacity-20 bg-black  fixed top-0 left-0 flex items-center justify-center ' : 'hidden';
+    const selected = valueSelect ? valueSelect : TITLE_LABEL_SELECT;
+    const styleModal = isModalActiveSpending ? ACTIVE_MODAL_STYLE : HIDEN_MODAL_STYLE;
     const { categories } = categoriesStore;
 
     const {
@@ -31,7 +35,7 @@ const SpendingModal = () => {
         formState: { errors,isValid },
     } = useForm<IFormSpending>({ mode: 'onBlur' });
 
-    const onAddSpending = useService(reset, SPENDING ,switchIsModalActiveSpending,undefined,setValueSelect);
+    const onAddSpending = useService(reset, CASE_USESERVICE_SPENDING, switchIsModalActiveSpending, undefined, setValueSelect);
 
     function getValueSelect(categorie:string):void {
         setValue('categorie', categorie);
@@ -61,10 +65,15 @@ const SpendingModal = () => {
                         selected={selected}
                         toggleActiveSelect={toggleActiveSelect}
                         register={register}
-                        labelTitle="categorie"
+                        titleRegister={TITLE_REGISTOR_CATEGORIE}
                     />
-                    <Input caseType={NUMBER} titleRegister={SPENDING} register={register} errMessage={errors.spending?.message} />
-                    <Button title="Добавить" isValid={isValid} />
+                    <Input
+                        caseType={CASE_TYPE_NUMBER}
+                        titleRegister={TITLE_REGISTOR_SPENDING}
+                        register={register}
+                        errMessage={errors.spending?.message}
+                    />
+                    <Button title={TITLE_BUTTON_ADD} isValid={isValid} />
                 </form>
             </div>
         </>

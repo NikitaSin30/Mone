@@ -1,12 +1,18 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { IFormAuth } from 'features/auth/interfaces/interfaces';
+import { IFormAuth } from 'features/auth/interfaces';
 import { Input } from 'widgets/inputs/Input';
 import { Button } from 'widgets/modals/ui/button/Button';
 import { useService } from 'shared/hooks/useService/useService';
-import { REGISTRATION } from 'shared/hooks/useService/constans/constans';
+import { CASE_USESERVICE_REGISTRATION } from 'shared/hooks/useService/constans';
 import { ContextGlobal, IContextGlobal } from 'shared/context/context';
-import { EMAIL,PASSWORD,COUNTRY,NICKNAME } from 'widgets/inputs/validation/constans/constans';
+import { CASE_TYPE_EMAIL, CASE_TYPE_PASSWORD, CASE_TYPE_COUNTRY, CASE_TYPE_NICKNAME } from 'widgets/inputs/validation/constans';
+import { TITLE_REGISTOR_COUNTRY,
+    TITLE_REGISTOR_EMAIL,
+    TITLE_REGISTOR_NICKNAME,
+    TITLE_REGISTOR_PASSWORD } from 'widgets/inputs/validation/constans';
+import { TITLE_LABEL_EMAIL,TITLE_LABEL_PASSWORD,TITLE_LABEL_COUNTRY,TITLE_LABEL_NICKNAME } from 'widgets/inputs/label/constans';
+import { TITLE_BUTTON_REGISTRATION } from 'widgets/modals/ui/button/constans';
 
 
 
@@ -20,16 +26,44 @@ function FormRegistrationNewUser(): React.ReactElement {
         formState: { errors, isValid },
     } = useForm<IFormAuth>({ mode: 'onBlur' });
 
-    const onRegistration = useService(reset,REGISTRATION,onChangeIsLogin);
+    const onRegistration = useService(reset, CASE_USESERVICE_REGISTRATION, onChangeIsLogin);
 
     return (
-        <form className="flex gap-1 w-full  flex-col  bg text-white bg-slate-900 py-6 px-8 rounded-md shadow-lg md:w-1/2" onSubmit={handleSubmit(onRegistration)}>
+        <form
+            className="flex gap-1 w-full  flex-col  bg text-white bg-slate-900 py-6 px-8 rounded-md
+         shadow-lg md:w-1/2"
+            onSubmit={handleSubmit(onRegistration)}
+        >
             <h2 className="text-xl font-bold text-center">Регистрация</h2>
-            <Input caseType={EMAIL} register={register} titleRegister={EMAIL} titleLabel='Email' errMessage={errors.email?.message} />
-            <Input caseType={COUNTRY} register={register} titleRegister={COUNTRY} titleLabel='Страна' errMessage={errors.country?.message} />
-            <Input caseType={NICKNAME} register={register} titleRegister={NICKNAME} titleLabel='Nickname' errMessage={errors.nickName?.message} />
-            <Input caseType={PASSWORD} register={register} titleRegister={PASSWORD} titleLabel='Пароль' errMessage={errors.password?.message}/>
-            <Button isValid={isValid} title="Зарегистрироваться" />
+            <Input
+                caseType={CASE_TYPE_EMAIL}
+                register={register}
+                titleRegister={TITLE_REGISTOR_EMAIL}
+                titleLabel={TITLE_LABEL_EMAIL}
+                errMessage={errors.email?.message}
+            />
+            <Input
+                caseType={CASE_TYPE_COUNTRY}
+                register={register}
+                titleRegister={TITLE_REGISTOR_COUNTRY}
+                titleLabel={TITLE_LABEL_COUNTRY}
+                errMessage={errors.country?.message}
+            />
+            <Input
+                caseType={CASE_TYPE_NICKNAME}
+                register={register}
+                titleRegister={TITLE_REGISTOR_NICKNAME}
+                titleLabel={TITLE_LABEL_NICKNAME}
+                errMessage={errors.nickName?.message}
+            />
+            <Input
+                caseType={CASE_TYPE_PASSWORD}
+                register={register}
+                titleRegister={TITLE_REGISTOR_PASSWORD}
+                titleLabel={TITLE_LABEL_PASSWORD}
+                errMessage={errors.password?.message}
+            />
+            <Button isValid={isValid} title={TITLE_BUTTON_REGISTRATION} />
         </form>
     );
 }

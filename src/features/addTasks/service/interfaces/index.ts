@@ -1,5 +1,5 @@
-import { ITaskForm } from 'features/addTasks/interfaces/interfaces';
-import { ITask } from 'shared/store/toDoStore/interfaces/interfaces';
+import { ITaskForm } from 'features/addTasks/interfaces';
+import { ITask } from 'shared/store/toDoStore/interfaces';
 
 
 export interface ITodoService {

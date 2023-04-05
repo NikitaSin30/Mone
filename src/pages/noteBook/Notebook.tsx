@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useToggle } from 'shared/hooks/useToggle/useToggle';
-import { IContextNotebook } from './context/interfaces/interfaces';
+import { IContextNotebook } from './context/interfaces';
 
 
 

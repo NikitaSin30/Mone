@@ -1,5 +1,5 @@
-import { IFormSpending } from '../../interfaces/interfaces';
-import { ISpendingOperation } from '../../../../shared/store/cashFlowStore/interfaces/interfaces';
+import { IFormSpending } from '../../interfaces';
+import { ISpendingOperation } from '../../../../shared/store/cashFlowStore/interfaces';
 
 
 export interface ISpendingService {
