@@ -1,52 +1,58 @@
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Input } from 'widgets/inputs/Input';
 import { Button } from 'widgets/modals/ui/button/Button';
 import { CloseIcon } from 'widgets/modals/assets/CloseIcon';
-import { IFormCategorie } from './interfaces/interfaces';
-import { IModal } from 'widgets/modals/interfaces/interfaces';
-import { incomeService } from './service/incomeService';
+import { IFormIncome } from './interfaces';
+import { useService } from 'shared/hooks/useService/useService';
+import { IContextMain } from 'pages/main/context/interfaces';
+import { ContextMain } from 'pages/main/context/context';
+import { CASE_USESERVICE_INCOME } from 'shared/hooks/useService/constans';
+import { CASE_TYPE_NUMBER, CASE_TYPE_TEXT_RUS } from 'widgets/inputs/validation/constans';
+import { TITLE_REGISTOR_INCOME, TITLE_REGISTOR_SPHERE } from 'widgets/inputs/validation/constans';
+import { TITLE_LABEL_SPHERE } from 'widgets/inputs/label/constans';
+import { ACTIVE_MODAL_STYLE, HIDEN_MODAL_STYLE } from 'widgets/modals/constans';
+import { TITLE_BUTTON_ADD } from 'widgets/modals/ui/button/constans';
 
 
-
-const ModalIncome = (props: IModal) => {
-    const { switchShowModal, isModalActive } = props;
-    const styleModal = isModalActive ? 'w-full  h-full bg-opacity-20 bg-black  fixed top-0 left-0 flex items-center justify-center ' : 'hidden';
+const ModalIncome = () => {
+    const { isModalActiveIncome,switchIsModalActiveIncome } = React.useContext<IContextMain>(ContextMain);
+    const styleModal = isModalActiveIncome ? ACTIVE_MODAL_STYLE : HIDEN_MODAL_STYLE;
     const {
         register,
         reset,
         handleSubmit,
         formState: { errors, isValid },
-    } = useForm<IFormCategorie>({ mode: 'onBlur' });
+    } = useForm<IFormIncome>({ mode: 'onBlur' });
 
-    async function onAddIncome({ income, sphere }: IFormCategorie) {
-        try {
-            await incomeService.addIncome(income, sphere);
-        }
-        catch (error) {
-            console.log('Ошибка');
-        }
-        finally {
-            reset();
-            switchShowModal();
-        }
-    }
+    const onAddIncome = useService(reset, CASE_USESERVICE_INCOME, switchIsModalActiveIncome);
 
 
     return (
         <>
-            <div className={styleModal} onClick={switchShowModal}>
+            <div className={styleModal} onClick={switchIsModalActiveIncome}>
                 <form
                     className="flex flex-1 w-100 bg-slate-900 gap-1 flex-col  bg text-white"
                     onSubmit={handleSubmit(onAddIncome)}
                     onClick={(e) => e.stopPropagation()}
                 >
-                    <div onClick={switchShowModal} className="rounded-full w-6 h-6 self-end overflow-hidden hover:scale-110">
+                    <div onClick={switchIsModalActiveIncome} className="rounded-full w-6 h-6 self-end overflow-hidden hover:scale-110">
                         {CloseIcon}
                     </div>
                     <span className="text-xl font-bold text-center">Введите доход</span>
-                    <Input caseType="textRus" register={register} titleRegister="sphere" titleLabel='Сфера дохода' errMessage={errors.sphere?.message} />
-                    <Input caseType="number" titleRegister="income" register={register} errMessage={errors.income?.message}/>
-                    <Button isValid={isValid} title="Добавить" />
+                    <Input
+                        caseType={CASE_TYPE_TEXT_RUS}
+                        register={register}
+                        titleRegister={TITLE_REGISTOR_SPHERE}
+                        titleLabel={TITLE_LABEL_SPHERE}
+                        errMessage={errors.sphere?.message}
+                    />
+                    <Input
+                        caseType={CASE_TYPE_NUMBER}
+                        titleRegister={TITLE_REGISTOR_INCOME}
+                        register={register}
+                        errMessage={errors.income?.message} />
+                    <Button isValid={isValid} title={TITLE_BUTTON_ADD} />
                 </form>
             </div>
         </>

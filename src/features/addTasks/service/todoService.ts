@@ -1,22 +1,23 @@
-import { ITask } from 'shared/store/toDoStore/interfaces/interfaces';
+import { ITask } from 'shared/store/toDoStore/interfaces';
 import { toDoStore } from 'shared/store/toDoStore/ToDoStore';
-import { ITodoService } from './interfaces/interfaces';
+import { ITaskForm } from '../interfaces';
+import { ITodoService } from './interfaces';
 
 
 
 class TodoService implements ITodoService {
 
-     onCheckUniqueTask(newTask: string) {
+    onCheckUniqueTask(newTask: string) {
         return toDoStore.tasks.some(({ task }) => task === newTask);
     }
 
-     modifyNewTask(task: string) {
+    modifyNewTask(task: string) {
         const taskValidaited = task.trim().toLowerCase();
         const newTask = taskValidaited[0].toUpperCase() + taskValidaited.slice(1);
 
         return newTask;
     }
-     createNewTask(validatedTask: string) {
+    createNewTask(validatedTask: string) {
         return {
             task   : validatedTask,
             isDone : false,
@@ -24,7 +25,7 @@ class TodoService implements ITodoService {
         };
     }
 
-    addTask(task: string, includeModalError: () => void): void {
+    addTask({ task }: ITaskForm, includeModalError: () => void) {
         const taskValidaited = this.modifyNewTask(task);
         const hasTask = this.onCheckUniqueTask(taskValidaited);
 

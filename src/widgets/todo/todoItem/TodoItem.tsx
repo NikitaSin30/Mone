@@ -1,6 +1,6 @@
 import { DeleteIcon } from 'widgets/todo/assets/DeleteIcon';
 import { toDoStore } from 'shared/store/toDoStore/ToDoStore';
-import { ITodoItem } from '../interfaces/interfaces';
+import { ITodoItem } from '../interfaces';
 
 
 

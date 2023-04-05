@@ -1,4 +1,4 @@
-import { ICategorie } from 'shared/store/categoriesStore/interfaces/interfaces';
+import { ICategorie } from 'shared/store/categoriesStore/interfaces';
 import { UseFormRegister } from 'react-hook-form';
 
 
@@ -9,6 +9,6 @@ export interface ISelect {
   categories: Array<ICategorie>;
   toggleActiveSelect: () => void;
   selected: string;
-  labelTitle: string;
+  titleRegister: string;
   register: UseFormRegister<any>;
 }

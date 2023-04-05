@@ -1,4 +1,4 @@
-import { IDeleteModal } from './interfaces/interfaces';
+import { IDeleteModal } from './interfaces';
 import { CloseIcon } from './assets/CloseIcon';
 
 

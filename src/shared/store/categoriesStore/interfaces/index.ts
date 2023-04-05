@@ -2,7 +2,7 @@
 export interface ICategorie {
   categorie: string;
   id?: string;
-  spentMoney: number;
+  spending: number;
 }
 export interface ICategoriesStore {
   categories: Array<ICategorie>;

@@ -1,19 +1,23 @@
-import React  from "react";
+import React from 'react';
 import { useForm } from 'react-hook-form';
-import { IFormAccumulation } from './interfaces/interfaces';
+import { IFormAccumulation } from './interfaces';
 import { Input } from 'widgets/inputs/Input';
 import { Button } from 'widgets/modals/ui/button/Button';
 import { CloseIcon } from 'widgets/modals/assets/CloseIcon';
-import { IModal } from 'widgets/modals/interfaces/interfaces';
-import { accumulationService } from './service/AccumulationService';
+import { useService } from 'shared/hooks/useService/useService';
+import { IContextMain } from 'pages/main/context/interfaces';
+import { ContextMain } from 'pages/main/context/context';
+import { CASE_USESERVICE_ACCUMULATION } from 'shared/hooks/useService/constans';
+import { CASE_TYPE_NUMBER } from 'widgets/inputs/validation/constans';
+import { TITLE_REGISTOR_ACCUMULATION } from 'widgets/inputs/validation/constans';
+import { ACTIVE_MODAL_STYLE,HIDEN_MODAL_STYLE } from 'widgets/modals/constans';
+import { TITLE_BUTTON_ADD } from 'widgets/modals/ui/button/constans';
 
 
 
-const AccumulationModal = (props: IModal): React.ReactElement => {
-    const { switchShowModal, switchShowModalErr, isModalActive } = props;
-    const styleModal = isModalActive
-        ? 'w-full  h-full  bg-opacity-20 bg-black fixed top-0 left-0 flex items-center justify-center '
-        : 'hidden';
+const AccumulationModal = (): React.ReactElement => {
+    const { isModalActiveAccumulation,switchisModalActiveAccumulation,switchisModalErrActiveAccumulation } = React.useContext<IContextMain>(ContextMain);
+    const styleModal = isModalActiveAccumulation ? ACTIVE_MODAL_STYLE : HIDEN_MODAL_STYLE;
 
     const {
         register,
@@ -22,41 +26,28 @@ const AccumulationModal = (props: IModal): React.ReactElement => {
         formState: { errors, isValid },
     } = useForm<IFormAccumulation>({ mode: 'onBlur' });
 
-    async function onAddAccumulation({ accumulation }: IFormAccumulation) {
-
-        try {
-            await accumulationService.addAccumulation( accumulation, showModalError, switchShowModal);
-        }
-        catch (error) {
-            console.log('Ошибка');
-        }
-        finally {
-            reset();
-        }
-
-    }
-
-    function showModalError() {
-        switchShowModal();
-        switchShowModalErr!();
-    }
+    const onAddAccumulation = useService(reset, CASE_USESERVICE_ACCUMULATION, switchisModalActiveAccumulation, switchisModalErrActiveAccumulation);
 
 
     return (
         <>
-            <div className={styleModal} onClick={switchShowModal}>
+            <div className={styleModal} onClick={switchisModalActiveAccumulation}>
                 <form
                     className="flex flex-1  w-100 gap-1 flex-col
                      bg-slate-900 text-white py-6 px-8  "
                     onSubmit={handleSubmit(onAddAccumulation)}
                     onClick={(e) => e.stopPropagation()}
                 >
-                    <div onClick={switchShowModal} className="rounded-full  w-6 h-6 self-end  hover:scale-110">
+                    <div onClick={switchisModalActiveAccumulation} className="rounded-full  w-6 h-6 self-end  hover:scale-110">
                         {CloseIcon}
                     </div>
                     <span className="text-xl font-bold text-center">Сколько хотите отложить ?</span>
-                    <Input caseType="number" titleRegister="accumulation" register={register} errMessage={errors.accumulation?.message}/>
-                    <Button isValid={isValid} title="Добаавить " />
+                    <Input
+                        caseType={CASE_TYPE_NUMBER}
+                        titleRegister={TITLE_REGISTOR_ACCUMULATION}
+                        register={register}
+                        errMessage={errors.accumulation?.message} />
+                    <Button isValid={isValid} title={TITLE_BUTTON_ADD} />
                 </form>
             </div>
         </>

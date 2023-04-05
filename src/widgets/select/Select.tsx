@@ -1,17 +1,9 @@
-import { ISelect } from './interfaces/interfaces';
+import { ISelect } from './interfaces';
 
 
 
 export const Select = (props:ISelect) => {
-    const {
-        isActiveSelect,
-        getValueSelect,
-        toggleActiveSelect,
-        register,
-        categories,
-        selected,
-        labelTitle,
-    } = props;
+    const { isActiveSelect, getValueSelect, toggleActiveSelect, register, categories, selected, titleRegister } = props;
 
     const style = isActiveSelect ? 'block' : 'hidden';
 
@@ -22,7 +14,7 @@ export const Select = (props:ISelect) => {
                 className="flex-1 cursor-pointer bg-white h-8
                          text-black font-semibold rounded-md shadow-lg py-1"
             >
-                <div {...register(labelTitle, { required: true })}>{selected}</div>
+                <div {...register(titleRegister, { required: true })}>{selected}</div>
                 <ul className={`flex-1 w-full max-h-20 overflow-y-auto relative bg-slate-900 ${style}`}>
                     {categories?.map(({ categorie }) => {
                         return (

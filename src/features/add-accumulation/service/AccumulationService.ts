@@ -2,16 +2,18 @@ import { balanceStore } from 'shared/store/cashFlowStore/BalanceStore';
 import { cashFlowApi } from 'api/CashFlowApi';
 import { userStore } from 'shared/store/userStore/UserStore';
 import { accumulationStore } from 'shared/store/cashFlowStore/AccumulationStore';
-import { IAccumulationService } from './interfaces/interfaces';
+import { IAccumulationService } from './interfaces';
+import { IFormAccumulation } from '../interfaces';
 
 
 class AccumulationService implements IAccumulationService {
-    async addAccumulation(newAccumulation: number, showModalError: () => void, switchShowModal: () => void) {
-        if (balanceStore.moneyAccount < newAccumulation) return showModalError();
+    async addAccumulation({ accumulation }: IFormAccumulation, showModalError: () => void, switchShowModal: () => void) {
+        if (balanceStore.moneyAccount < accumulation)
+            return showModalError(),switchShowModal();
 
         try {
-            await cashFlowApi.addAccumulation(userStore.userId, newAccumulation);
-            accumulationStore.addAccumulation(newAccumulation);
+            await cashFlowApi.addAccumulation(userStore.userId, accumulation);
+            accumulationStore.addAccumulation(accumulation);
         }
         catch (error) {
             if (error instanceof Error) {

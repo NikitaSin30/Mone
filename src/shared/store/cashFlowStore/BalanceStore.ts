@@ -1,5 +1,5 @@
 import { action, makeObservable, observable } from 'mobx';
-import { IBalanceStore } from './interfaces/interfaces';
+import { IBalanceStore } from './interfaces';
 
 
 
@@ -14,11 +14,11 @@ export class BalanceStore implements IBalanceStore {
         });
     }
 
-    updateCashAccount(newBalance: number ): void {
+    updateCashAccount(newBalance: number ) {
         this.moneyAccount = newBalance;
     }
 
-    getBalanceWithDB(sum:number):void {
+    getBalanceWithDB(sum:number) {
         this.moneyAccount = sum;
     }
 }
