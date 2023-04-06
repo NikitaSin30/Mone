@@ -1,12 +1,12 @@
 import React from 'react';
 
 
-export interface GlobalContext {
+export interface IContextGlobal {
   isLogin: boolean;
   onChangeIsLogin: () => void,
 }
 
-export const Context = React.createContext<GlobalContext>({
+export const ContextGlobal = React.createContext<IContextGlobal>({
     isLogin         : false,
     onChangeIsLogin : () => null,
 });

@@ -1,9 +1,8 @@
-import { IAccumulationOperation, IIncomeOperation, ISpendingOperation } from '../../shared/store/cashFlowStore/interfaces/interfaces';
-import {IFormAuth} from "../../features/auth/interfaces/interfaces";
-import { ICategorie } from 'shared/store/categoriesStore/interfaces/interfaces';
-import { ITask } from 'shared/store/toDoStore/interfaces/interfaces';
-
-
+import { IAccumulationOperation, IIncomeOperation, ISpendingOperation } from '../../shared/store/cashFlowStore/interfaces';
+import { ICategorie } from 'shared/store/categoriesStore/interfaces';
+import { ITask } from 'shared/store/toDoStore/interfaces';
+import { IFormSpending } from '../../features/add-spending/interfaces';
+import { IFormAuth } from '../../features/auth/interfaces';
 
 export interface ICashFlowApi {
   addIncome: (userId: string, income: number, sphere: string) => Promise<IIncomeOperation>;
@@ -22,7 +21,6 @@ export interface ICategoriesApi {
   deleteCategorie:(key:string,userId: string) => Promise<void>;
   addSpendingInCategorie: (categorie: ICategorie, userId: string) => Promise<void>;
 }
-
 
 export interface ITodoApi {
   addTask: (task: string, userId: string) => Promise<ITask>;

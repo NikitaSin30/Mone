@@ -1,9 +1,17 @@
 import { Link } from 'react-router-dom';
+import { useToggle } from 'shared/hooks/useToggle/useToggle';
+import { IContextNotebook } from './context/interfaces';
 
 
 
-const Notebook = () => {
+export const Notebook = () => {
 
+    const { value: isModalErrActiveTask, toggle: switchisModalErrActiveTask } = useToggle(false);
+
+    const context : IContextNotebook = {
+        isModalErrActiveTask,
+        switchisModalErrActiveTask,
+    };
 
     return (
         <div className="flex  flex-1 items-center justify-center w-6/6 h-6/6 gap-2 md:gap-3">

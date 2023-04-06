@@ -2,8 +2,8 @@
 export interface ICategorie {
   categorie: string;
   id: string;
-  spentMoney: number;
   key: string | null;
+  spending: number;
 }
 
 export interface ICategoriesStore {

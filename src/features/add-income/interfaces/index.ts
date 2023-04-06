@@ -1,7 +1,5 @@
 
-export interface IFormCategorie {
+export interface IFormIncome {
   income: number;
   sphere: string;
 }
-
-

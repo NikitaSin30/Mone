@@ -1,12 +1,12 @@
-import { IAccumulationOperation, IIncomeOperation } from 'shared/store/cashFlowStore/interfaces/interfaces';
-import { IFormSpending } from 'features/add-spending/interfaces/interfaces';
+import { IAccumulationOperation, IIncomeOperation } from 'shared/store/cashFlowStore/interfaces';
+import { IFormSpending } from 'features/add-spending/interfaces';
 import { ref, child, push, update } from 'firebase/database';
 import { db } from 'shared/firebase/firebase';
 import { accumulationStore } from 'shared/store/cashFlowStore/AccumulationStore';
 import { balanceStore } from 'shared/store/cashFlowStore/BalanceStore';
 import { incomeStore } from 'shared/store/cashFlowStore/IncomeStore';
 import { spendingStore } from 'shared/store/cashFlowStore/SpendingStore';
-import { ICashFlowApi } from './interfaces/interfaces';
+import { ICashFlowApi } from './interfaces';
 
 // type UpdateFunction = (data: Partial<Record<string, any>>, onComplete?: (error: Error | null) => void) => Promise<void>;
 
@@ -17,13 +17,13 @@ class CashFlowApi implements ICashFlowApi {
     async addIncome(userId: string, income:number , sphere: string) {
         try {
             const newIncomeKey = push(child(ref(db), 'income')).key;
-             const incomeItem = {
-                 sphere: sphere,
-                  income: income,
-                 date : new Date(),
-                 key: newIncomeKey,
+            const incomeItem = {
+                sphere : sphere,
+                income : income,
+                date   : new Date(),
+                key    : newIncomeKey,
 
-             };
+            };
             const updates: any = {};
 
             updates['users/' + userId + '/cash/income/operation/' + newIncomeKey] = incomeItem;
@@ -31,6 +31,7 @@ class CashFlowApi implements ICashFlowApi {
             updates['users/' + userId + '/cash/balance'] = balanceStore.moneyAccount + incomeItem.income;
 
             await update(ref(db), updates);
+            
             return incomeItem;
         }
         catch (error) {
@@ -42,9 +43,9 @@ class CashFlowApi implements ICashFlowApi {
         try {
             const newAccumulationKey = push(child(ref(db), 'accumulation')).key;
             const accumulationItem: IAccumulationOperation = {
-              accumulation: accumulation,
-              date: new Date(),
-              key: newAccumulationKey,
+                accumulation : accumulation,
+                date         : new Date(),
+                key          : newAccumulationKey,
             };
             const updates: any = {};
 
@@ -53,7 +54,8 @@ class CashFlowApi implements ICashFlowApi {
             updates['users/' + userId + '/cash/balance'] = balanceStore.moneyAccount - accumulation;
 
             await update(ref(db), updates);
-            return accumulationItem
+            
+            return accumulationItem;
         }
         catch (error) {
             throw new Error('Что-то пошло не так');
@@ -64,10 +66,10 @@ class CashFlowApi implements ICashFlowApi {
         try {
             const newSpendingKey = push(child(ref(db), 'spending')).key;
             const spendingItem = {
-              spending: spending,
-              categorie:categorie,
-              date: new Date(),
-              key: newSpendingKey,
+                spending  : spending,
+                categorie : categorie,
+                date      : new Date(),
+                key       : newSpendingKey,
             };
 
             const updates: any = {};

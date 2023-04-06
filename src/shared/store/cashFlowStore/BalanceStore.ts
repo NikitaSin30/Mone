@@ -1,5 +1,5 @@
-import { action, makeAutoObservable, makeObservable, observable } from 'mobx';
-import { IBalanceStore } from './interfaces/interfaces';
+import { makeAutoObservable } from 'mobx';
+import { IBalanceStore } from './interfaces';
 
 
 
@@ -7,11 +7,10 @@ export class BalanceStore implements IBalanceStore {
     moneyAccount = 0;
 
     constructor() {
-       makeAutoObservable(this);
-
+        makeAutoObservable(this);
     }
 
-    updateCashAccount(newBalance: number ): void {
+    updateCashAccount(newBalance: number ) {
         this.moneyAccount = newBalance;
     }
 

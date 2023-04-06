@@ -10,7 +10,7 @@ export const TasksList = observer(() => {
     return (
         <div className="flex flex-1 flex-col h-full gap-2">
             {tasks?.map((item) => {
-                return <ToDoItem key={item.id} task={item.task} isDone={item.isDone} id={item.id}  />;
+                return <ToDoItem key={item.id} task={item.task} isDone={item.isDone} id={item.id} />;
             })}
         </div>
     );

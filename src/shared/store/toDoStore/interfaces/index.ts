@@ -10,6 +10,6 @@ export interface ITodoStore {
   addTask: (task: ITask) => void;
   removeTask: (id: string) => void;
   removeAllTasks: () => void;
-  getTask: (id: string) => ITask;
+  getTask: (id: string) => ITask | void;
   setTasksWithdDB: (tasks: ITask[]) => void;
 }

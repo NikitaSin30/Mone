@@ -1,19 +1,20 @@
 import { userStore } from 'shared/store/userStore/UserStore';
 import { spendingStore } from 'shared/store/cashFlowStore/SpendingStore';
 import { categoriesStore } from 'shared/store/categoriesStore/CategoriesStore';
-import { ISpendingOperation } from 'shared/store/cashFlowStore/interfaces/interfaces';
-import { IFormSpending } from '../interfaces/interfaces';
+import { IFormSpending } from '../interfaces';
 import { cashFlowApi } from 'api/CashFlowApi';
-import { ISpendingService } from './interfaces/interfaces';
 import { categoriesService } from 'features/add-categories/service/categoriesService';
+import { ISpendingService } from './interfaces';
+import { ISpendingOperation } from 'shared/store/cashFlowStore/interfaces';
 
 
 class SpendingService implements ISpendingService {
 
-    async addSpending( {spentMoney,categorie} : IFormSpending ) {
+    async addSpending( newSpending : IFormSpending, switchShowModal:()=>void) {
 
         try {
-          const res:ISpendingOperation =  await cashFlowApi.addSpending(userStore.userId, spentMoney,categorie);
+            const res:ISpendingOperation =  await cashFlowApi.addSpending(userStore.userId, newSpending.spending,newSpending.categorie);
+
             spendingStore.addSpending(res);
             categoriesService.addSpendingInCategorie(res.categorie,res.spending);
 
@@ -22,6 +23,9 @@ class SpendingService implements ISpendingService {
             if (error instanceof Error) {
                 throw new Error(error.message);
             }
+        }
+        finally {
+            switchShowModal();
         }
     }
 
