@@ -2,6 +2,7 @@ import { balanceStore } from 'shared/store/cashFlowStore/BalanceStore';
 import { cashFlowApi } from 'api/CashFlowApi';
 import { userStore } from 'shared/store/userStore/UserStore';
 import { accumulationStore } from 'shared/store/cashFlowStore/AccumulationStore';
+import { IAccumulationOperation } from 'shared/store/cashFlowStore/interfaces';
 import { IAccumulationService } from './interfaces';
 import { IFormAccumulation } from '../interfaces';
 
@@ -12,8 +13,9 @@ class AccumulationService implements IAccumulationService {
             return showModalError(),switchShowModal();
 
         try {
-            await cashFlowApi.addAccumulation(userStore.userId, accumulation);
-            accumulationStore.addAccumulation(accumulation);
+            const res: IAccumulationOperation = await cashFlowApi.addAccumulation(userStore.userId, accumulation);
+
+            accumulationStore.addAccumulation(res);
         }
         catch (error) {
             if (error instanceof Error) {

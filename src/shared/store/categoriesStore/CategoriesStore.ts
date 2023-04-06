@@ -1,4 +1,4 @@
-import { action, makeObservable, observable } from 'mobx';
+import { makeAutoObservable } from 'mobx';
 import { ICategoriesStore, ICategorie } from './interfaces';
 
 
@@ -6,28 +6,28 @@ import { ICategoriesStore, ICategorie } from './interfaces';
 class CategoriesStore implements ICategoriesStore {
     categories: ICategorie[] = [];
     constructor() {
-        makeObservable(this, {
-            categories      : observable,
-            addCatigorie    : action,
-            removeCategorie : action,
-        });
+        makeAutoObservable(this);
     }
+
     addCatigorie(categorie: ICategorie) {
         this.categories.push(categorie);
     }
-    removeCategorie(id: string): void {
+    removeCategorie(id: string) {
         this.categories = this.categories.filter((categorie) => categorie.id !== id);
     }
+    getCategorie(id: string) {
+        const categorie = this.categories.filter((categorie) => categorie.id === id);
 
-    updateSpandingInCategorie(newSpending: ICategorie) {
-        this.categories = this.categories.map((categorie) =>
-            categorie.id === newSpending.id
-                ? {
-                    ...categorie,
-                    spentMoney : newSpending.spending + categorie.spending,
-                }
-                : categorie,
-        );
+        return { ...categorie[0] };
+    }
+
+    updateCategories(updatedCategorie: ICategorie): void {
+        this.categories = this.categories.map((categorie) => {
+            return categorie.id === updatedCategorie.id ? updatedCategorie : categorie;
+        });
+    }
+    setCategoriesWithDB(categories: ICategorie[]) {
+        this.categories = categories;
     }
 }
 export const categoriesStore = new CategoriesStore();

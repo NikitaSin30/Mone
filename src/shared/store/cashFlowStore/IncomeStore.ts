@@ -1,4 +1,4 @@
-import { action, makeObservable, observable } from 'mobx';
+import { makeAutoObservable } from 'mobx';
 import { balanceStore } from './BalanceStore';
 import { IIncomeStore } from './interfaces';
 import { IIncomeOperation } from './interfaces';
@@ -9,11 +9,7 @@ export class IncomeStore implements IIncomeStore {
     income:number = 0;
 
     constructor() {
-        makeObservable(this, {
-            income             : observable,
-            addIncome          : action,
-            getIncomeWithStore : action,
-        });
+        makeAutoObservable(this);
     }
 
     addIncome(operation: IIncomeOperation) {
@@ -24,8 +20,9 @@ export class IncomeStore implements IIncomeStore {
         balanceStore.updateCashAccount(updatedBalance);
     }
 
-    getIncomeWithStore(itcome: number) {
+    setIncomeWithStore(itcome: number,operations:IIncomeOperation[]): void {
         this.income = itcome;
+        this.incomeOperations = operations;
     }
 }
 

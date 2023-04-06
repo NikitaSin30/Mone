@@ -1,20 +1,15 @@
-import { action, makeObservable, observable } from 'mobx';
-import { ITodo, ITask } from './interfaces';
+import { makeAutoObservable } from 'mobx';
+import { ITodoStore, ITask } from './interfaces';
 
 
-class ToDoStore implements ITodo {
-    tasks:ITask[] = [];
+
+
+class ToDoStore implements ITodoStore {
+    tasks: ITask[] = [];
 
     constructor() {
-        makeObservable(this, {
-            tasks                : observable,
-            addTask              : action,
-            toggleStatusByIdTask : action,
-            removeTask           : action,
-            removeAllTasks       : action,
-        });
+        makeAutoObservable(this);
     }
-
 
     addTask(task: ITask) {
         this.tasks.push(task);
@@ -30,9 +25,26 @@ class ToDoStore implements ITodo {
     toggleStatusByIdTask(id: string) {
         this.tasks.map((task) => {
             if (task.id === id) task.isDone = !task.isDone;
+        });
+    }
+
+    updateTask(id:string): void {
+        this.tasks.map((task) => {
+            if (task.id === id) task.isDone = !task.isDone;
 
             return task;
         });
+    }
+
+    getTask(id:string) {
+        const task : ITask[] = this.tasks.filter(task => task.id === id);
+
+
+        return { ...task[0] };
+    }
+
+    setTasksWithdDB(task:ITask[]) {
+        this.tasks = task;
     }
 }
 

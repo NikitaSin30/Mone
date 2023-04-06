@@ -11,7 +11,7 @@ import { useService } from 'shared/hooks/useService/useService';
 import { IContextMain } from 'pages/main/context/interfaces';
 import { ContextMain } from 'pages/main/context/context';
 import { CASE_USESERVICE_SPENDING } from 'shared/hooks/useService/constans';
-import { CASE_TYPE_NUMBER } from 'widgets/inputs/validation/constans';
+import { CASE_TYPE_NUMBER, CASE_TYPE_SELECT } from 'widgets/inputs/validation/constans';
 import { TITLE_REGISTOR_SPENDING, TITLE_REGISTOR_CATEGORIE } from 'widgets/inputs/validation/constans';
 import { TITLE_LABEL_SELECT } from 'widgets/inputs/label/constans';
 import { ACTIVE_MODAL_STYLE, HIDEN_MODAL_STYLE } from 'widgets/modals/constans';
@@ -25,7 +25,7 @@ const SpendingModal = () => {
     const [valueSelect, setValueSelect] = React.useState<string>('');
     const selected = valueSelect ? valueSelect : TITLE_LABEL_SELECT;
     const styleModal = isModalActiveSpending ? ACTIVE_MODAL_STYLE : HIDEN_MODAL_STYLE;
-    const { categories } = categoriesStore;
+
 
     const {
         register,
@@ -60,12 +60,12 @@ const SpendingModal = () => {
                     </div>
                     <Select
                         isActiveSelect={isActiveSelect}
-                        categories={categories}
                         getValueSelect={getValueSelect}
                         selected={selected}
                         toggleActiveSelect={toggleActiveSelect}
                         register={register}
                         titleRegister={TITLE_REGISTOR_CATEGORIE}
+                        caseType={CASE_TYPE_SELECT}
                     />
                     <Input
                         caseType={CASE_TYPE_NUMBER}

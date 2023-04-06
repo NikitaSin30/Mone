@@ -1,4 +1,5 @@
 import { authAPI } from 'api/AuthApi';
+import { userStore } from '../../../shared/store/userStore/UserStore';
 import { IFormAuth } from '../interfaces';
 import { IAuthService } from './IAuthService';
 
@@ -13,15 +14,16 @@ class AuthService implements IAuthService {
         catch (error) {
             if (error instanceof Error) {
                 throw new Error();
-
             }
-
         }
     }
-    async registration(user: IFormAuth, switchShowModal: () => void) {
+    async registration(user: IFormAuth, switchStatus: () => void) {
+
         try {
-            await authAPI.registration(user);
-            switchShowModal();
+            const userID = await authAPI.registration(user);
+
+            userStore.setUser(user, userID);
+            switchStatus();
         }
         catch (error) {
             if (error instanceof Error) {

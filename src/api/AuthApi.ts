@@ -9,6 +9,11 @@ import { accumulationStore } from 'shared/store/cashFlowStore/AccumulationStore'
 import { structureCashUser } from './structureBD';
 import { balanceStore } from 'shared/store/cashFlowStore/BalanceStore';
 import { AUTH } from './constans';
+import { toDoStore } from 'shared/store/toDoStore/ToDoStore';
+import { IAccumulationOperation, IIncomeOperation, ISpendingOperation } from 'shared/store/cashFlowStore/interfaces';
+import { ITask } from 'shared/store/toDoStore/interfaces';
+import { ICategorie } from 'shared/store/categoriesStore/interfaces';
+import { categoriesStore } from 'shared/store/categoriesStore/CategoriesStore';
 import { IAuthApi } from './interfaces';
 
 
@@ -27,23 +32,16 @@ class AuthApi implements IAuthApi {
                 ...structureCashUser,
             };
 
-            await this.addUser(response.user.uid, sctructureUserDB);
+            await set(ref(db, 'users/' + response.user.uid), sctructureUserDB);
 
+            return response.user.uid;
+            
         }
         catch (err) {
             throw new Error('Что то пошло не так');
         }
     }
 
-    async addUser(uid: string, infoUser: any) {
-        try {
-            await set(ref(db, 'users/' + uid), infoUser);
-            userStore.setUser(infoUser,uid);
-        }
-        catch (error) {
-            throw new Error('Что-то пошло не так');
-        }
-    }
 
     async login(email: string, password: string) {
         try {
@@ -64,10 +62,44 @@ class AuthApi implements IAuthApi {
                 const data = snapshot.val();
 
                 userStore.setUser(data.info, userId);
-                balanceStore.getBalanceWithDB(data.cash.balance);
-                incomeStore.getIncomeWithStore(data.cash.income.allIncome);
-                spendingStore.getSpendingWithDB(data.cash.spending.allSpending);
-                accumulationStore.getAccumulationWithDB(data.cash.accumulation.allAccumulation);
+
+                balanceStore.setBalanceWithDB(data.cash.balance);
+
+                const operationIncome:IIncomeOperation[] = [];
+
+                for (let key in data.cash.income.operation) {
+                    operationIncome.push(data.task[key]);
+                }
+                incomeStore.setIncomeWithStore(data.cash.income.allIncome,operationIncome);
+
+                const operationSpending: ISpendingOperation[] = [];
+
+                for (let key in data.cash.spending.operation) {
+                    operationSpending.push(data.task[key]);
+                }
+                spendingStore.setSpendingWithDB(data.cash.spending.allSpending,operationSpending);
+
+
+                const operationAccumulation: IAccumulationOperation[] = [];
+
+                for (let key in data.cash.accumulation.operation) {
+                    operationAccumulation.push(data.task[key]);
+                }
+                accumulationStore.setAccumulationWithDB(data.cash.accumulation.allAccumulation, operationAccumulation);
+
+                const tasks: ITask[] = [];
+
+                for (let key in data.task) {
+                    tasks.push(data.task[key]);
+                }
+                toDoStore.setTasksWithdDB(tasks);
+
+                const categories:ICategorie[] = [];
+
+                for (let key in data.categories) {
+                    categories.push(data.categories[key]);
+                }
+                categoriesStore.setCategoriesWithDB(categories);
             });
         }
         catch (error) {

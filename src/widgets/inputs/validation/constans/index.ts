@@ -5,7 +5,7 @@ export const CASE_TYPE_COUNTRY = 'country';
 export const CASE_TYPE_NICKNAME = 'nickname';
 export const CASE_TYPE_NUMBER = 'number';
 export const CASE_TYPE_TEXT_RUS = 'textRus';
-
+export const CASE_TYPE_SELECT = 'select';
 
 export const TITLE_REGISTOR_SPENDING = 'spending';
 export const TITLE_REGISTOR_EMAIL = 'email';

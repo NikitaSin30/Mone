@@ -35,5 +35,9 @@ export const createValidation = (typeCase: string) => {
                 type       : 'text',
                 validation : Validation.VALIDATION_STRING,
             };
+        case CASE.CASE_TYPE_SELECT:
+            return {
+                validation : Validation.VALIDATION_SELECT,
+            };
     }
 };

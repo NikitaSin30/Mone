@@ -1,11 +1,14 @@
+import { createValidation } from 'widgets/inputs/validation/fabricValadation';
 import { ISelect } from './interfaces';
-
+import { SelectList } from './SelectList/SelectList';
 
 
 export const Select = (props:ISelect) => {
-    const { isActiveSelect, getValueSelect, toggleActiveSelect, register, categories, selected, titleRegister } = props;
+    const { isActiveSelect, getValueSelect, toggleActiveSelect, register, selected, titleRegister,caseType } = props;
 
     const style = isActiveSelect ? 'block' : 'hidden';
+    const validation = createValidation(caseType);
+
 
     return (
         <>
@@ -14,21 +17,8 @@ export const Select = (props:ISelect) => {
                 className="flex-1 cursor-pointer bg-white h-8
                          text-black font-semibold rounded-md shadow-lg py-1"
             >
-                <div {...register(titleRegister, { required: true })}>{selected}</div>
-                <ul className={`flex-1 w-full max-h-20 overflow-y-auto relative bg-slate-900 ${style}`}>
-                    {categories?.map(({ categorie }) => {
-                        return (
-                            <li
-                                key={categorie}
-                                className="bg-white cursor-pointer  h-8
-                         text-black font-semibold rounded-md shadow-lg px-2 py-1 border-solid border-b-2 hover:bg-slate-500 hover:text-white"
-                                onClick={() => getValueSelect(categorie)}
-                            >
-                                {categorie}
-                            </li>
-                        );
-                    })}
-                </ul>
+                <div {...register(titleRegister, validation?.validation)}>{selected}</div>
+                <SelectList style={style} getValueSelect={getValueSelect}/>
             </div>
         </>
     );
