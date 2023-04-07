@@ -9,8 +9,8 @@ export const CatagoriesList = observer(() => {
 
     return (
         <ul className="flex flex-wrap flex-col gap-2 w-full pt-2 ">
-            {categories?.map(({ categorie, spentMoney }) => {
-                return <CategorieItem key={categorie} categorie={categorie} id={categorie} spentMoney={spentMoney} />;
+            {categories?.map(({ categorie, spending }) => {
+                return <CategorieItem key={categorie} categorie={categorie} id={categorie} spending={spending} />;
             })}
         </ul>
     );

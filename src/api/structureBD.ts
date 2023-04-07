@@ -15,4 +15,5 @@ export const structureCashUser = {
             operation   : {},
         },
     },
+    categories : {},
 };

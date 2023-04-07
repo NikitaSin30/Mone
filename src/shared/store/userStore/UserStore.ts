@@ -1,13 +1,14 @@
 import { makeAutoObservable } from 'mobx';
-import { IUser } from './interfaces.ts/interfaces';
-import { IFormAuth } from 'features/auth/interfaces/interfaces';
+import { IUser } from './interfaces.ts';
+import { IFormAuth } from 'features/auth/interfaces';
 
 
 export class User implements IUser {
-    user!: IFormAuth;
+    user: IFormAuth;
+    userId: string;
 
     constructor() {
-       makeAutoObservable(this)
+        makeAutoObservable(this);
     }
 
     setUser(user: IFormAuth) {

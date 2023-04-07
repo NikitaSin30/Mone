@@ -2,60 +2,64 @@ const User = require('../modelsMongo/User');
 
 class CashFlowController {
 
-  async addIncome(req, res) {
+    async addIncome(req, res) {
         const { incomeOperation, id } = req.body;
 
-    try {
-        const { income, balance } = await User.findById(id)
-        const newBallance = balance - incomeOperation.income;
-        const newSpendingBalance = spending + incomeOperation.income;
+        try {
+            const { income, balance } = await User.findById(id);
+            const newBallance = balance + incomeOperation.income;
+            const newSpendingBalance = income + incomeOperation.income;
 
-        await User.updateOne({ _id: id }, { $set: { income: newSpendingBalance } });
-        await User.updateOne({ _id: id }, { $set: { balance: newBallance } });
-        await User.updateOne({ _id: id }, { $push: { incomeOperations : incomeOperation } });
+            await User.updateOne({ _id: id }, { $set: { income: newSpendingBalance } });
+            await User.updateOne({ _id: id }, { $set: { balance: newBallance } });
+            await User.updateOne({ _id: id }, { $push: { incomeOperations: incomeOperation } });
 
-        res.json({ message: 'Доход добавлен' });
+            res.json({ message: 'Доход добавлен' });
 
-    } catch (error) {
-        res.status(400).json({ message: 'Произошла ошибка' });
+        }
+        catch (error) {
+            res.status(400).json({ message: 'Произошла ошибка' });
+        }
     }
-  }
 
-  async addSpending(req, res) {
-    const { id, spendingOperation } = req.body;
+    async addSpending(req, res) {
+        const { id, spendingOperation } = req.body;
 
-    try {
-        const { spending, balance } = await User.findById(id);
-        const newBallance = balance - spendingOperation.spending;
-        const newSpendingBalance = spending + spendingOperation.spending;
+        try {
+            const { spending, balance } = await User.findById(id);
+            const newBallance = balance - spendingOperation.spending;
+            const newSpendingBalance = spending + spendingOperation.spending;
 
-        await User.updateOne({ _id: id }, { $set: { spending: newSpendingBalance } });
-        await User.updateOne({ _id: id }, { $set: { balance: newBallance } });
-        await User.updateOne({ _id: id }, { $push: { spendingOperations: spendingOperation } });
+            await User.updateOne({ _id: id }, { $set: { spending: newSpendingBalance } });
+            await User.updateOne({ _id: id }, { $set: { balance: newBallance } });
+            await User.updateOne({ _id: id }, { $push: { spendingOperations: spendingOperation } });
 
-        res.json({ message: 'Расход добавлен' });
+            res.json({ message: 'Расход добавлен' });
 
-    } catch (error) {
-        res.status(400).json({ message: 'Произошла ошибка' });
+        }
+        catch (error) {
+            res.status(400).json({ message: 'Произошла ошибка' });
+        }
     }
-  }
-  async addAccumulation(req, res) {
-    const {accumulationOperation,id} = req.body
-    try {
-        const {accumulation,balance} = await User.findById(id)
-        const newBallance = balance - accumulationOperation.accumulation
-        const newAccumulation = accumulation + accumulationOperation.accumulation;
+    async addAccumulation(req, res) {
+        const { accumulationOperation,id } = req.body;
 
-        await User.updateOne({ _id: id }, { $set: { accumulation: newAccumulation } });
-        await User.updateOne({ _id: id }, { $set: { balance: newBallance } });
-        await User.updateOne({_id: id }, {$push:{accumulationOperations: accumulationOperation}})
+        try {
+            const { accumulation,balance } = await User.findById(id);
+            const newBallance = balance - accumulationOperation.accumulation;
+            const newAccumulation = accumulation + accumulationOperation.accumulation;
 
-        res.json({message : 'Накопление добавлено'})
+            await User.updateOne({ _id: id }, { $set: { accumulation: newAccumulation } });
+            await User.updateOne({ _id: id }, { $set: { balance: newBallance } });
+            await User.updateOne({ _id: id }, { $push: { accumulationOperations: accumulationOperation } });
 
-    } catch (error) {
-        res.status(400).json({message:'Произошла ошибка'})
+            res.json({ message: 'Накопление добавлено' });
+
+        }
+        catch (error) {
+            res.status(400).json({ message: 'Произошла ошибка' });
+        }
     }
-  }
 }
 
-module.exports = new CashFlowController()
+module.exports = new CashFlowController();

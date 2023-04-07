@@ -1,5 +1,5 @@
 import { makeAutoObservable } from 'mobx';
-import { IBalanceStore } from './interfaces/interfaces';
+import { IBalanceStore } from './interfaces';
 
 
 
@@ -7,18 +7,18 @@ export class BalanceStore implements IBalanceStore {
     moneyAccount = 0;
 
     constructor() {
-       makeAutoObservable(this)
+        makeAutoObservable(this);
     }
 
-    updateCashAccount(newBalance: number ){
+    updateCashAccount(newBalance: number ) {
         this.moneyAccount = newBalance;
     }
 
-    getBalanceWithDB(sum:number) {
+    setBalanceWithDB(sum:number) {
         this.moneyAccount = sum;
     }
-    setBalance(balance:number){
-        this.moneyAccount = balance
+    setBalance(balance:number) {
+        this.moneyAccount = balance;
     }
 }
 

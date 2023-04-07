@@ -1,11 +1,11 @@
 import React from 'react';
-import { Context,GlobalContext } from 'shared/context/context';
+import { ContextGlobal, IContextGlobal } from 'shared/context/context';
 import { userStore } from 'shared/store/userStore/UserStore';
 
 
 
-const Account = () => {
-    const { onChangeIsLogin } = React.useContext<GlobalContext>(Context);
+export const Account = () => {
+    const { onChangeIsLogin } = React.useContext<IContextGlobal>(ContextGlobal);
     const { email, nickname, country } = userStore.user;
 
     return (

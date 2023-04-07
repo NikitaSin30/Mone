@@ -1,4 +1,4 @@
-import { IButtonModal } from './interfaces/interfaces';
+import { IButtonModal } from './interfaces';
 
 export const Button = (props:IButtonModal) => {
     const { isValid,title } = props;

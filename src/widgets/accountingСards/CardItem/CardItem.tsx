@@ -1,5 +1,5 @@
 import { AddIcon } from 'pages/main/assets/AddIcon';
-import { ICardItem } from '../interfaces/interfaces';
+import { ICardItem } from './interfaces';
 
 
 

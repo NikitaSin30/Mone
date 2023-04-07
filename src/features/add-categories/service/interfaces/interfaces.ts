@@ -1,8 +1,7 @@
-import { ICategorie } from "shared/store/categoriesStore/interfaces/interfaces";
+import { ICategorie } from "shared/store/categoriesStore/interfaces";
 
 export interface ICategoriesService {
     addCategorie:(categorie: string, showModalError: () => void, switchShowModal:() => void) => void;
     checkStoreHasCategorie:(validatedCategorie: string) => boolean;
-    validateCategorie:(categorie: string) => string;
-    createCategorie:(uniqueCategorie: string) => ICategorie
+    addSpendingInCategorie:(id:string, spending : number) => Promise<void>
 }

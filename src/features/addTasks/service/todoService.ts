@@ -1,38 +1,53 @@
-import { ITask } from 'shared/store/toDoStore/interfaces/interfaces';
+import { ITask } from 'shared/store/toDoStore/interfaces';
 import { toDoStore } from 'shared/store/toDoStore/ToDoStore';
-import { ITodoService } from './interfaces/interfaces';
+import { todoApi } from 'api/todoApi';
+import { userStore } from 'shared/store/userStore/UserStore';
+import { validateString } from 'shared/mappers/validateString';
+import { ITaskForm } from '../interfaces';
+import { ITodoService } from './interfaces';
 
 
 
 class TodoService implements ITodoService {
 
-     onCheckUniqueTask(newTask: string) {
-        return toDoStore.tasks.some(({ task }) => task === newTask);
-    }
-
-     modifyNewTask(task: string) {
-        const taskValidaited = task.trim().toLowerCase();
-        const newTask = taskValidaited[0].toUpperCase() + taskValidaited.slice(1);
-
-        return newTask;
-    }
-     createNewTask(validatedTask: string) {
-        return {
-            task   : validatedTask,
-            isDone : false,
-            id     : validatedTask,
-        };
-    }
-
-    addTask(task: string, includeModalError: () => void): void {
-        const taskValidaited = this.modifyNewTask(task);
+    async addTask({ task }: ITaskForm, includeModalError: () => void) {
+        const taskValidaited = validateString(task);
         const hasTask = this.onCheckUniqueTask(taskValidaited);
 
         if (hasTask) return includeModalError();
 
-        const newTask = this.createNewTask(taskValidaited);
+        try {
 
-        toDoStore.addTask(newTask);
+        }
+        catch (error) {
+            console.log('Ошибка');
+        }
+    }
+
+    async deleteTask(id: string) {
+        try {
+
+        }
+        catch (error) {
+            console.log('Ошибка');
+
+        }
+    }
+
+    async toggleisDoneTask(id: string) {
+     
+
+        try {
+
+        }
+        catch (error) {
+            console.log('Ошибка');
+
+        }
+    }
+
+    onCheckUniqueTask(newTask: string) {
+        return toDoStore.tasks.some(({ task }) => task === newTask);
     }
 }
 

@@ -1,40 +1,43 @@
-import * as Validation from './constansValidation';
-
+import * as Validation from './constans/constansValidation';
+import * as CASE from './constans';
 
 
 export const createValidation = (typeCase: string) => {
 
     switch (typeCase) {
-        case 'email':
+        case CASE.CASE_TYPE_EMAIL:
             return {
                 type       : 'email',
                 validation : Validation.VALIDATION_EMAIL,
             };
-        case 'password':
+        case CASE.CASE_TYPE_PASSWORD:
             return {
                 type       : 'password',
                 validation : Validation.VALIDATION_PASSWORD,
             };
-        case 'country':
+        case CASE.CASE_TYPE_COUNTRY:
             return {
                 type       : 'text',
                 validation : Validation.VALIDATION_COUNTRY,
             };
-        case 'nickname':
+        case CASE.CASE_TYPE_NICKNAME:
             return {
                 type       : 'text',
                 validation : Validation.VALIDATION_NICKNAME,
             };
-        case 'number':
+        case CASE.CASE_TYPE_NUMBER:
             return {
                 type       : 'number',
                 validation : Validation.VALIDATION_NUMBER,
             };
-        case 'textRus':
+        case CASE.CASE_TYPE_TEXT_RUS:
             return {
                 type       : 'text',
                 validation : Validation.VALIDATION_STRING,
             };
-
+        case CASE.CASE_TYPE_SELECT:
+            return {
+                validation : Validation.VALIDATION_SELECT,
+            };
     }
 };

@@ -2,20 +2,24 @@ import { balanceStore } from 'shared/store/cashFlowStore/BalanceStore';
 import { cashFlowApi } from 'api/CashFlowApi';
 import { userStore } from 'shared/store/userStore/UserStore';
 import { accumulationStore } from 'shared/store/cashFlowStore/AccumulationStore';
-import { IAccumulationService } from './interfaces/interfaces';
+import { IAccumulationOperation } from 'shared/store/cashFlowStore/interfaces';
+import { IAccumulationService } from './interfaces';
+import { IFormAccumulation } from '../interfaces';
+
 
 
 class AccumulationService implements IAccumulationService {
 
-    async addAccumulation(newAccumulation: number, showModalError: () => void, switchShowModal: () => void) {
-        if (balanceStore.moneyAccount < newAccumulation) return showModalError();
-        const createdOperation = this.createOperation(newAccumulation)
-        console.log(createdOperation);
+    async addAccumulation({ accumulation }: IFormAccumulation, showModalError: () => void, switchShowModal: () => void) {
+        if (balanceStore.moneyAccount < accumulation) return showModalError();
+        const createdOperation = this.createOperation(accumulation);
 
         try {
-           const response =  await cashFlowApi.addAccumulation(userStore.user._id, createdOperation);
-        //    ===== кидать текст в ui
-           console.log(response.message);
+            const response =  await cashFlowApi.addAccumulation(userStore.user._id, createdOperation);
+
+            //    ===== кидать текст в ui
+
+            console.log(response.message);
 
             accumulationStore.addAccumulation(createdOperation);
         }
@@ -31,8 +35,9 @@ class AccumulationService implements IAccumulationService {
     createOperation(accumulation : number) {
         return {
             accumulation : accumulation,
-            date      : new Date(),
+            date         : new Date(),
         };
-}}
+    }
+}
 
 export const accumulationService = new AccumulationService();
