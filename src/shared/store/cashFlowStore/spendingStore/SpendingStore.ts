@@ -1,9 +1,9 @@
 import { makeAutoObservable } from 'mobx';
-import { balanceStore } from './BalanceStore';
-import { ISpendingStore } from './interfaces';
-import { ISpendingOperation } from './interfaces';
+import { balanceStore } from '../BalanceStore';
+import { ISpendingStore } from '../interfaces';
+import { ISpendingOperation } from '../interfaces';
 
-class SpendingStore implements ISpendingStore {
+export class SpendingStore implements ISpendingStore {
     spendingOperations: ISpendingOperation[] = [];
     spending:number = 0;
 
@@ -19,9 +19,7 @@ class SpendingStore implements ISpendingStore {
 
         balanceStore.updateCashAccount(updatedBalance);
     }
-    setSpendingWithDB(spending: number, operations:ISpendingOperation[]): void {
-        this.spending = spending;
-    }
+
     setSpending(spending:number, spendingOperations : ISpendingOperation[]) {
         this.spending = spending;
         this.spendingOperations = spendingOperations;

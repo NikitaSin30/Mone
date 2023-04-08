@@ -29,7 +29,7 @@ export interface ISpendingStore {
   spending: number;
   spendingOperations: ISpendingOperation[];
   addSpending: (operation: ISpendingOperation) => void;
-  setSpendingWithDB:(spending: number, operations: ISpendingOperation[]) => void;
+  setSpending:(spending: number, operations: ISpendingOperation[]) => void;
 }
 
 
