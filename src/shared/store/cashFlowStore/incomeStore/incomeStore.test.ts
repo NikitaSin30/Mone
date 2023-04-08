@@ -1,6 +1,5 @@
 import { IncomeStore } from './IncomeStore';
 import { IIncomeOperation, IIncomeStore } from '../interfaces';
-import { describe } from 'node:test';
 import { balanceStore } from '../BalanceStore';
 
 describe('class IncomeStore', ()=>{
