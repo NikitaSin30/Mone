@@ -1,7 +1,7 @@
 import { makeAutoObservable } from 'mobx';
-import { balanceStore } from './BalanceStore';
-import { IIncomeStore } from './interfaces';
-import { IIncomeOperation } from './interfaces';
+import { balanceStore } from '../BalanceStore';
+import { IIncomeStore } from '../interfaces';
+import { IIncomeOperation } from '../interfaces';
 
 
 export class IncomeStore implements IIncomeStore {
