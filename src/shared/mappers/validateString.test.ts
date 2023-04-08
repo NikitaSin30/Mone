@@ -3,16 +3,17 @@ import { validateString } from './validateString';
 
 
 describe('Testing validateString', () => {
-    test('The first letter is small', () => {
+    test('Should return the capital letter', () => {
         expect(validateString('машина')).toBe('Машина');
     });
-    test('Came with indention', () => {
+    test('Should delete spaces', () => {
         expect(validateString(' Машина ')).toBe('Машина');
     });
-    test('Came big letter', () => {
+    test('Should return the first letter big and the rest small', () => {
         expect(validateString('маШиНа')).toBe('Машина');
     });
-    test('Came with indention and small first letter and big others letter', () => {
-        expect(validateString(' мАшиНА  ')).toBe('Машина');
+    test('Should delete spaces ,return big first letter and small others letter', () => {
+        expect(validateString(' мАшиНА ')).toBe('Машина');
     });
+
 });
