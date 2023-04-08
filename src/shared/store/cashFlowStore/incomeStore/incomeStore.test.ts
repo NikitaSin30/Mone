@@ -1,8 +1,9 @@
 import { IncomeStore } from './IncomeStore';
-import { IIncomeOperation } from '../interfaces';
+import { IIncomeOperation, IIncomeStore } from '../interfaces';
+import { describe } from 'node:test';
+import { balanceStore } from '../BalanceStore';
 
-
-describe('incomeStore', ()=>{
+describe('class IncomeStore', ()=>{
 
     const incomeOperation: IIncomeOperation  = {
         income : 100,
@@ -11,22 +12,57 @@ describe('incomeStore', ()=>{
     };
     const income = 100;
 
-    test('Should add new operation and update income' , () => {
+    let incomeStore : IIncomeStore | null;
 
-        const incomeStore = new IncomeStore();
-
-        incomeStore.addIncome(incomeOperation);
-
-        expect(incomeStore.incomeOperations).toContainEqual(incomeOperation);
-        expect(incomeStore.income).toEqual(incomeOperation.income);
+    beforeEach(() => {
+        incomeStore = new IncomeStore();
     });
 
-    test('Should set income and operations from mongo', () => {
-        const incomeStore = new IncomeStore();
 
-        incomeStore.setIncome(income, [incomeOperation]);
+    describe('Method addIncome', () => {
 
-        expect(incomeStore.income).toEqual(100);
-        expect(incomeStore.incomeOperations).toContainEqual(incomeOperation);
+        test('Should add new operation and update income' , () => {
+
+        incomeStore!.addIncome(incomeOperation);
+        expect(incomeStore!.incomeOperations).toContainEqual(incomeOperation);
+        expect(incomeStore!.income).toEqual(incomeOperation.income);
+        });
+
+        test('Should call method from balanceStore', () => {
+
+            const mockupdateCashAccount = jest.spyOn(balanceStore, 'updateCashAccount');
+
+            incomeStore!.addIncome(incomeOperation);
+            expect(mockupdateCashAccount).toHaveBeenCalledTimes(1);
+        });
+
+        test('Should increase length array after add', () => {
+
+            incomeStore!.addIncome(incomeOperation);
+            expect(incomeStore!.incomeOperations).toHaveLength(1);
+        });
+
+    });
+
+    describe('Method setIncome', () => {
+        test('Should set income and operations from mongo', () => {
+
+        incomeStore!.setIncome(income, [incomeOperation]);
+
+        expect(incomeStore!.income).toEqual(100);
+        expect(incomeStore!.incomeOperations).toContainEqual(incomeOperation);
+        });
+
+        test('Should increase length array after set', () => {
+
+            incomeStore!.setIncome(income,[incomeOperation]);
+            expect(incomeStore!.incomeOperations).toHaveLength(1);
+        });
+
+    });
+
+    afterEach(() => {
+        incomeStore = null;
+        jest.clearAllMocks();
     });
 });
