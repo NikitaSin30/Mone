@@ -43,5 +43,5 @@ export interface IIncomeStore {
   income: number;
   incomeOperations: IIncomeOperation[];
   addIncome: (operation: IIncomeOperation) => void;
-  setIncomeWithStore:(itcome: number, operations: IIncomeOperation[]) => void;
+  setIncome:(itcome: number, operations: IIncomeOperation[]) => void;
 }

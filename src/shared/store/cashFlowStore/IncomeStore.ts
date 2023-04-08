@@ -17,17 +17,10 @@ export class IncomeStore implements IIncomeStore {
         const updatedBalance = balanceStore.moneyAccount + operation.income;
 
         this.incomeOperations.push(operation);
-        console.log(this.incomeOperations);
-        console.log(this.income);
-
 
         balanceStore.updateCashAccount(updatedBalance);
     }
 
-    setIncomeWithStore(itcome: number,operations:IIncomeOperation[]): void {
-        this.income = itcome;
-        this.incomeOperations = operations;
-    }
     setIncome(income:number, operations:IIncomeOperation[]) {
         this.income = income;
         this.incomeOperations = operations;
