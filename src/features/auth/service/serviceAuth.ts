@@ -2,7 +2,7 @@ import { authAPI } from 'api/AuthApi';
 import { userStore } from '../../../shared/store/userStore/UserStore';
 import { IFormAuth } from '../interfaces';
 import { IAuthService } from './IAuthService';
-import { accumulationStore } from 'shared/store/cashFlowStore/AccumulationStore';
+import { accumulationStore } from 'shared/store/cashFlowStore/acuumulationStore/AccumulationStore';
 import { incomeStore } from 'shared/store/cashFlowStore/IncomeStore';
 import { spendingService } from 'features/add-spending/service/serviceSpending';
 import { spendingStore } from 'shared/store/cashFlowStore/SpendingStore';
