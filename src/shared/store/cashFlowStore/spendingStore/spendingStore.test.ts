@@ -24,10 +24,12 @@ describe('Class SpendingStore',() => {
 
         test('Should increase length after add operation', () => {
 
-            expect(spendingStore!.spendingOperations).toHaveLength(0);
             spendingStore!.addSpending(spendingOperations);
 
             expect(spendingStore!.spendingOperations).toHaveLength(1);
+            expect(spendingStore!.spendingOperations).not.toHaveLength(0);
+            expect(spendingStore!.spendingOperations).not.toHaveLength(2);
+
         });
 
 
@@ -37,7 +39,8 @@ describe('Class SpendingStore',() => {
 
             spendingStore!.addSpending(spendingOperations);
             expect(mockUpdateCashAccount).toHaveBeenCalledTimes(1);
-
+            expect(mockUpdateCashAccount).not.toHaveBeenCalledTimes(0);
+            expect(mockUpdateCashAccount).not.toHaveBeenCalledTimes(2);
 
         });
 
@@ -46,6 +49,9 @@ describe('Class SpendingStore',() => {
             spendingStore!.addSpending(spendingOperations);
             expect(spendingStore!.spendingOperations).toContainEqual(spendingOperations);
             expect(spendingStore!.spending).toEqual(100);
+            expect(spendingStore!.spending).not.toEqual(99);
+            expect(spendingStore!.spending).not.toEqual(101);
+
         });
     });
 
@@ -55,13 +61,19 @@ describe('Class SpendingStore',() => {
 
                spendingStore!.setSpending(spending,[spendingOperations]);
                expect(spendingStore!.spendingOperations).toContainEqual(spendingOperations);
-               expect(spendingStore!.spending).toEqual(spending);
+               expect(spendingStore!.spending).toEqual(100);
+               expect(spendingStore!.spending).not.toEqual(99);
+               expect(spendingStore!.spending).not.toEqual(101);
+
         });
 
         test('Should has of equals length array', () => {
 
               spendingStore!.setSpending(spending,[spendingOperations]);
               expect(spendingStore!.spendingOperations).toHaveLength(1);
+              expect(spendingStore!.spendingOperations).not.toHaveLength(0);
+              expect(spendingStore!.spendingOperations).not.toHaveLength(2);
+
         });
     });
 
