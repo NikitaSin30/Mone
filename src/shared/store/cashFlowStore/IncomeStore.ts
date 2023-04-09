@@ -1,5 +1,5 @@
 import { makeAutoObservable } from 'mobx';
-import { balanceStore } from './BalanceStore';
+import { balanceStore } from './balanceStore/BalanceStore';
 import { IIncomeStore } from './interfaces';
 import { IIncomeOperation } from './interfaces';
 

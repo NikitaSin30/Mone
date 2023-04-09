@@ -1,7 +1,7 @@
 export interface IBalanceStore {
   moneyAccount: number;
   updateCashAccount:(newBalance: number) => void;
-  setBalanceWithDB: (sum: number) => void;
+  setBalance: (balance: number) => void;
 }
 
 

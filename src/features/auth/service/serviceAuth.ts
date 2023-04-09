@@ -6,7 +6,7 @@ import { accumulationStore } from 'shared/store/cashFlowStore/AccumulationStore'
 import { incomeStore } from 'shared/store/cashFlowStore/IncomeStore';
 import { spendingService } from 'features/add-spending/service/serviceSpending';
 import { spendingStore } from 'shared/store/cashFlowStore/SpendingStore';
-import { balanceStore } from 'shared/store/cashFlowStore/BalanceStore';
+import { balanceStore } from 'shared/store/cashFlowStore/balanceStore/BalanceStore';
 
 
 

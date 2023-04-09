@@ -1,4 +1,4 @@
-import { balanceStore } from 'shared/store/cashFlowStore/BalanceStore';
+import { balanceStore } from 'shared/store/cashFlowStore/balanceStore/BalanceStore';
 import { cashFlowApi } from 'api/CashFlowApi';
 import { userStore } from 'shared/store/userStore/UserStore';
 import { accumulationStore } from 'shared/store/cashFlowStore/AccumulationStore';
