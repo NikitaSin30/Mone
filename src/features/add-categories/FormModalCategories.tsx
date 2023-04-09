@@ -21,7 +21,7 @@ const FormModalCategories = (props: IModal) => {
 
 
     function onAddCategorie({ categorie }: IFormCategorie): void {
-        categoriesService.addCategorie(categorie, showModalError, switchShowModal);
+        categoriesService.addCategorie(categorie, switchShowModalErr!, switchShowModal);
         reset();
     }
 

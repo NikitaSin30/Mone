@@ -1,22 +1,29 @@
+import { categoriesApi } from 'api/CategoriesApi';
 import { categoriesStore } from 'shared/store/categoriesStore/CategoriesStore';
+import { userStore } from 'shared/store/userStore/UserStore';
 import { ICategoriesService } from './interfaces/interfaces';
 
 
 class CategoriesService implements ICategoriesService {
 
-    addCategorie(categorie: string, showModalError: () => void, switchShowModal:() => void) {
-        const categorieValidated = this.validateCategorie(categorie);
-        const hasCategorie = this.checkStoreHasCategorie(categorieValidated);
+    async addCategorie(categorie: string, switchShowModalErr: () => void, switchShowModal:() => void) {
 
-        if (hasCategorie) return showModalError();
-        const newCategorie = this.createCategorie(categorieValidated);
+        try {
+           const categorieValidated = this.validateCategorie(categorie);
+           const newCategorie = this.createCategorie(categorieValidated);
 
-        categoriesStore.addCatigorie(newCategorie);
+           await categoriesApi.addCategorie(newCategorie,userStore.user._id)
+           categoriesStore.addCatigorie(newCategorie);
+
+        } catch (error) {
+            console.log('Ошибка');
+            switchShowModalErr()
+        } finally {
         switchShowModal();
+        }
     }
-     checkStoreHasCategorie(validatedCategorie: string) {
-        return categoriesStore.categories.some(({ categorie }) => categorie === validatedCategorie);
-    }
+
+  
 
      validateCategorie(categorie: string) {
         const categorieValidated = categorie.trim().toLowerCase();
@@ -31,9 +38,8 @@ class CategoriesService implements ICategoriesService {
             spentMoney : 0,
             id         : uniqueCategorie,
         };
-
-
     }
+
 }
 
 
