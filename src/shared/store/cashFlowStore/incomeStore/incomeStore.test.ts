@@ -24,7 +24,10 @@ describe('class IncomeStore', ()=>{
 
         incomeStore!.addIncome(incomeOperation);
         expect(incomeStore!.incomeOperations).toContainEqual(incomeOperation);
-        expect(incomeStore!.income).toEqual(incomeOperation.income);
+        expect(incomeStore!.income).toEqual(100);
+        expect(incomeStore!.income).not.toEqual(101);
+        expect(incomeStore!.income).not.toEqual(99);
+
         });
 
         test('Should call method from balanceStore', () => {
@@ -33,12 +36,19 @@ describe('class IncomeStore', ()=>{
 
             incomeStore!.addIncome(incomeOperation);
             expect(mockupdateCashAccount).toHaveBeenCalledTimes(1);
+            expect(mockupdateCashAccount).not.toHaveBeenCalledTimes(0);
+            expect(mockupdateCashAccount).not.toHaveBeenCalledTimes(2);
+
+
         });
 
         test('Should increase length array after add', () => {
 
             incomeStore!.addIncome(incomeOperation);
             expect(incomeStore!.incomeOperations).toHaveLength(1);
+            expect(incomeStore!.incomeOperations).not.toHaveLength(0);
+            expect(incomeStore!.incomeOperations).not.toHaveLength(2);
+
         });
 
     });
@@ -49,6 +59,9 @@ describe('class IncomeStore', ()=>{
         incomeStore!.setIncome(income, [incomeOperation]);
 
         expect(incomeStore!.income).toEqual(100);
+        expect(incomeStore!.income).not.toEqual(99);
+        expect(incomeStore!.income).not.toEqual(101);
+
         expect(incomeStore!.incomeOperations).toContainEqual(incomeOperation);
         });
 
@@ -56,6 +69,9 @@ describe('class IncomeStore', ()=>{
 
             incomeStore!.setIncome(income,[incomeOperation]);
             expect(incomeStore!.incomeOperations).toHaveLength(1);
+            expect(incomeStore!.incomeOperations).not.toHaveLength(0);
+            expect(incomeStore!.incomeOperations).not.toHaveLength(2);
+
         });
 
     });
