@@ -22,6 +22,9 @@ describe('class AccumulationStore', () => {
 
             accumulationStore!.addAccumulation(accumulationOperation);
             expect(accumulationStore!.accumulation).toEqual(100);
+            expect(accumulationStore!.accumulation).not.toEqual(101);
+            expect(accumulationStore!.accumulation).not.toEqual(99);
+
             expect(accumulationStore!.accumulationOperations).toContainEqual(accumulationOperation);
         });
 
@@ -29,6 +32,9 @@ describe('class AccumulationStore', () => {
 
             accumulationStore!.addAccumulation(accumulationOperation);
             expect(accumulationStore!.accumulationOperations).toHaveLength(1);
+            expect(accumulationStore!.accumulationOperations).not.toHaveLength(0);
+            expect(accumulationStore!.accumulationOperations).not.toHaveLength(2);
+
         });
 
         test('Should call method balance store', () => {
@@ -36,6 +42,9 @@ describe('class AccumulationStore', () => {
 
              accumulationStore!.addAccumulation(accumulationOperation);
              expect(spy).toBeCalledTimes(1);
+             expect(spy).not.toBeCalledTimes(0);
+             expect(spy).not.toBeCalledTimes(2);
+
         });
     });
 
@@ -43,13 +52,19 @@ describe('class AccumulationStore', () => {
 
         test('Should set acumulutanion and operatins from mongo' , () =>{
          accumulationStore!.setAccumulation(accumulation, [accumulationOperation]);
-         expect(accumulationStore!.accumulation).toEqual(accumulation);
+         expect(accumulationStore!.accumulation).toEqual(100);
+         expect(accumulationStore!.accumulation).not.toEqual(101);
+         expect(accumulationStore!.accumulation).not.toEqual(99);
+
          expect(accumulationStore!.accumulationOperations).toContainEqual(accumulationOperation);
         });
 
         test('Should has of equal length', () =>{
-            accumulationStore?.setAccumulation(accumulation,[accumulationOperation,accumulationOperation]);
-            expect(accumulationStore!.accumulationOperations).toHaveLength(2);
+            accumulationStore!.setAccumulation(accumulation,[accumulationOperation]);
+            expect(accumulationStore!.accumulationOperations).toHaveLength(1);
+            expect(accumulationStore!.accumulationOperations).not.toHaveLength(0);
+            expect(accumulationStore!.accumulationOperations).not.toHaveLength(2);
+
         });
     });
 
