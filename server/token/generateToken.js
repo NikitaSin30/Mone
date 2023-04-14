@@ -10,6 +10,7 @@ const generateAccessToken = (id, email) => {
     return jwt.sign(payload,secret,{ expiresIn: '24h' });
 };
 
+
 module.exports = {
     generateAccessToken,
 };

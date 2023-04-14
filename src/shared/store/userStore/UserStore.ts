@@ -11,9 +11,8 @@ export class User implements IUser {
         makeAutoObservable(this);
     }
 
-    setUser(user: IFormAuth) {
+    setUserFromDB(user: IFormAuth) {
         this.user = user;
-        console.log(user);
     }
 }
 

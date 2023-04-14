@@ -1,10 +1,9 @@
 import { authAPI } from 'api/AuthApi';
 import { userStore } from '../../../shared/store/userStore/UserStore';
 import { IFormAuth } from '../interfaces';
-import { IAuthService } from './IAuthService';
+import { IAuthService, IDataUserFromDB } from './interfaces';
 import { accumulationStore } from 'shared/store/cashFlowStore/AccumulationStore';
 import { incomeStore } from 'shared/store/cashFlowStore/IncomeStore';
-import { spendingService } from 'features/add-spending/service/serviceSpending';
 import { spendingStore } from 'shared/store/cashFlowStore/SpendingStore';
 import { balanceStore } from 'shared/store/cashFlowStore/BalanceStore';
 
@@ -15,43 +14,43 @@ class AuthService implements IAuthService {
         try {
             const res = await authAPI.login(dataLogin);
 
-            //    тут надо метод чтобы цеплять текст ui ?
-            const user : IFormAuth = {
-                email    : res.user.email,
-                country  : res.user.country,
-                nickname : res.user.nickname,
-                password : res.user.password,
-                _id      : res.user._id,
-            };
-
-
-            userStore.setUser(user);
-            incomeStore.setIncome(res.user.income, res.user.incomeOperations);
-            accumulationStore.setAccumulation(res.user.accumulation, res.user.accumulationOperations);
-            spendingStore.setSpending(res.user.spending, res.user.spendingOperations);
-            balanceStore.setBalance(res.user.balance);
+            this.setDataFromDB(res.user);
             switchUI();
-
         }
         catch (error) {
             if (error instanceof Error) {
-                throw new Error();
+                console.log(error.message);
             }
         }
     }
-    async registration(user: IFormAuth, switchUI: () => void) {
+
+    setDataFromDB(userData: IDataUserFromDB) {
+        const user : IFormAuth = {
+            email    : userData.email,
+            country  : userData.country,
+            nickname : userData.nickname,
+            password : userData.password,
+            _id      : userData._id,
+        };
+
+
+        userStore.setUserFromDB(user);
+        incomeStore.setIncomeFromDB(userData.income, userData.incomeOperations);
+        accumulationStore.setAccumulationFromDB(userData.accumulation, userData.accumulationOperations);
+        spendingStore.setSpendingFromDB(userData.spending, userData.spendingOperations);
+        balanceStore.setBalanceFromDB(userData.balance);
+    }
+    
+    async registration(user: IFormAuth) {
         try {
-            const response = await authAPI.registration(user);
+            const { message } = await authAPI.registration(user);
 
-
-            userStore.setUser(response);
-            switchUI();
+            console.log(message);
 
         }
         catch (error) {
             if (error instanceof Error) {
-                throw new Error();
-
+                console.log(error.message);
             }
         }
     }

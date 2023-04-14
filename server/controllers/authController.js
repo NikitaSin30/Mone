@@ -1,89 +1,48 @@
 const User = require('../modelsMongo/User');
 const bcrypt = require('bcryptjs');
 const { generateAccessToken } = require('../token/generateToken');
-
+const serviceAuthDB = require('../serviceMongo/serviceAuthDB');
+const ApiError = require('../apiError/ApiError');
 
 
 class AuthController {
-    async registration(req, res) {
+    async registration(req, res,next) {
         try {
             const { email,country,nickname,password } = req.body;
 
-            const hasEmail = await User.findOne({ email });
-
-            if (hasEmail) {
-                return res.status(400).json({ message: 'Пользователь c таким email уже существует' });
-            }
-
-            const hasNickname = await User.findOne({ nickname });
-
-            if (hasNickname) {
-                return res.status(400).json({ message: 'Пользователь c таким nickname уже существует' });
-            }
             const hashPassword = bcrypt.hashSync(password,6);
 
-            const user = new User({
-                email,
-                country,
-                nickname,
-                password               : hashPassword,
-                balance                : 0,
-                income                 : 0,
-                incomeOperations       : [],
-                spending               : 0,
-                spendingOperations     : [],
-                accumulation           : 0,
-                accumulationOperations : [],
-                categories             : [],
-                tasks                  : [],
-            });
+            await serviceAuthDB.saveUser(email,country,nickname,hashPassword);
 
-            const saved = await user.save(user);
-            const createdUser = await User.findOne(saved._id);
-
-            const newUser = {
-                email    : createdUser.email,
-                country  : createdUser.country,
-                nickname : createdUser.nickname,
-                password : createdUser.password,
-                _id      : createdUser._id,
-            };
-
-            return res.json(newUser);
+            res.json({ message: 'Учётная запись была создана' });
         }
         catch (error) {
-            res.status(400).json({ message: 'Regeeee error' });
+            next(error);
         }
     }
 
 
-    async login(req, res) {
+    async login(req, res,next) {
         try {
             const { email, password } = req.body;
-            const user = await User.findOne({ email });
-
-            if (!user) {
-                return res.status(400).json({ message: 'Данного пользователя не существует' });
-            }
+            const user = await serviceAuthDB.findUser(email);
 
             const correctPassword = bcrypt.compareSync(password, user.password);
 
             if (!correctPassword) {
-                return res.status(400).json({ message: 'Пароль неверный. Попробуйте ещё раз.' });
+                throw ApiError.notCorrectPassword('Пароль неверный');
             }
-
 
             const token = generateAccessToken(user._id, user.email);
 
-            
             return res.json({
                 user,
-                token, 
+                token,
             });
 
         }
         catch (error) {
-            return res.status(400).json({ message: 'Log err' });
+            next(error);
         }
     }
 }
