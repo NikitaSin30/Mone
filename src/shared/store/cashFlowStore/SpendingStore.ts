@@ -1,28 +1,28 @@
-import {  makeAutoObservable } from 'mobx';
+import { makeAutoObservable } from 'mobx';
 import { balanceStore } from './BalanceStore';
-import { ISpendingStore } from './interfaces/interfaces';
-import { ISpendingOperation } from './interfaces/interfaces';
+import { ISpendingStore } from './interfaces';
+import { ISpendingOperation } from './interfaces';
 
 class SpendingStore implements ISpendingStore {
     spendingOperations: ISpendingOperation[] = [];
-    spending = 0;
+    spending:number = 0;
 
     constructor() {
-      makeAutoObservable(this)
+        makeAutoObservable(this);
     }
 
-    addSpending(operation: ISpendingOperation): void {
+    addSpending(operation: ISpendingOperation) {
         this.spending = this.spending + operation.spending ;
         const updatedBalance = balanceStore.moneyAccount - operation.spending;
 
+        this.spendingOperations.push(operation);
+
         balanceStore.updateCashAccount(updatedBalance);
     }
-    getSpendingWithDB(spending: number): void {
+
+    setSpendingFromDB(spending:number, spendingOperations : ISpendingOperation[]) {
         this.spending = spending;
-    }
-    setSpending(spending:number, spendingOperations : ISpendingOperation[]){
-        this.spending = spending
-        this.spendingOperations = spendingOperations
+        this.spendingOperations = spendingOperations;
     }
 
 }

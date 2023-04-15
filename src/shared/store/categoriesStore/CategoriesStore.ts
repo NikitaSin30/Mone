@@ -1,12 +1,13 @@
+import { IFormSpending } from 'features/add-spending/interfaces';
 import { makeAutoObservable } from 'mobx';
-import { ICategoriesStore, ICategorie } from './interfaces/interfaces';
+import { ICategoriesStore, ICategorie } from './interfaces';
 
 
 
 class CategoriesStore implements ICategoriesStore {
     categories: ICategorie[] = [];
     constructor() {
-        makeAutoObservable(this)
+        makeAutoObservable(this);
     }
     addCatigorie(categorie: ICategorie): void {
         this.categories.push(categorie);
@@ -15,12 +16,25 @@ class CategoriesStore implements ICategoriesStore {
         this.categories = this.categories.filter((categorie) => categorie.id !== id);
     }
 
-    updateSpandingInCategorie(newSpending: ICategorie): void {
+    getCategorie(id: string) {
+        const categorie = this.categories.find((categorie) => categorie.id === id);
+
+        if (!categorie) {
+            throw new Error();
+        }
+
+        return categorie ;
+    }
+
+    setCategoriesFromDB(categories: ICategorie[]) {
+        this.categories = categories;
+    }
+    updateSpendingInCategorie(newSpending: IFormSpending): void {
         this.categories = this.categories.map((categorie) =>
-            categorie.id === newSpending.id
+            categorie.categorie === newSpending.categorie
                 ? {
                     ...categorie,
-                    spentMoney : newSpending.spentMoney + categorie.spentMoney,
+                    spending : newSpending.spending + categorie.spending,
                 }
                 : categorie,
         );

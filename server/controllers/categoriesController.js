@@ -1,37 +1,38 @@
-const User = require('../modelsMongo/User')
+const User = require('../modelsMongo/User');
+const serviceCategoriesDB = require('../serviceMongo/serviceCategoriesDB');
 
 class CategoriesController {
 
-     async addCategorie(req,res) {
-        const {categorie, id} = req.body
+    async addCategorie(req,res,next) {
+        const { categorie, id } = req.body;
+
         try {
 
-           const user = await User.findOne({_id:id})
-           const hasCategorie = user.categories.find(item => item.categorie === categorie.categorie)
-           if(hasCategorie) {
-           return res.status(400).json({message: 'Категория не уникальна'})
-           }
+            await serviceCategoriesDB.checkHasCategorie(id,categorie);
 
-          await User.updateOne({_id: id}, {$push: {categories : categorie}})
-          res.json({message : 'Категория добавлена'})
-          
-        } catch (error) {
-          res.status(400).json({message : 'Что-то пошло не так'})
+            await serviceCategoriesDB.updateCategories(id,categorie);
+           
+            res.json({ message: 'Категория добавлена' });
+
         }
-      }
+        catch (error) {
+            next(error);
+        }
+    }
 
 
-     async deleteCategorie(req,res) {
-        const {categories , id } = req.body
-      try {
-        await User.deleteOne({ _id: id }, { $push: { categories: categories } });
+    async deleteCategorie(req,res,next) {
+        const { categories , id } = req.body;
 
-        res.json({message: 'Категория удалена'})
-      }
-      catch (error) {
-        res.status(400).json({message : 'Что-то пошло не так'})
-      }
-     }
+        try {
+            await User.deleteOne({ _id: id }, { $push: { categories: categories } });
+
+            res.json({ message: 'Категория удалена' });
+        }
+        catch (error) {
+            next(error);
+        }
+    }
 }
 
-module.exports = new CategoriesController()
+module.exports = new CategoriesController();

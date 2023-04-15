@@ -1,18 +1,22 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const authRouter = require('./router/authRouter');
-const cashRouter = require('./router/cashFlowRouter')
-const categorieRouter = require('./router/categoriesRouter')
-const cors = require('cors')
+const categorieRouter = require('./router/categoriesRouter');
+const cors = require('cors');
+const cashRouter = require('./router/cashFlowRouter');
+const midlewareErr = require('./midlewares/midlewareErr');
+
+
 const PORT = 3002;
 
 const app = express();
 
-app.use(cors())
+app.use(cors());
 app.use(express.json());
 app.use('/cash', cashRouter);
 app.use('/auth' , authRouter);
-app.use('/categories', categorieRouter)
+app.use('/categories', categorieRouter);
+app.use(midlewareErr);
 
 
 const start = async() => {

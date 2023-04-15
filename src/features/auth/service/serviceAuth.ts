@@ -1,99 +1,96 @@
 import { authAPI } from 'api/AuthApi';
-import { IFormAuth } from '../interfaces/interfaces';
 import { userStore } from '../../../shared/store/userStore/UserStore';
-import { IAuthService } from './IAuthService';
+import { IFormAuth } from '../interfaces';
+import { IAuthService } from './interfaces';
 import { accumulationStore } from 'shared/store/cashFlowStore/AccumulationStore';
 import { incomeStore } from 'shared/store/cashFlowStore/IncomeStore';
-import { spendingService } from 'features/add-spending/service/serviceSpending';
 import { spendingStore } from 'shared/store/cashFlowStore/SpendingStore';
 import { balanceStore } from 'shared/store/cashFlowStore/BalanceStore';
-import { Navigate, redirect, useNavigate } from 'react-router';
+import { categoriesStore } from 'shared/store/categoriesStore/CategoriesStore';
+import { IDataFromDB, IDataUserFromDB } from 'api/interfaces';
 
-// const navigate = useNavigate()
+
 
 class AuthService implements IAuthService {
     async login(dataLogin:IFormAuth) {
         try {
-           const res = await authAPI.login(dataLogin);
-        //    тут надо метод чтобы цеплять текст ui ?
+            const { user,token } : IDataFromDB = await authAPI.login(dataLogin);
 
-           window.localStorage.setItem('wallet' , JSON.stringify(res.token))
+            this.setDataFromDB(user);
 
-           const user : IFormAuth = {
-            email : res.user.email,
-            country : res.user.country,
-            nickname : res.user.nickname,
-            password : res.user.password,
-            _id : res.user._id
-           }
-           console.log(res.user.balance);
+            window.localStorage.setItem('wallet' , JSON.stringify(token));
+            userStore.setIsAuth(true);
 
-           userStore.setUser(user)
-           userStore.setIsAuth(true)
-           incomeStore.setIncome(res.user.income, res.user.incomeOperations)
-           accumulationStore.setAccumulation(res.user.accumulation, res.user.accumulationOperations)
-           spendingStore.setSpending(res.user.spending, res.user.spendingOperations)
-           balanceStore.setBalance(res.user.balance)
-
-           userStore.setIsAuth(true)
         }
         catch (error) {
             if (error instanceof Error) {
-                throw new Error();
+                console.log(error.message);
             }
-
         }
     }
+
     async registration(user: IFormAuth) {
-
-
         try {
-          await authAPI.registration(user)
+            const { message } = await authAPI.registration(user);
+
+            console.log(message);
 
         }
         catch (error) {
             if (error instanceof Error) {
-                throw new Error(error.message);
+                console.log(error.message);
             }
         }
     }
+
     async auth() {
         try {
-            const res = await authAPI.auth()
-            window.localStorage.setItem('wallet', JSON.stringify( res.token ));
+            const { user,token } : IDataFromDB = await authAPI.auth();
 
-            const user: IFormAuth = {
-              email: res.user.email,
-              country: res.user.country,
-              nickname: res.user.nickname,
-              password: res.user.password,
-              _id: res.user._id,
-            };
-            userStore.setUser(user);
-            // userStore.includeIsAuth()
+            this.setDataFromDB(user);
 
+            window.localStorage.setItem('wallet', JSON.stringify( token ));
+            userStore.setIsAuth(true);
 
-            incomeStore.setIncome(res.user.income, res.user.incomeOperations);
-            accumulationStore.setAccumulation(res.user.accumulation, res.user.accumulationOperations);
-            spendingStore.setSpending(res.user.spending, res.user.spendingOperations);
-            balanceStore.setBalance(res.user.balance);
-
-        } catch (error) {
-           console.log('gbplf');
-
+        }
+        catch (error) {
+            if (error instanceof Error) {
+                console.log(error.message);
+            }
         }
     }
 
-    async logout(){
+    async logout() {
         try {
-           const res = await authAPI.logout(userStore.user._id)
-        //    ui
-            localStorage.removeItem('wallet')
-            userStore.setIsAuth(false)
-        } catch (error) {
-         console.log('Ошибочка');
+            const { message } = await authAPI.logout(userStore.user._id);
 
+            console.log(message);
+
+            localStorage.removeItem('wallet');
+            userStore.setIsAuth(false);
         }
+        catch (error) {
+            if (error instanceof Error) {
+                console.log(error.message);
+            }
+        }
+    }
+
+    setDataFromDB(userData: IDataUserFromDB) {
+        const user : IFormAuth = {
+            email    : userData.email,
+            country  : userData.country,
+            nickname : userData.nickname,
+            password : userData.password,
+            _id      : userData._id,
+        };
+
+        userStore.setUserFromDB(user);
+        incomeStore.setIncomeFromDB(userData.income, userData.incomeOperations);
+        accumulationStore.setAccumulationFromDB(userData.accumulation, userData.accumulationOperations);
+        spendingStore.setSpendingFromDB(userData.spending, userData.spendingOperations);
+        balanceStore.setBalanceFromDB(userData.balance);
+        categoriesStore.setCategoriesFromDB(userData.categories);
     }
 }
 

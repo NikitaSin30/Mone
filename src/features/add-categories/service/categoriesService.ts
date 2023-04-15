@@ -1,45 +1,64 @@
 import { categoriesApi } from 'api/CategoriesApi';
 import { categoriesStore } from 'shared/store/categoriesStore/CategoriesStore';
 import { userStore } from 'shared/store/userStore/UserStore';
-import { ICategoriesService } from './interfaces/interfaces';
+import { ICategorie } from 'shared/store/categoriesStore/interfaces';
+import { validateString } from 'shared/mappers/validateString';
+import { IFormCategorie } from '../interfaces';
+import { ICategoriesService } from './interfaces';
 
 
 class CategoriesService implements ICategoriesService {
 
-    async addCategorie(categorie: string, switchShowModalErr: () => void, switchShowModal:() => void) {
+    async addCategorie({ categorie }: IFormCategorie, switchShowModalErr: () => void, switchShowModal:() => void) {
 
         try {
-           const categorieValidated = this.validateCategorie(categorie);
-           const newCategorie = this.createCategorie(categorieValidated);
+            const categorieValidated = validateString(categorie);
 
-           await categoriesApi.addCategorie(newCategorie,userStore.user._id)
-           categoriesStore.addCatigorie(newCategorie);
+            const hasCategorie = this.checkStoreHasCategorie(categorieValidated);
 
-        } catch (error) {
+            if (hasCategorie) {
+                throw new Error('Категория уже существует');
+            }
+
+            const newCategorie = this.createCategorie(categorieValidated);
+
+            await categoriesApi.addCategorie(newCategorie,userStore.user._id);
+            categoriesStore.addCatigorie(newCategorie);
+
+        }
+        catch (error) {
             console.log('Ошибка');
-            switchShowModalErr()
-        } finally {
-        switchShowModal();
+            switchShowModalErr();
+        }
+        finally {
+            switchShowModal();
         }
     }
 
-  
 
-     validateCategorie(categorie: string) {
-        const categorieValidated = categorie.trim().toLowerCase();
-        const newCategorie = categorieValidated[0].toUpperCase() + categorieValidated.slice(1);
+    async deleteCategorie(id: string) {
+        try {
 
-        return newCategorie;
+
+
+        }
+        catch (error) {
+            return new Error();
+        }
     }
 
-     createCategorie(uniqueCategorie: string) {
+    checkStoreHasCategorie(validatedCategorie: string) {
+        return categoriesStore.categories.some(({ categorie }) => categorie === validatedCategorie);
+    }
+
+    createCategorie(categorie:string) {
+
         return {
-            categorie  : uniqueCategorie,
-            spentMoney : 0,
-            id         : uniqueCategorie,
+            categorie : categorie,
+            id        : categorie,
+            spending  : 0,
         };
     }
-
 }
 
 

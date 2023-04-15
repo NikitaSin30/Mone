@@ -1,74 +1,93 @@
-import { IAccumulationOperation, IIncomeOperation, ISpendingOperation } from 'shared/store/cashFlowStore/interfaces/interfaces';
+import { IAccumulationOperation, IIncomeOperation, ISpendingOperation } from 'shared/store/cashFlowStore/interfaces';
+import { ICashFlowApi } from './interfaces';
+import * as PATH from './path/index';
 
 
-// type UpdateFunction = (data: Partial<Record<string, any>>, onComplete?: (error: Error | null) => void) => Promise<void>;
+class CashFlowApi implements ICashFlowApi {
+    async addIncome(incomeOperation: IIncomeOperation, id: string) {
+        try {
+            const response = await fetch(PATH.ADD_INCOME, {
+                method  : 'POST',
+                headers : {
+                    'Content-type' : 'application/json',
+                },
+                body : JSON.stringify({
+                    incomeOperation,
+                    id,
+                }),
+            });
 
+            if (!response.ok) {
+                const error = await response.json();
 
+                throw new Error(error.message);
+            }
 
-class CashFlowApi {
-  async addIncome(incomeOperation: IIncomeOperation, id: string) {
-    try {
-      const response = await fetch('http://localhost:3002/cash/addincome', {
-        method: 'POST',
-        headers: {
-          'Content-type': 'application/json',
-        },
-        body: JSON.stringify({ incomeOperation, id }),
-      });
-      if(!response.ok){
-        throw new Error("");
-      }
+            const result = response.json();
 
-      const result = response.json();
-
-      return result;
-    } catch (error) {
-      throw new Error('Что-то пошло не так');
+            return result;
+        }
+        catch (error) {
+            throw error;
+        }
     }
-  }
 
-  async addAccumulation(id: string, accumulationOperation: IAccumulationOperation) {
-    console.log(accumulationOperation);
+    async addAccumulation(id: string, accumulationOperation: IAccumulationOperation) {
 
-    try {
-     const response = await fetch('http://localhost:3002/cash/addaccumulation', {
-       method: 'POST',
-       headers: {
-         'Content-type': 'application/json',
-       },
-       body: JSON.stringify({ accumulationOperation, id }),
-     });
-     if(!response.ok){
-        throw new Error('');
-     }
-     const result = response.json()
-     return result
-    } catch (error) {
-      throw new Error('Что-то пошло не так');
+        try {
+            const response = await fetch(PATH.ADD_ACCUMULATION, {
+                method  : 'POST',
+                headers : {
+                    'Content-type' : 'application/json',
+                },
+                body : JSON.stringify({
+                    accumulationOperation,
+                    id,
+                }),
+            });
+
+            if (!response.ok) {
+                const error = await response.json();
+
+                throw new Error(error.message);
+            }
+            const result = await response.json();
+
+            return result;
+        }
+        catch (error) {
+            throw error;
+        }
     }
-  }
 
-  async addSpending(id: string, spendingOperation: ISpendingOperation) {
+    async addSpending(id: string, spendingOperation: ISpendingOperation) {
 
-    try {
-      const response = await fetch('http://localhost:3002/cash/addspending', {
-        method: 'POST',
-        headers:{
-            'Content-type' : 'application/json'
-        },
-        body: JSON.stringify({ spendingOperation, id }),
-      });
+        try {
+            const response = await fetch(PATH.ADD_SPENDING, {
+                method  : 'POST',
+                headers : {
+                    'Content-type' : 'application/json',
+                },
+                body : JSON.stringify({
+                    spendingOperation,
+                    id,
+                }),
+            });
 
-       if (!response.ok) {
-               throw new Error('Что-то пошло не так');
-       }
-       const result = response.json()
-       return result
+            if (!response.ok) {
+                const error = await response.json();
 
-    } catch (error) {
-      throw new Error('Что-то пошло не так');
+                throw new Error(error.message);
+            }
+            const result = response.json();
+
+            return result;
+
+        }
+        catch (error) {
+            throw error;
+        }
     }
-  }
 }
 
 

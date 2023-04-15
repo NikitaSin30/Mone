@@ -72,5 +72,6 @@
   ],
   "assumptions": {
     "setPublicClassFields": false
-  }
+  },
+  "proxy" : "http://localhost:3002"
 }

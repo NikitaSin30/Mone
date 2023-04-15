@@ -1,35 +1,36 @@
-import { ICategorie } from "shared/store/categoriesStore/interfaces/interfaces";
+import { ICategorie } from 'shared/store/categoriesStore/interfaces';
+import { ICategoriesApi, IResponseMessage } from './interfaces';
 
 
+export class CategoriesApi implements ICategoriesApi {
 
-export class CategoriesApi {
+    async addCategorie(categorie : ICategorie, id: string) {
 
-   async addCategorie(categorie : ICategorie, id: string){
+        try {
+            const response = await fetch('http://localhost:3002/categories/addcategorie',{
+                method  : 'POST',
+                headers : {
+                    'Content-type' : 'application/json',
+                },
+                body : JSON.stringify({
+                    categorie,
+                    id,
+                }),
+            });
 
-      try {
-        const response = await fetch('http://localhost:3002/categories/addcategorie',{
-            method: 'POST',
-            headers: {
-                'Content-type' : 'application/json'
-            },
-            body: JSON.stringify({categorie,id})
-        })
-         if(!response.ok){
-            throw new Error('')
-         }
+            if (!response.ok) {
+                throw new Error('');
+            }
 
-        const result = await response.json()
+            const result : IResponseMessage = await response.json();
 
-        return result
-      } catch (error) {
-        throw new Error()
-      }
-    }
-
-    deleteCategorie() {
-
+            return result;
+        }
+        catch (error) {
+            throw new Error();
+        }
     }
 
 }
 
-export const  categoriesApi = new CategoriesApi()
+export const categoriesApi = new CategoriesApi();

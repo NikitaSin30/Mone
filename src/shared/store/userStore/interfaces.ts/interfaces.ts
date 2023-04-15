@@ -1,4 +1,4 @@
-import { IFormAuth } from 'features/auth/interfaces/interfaces';
+import { IFormAuth } from 'features/auth/interfaces';
 
 export interface IUser {
   user: IFormAuth;

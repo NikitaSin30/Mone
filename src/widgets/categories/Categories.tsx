@@ -4,14 +4,15 @@ import { CatagoriesList } from './categoriesList/CategoteisList';
 import ErrorModal from 'widgets/modals/ErrorModal';
 import FormModalCategories from 'features/add-categories/FormModalCategories';
 import { ETitleModalErr } from 'shared/enums/enums';
-import { useToggle } from 'shared/hooks/useToggle/useToggle';
 import { AddIcon } from 'pages/main/assets/AddIcon';
+import { IContextAnalysis } from 'pages/analysis/context/interfaces';
+import { ContextAnalysis } from 'pages/analysis/context/context';
 
 const { uniqueCategorie } = ETitleModalErr;
 
 const Categories: React.FC = observer(() => {
-    const { value: isModalActive, toggle: switchShowModal } = useToggle(false);
-    const { value: isErrModalActive, toggle: switchShowModalErr } = useToggle(false);
+    const { isModalErrActiveAnalysis,switchIsModalErrActiveAnalysis,switchIsModalActiveAnalysis } = React.useContext<IContextAnalysis>(ContextAnalysis);
+
 
     return (
         <>
@@ -21,13 +22,13 @@ const Categories: React.FC = observer(() => {
                     <CatagoriesList />
                 </div>
                 <div className="flex justify-center items-center">
-                    <button onClick={switchShowModal} className="rounded-full overflow-hidden hover:scale-110 ">
+                    <button onClick={switchIsModalActiveAnalysis} className="rounded-full overflow-hidden hover:scale-110 ">
                         {AddIcon}
                     </button>
                 </div>
             </div>
-            <FormModalCategories isModalActive={isModalActive} switchShowModal={switchShowModal} switchShowModalErr={switchShowModalErr} />
-            {isErrModalActive && <ErrorModal title={uniqueCategorie} switchShowModalErr={switchShowModalErr} />}
+            <FormModalCategories />
+            {isModalErrActiveAnalysis && <ErrorModal title={uniqueCategorie} switchShowModalErr={switchIsModalErrActiveAnalysis} />}
         </>
     );
 });

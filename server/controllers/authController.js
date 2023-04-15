@@ -1,103 +1,98 @@
-const User = require('../modelsMongo/User');
-const {validationResult} = require('express-validator')
+const { validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const { generateAccessToken } = require('../token/generateToken');
-
+const serviceAuthDB = require('../serviceMongo/serviceAuthDB');
+const ApiError = require('../apiError/ApiError');
 
 
 class AuthController {
-  async registration(req, res) {
-    try {
-      const errValidation = validationResult(req);
-      if (!errValidation.isEmpty()) {
-        return res.status(400).json({ message: 'Некоректные данные' });
-      }
 
-      const { email, country, nickname, password } = req.body;
+    async registration(req, res,next) {
+        try {
 
-      const hasEmail = await User.findOne({ email });
-      if (hasEmail) {
-        return res.status(400).json({ message: 'Пользователь c таким email уже существует' });
-      }
+            const errValidation = validationResult(req);
 
-      const hasNickname = await User.findOne({ nickname });
-      if (hasNickname) {
-        return res.status(400).json({ message: 'Пользователь c таким nickname уже существует' });
-      }
-      const hashPassword = bcrypt.hashSync(password, 6);
+            if (!errValidation.isEmpty()) {
+                return ApiError.badRequest('Некоректно введённые данные');
+            }
 
-      const user = new User({
-        email,
-        country,
-        nickname,
-        isAuth: false,
-        password: hashPassword,
-        balance: 0,
-        income: 0,
-        incomeOperations: [],
-        spending: 0,
-        spendingOperations: [],
-        accumulation: 0,
-        accumulationOperations: [],
-        categories: [],
-        tasks: [],
-      });
+            const { email,country,nickname,password } = req.body;
 
-      await user.save(user);
+            const hashPassword = bcrypt.hashSync(password,6);
 
-      res.json({message:'Профиль успешно создан'});
-    } catch (error) {
-      res.status(400).json({ message: 'Regeeee error' });
+            await serviceAuthDB.saveUser(email,country,nickname,hashPassword);
+
+            res.json({ message: 'Учётная запись была создана' });
+        }
+        catch (error) {
+            next(error);
+        }
     }
-  }
 
-  async login(req, res) {
-    try {
-      const errValidation = validationResult(req);
-      if (!errValidation.isEmpty()) {
-        return res.status(400).json({ message: 'Некоректные данные' });
-      }
-      const { email, password } = req.body;
-      const user = await User.findOne({ email });
 
-      if (!user) {
-        return res.status(400).json({ message: 'Данного пользователя не существует' });
-      }
+    async login(req, res,next) {
 
-      await User.updateOne({ _id: user._id }, { $set: { isAuth: true } });
+        try {
+            const errValidation = validationResult(req);
 
-      const correctPassword = bcrypt.compareSync(password, user.password);
+            if (!errValidation.isEmpty()) {
+                return ApiError.badRequest('Некоректные данные');
+            }
 
-      if (!correctPassword) {
-        return res.status(400).json({ message: 'Пароль неверный. Попробуйте ещё раз.' });
-      }
+            const { email, password } = req.body;
+            const user = await serviceAuthDB.findUser(email);
 
-      const token = generateAccessToken(user._id);
-       res.json({ user, token });
-    } catch (error) {
-      return res.status(400).json({ message: 'Log err' });
+            const correctPassword = bcrypt.compareSync(password, user.password);
+
+            if (!correctPassword) {
+                throw ApiError.unauthorized('Пароль неверный');
+            }
+
+            const token = generateAccessToken(user._id, user.email);
+
+            return res.json({
+                user,
+                token,
+            });
+
+        }
+        catch (error) {
+            next(error);
+        }
     }
-  }
 
-  async auth(req, res) {
-    try {
-     const user = await User.findOne({_id: req.user.id})
-       const token = generateAccessToken(user._id);
-       res.json({token,user})
-    } catch (error) {
-      return res.status(400).json({ message: 'Log err' });
-    }
-  }
 
-  async logout(req,res) {
-    try {
-       const { id } = req.body
-       await User.updateOne({ _id: id }, { $set: { isAuth: false } });
-       res.json({message: 'Вы вышли из системы'})
-    } catch (error) {
-      return res.status(400).json({message: 'Что-то пошло не так'})
+    async auth(req, res,next) {
+
+        const { id } = req.user;
+
+        try {
+            const user = await serviceAuthDB.auth(id);
+            const token = generateAccessToken(user._id);
+
+            res.json({
+                token,
+                user,
+            });
+        }
+        catch (error) {
+            next(error);
+        }
     }
-  }
+
+    async logout(req,res, next) {
+
+        const { id } = req.body;
+
+        try {
+            await serviceAuthDB.logout(id);
+
+            res.json({ message: 'Вы вышли из системы' });
+        }
+        catch (error) {
+            next(error);
+        }
+    }
 }
 
 module.exports = new AuthController();
