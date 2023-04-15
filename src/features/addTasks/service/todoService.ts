@@ -17,9 +17,7 @@ class TodoService implements ITodoService {
         if (hasTask) return includeModalError();
 
         try {
-            const res: ITask = await todoApi.addTask(task, userStore.userId);
 
-            toDoStore.addTask(res);
         }
         catch (error) {
             console.log('Ошибка');
@@ -28,10 +26,7 @@ class TodoService implements ITodoService {
 
     async deleteTask(id: string) {
         try {
-            const task: ITask = toDoStore.getTask(id);
 
-            await todoApi.deleteTask(task.key!, userStore.userId);
-            toDoStore.removeTask(id);
         }
         catch (error) {
             console.log('Ошибка');
@@ -40,11 +35,10 @@ class TodoService implements ITodoService {
     }
 
     async toggleisDoneTask(id: string) {
-        const task:ITask = toDoStore.getTask(id);
+     
 
         try {
-            await todoApi.updateTask(task, userStore.userId);
-            toDoStore.updateTask(id);
+
         }
         catch (error) {
             console.log('Ошибка');

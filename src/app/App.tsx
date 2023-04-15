@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import Layout from '../shared/layout/Layout';
 import Main from '../pages/main/Main';
-import PersonalArea from '../pages/account/Account';
+import { Account } from '../pages/account/Account';
 import Analysis from '../pages/analysis/Analysis';
 import Authorization from '../pages/auth/authorization/Authorization';
 import Registration from '../pages/auth/registration/Registration';
@@ -29,7 +29,7 @@ export const App = () => {
                 <Routes>
                     <Route path="/" element={<Layout />}>
                         <Route index element={isLogin ? <Main /> : <Navigate to="/login" />} />
-                        <Route path="/account" element={isLogin ? <PersonalArea /> : <Navigate to="/login" />} />
+                        <Route path="/account" element={isLogin ? <Account/> : <Navigate to="/login" />} />
                         <Route path="/analysis" element={isLogin ? <Analysis /> : <Navigate to="/login" />} />
                         <Route path="/notebook" element={isLogin ? <Notebook /> : <Navigate to="/login" />} />
                         <Route path="/notebook/todo" element={isLogin ? <ToDo /> : <Navigate to="/login" />} />

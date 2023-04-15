@@ -11,22 +11,31 @@ import { IFormIncome } from '../interfaces';
 class IncomeService implements IServiceIncome {
     async addIncome({ income,sphere }:IFormIncome,switchShowModal:()=>void) {
         const modifytedSphere = validateString(sphere);
+        const createdOperation = this.createOperation(income,modifytedSphere);
 
         try {
-            const res = await cashFlowApi.addIncome(userStore.userId, income, modifytedSphere);
+            const { message } = await cashFlowApi.addIncome(createdOperation, userStore.user._id);
 
-            incomeStore.addIncome(res);
+            console.log(message);
+
+            incomeStore.addIncome(createdOperation);
         }
         catch (error) {
             if (error instanceof Error) {
-                throw new Error(error.message);
+                console.log(error.message);
             }
         }
         finally {
             switchShowModal();
         }
     }
-
+    createOperation(income:number,sphere:string): IIncomeOperation {
+        return {
+            income : income,
+            sphere : sphere,
+            date   : new Date(),
+        };
+    }
 }
 
 

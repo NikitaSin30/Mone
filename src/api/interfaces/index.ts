@@ -5,15 +5,15 @@ import { IFormSpending } from '../../features/add-spending/interfaces';
 import { IFormAuth } from '../../features/auth/interfaces';
 
 export interface ICashFlowApi {
-  addIncome: (userId: string, income: number, sphere: string) => Promise<IIncomeOperation>;
-  addAccumulation: (userId: string, accumulation: number) => Promise<IAccumulationOperation>;
-  addSpending: (userId: string, spending: number, categorie: string) => Promise<ISpendingOperation>;
+  addIncome: (incomeOperation: IIncomeOperation, id: string) => Promise<IIncomeOperation>;
+  addAccumulation: (id: string, accumulationOperation: IAccumulationOperation) => Promise<IAccumulationOperation>;
+  addSpending: (id: string, spendingOperation: ISpendingOperation) => Promise<ISpendingOperation>;
 }
 
 export interface IAuthApi {
-    registration:(user: IFormAuth) => Promise<string>;
-    login:(email: string, password: string) => Promise<void>
-    getUser:(userId: string)=> Promise<void>
+    registration:(user: IFormAuth) => Promise<any>;
+    login:(dataLogin:IFormAuth) => Promise<any>
+
 }
 
 export interface ICategoriesApi {

@@ -1,89 +1,91 @@
-import { IAccumulationOperation, IIncomeOperation } from 'shared/store/cashFlowStore/interfaces';
-import { IFormSpending } from 'features/add-spending/interfaces';
-import { ref, child, push, update } from 'firebase/database';
-import { db } from 'shared/firebase/firebase';
-import { accumulationStore } from 'shared/store/cashFlowStore/AccumulationStore';
-import { balanceStore } from 'shared/store/cashFlowStore/BalanceStore';
-import { incomeStore } from 'shared/store/cashFlowStore/IncomeStore';
-import { spendingStore } from 'shared/store/cashFlowStore/SpendingStore';
+import { IAccumulationOperation, IIncomeOperation, ISpendingOperation } from 'shared/store/cashFlowStore/interfaces';
 import { ICashFlowApi } from './interfaces';
-
-// type UpdateFunction = (data: Partial<Record<string, any>>, onComplete?: (error: Error | null) => void) => Promise<void>;
-
+import * as PATH from './path/index';
 
 
 class CashFlowApi implements ICashFlowApi {
-
-    async addIncome(userId: string, income:number , sphere: string) {
+    async addIncome(incomeOperation: IIncomeOperation, id: string) {
         try {
-            const newIncomeKey = push(child(ref(db), 'income')).key;
-            const incomeItem = {
-                sphere : sphere,
-                income : income,
-                date   : new Date(),
-                key    : newIncomeKey,
+            const response = await fetch(PATH.ADD_INCOME, {
+                method  : 'POST',
+                headers : {
+                    'Content-type' : 'application/json',
+                },
+                body : JSON.stringify({
+                    incomeOperation,
+                    id,
+                }),
+            });
 
-            };
-            const updates: any = {};
+            if (!response.ok) {
+                const error = await response.json();
 
-            updates['users/' + userId + '/cash/income/operation/' + newIncomeKey] = incomeItem;
-            updates['users/' + userId + '/cash/income/allIncome'] = incomeItem.income + incomeStore.income;
-            updates['users/' + userId + '/cash/balance'] = balanceStore.moneyAccount + incomeItem.income;
+                throw new Error(error.message);
+            }
 
-            await update(ref(db), updates);
-            
-            return incomeItem;
+            const result = response.json();
+
+            return result;
         }
         catch (error) {
-            throw new Error('Что-то пошло не так');
+            throw error;
         }
     }
 
-    async addAccumulation(userId: string, accumulation: number) {
+    async addAccumulation(id: string, accumulationOperation: IAccumulationOperation) {
+
         try {
-            const newAccumulationKey = push(child(ref(db), 'accumulation')).key;
-            const accumulationItem: IAccumulationOperation = {
-                accumulation : accumulation,
-                date         : new Date(),
-                key          : newAccumulationKey,
-            };
-            const updates: any = {};
+            const response = await fetch(PATH.ADD_ACCUMULATION, {
+                method  : 'POST',
+                headers : {
+                    'Content-type' : 'application/json',
+                },
+                body : JSON.stringify({
+                    accumulationOperation,
+                    id,
+                }),
+            });
 
-            updates['users/' + userId + '/cash/accumulation/operation/' + newAccumulationKey] = accumulationItem;
-            updates['users/' + userId + '/cash/accumulation/allAccumulation'] = accumulation + accumulationStore.accumulation;
-            updates['users/' + userId + '/cash/balance'] = balanceStore.moneyAccount - accumulation;
+            if (!response.ok) {
+                const error = await response.json();
 
-            await update(ref(db), updates);
-            
-            return accumulationItem;
+                throw new Error(error.message);
+            }
+            const result = await response.json();
+
+            return result;
         }
         catch (error) {
-            throw new Error('Что-то пошло не так');
+            throw error;
         }
     }
 
-    async addSpending(userId: string, spending: number , categorie:string) {
+    async addSpending(id: string, spendingOperation: ISpendingOperation) {
+
         try {
-            const newSpendingKey = push(child(ref(db), 'spending')).key;
-            const spendingItem = {
-                spending  : spending,
-                categorie : categorie,
-                date      : new Date(),
-                key       : newSpendingKey,
-            };
+            const response = await fetch(PATH.ADD_SPENDING, {
+                method  : 'POST',
+                headers : {
+                    'Content-type' : 'application/json',
+                },
+                body : JSON.stringify({
+                    spendingOperation,
+                    id,
+                }),
+            });
 
-            const updates: any = {};
+            if (!response.ok) {
+                const error = await response.json();
 
-            updates['users/' + userId + '/cash/spending/operation/' + newSpendingKey] = spendingItem;
-            updates['users/' + userId + '/cash/spending/allSpending'] = spending + spendingStore.spending;
-            updates['users/' + userId + '/cash/balance'] = balanceStore.moneyAccount - spending;
+                throw new Error(error.message);
+            }
+            const result = response.json();
 
-            await update(ref(db), updates);
+            return result;
 
-            return spendingItem;
         }
         catch (error) {
-            throw new Error('Что-то пошло не так');
+            throw error;
         }
     }
 }

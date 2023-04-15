@@ -16,9 +16,7 @@ class CategoriesService implements ICategoriesService {
         if (hasCategorie) return showModalError();
 
         try {
-            const res: ICategorie = await categorieApi.addCategorie(categorieValidated, userStore.userId);
 
-            categoriesStore.addCatigorie(res);
         }
         catch (error) {
             return new Error();
@@ -30,10 +28,9 @@ class CategoriesService implements ICategoriesService {
 
     async deleteCategorie(id: string) {
         try {
-            const categorie: ICategorie = categoriesStore.getCategorie(id);
 
-            await categorieApi.deleteCategorie(categorie.key!, userStore.userId);
-            categoriesStore.removeCategorie(id);
+
+
         }
         catch (error) {
             return new Error();
@@ -42,6 +39,8 @@ class CategoriesService implements ICategoriesService {
 
     async addSpendingInCategorie(id: string, spending: number) {
         const categorie: ICategorie = categoriesStore.getCategorie(id);
+
+
         const updatedCategorie: ICategorie = {
             ...categorie,
             spending : categorie.spending + spending,
@@ -49,7 +48,7 @@ class CategoriesService implements ICategoriesService {
 
         try {
             await categorieApi.addSpendingInCategorie(updatedCategorie, userStore.userId);
-            categoriesStore.updateCategories(updatedCategorie);
+
         }
         catch (error) {
             console.log('Ошибка');

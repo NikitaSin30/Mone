@@ -3,30 +3,38 @@ import { spendingStore } from 'shared/store/cashFlowStore/SpendingStore';
 import { categoriesStore } from 'shared/store/categoriesStore/CategoriesStore';
 import { IFormSpending } from '../interfaces';
 import { cashFlowApi } from 'api/CashFlowApi';
-import { categoriesService } from 'features/add-categories/service/categoriesService';
 import { ISpendingService } from './interfaces';
-import { ISpendingOperation } from 'shared/store/cashFlowStore/interfaces';
+
 
 
 class SpendingService implements ISpendingService {
 
     async addSpending( newSpending : IFormSpending, switchShowModal:()=>void) {
+        const createdOperation =  this.createOperation(newSpending.spending, newSpending.categorie);
 
         try {
-            const res:ISpendingOperation =  await cashFlowApi.addSpending(userStore.userId, newSpending.spending,newSpending.categorie);
+            const { message } = await cashFlowApi.addSpending(userStore.user._id, createdOperation);
 
-            spendingStore.addSpending(res);
-            categoriesService.addSpendingInCategorie(res.categorie,res.spending);
+            console.log(message);
+            spendingStore.addSpending(createdOperation);
+            categoriesStore.updateSpendingInCategorie(newSpending);
 
         }
         catch (error) {
             if (error instanceof Error) {
-                throw new Error(error.message);
+                console.log(error.message);
             }
         }
         finally {
             switchShowModal();
         }
+    }
+    createOperation(spending: number, categorie: string) {
+        return {
+            spending  : spending,
+            categorie : categorie,
+            date      : new Date(),
+        };
     }
 
 }

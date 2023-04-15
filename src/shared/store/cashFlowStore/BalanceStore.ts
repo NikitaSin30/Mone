@@ -14,8 +14,8 @@ export class BalanceStore implements IBalanceStore {
         this.moneyAccount = newBalance;
     }
 
-    setBalanceWithDB(sum:number):void {
-        this.moneyAccount = sum;
+    setBalanceFromDB(balance:number) {
+        this.moneyAccount = balance;
     }
 }
 

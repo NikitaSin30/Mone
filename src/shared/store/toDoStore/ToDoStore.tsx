@@ -37,10 +37,14 @@ class ToDoStore implements ITodoStore {
     }
 
     getTask(id:string) {
-        const task : ITask[] = this.tasks.filter(task => task.id === id);
+        const task : ITask | undefined = this.tasks.find(task => task.id === id);
 
+        if (task === undefined) {
+            throw new Error();
+        }
 
-        return { ...task[0] };
+        return task;
+
     }
 
     setTasksWithdDB(task:ITask[]) {

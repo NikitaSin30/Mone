@@ -7,24 +7,35 @@ import { IAccumulationService } from './interfaces';
 import { IFormAccumulation } from '../interfaces';
 
 
+
 class AccumulationService implements IAccumulationService {
+
     async addAccumulation({ accumulation }: IFormAccumulation, showModalError: () => void, switchShowModal: () => void) {
-        if (balanceStore.moneyAccount < accumulation)
-            return showModalError(),switchShowModal();
+        if (balanceStore.moneyAccount < accumulation) return showModalError();
+        const createdOperation = this.createOperation(accumulation);
 
         try {
-            const res: IAccumulationOperation = await cashFlowApi.addAccumulation(userStore.userId, accumulation);
+            const { message } =  await cashFlowApi.addAccumulation(userStore.user._id, createdOperation);
 
-            accumulationStore.addAccumulation(res);
+            console.log(message);
+
+            accumulationStore.addAccumulation(createdOperation);
         }
         catch (error) {
             if (error instanceof Error) {
-                throw new Error(error.message);
+                console.log(error.message);
             }
+
         }
         finally {
             switchShowModal();
         }
+    }
+    createOperation(accumulation : number) {
+        return {
+            accumulation : accumulation,
+            date         : new Date(),
+        };
     }
 }
 

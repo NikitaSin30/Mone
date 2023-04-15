@@ -1,20 +1,19 @@
 export interface IBalanceStore {
   moneyAccount: number;
   updateCashAccount:(newBalance: number) => void;
-  setBalanceWithDB: (sum: number) => void;
+  setBalanceFromDB: (sum: number) => void;
 }
 
 
 export interface IAccumulationOperation {
   accumulation: number;
   date: Date;
-  key: string | null;
 }
 export interface IAccumulationStore {
   accumulation: number;
-  accumulationOperation: IAccumulationOperation[];
+  accumulationOperations: IAccumulationOperation[];
   addAccumulation: (newAccumulation: IAccumulationOperation) => void;
-  setAccumulationWithDB:(accumulation: number, operations: IAccumulationOperation[]) => void;
+  setAccumulationFromDB:(accumulation: number, operations: IAccumulationOperation[]) => void;
 }
 
 
@@ -24,14 +23,13 @@ export interface ISpendingOperation {
   spending: number;
   categorie: string;
   date: Date;
-  key: string | null
 }
 
 export interface ISpendingStore {
   spending: number;
   spendingOperations: ISpendingOperation[];
   addSpending: (operation: ISpendingOperation) => void;
-  setSpendingWithDB:(spending: number, operations: ISpendingOperation[]) => void;
+  setSpendingFromDB:(spending: number, operations: ISpendingOperation[]) => void;
 }
 
 
@@ -40,11 +38,10 @@ export interface IIncomeOperation {
   income: number;
   sphere: string;
   date: Date;
-  key: string | null
 }
 export interface IIncomeStore {
   income: number;
   incomeOperations: IIncomeOperation[];
   addIncome: (operation: IIncomeOperation) => void;
-  setIncomeWithStore:(itcome: number, operations: IIncomeOperation[]) => void;
+  setIncomeFromDB:(itcome: number, operations: IIncomeOperation[]) => void;
 }
