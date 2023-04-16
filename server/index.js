@@ -4,7 +4,7 @@ const authRouter = require('./router/authRouter');
 const categorieRouter = require('./router/categoriesRouter');
 const cors = require('cors');
 const cashRouter = require('./router/cashFlowRouter');
-const midlewareErr = require('./midlewares/midlewareErr');
+const middlewareErr = require('./midlewares/middlewareErr');
 
 
 const PORT = 3002;
@@ -16,7 +16,7 @@ app.use(express.json());
 app.use('/cash', cashRouter);
 app.use('/auth' , authRouter);
 app.use('/categories', categorieRouter);
-app.use(midlewareErr);
+app.use(middlewareErr);
 
 
 const start = async() => {

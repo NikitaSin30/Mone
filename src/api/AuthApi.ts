@@ -54,14 +54,10 @@ class AuthApi implements IAuthApi {
         }
     }
 
-    async auth() {
-        const token = JSON.parse(localStorage.getItem('wallet')!);
+    async authentication(token:string) {
 
-        if (!token) {
-            throw new Error('Вам необходимо войти заново. Приносим свои извенения');
-        }
         try {
-            const response = await fetch('http://localhost:3002/auth/auth', {
+            const response = await fetch(PATH.AUTHENTICATION, {
                 method  : 'GET',
                 headers : {
                     Authorization : `Bearer ${token}`,
@@ -88,7 +84,7 @@ class AuthApi implements IAuthApi {
     async logout(id:string) {
 
         try {
-            const response = await fetch('http://localhost:3002/auth/out', {
+            const response = await fetch(PATH.LOGOUT, {
                 method  : 'POST',
                 headers : {
                     'Content-type' : 'application/json',

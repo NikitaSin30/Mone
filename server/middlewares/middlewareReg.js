@@ -1,6 +1,6 @@
 const serviceAuthDB = require('../serviceMongo/serviceAuthDB');
 
-const midlewareReg = async(req,res,next) => {
+const middlewareReg = async(req,res,next) => {
 
     try {
         const { email,nickname,country,password } = req.body;
@@ -23,4 +23,4 @@ const midlewareReg = async(req,res,next) => {
     }
 };
 
-module.exports = midlewareReg;
+module.exports = middlewareReg;

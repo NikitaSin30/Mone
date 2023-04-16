@@ -3,6 +3,9 @@ const bcrypt = require('bcryptjs');
 const { generateAccessToken } = require('../token/generateToken');
 const serviceAuthDB = require('../serviceMongo/serviceAuthDB');
 const ApiError = require('../apiError/ApiError');
+const checkValidation = require('../helpers/checkValidation');
+const checkCorrectPassword = require('../helpers/checkCorrectPasword');
+
 
 
 class AuthController {
@@ -10,11 +13,7 @@ class AuthController {
     async registration(req, res,next) {
         try {
 
-            const errValidation = validationResult(req);
-
-            if (!errValidation.isEmpty()) {
-                return ApiError.badRequest('Некоректно введённые данные');
-            }
+            checkValidation(req);
 
             const { email,country,nickname,password } = req.body;
 
@@ -33,20 +32,13 @@ class AuthController {
     async login(req, res,next) {
 
         try {
-            const errValidation = validationResult(req);
 
-            if (!errValidation.isEmpty()) {
-                return ApiError.badRequest('Некоректные данные');
-            }
+            checkValidation(req);
 
             const { email, password } = req.body;
             const user = await serviceAuthDB.findUser(email);
 
-            const correctPassword = bcrypt.compareSync(password, user.password);
-
-            if (!correctPassword) {
-                throw ApiError.unauthorized('Пароль неверный');
-            }
+            checkCorrectPassword(password,user.password);
 
             const token = generateAccessToken(user._id, user.email);
 
@@ -62,12 +54,12 @@ class AuthController {
     }
 
 
-    async auth(req, res,next) {
+    async authentication(req, res,next) {
 
         const { id } = req.user;
 
         try {
-            const user = await serviceAuthDB.auth(id);
+            const user = await serviceAuthDB.authenticationth(id);
             const token = generateAccessToken(user._id);
 
             res.json({

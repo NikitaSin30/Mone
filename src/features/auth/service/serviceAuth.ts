@@ -8,6 +8,7 @@ import { spendingStore } from 'shared/store/cashFlowStore/SpendingStore';
 import { balanceStore } from 'shared/store/cashFlowStore/BalanceStore';
 import { categoriesStore } from 'shared/store/categoriesStore/CategoriesStore';
 import { IDataFromDB, IDataUserFromDB } from 'api/interfaces';
+import { getToken } from './helpers/getToken';
 
 
 
@@ -43,9 +44,10 @@ class AuthService implements IAuthService {
         }
     }
 
-    async auth() {
+    async authentication() {
         try {
-            const { user,token } : IDataFromDB = await authAPI.auth();
+            const tokenStorage = getToken();
+            const { user,token } : IDataFromDB = await authAPI.authentication(tokenStorage);
 
             this.setDataFromDB(user);
 

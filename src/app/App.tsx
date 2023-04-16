@@ -29,8 +29,8 @@ export const App =  observer(() => {
     const routes = routesApp(isAuth);
 
     React.useEffect(()=>{
-        
-        authService.auth();
+
+        authService.authentication();
 
     },[]);
 

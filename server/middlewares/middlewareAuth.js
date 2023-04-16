@@ -1,20 +1,18 @@
 const jwt = require('jsonwebtoken');
 const ApiError = require('../apiError/ApiError');
+const getToken = require('../helpers/getToken');
 const { secret } = require('../token/config');
 
 
 
-const midlewareAuth = (req, res , next) => {
+const middlewareAuth = (req, res , next) => {
     if (req.method === 'OPTIONS') {
         next();
     }
 
     try {
-        const token = req.headers.authorization.split(' ')[1];
+        const token = getToken(req.headers.authorization);
 
-        if (!token) {
-            return ApiError.unauthorized('Вам нужно ввести логин и пароль');
-        }
         const decoded = jwt.verify(token, 'secret');
 
         req.user = decoded;
@@ -25,4 +23,4 @@ const midlewareAuth = (req, res , next) => {
     }
 };
 
-module.exports = midlewareAuth;
+module.exports = middlewareAuth;

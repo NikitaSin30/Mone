@@ -8,6 +8,6 @@ export interface IAuthService {
     login:(dataUserLogin:IFormAuth, switchShowModal: () => void) => Promise<void>;
     registration:(user: IFormAuth) => Promise<void>
     setDataFromDB:(userData: IDataUserFromDB) => void
-    auth:() => void
+    authentication:() => void
     logout:() => void
 }

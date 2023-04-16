@@ -2,8 +2,8 @@ const Router  = require('express');
 const router = new Router();
 const authController = require('../controllers/authController');
 const { check } = require('express-validator');
-const midlewareAuth = require('../midlewares/midlewareAuth');
-const midlewareReg = require('../midlewares/midlewareReg');
+const middlewareAuth = require('../middlewares/middlewareAuth');
+const middlewareReg = require('../middlewares/middlewareReg');
 
 
 
@@ -13,7 +13,7 @@ router.post('/registration',
         check('password','Минимальная длина 6 символов').isString().isLength({ min: 6 }),
         check('nickname','Минимальная длина 3 символа').isString().isLength({ min: 3 }),
     ],
-    midlewareReg ,
+    middlewareReg ,
     authController.registration);
 
 
@@ -24,9 +24,9 @@ router.post('/login',
     ],
     authController.login);
 
-router.post('/out', authController.logout);
+router.post('/logout', authController.logout);
 
-router.get('/auth', midlewareAuth, authController.auth);
+router.get('/authentication', middlewareAuth, authController.authentication);
 
 
 module.exports = router;
