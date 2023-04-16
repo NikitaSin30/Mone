@@ -14,11 +14,7 @@ class CategoriesService implements ICategoriesService {
         try {
             const categorieValidated = validateString(categorie);
 
-            const hasCategorie = this.checkStoreHasCategorie(categorieValidated);
-
-            if (hasCategorie) {
-                throw new Error('Категория уже существует');
-            }
+            this.checkStoreHasCategorie(categorieValidated);
 
             const newCategorie = this.createCategorie(categorieValidated);
 
@@ -48,7 +44,12 @@ class CategoriesService implements ICategoriesService {
     }
 
     checkStoreHasCategorie(validatedCategorie: string) {
-        return categoriesStore.categories.some(({ categorie }) => categorie === validatedCategorie);
+
+        const hasCategorie = categoriesStore.categories.some(({ categorie }) => categorie === validatedCategorie);
+
+        if (hasCategorie) {
+            throw new Error('Категория уже существует');
+        }
     }
 
     createCategorie(categorie:string) {
