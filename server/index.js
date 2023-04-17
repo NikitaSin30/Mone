@@ -4,7 +4,7 @@ const authRouter = require('./router/authRouter');
 const categorieRouter = require('./router/categoriesRouter');
 const cors = require('cors');
 const cashRouter = require('./router/cashFlowRouter');
-const middlewareErr = require('./midlewares/middlewareErr');
+const middlewareErr = require('./middlewares/middlewareErr');
 
 
 const PORT = 3002;
@@ -26,7 +26,6 @@ const start = async() => {
             console.log('Working');
         });
     }
-
 
     catch (error) {
         console.log(error);

@@ -26,7 +26,7 @@ router.post('/login',
 
 router.post('/logout', authController.logout);
 
-router.get('/authentication', middlewareAuth, authController.authentication);
+router.get('/authentication', middlewareAuth, authController.authenticate);
 
 
 module.exports = router;

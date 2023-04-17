@@ -54,12 +54,12 @@ class AuthController {
     }
 
 
-    async authentication(req, res,next) {
+    async authenticate(req, res,next) {
 
         const { id } = req.user;
 
         try {
-            const user = await serviceAuthDB.authenticationth(id);
+            const user = await serviceAuthDB.authenticate(id);
             const token = generateAccessToken(user._id);
 
             res.json({

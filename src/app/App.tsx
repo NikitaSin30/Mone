@@ -16,7 +16,7 @@ import { ShopList } from 'pages/noteBook/shopList/ShopList';
 import { routesApp } from './RoutesApp';
 import { authService } from 'features/auth/service/serviceAuth';
 import { userStore } from 'shared/store/userStore/UserStore';
-import { async } from '@firebase/util';
+
 
 export const App =  observer(() => {
 
@@ -30,7 +30,7 @@ export const App =  observer(() => {
 
     React.useEffect(()=>{
 
-        authService.authentication();
+        authService.authenticate();
 
     },[]);
 

@@ -54,7 +54,7 @@ class AuthApi implements IAuthApi {
         }
     }
 
-    async authentication(token:string) {
+    async authenticate(token:string) {
 
         try {
             const response = await fetch(PATH.AUTHENTICATION, {

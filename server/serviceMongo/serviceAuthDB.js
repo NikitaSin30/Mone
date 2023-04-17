@@ -85,7 +85,7 @@ class ServiceAuthDB {
         }
     }
 
-    async authentication(id) {
+    async authenticate(id) {
         try {
             const user = await User.findOne({ _id: id });
 

@@ -9,6 +9,7 @@ import { balanceStore } from 'shared/store/cashFlowStore/BalanceStore';
 import { categoriesStore } from 'shared/store/categoriesStore/CategoriesStore';
 import { IDataFromDB, IDataUserFromDB } from 'api/interfaces';
 import { getToken } from './helpers/getToken';
+import { redirect } from 'react-router';
 
 
 
@@ -36,18 +37,21 @@ class AuthService implements IAuthService {
 
             console.log(message);
 
+            return redirect('/login');
+
         }
         catch (error) {
             if (error instanceof Error) {
                 console.log(error.message);
             }
         }
+
     }
 
-    async authentication() {
+    async authenticate() {
         try {
             const tokenStorage = getToken();
-            const { user,token } : IDataFromDB = await authAPI.authentication(tokenStorage);
+            const { user,token } : IDataFromDB = await authAPI.authenticate(tokenStorage);
 
             this.setDataFromDB(user);
 

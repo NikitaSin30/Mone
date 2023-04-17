@@ -1,44 +1,29 @@
 import React from 'react';
-import { Route, Routes,Navigate } from 'react-router';
-import Layout from '../shared/layout/Layout';
+import { Route,Navigate } from 'react-router';
 import Main from '../pages/main/Main';
-import PersonalArea from '../pages/account/Account';
 import Analysis from '../pages/analysis/Analysis';
 import Authorization from '../pages/auth/authorization/Authorization';
 import Registration from '../pages/auth/registration/Registration';
 import Notebook from 'pages/noteBook/Notebook';
 import { ToDo } from 'pages/noteBook/toDo/ToDo';
 import { ShopList } from 'pages/noteBook/shopList/ShopList';
+import Account from '../pages/account/Account';
+
 
 export const routesApp = (isAuth:boolean) => {
-    if (isAuth) {
-        return (
-            <>
-                {/* <Routes> */}
-                {/* <Route path="/" element={<Layout />}> */}
-                <Route index element={<Main />} />
-                <Route path="/account" element={<PersonalArea />} />
-                <Route path="/analysis" element={<Analysis />} />
-                <Route path="/notebook" element={<Notebook />} />
-                <Route path="/notebook/todo" element={<ToDo />} />
-                <Route path="/notebook/shopList" element={<ShopList />} />
-                <Route path="/login" element={<Authorization />} />
-                <Route path="/registration" element={<Registration />} />
-                {/* <Navigate to="/" /> */}
-                {/* </Route> */}
-                {/* </Routes> */}
-            </>
-        );
-    }
-
-    return (
+    return isAuth ? (
         <>
-            {/* <Routes> */}
-            {/* <Route path='/login' element={<Layout />}> */}
-            <Route path="/login" element={<Authorization />} />
-            <Route path="/registration" element={<Registration />} />
-            {/* </Route> */}
-            {/* </Routes> */}
+            <Route index element={isAuth ? <Main /> : <Navigate to="/login" />} />
+            <Route path="/account" element={isAuth ? <Account /> : <Navigate to="/login" />} />
+            <Route path="/analysis" element={isAuth ? <Analysis /> : <Navigate to="/login" />} />
+            <Route path="/notebook" element={isAuth ? <Notebook /> : <Navigate to="/login" />} />
+            <Route path="/notebook/todo" element={isAuth ? <ToDo /> : <Navigate to="/login" />} />
+            <Route path="/notebook/shopList" element={isAuth ? <ShopList /> : <Navigate to="/login" />} />
+        </>
+    ) : (
+        <>
+            <Route path="/login" element={!isAuth ? <Authorization /> : <Navigate to="/" />} />
+            <Route path="/registration" element={!isAuth ? <Registration /> : <Navigate to="/" />} />
         </>
     );
 };

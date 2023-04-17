@@ -37,7 +37,7 @@ export interface ICashFlowApi {
 export interface IAuthApi {
     registration:(user: IFormAuth) => Promise<IResponseMessage>;
     login:(dataLogin:IFormAuth) => Promise<IDataFromDB>
-    authentication:(token:string) => Promise<IDataFromDB>
+    authenticate:(token:string) => Promise<IDataFromDB>
     logout:(id:string) => Promise<IResponseMessage>
 }
 

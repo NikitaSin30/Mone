@@ -6,8 +6,8 @@ import { IFormAuth } from 'features/auth/interfaces';
 
 export interface IAuthService {
     login:(dataUserLogin:IFormAuth, switchShowModal: () => void) => Promise<void>;
-    registration:(user: IFormAuth) => Promise<void>
+    registration:(user: IFormAuth) => any
     setDataFromDB:(userData: IDataUserFromDB) => void
-    authentication:() => void
+    authenticate:() => void
     logout:() => void
 }
