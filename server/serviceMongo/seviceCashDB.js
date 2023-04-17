@@ -18,7 +18,7 @@ class ServiceCashDB {
 
         }
         catch (error) {
-            throw new Error(error);
+            throw error;
         }
     }
 
@@ -34,7 +34,7 @@ class ServiceCashDB {
 
         }
         catch (error) {
-            throw new Error(error);
+            throw error;
         }
     }
 
@@ -50,7 +50,7 @@ class ServiceCashDB {
 
         }
         catch (error) {
-            throw new Error(error);
+            throw error;
         }
     }
 }

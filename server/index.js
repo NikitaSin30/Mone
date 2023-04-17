@@ -1,9 +1,10 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const authRouter = require('./router/authRouter');
-const cashRouter = require('./router/cashFlowRouter');
+const categorieRouter = require('./router/categoriesRouter');
 const cors = require('cors');
-const midlewareErr = require('./midlewares/midlewareErr');
+const cashRouter = require('./router/cashFlowRouter');
+const middlewareErr = require('./middlewares/middlewareErr');
 
 
 const PORT = 3002;
@@ -14,7 +15,8 @@ app.use(cors());
 app.use(express.json());
 app.use('/cash', cashRouter);
 app.use('/auth' , authRouter);
-app.use(midlewareErr);
+app.use('/categories', categorieRouter);
+app.use(middlewareErr);
 
 
 const start = async() => {
@@ -24,7 +26,6 @@ const start = async() => {
             console.log('Working');
         });
     }
-
 
     catch (error) {
         console.log(error);

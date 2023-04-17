@@ -6,16 +6,15 @@ import { Input } from 'widgets/inputs/Input';
 import { Button } from 'widgets/modals/ui/button/Button';
 import { useService } from 'shared/hooks/useService/useService';
 import { CASE_USESERVICE_LOGIN } from 'shared/hooks/useService/constans';
-import { ContextGlobal, IContextGlobal } from 'shared/context/context';
 import { CASE_TYPE_EMAIL, CASE_TYPE_PASSWORD } from 'widgets/inputs/validation/constans';
 import { TITLE_REGISTOR_PASSWORD,TITLE_REGISTOR_EMAIL } from 'widgets/inputs/validation/constans';
-import { TITLE_LABEL_PASSWORD,TITLE_LABEL_EMAIL } from 'widgets/inputs/label/constans';
+import { TITLE_LABEL_PASSWORD, TITLE_LABEL_EMAIL } from 'widgets/inputs/label/constans';
 import { TITLE_BUTTON_LOGIN } from 'widgets/modals/ui/button/constans';
 
 
 
 const FormLogin = (): React.ReactElement => {
-    const { onChangeIsLogin } = React.useContext<IContextGlobal>(ContextGlobal);
+
     const {
         register,
         reset,
@@ -23,7 +22,7 @@ const FormLogin = (): React.ReactElement => {
         formState: { errors,isValid },
     } = useForm<IFormAuth>({ mode: 'onBlur' });
 
-    const onLogin = useService(reset, CASE_USESERVICE_LOGIN, onChangeIsLogin);
+    const onLogin = useService(reset, CASE_USESERVICE_LOGIN);
 
 
     return (

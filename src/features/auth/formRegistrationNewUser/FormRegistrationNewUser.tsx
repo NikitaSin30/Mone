@@ -5,7 +5,6 @@ import { Input } from 'widgets/inputs/Input';
 import { Button } from 'widgets/modals/ui/button/Button';
 import { useService } from 'shared/hooks/useService/useService';
 import { CASE_USESERVICE_REGISTRATION } from 'shared/hooks/useService/constans';
-import { ContextGlobal, IContextGlobal } from 'shared/context/context';
 import { CASE_TYPE_EMAIL, CASE_TYPE_PASSWORD, CASE_TYPE_COUNTRY, CASE_TYPE_NICKNAME } from 'widgets/inputs/validation/constans';
 import { TITLE_REGISTOR_COUNTRY,
     TITLE_REGISTOR_EMAIL,
@@ -18,7 +17,6 @@ import { useToggle } from 'shared/hooks/useToggle/useToggle';
 
 
 function FormRegistrationNewUser(): React.ReactElement {
-    const { onChangeIsLogin } = React.useContext<IContextGlobal>(ContextGlobal);
     const { value: isSuccesReg, toggle:setIsSuccesReg } = useToggle(false);
     const {
         register,

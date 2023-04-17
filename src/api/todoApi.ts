@@ -13,7 +13,6 @@ class TodoApi {
 
 
 
-
         }
         catch (error) {
             throw new Error('Что-то пошло не так');
@@ -35,7 +34,7 @@ class TodoApi {
                 ...task,
                 isDone : !task.isDone,
             };
-  
+
         }
         catch (error) {
             throw new Error('Может лучше в вебкам ? A не IT');

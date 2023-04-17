@@ -1,13 +1,20 @@
-const User = require('../modelsMongo/User');
+const { validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const { generateAccessToken } = require('../token/generateToken');
 const serviceAuthDB = require('../serviceMongo/serviceAuthDB');
 const ApiError = require('../apiError/ApiError');
+const checkValidation = require('../helpers/checkValidation');
+const checkCorrectPassword = require('../helpers/checkCorrectPasword');
+
 
 
 class AuthController {
+
     async registration(req, res,next) {
         try {
+
+            checkValidation(req);
+
             const { email,country,nickname,password } = req.body;
 
             const hashPassword = bcrypt.hashSync(password,6);
@@ -23,15 +30,15 @@ class AuthController {
 
 
     async login(req, res,next) {
+
         try {
+
+            checkValidation(req);
+
             const { email, password } = req.body;
             const user = await serviceAuthDB.findUser(email);
 
-            const correctPassword = bcrypt.compareSync(password, user.password);
-
-            if (!correctPassword) {
-                throw ApiError.notCorrectPassword('Пароль неверный');
-            }
+            checkCorrectPassword(password,user.password);
 
             const token = generateAccessToken(user._id, user.email);
 
@@ -40,6 +47,39 @@ class AuthController {
                 token,
             });
 
+        }
+        catch (error) {
+            next(error);
+        }
+    }
+
+
+    async authenticate(req, res,next) {
+
+        const { id } = req.user;
+
+        try {
+            const user = await serviceAuthDB.authenticate(id);
+            const token = generateAccessToken(user._id);
+
+            res.json({
+                token,
+                user,
+            });
+        }
+        catch (error) {
+            next(error);
+        }
+    }
+
+    async logout(req,res, next) {
+
+        const { id } = req.body;
+
+        try {
+            await serviceAuthDB.logout(id);
+
+            res.json({ message: 'Вы вышли из системы' });
         }
         catch (error) {
             next(error);
