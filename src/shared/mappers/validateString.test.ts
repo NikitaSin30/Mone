@@ -1,4 +1,3 @@
-import { error } from 'console';
 import { validateString } from './validateString';
 
 

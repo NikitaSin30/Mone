@@ -19,10 +19,8 @@ class SpendingStore implements ISpendingStore {
 
         balanceStore.updateCashAccount(updatedBalance);
     }
-    setSpendingWithDB(spending: number, operations:ISpendingOperation[]): void {
-        this.spending = spending;
-    }
-    setSpending(spending:number, spendingOperations : ISpendingOperation[]) {
+
+    setSpendingFromDB(spending:number, spendingOperations : ISpendingOperation[]) {
         this.spending = spending;
         this.spendingOperations = spendingOperations;
     }

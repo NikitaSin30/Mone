@@ -5,7 +5,6 @@ import { Input } from 'widgets/inputs/Input';
 import { Button } from 'widgets/modals/ui/button/Button';
 import { useService } from 'shared/hooks/useService/useService';
 import { CASE_USESERVICE_REGISTRATION } from 'shared/hooks/useService/constans';
-import { ContextGlobal, IContextGlobal } from 'shared/context/context';
 import { CASE_TYPE_EMAIL, CASE_TYPE_PASSWORD, CASE_TYPE_COUNTRY, CASE_TYPE_NICKNAME } from 'widgets/inputs/validation/constans';
 import { TITLE_REGISTOR_COUNTRY,
     TITLE_REGISTOR_EMAIL,
@@ -13,12 +12,12 @@ import { TITLE_REGISTOR_COUNTRY,
     TITLE_REGISTOR_PASSWORD } from 'widgets/inputs/validation/constans';
 import { TITLE_LABEL_EMAIL,TITLE_LABEL_PASSWORD,TITLE_LABEL_COUNTRY,TITLE_LABEL_NICKNAME } from 'widgets/inputs/label/constans';
 import { TITLE_BUTTON_REGISTRATION } from 'widgets/modals/ui/button/constans';
+import { useToggle } from 'shared/hooks/useToggle/useToggle';
 
 
 
 function FormRegistrationNewUser(): React.ReactElement {
-    const { onChangeIsLogin } = React.useContext<IContextGlobal>(ContextGlobal);
-
+    const { value: isSuccesReg, toggle:setIsSuccesReg } = useToggle(false);
     const {
         register,
         reset,
@@ -26,7 +25,7 @@ function FormRegistrationNewUser(): React.ReactElement {
         formState: { errors, isValid },
     } = useForm<IFormAuth>({ mode: 'onBlur' });
 
-    const onRegistration = useService(reset, CASE_USESERVICE_REGISTRATION, onChangeIsLogin);
+    const onRegistration = useService(reset, CASE_USESERVICE_REGISTRATION, setIsSuccesReg);
 
     return (
         <form
@@ -34,6 +33,7 @@ function FormRegistrationNewUser(): React.ReactElement {
          shadow-lg md:w-1/2"
             onSubmit={handleSubmit(onRegistration)}
         >
+            {isSuccesReg && <span className='text-green-600 '>Учётная запись была создана</span>}
             <h2 className="text-xl font-bold text-center">Регистрация</h2>
             <Input
                 caseType={CASE_TYPE_EMAIL}
