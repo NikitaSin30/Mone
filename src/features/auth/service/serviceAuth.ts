@@ -9,20 +9,20 @@ import { balanceStore } from 'shared/store/cashFlowStore/BalanceStore';
 import { categoriesStore } from 'shared/store/categoriesStore/CategoriesStore';
 import { IDataFromDB, IDataUserFromDB } from 'api/interfaces';
 import { getToken } from './helpers/getToken';
-import { redirect } from 'react-router';
 
 
 
 class AuthService implements IAuthService {
+
     async login(dataLogin:IFormAuth) {
         try {
-            const { user,token } : IDataFromDB = await authAPI.login(dataLogin);
+            const { user,token, message } : IDataFromDB = await authAPI.login(dataLogin);
 
             this.setDataFromDB(user);
 
             window.localStorage.setItem('wallet' , JSON.stringify(token));
-            userStore.setIsAuth(true);
 
+            return message ;
         }
         catch (error) {
             if (error instanceof Error) {
@@ -33,16 +33,16 @@ class AuthService implements IAuthService {
 
     async registration(user: IFormAuth) {
         try {
-            const { message } = await authAPI.registration(user);
+            const response = await authAPI.registration(user);
 
-            console.log(message);
+            console.log(response);
 
-            return redirect('/login');
+            return response;
 
         }
         catch (error) {
             if (error instanceof Error) {
-                console.log(error.message);
+                throw error;
             }
         }
 

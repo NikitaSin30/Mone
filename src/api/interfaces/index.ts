@@ -24,8 +24,9 @@ export interface IDataUserFromDB {
 }
 
 export interface IDataFromDB {
- user: IDataUserFromDB,
-    token : string,
+  user: IDataUserFromDB,
+  token : string,
+  message:string,
 }
 
 export interface ICashFlowApi {

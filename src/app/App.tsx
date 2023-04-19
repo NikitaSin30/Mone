@@ -11,29 +11,14 @@ import { IGlobalContext,Context } from 'shared/context/context';
 import Notebook from 'pages/noteBook/Notebook';
 import { authService } from 'features/auth/service/serviceAuth';
 import { userStore } from 'shared/store/userStore/UserStore';
-import { ProtectedAuthorizedRoute } from 'shared/routes/hoc/ProtectedAuthorizedRoute';
-import { ProtectedNotAuthorizedRoute } from 'shared/routes/hoc/ProtectedNotAuthorizedRoute';
-import { LazyProtectedRoute } from 'shared/routes/hoc/LazyProtectedRoute';
+import { AuthorizedRoute } from 'shared/routes/hoc/AuthorizedRoute';
+import { NotAuthorizedRoute } from 'shared/routes/hoc/NotAuthorizedRoute';
+import { LazyAuthorizedRoute } from 'shared/routes/hoc/LazyAuthorizedRoute';
 import * as URL from '../shared/routes/path';
-
 
 const ToDo = React.lazy(() => import('pages/noteBook/toDo/ToDo'));
 const ShopList = React.lazy(() => import('pages/noteBook/shopList/ShopList'));
 const Analysis = React.lazy(() => import('pages/analysis/Analysis'));
-
-
-const MainProtected = ProtectedAuthorizedRoute(Main);
-const AccountProtected = ProtectedAuthorizedRoute(Account);
-const NotebookProtected = ProtectedAuthorizedRoute(Notebook);
-
-const AuthorizationProtected = ProtectedNotAuthorizedRoute(Authorization);
-const RegistrationProtected = ProtectedNotAuthorizedRoute(Registration);
-
-const TodoLazyProtected = LazyProtectedRoute(ToDo);
-const ShopListLazyProtected = LazyProtectedRoute(ShopList);
-const AnalysisLazyProtected = LazyProtectedRoute(Analysis);
-
-
 
 
 export const App =  observer(() => {
@@ -46,7 +31,6 @@ export const App =  observer(() => {
 
 
     React.useEffect(()=>{
-
         authService.authenticate();
 
     },[]);
@@ -57,14 +41,14 @@ export const App =  observer(() => {
             <Context.Provider value={context}>
                 <Routes>
                     <Route path={URL.BASIC} element={<Layout />}>
-                        <Route index element={<MainProtected/> }/>
-                        <Route path={URL.ACCOUNT} element={ <AccountProtected/>} />
-                        <Route path={URL.ANALYSIS} element={ <AnalysisLazyProtected/>} />
-                        <Route path={URL.NOTEBOOK} element={ <NotebookProtected/>} />
-                        <Route path={URL.TODO} element={ <TodoLazyProtected />} />
-                        <Route path={URL.SHOPLIST} element={ <ShopListLazyProtected/>} />
-                        <Route path={URL.LOGIN} element={<AuthorizationProtected/>} />
-                        <Route path={URL.REGISTRATION} element={ <RegistrationProtected/>} />
+                        <Route index element={ <AuthorizedRoute><Main/></AuthorizedRoute> }/>
+                        <Route path={URL.ACCOUNT} element={ <AuthorizedRoute><Account/></AuthorizedRoute> } />
+                        <Route path={URL.ANALYSIS} element={<LazyAuthorizedRoute><Analysis/></LazyAuthorizedRoute>} />
+                        <Route path={URL.NOTEBOOK} element={ <AuthorizedRoute><Notebook/></AuthorizedRoute> } />
+                        <Route path={URL.TODO} element={ <LazyAuthorizedRoute><ToDo/></LazyAuthorizedRoute>} />
+                        <Route path={URL.SHOPLIST} element={ <LazyAuthorizedRoute><ShopList/></LazyAuthorizedRoute>} />
+                        <Route path={URL.LOGIN} element={<NotAuthorizedRoute><Authorization/></NotAuthorizedRoute>} />
+                        <Route path={URL.REGISTRATION} element={<NotAuthorizedRoute><Registration/></NotAuthorizedRoute>} />
                     </Route>
                 </Routes>
             </Context.Provider>

@@ -1,3 +1,4 @@
+import { log } from 'console';
 import { IFormAuth } from 'features/auth/interfaces';
 import { IAuthApi, IDataFromDB } from './interfaces';
 import * as PATH from './path';
@@ -18,8 +19,10 @@ class AuthApi implements IAuthApi {
 
                 throw new Error(error.message);
             }
-
+            
             const result = await response.json();
+
+            console.log(result);
 
             return result;
         }
