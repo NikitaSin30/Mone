@@ -12,14 +12,8 @@ export class User implements IUser {
         makeAutoObservable(this);
     }
 
-    setUser(user: IFormAuth) {
-        this.user = user;
-        console.log(this.user);
-
-    }
     setIsAuth(isAuthStatus:boolean) {
         this.isAuth = isAuthStatus;
-        console.log(this.isAuth);
     }
 
     setUserFromDB(user: IFormAuth) {

@@ -1,36 +1,49 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
-import { Navigate } from 'react-router-dom';
 
 import Layout from '../shared/layout/Layout';
 import Main from '../pages/main/Main';
-import Account from 'pages/account/Account';
-import Analysis from '../pages/analysis/Analysis';
+import { Account } from 'pages/account/Account';
 import Authorization from '../pages/auth/authorization/Authorization';
 import Registration from '../pages/auth/registration/Registration';
 import { IGlobalContext,Context } from 'shared/context/context';
 import Notebook from 'pages/noteBook/Notebook';
-import { ToDo } from 'pages/noteBook/toDo/ToDo';
-import { ShopList } from 'pages/noteBook/shopList/ShopList';
-import { routesApp } from './RoutesApp';
 import { authService } from 'features/auth/service/serviceAuth';
 import { userStore } from 'shared/store/userStore/UserStore';
+import { AuthorizedRoute } from 'shared/routes/hoc/AuthorizedRoute';
+import { NotAuthorizedRoute } from 'shared/routes/hoc/NotAuthorizedRoute';
+import { LazyAuthorizedRoute } from 'shared/routes/hoc/LazyAuthorizedRoute';
+import * as URL from '../shared/routes/path';
+
+const ToDo = React.lazy(() => import('pages/noteBook/toDo/ToDo'));
+const ShopList = React.lazy(() => import('pages/noteBook/shopList/ShopList'));
+const Analysis = React.lazy(() => import('pages/analysis/Analysis'));
+
 
 
 export const App =  observer(() => {
 
     const { isAuth } = userStore;
-
     const context: IGlobalContext = {
         isAuth,
     };
 
-    const routes = routesApp(isAuth);
 
     React.useEffect(()=>{
+        const authenticate = async() => {
+            try {
+                await authService.authenticate();
+            }
+            catch (error) {
+                if (error instanceof Error) {
+                    console.log(error.message);
+                    localStorage.removeItem('wallet');
+                }
+            }
+        };
 
-        authService.authenticate();
+        authenticate();
 
     },[]);
 
@@ -39,15 +52,15 @@ export const App =  observer(() => {
         <>
             <Context.Provider value={context}>
                 <Routes>
-                    <Route path="/" element={<Layout />}>
-                        <Route index element={userStore.isAuth ? <Main /> : <Navigate to="/login" />} />
-                        <Route path="/account" element={userStore.isAuth ? <Account /> : <Navigate to="/login" />} />
-                        <Route path="/analysis" element={userStore.isAuth ? <Analysis /> : <Navigate to="/login" />} />
-                        <Route path="/notebook" element={userStore.isAuth ? <Notebook /> : <Navigate to="/login" />} />
-                        <Route path="/notebook/todo" element={userStore.isAuth ? <ToDo /> : <Navigate to="/login" />} />
-                        <Route path="/notebook/shopList" element={userStore.isAuth ? <ShopList /> : <Navigate to="/login" />} />
-                        <Route path="/login" element={!userStore.isAuth ? <Authorization /> : <Navigate to="/" />} />
-                        <Route path="/registration" element={!userStore.isAuth ? <Registration /> : <Navigate to="/" />} />
+                    <Route path={URL.BASIC} element={<Layout />}>
+                        <Route index element={ <AuthorizedRoute><Main/></AuthorizedRoute> }/>
+                        <Route path={URL.ACCOUNT} element={ <AuthorizedRoute><Account/></AuthorizedRoute> } />
+                        <Route path={URL.ANALYSIS} element={<LazyAuthorizedRoute><Analysis/></LazyAuthorizedRoute>} />
+                        <Route path={URL.NOTEBOOK} element={ <AuthorizedRoute><Notebook/></AuthorizedRoute> } />
+                        <Route path={URL.TODO} element={ <LazyAuthorizedRoute><ToDo/></LazyAuthorizedRoute>} />
+                        <Route path={URL.SHOPLIST} element={ <LazyAuthorizedRoute><ShopList/></LazyAuthorizedRoute>} />
+                        <Route path={URL.LOGIN} element={<NotAuthorizedRoute><Authorization/></NotAuthorizedRoute>} />
+                        <Route path={URL.REGISTRATION} element={<NotAuthorizedRoute><Registration/></NotAuthorizedRoute>} />
                     </Route>
                 </Routes>
             </Context.Provider>

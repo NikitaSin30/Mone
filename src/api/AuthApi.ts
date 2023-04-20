@@ -1,11 +1,12 @@
 import { IFormAuth } from 'features/auth/interfaces';
-import { IAuthApi, IDataFromDB } from './interfaces';
+import { IAuthApi } from './interfaces';
 import * as PATH from './path';
+
 
 
 class AuthApi implements IAuthApi {
 
-    async registration(user: IFormAuth) {
+    async registration<T>(user: IFormAuth) : Promise<T> {
         try {
             const response = await fetch(PATH.REGISTRATION, {
                 method  : 'POST',
@@ -19,16 +20,15 @@ class AuthApi implements IAuthApi {
                 throw new Error(error.message);
             }
 
-            const result = await response.json();
+            return await response.json();
 
-            return result;
         }
         catch (error) {
             throw error;
         }
     }
 
-    async login(dataLogin:IFormAuth) {
+    async login<T>(dataLogin:IFormAuth): Promise<T> {
         try {
             const response = await fetch(PATH.LOGIN, {
                 method  : 'POST',
@@ -43,18 +43,17 @@ class AuthApi implements IAuthApi {
 
                 throw new Error(error.message);
             }
-            const result:IDataFromDB = await response.json();
 
-            return result;
+            return await response.json();
+
         }
         catch (error) {
-            console.log(error);
 
             throw error;
         }
     }
 
-    async authenticate(token:string) {
+    async authenticate<T>(token:string) : Promise<T> {
 
         try {
             const response = await fetch(PATH.AUTHENTICATION, {
@@ -74,9 +73,7 @@ class AuthApi implements IAuthApi {
 
         }
         catch (error) {
-            localStorage.removeItem('wallet');
-
-            return error;
+            throw error;
         }
     }
 
@@ -97,8 +94,6 @@ class AuthApi implements IAuthApi {
 
                 throw new Error(error.message);
             }
-
-            return await response.json();
 
         }
         catch (error) {

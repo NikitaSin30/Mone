@@ -42,7 +42,7 @@ class AuthController {
 
             const token = generateAccessToken(user._id, user.email);
 
-            return res.json({
+            res.json({
                 user,
                 token,
             });

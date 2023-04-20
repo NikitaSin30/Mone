@@ -12,6 +12,9 @@ import { ITaskForm } from 'features/addTasks/interfaces';
 import { todoService } from 'features/addTasks/service/todoService';
 import { IFormAuth } from 'features/auth/interfaces';
 import { authService } from 'features/auth/service/serviceAuth';
+import { Navigate } from 'react-router';
+
+
 
 
 
@@ -23,15 +26,11 @@ export const useService = (
     // eslint-disable-next-line max-params
     setValueSelect? :React.Dispatch<React.SetStateAction<string>> ) => {
 
+
     return async <T>(formData:T) => {
         try {
             switch (caseLabel) {
-                case CASE.CASE_USESERVICE_LOGIN:
-                    await authService.login(formData as IFormAuth);
-                    break;
-                case CASE.CASE_USESERVICE_REGISTRATION:
-                    await authService.registration(formData as IFormAuth);
-                    break;
+
                 case CASE.CASE_USESERVICE_INCOME:
                     await incomeService.addIncome(formData as IFormIncome, switchISModal!);
                     break;
@@ -57,6 +56,10 @@ export const useService = (
             if (setValueSelect) {
                 setValueSelect('');
             }
+
         }
+
     };
+
+
 };
