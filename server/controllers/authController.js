@@ -43,7 +43,6 @@ class AuthController {
             const token = generateAccessToken(user._id, user.email);
 
             res.json({
-                message : 'Авторизация пройдена.',
                 user,
                 token,
             });

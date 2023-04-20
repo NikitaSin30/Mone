@@ -30,12 +30,7 @@ export const useService = (
     return async <T>(formData:T) => {
         try {
             switch (caseLabel) {
-                case CASE.CASE_USESERVICE_LOGIN:
-                    await authService.login(formData as IFormAuth);
-                    break;
-                case CASE.CASE_USESERVICE_REGISTRATION:
-                    await authService.registration(formData as IFormAuth);
-                    break;
+
                 case CASE.CASE_USESERVICE_INCOME:
                     await incomeService.addIncome(formData as IFormIncome, switchISModal!);
                     break;
@@ -68,4 +63,3 @@ export const useService = (
 
 
 };
-

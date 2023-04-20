@@ -7,7 +7,7 @@ import { incomeStore } from 'shared/store/cashFlowStore/IncomeStore';
 import { spendingStore } from 'shared/store/cashFlowStore/SpendingStore';
 import { balanceStore } from 'shared/store/cashFlowStore/BalanceStore';
 import { categoriesStore } from 'shared/store/categoriesStore/CategoriesStore';
-import { IDataFromDB, IDataUserFromDB } from 'api/interfaces';
+import { IDataFromDB, IDataUserFromDB, IResponseMessage } from 'api/interfaces';
 import { getToken } from './helpers/getToken';
 
 
@@ -16,34 +16,26 @@ class AuthService implements IAuthService {
 
     async login(dataLogin:IFormAuth) {
         try {
-            const { user,token, message } : IDataFromDB = await authAPI.login(dataLogin);
+            const { user,token } = await authAPI.login<IDataFromDB>(dataLogin);
 
             this.setDataFromDB(user);
-
             window.localStorage.setItem('wallet' , JSON.stringify(token));
+            userStore.setIsAuth(true);
 
-            return message ;
         }
         catch (error) {
-            if (error instanceof Error) {
-                console.log(error.message);
-            }
+            throw error;
         }
     }
 
     async registration(user: IFormAuth) {
         try {
-            const response = await authAPI.registration(user);
-
-            console.log(response);
+            const response  = await authAPI.registration<IResponseMessage>(user);
 
             return response;
-
         }
         catch (error) {
-            if (error instanceof Error) {
-                throw error;
-            }
+            throw error;
         }
 
     }
@@ -51,7 +43,7 @@ class AuthService implements IAuthService {
     async authenticate() {
         try {
             const tokenStorage = getToken();
-            const { user,token } : IDataFromDB = await authAPI.authenticate(tokenStorage);
+            const { user,token } = await authAPI.authenticate<IDataFromDB>(tokenStorage);
 
             this.setDataFromDB(user);
 
@@ -60,25 +52,19 @@ class AuthService implements IAuthService {
 
         }
         catch (error) {
-            if (error instanceof Error) {
-                console.log(error.message);
-            }
+            throw error;
         }
     }
 
     async logout() {
         try {
-            const { message } = await authAPI.logout(userStore.user._id);
-
-            console.log(message);
+            await authAPI.logout(userStore.user._id);
 
             localStorage.removeItem('wallet');
             userStore.setIsAuth(false);
         }
         catch (error) {
-            if (error instanceof Error) {
-                console.log(error.message);
-            }
+            throw error;
         }
     }
 

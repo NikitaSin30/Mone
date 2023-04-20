@@ -19,7 +19,6 @@ import { userStore } from 'shared/store/userStore/UserStore';
 const FormLogin = (): React.ReactElement => {
 
     const [messageFromDB, setmessageFromDB] = React.useState('');
-    const { value: isSuccesLogin, toggle:setIsSuccesLogin } = useToggle(false);
     const { value: isErrorReg, toggle:setisErrorReg } = useToggle(false);
 
     const {
@@ -29,7 +28,6 @@ const FormLogin = (): React.ReactElement => {
         formState: { errors,isValid },
     } = useForm<IFormAuth>({ mode: 'onBlur' });
 
-    // const onLogin = useService(reset, CASE_USESERVICE_LOGIN);
 
     const location = useLocation();
     const navigate = useNavigate();
@@ -38,21 +36,9 @@ const FormLogin = (): React.ReactElement => {
 
     const onLogin = async(data : IFormAuth) => {
         try {
-            const message = await authService.login(data);
-
-            if (typeof message === 'string') {
-                setmessageFromDB(message);
-
-                setIsSuccesLogin();
-
-                setTimeout(()=>{
-                    userStore.setIsAuth(true);
-                    navigate(fromPage);
-                },3000);
-            }
-
+            await authService.login(data);
+            navigate(fromPage);
             reset();
-
         }
         catch (error) {
             if (error instanceof Error) {
@@ -71,7 +57,6 @@ const FormLogin = (): React.ReactElement => {
         <>
             <form className="flex gap-1 w-full  flex-col  text-white bg-slate-900 py-6 px-8 rounded-xl shadow-lg md:w-1/2"
                 onSubmit={handleSubmit(onLogin)}>
-                {isSuccesLogin && <span className='text-green-600 '>{messageFromDB}</span>}
                 {isErrorReg && <span className='text-red-600 '>{messageFromDB}</span>}
                 <h2 className="text-xl font-bold text-center">Вход</h2>
                 <Input

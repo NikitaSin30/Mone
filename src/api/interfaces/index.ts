@@ -26,7 +26,6 @@ export interface IDataUserFromDB {
 export interface IDataFromDB {
   user: IDataUserFromDB,
   token : string,
-  message:string,
 }
 
 export interface ICashFlowApi {
@@ -36,10 +35,10 @@ export interface ICashFlowApi {
 }
 
 export interface IAuthApi {
-    registration:(user: IFormAuth) => Promise<IResponseMessage>;
-    login:(dataLogin:IFormAuth) => Promise<IDataFromDB>
-    authenticate:(token:string) => Promise<IDataFromDB>
-    logout:(id:string) => Promise<IResponseMessage>
+    registration:<T>(user: IFormAuth) => Promise<T>;
+    login:<T>(dataLogin:IFormAuth) => Promise<T>
+    authenticate:<T>(token:string) => Promise<T>
+    logout:(id:string) => Promise<void>
 }
 
 

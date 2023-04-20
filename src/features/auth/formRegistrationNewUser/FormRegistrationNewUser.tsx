@@ -18,10 +18,12 @@ import { useNavigate } from 'react-router';
 import { LOGIN } from 'shared/routes/path';
 
 
+
 function FormRegistrationNewUser(): React.ReactElement {
     const [messageFromDB, setmessageFromDB] = React.useState('');
     const { value: isSuccesReg, toggle:setIsSuccesReg } = useToggle(false);
     const { value: isErrorReg, toggle:setisErrorReg } = useToggle(false);
+    const navigate = useNavigate();
 
     const {
         register,
@@ -30,13 +32,10 @@ function FormRegistrationNewUser(): React.ReactElement {
         formState: { errors, isValid },
     } = useForm<IFormAuth>({ mode: 'onBlur' });
 
-    // const onRegistration = useService(reset, CASE_USESERVICE_REGISTRATION, setIsSuccesReg);
-
-    const navigate = useNavigate();
 
     const onRegistration = async(formData:IFormAuth) => {
         try {
-            const { message } = await authService.registration(formData);
+            const { message }  = await authService.registration(formData);
 
             setmessageFromDB(message);
             setIsSuccesReg();

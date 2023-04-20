@@ -21,17 +21,29 @@ const ShopList = React.lazy(() => import('pages/noteBook/shopList/ShopList'));
 const Analysis = React.lazy(() => import('pages/analysis/Analysis'));
 
 
+
 export const App =  observer(() => {
 
     const { isAuth } = userStore;
-
     const context: IGlobalContext = {
         isAuth,
     };
 
 
     React.useEffect(()=>{
-        authService.authenticate();
+        const authenticate = async() => {
+            try {
+                await authService.authenticate();
+            }
+            catch (error) {
+                if (error instanceof Error) {
+                    console.log(error.message);
+                    localStorage.removeItem('wallet');
+                }
+            }
+        };
+
+        authenticate();
 
     },[]);
 
