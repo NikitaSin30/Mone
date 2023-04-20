@@ -1,12 +1,12 @@
 import { IFormAuth } from 'features/auth/interfaces';
-import { IAuthApi } from './interfaces';
+import { checkError } from 'shared/helpers/checkError';
+import { IAuthApi, IDataFromDB } from './interfaces';
 import * as PATH from './path';
-
 
 
 class AuthApi implements IAuthApi {
 
-    async registration<T>(user: IFormAuth) : Promise<T> {
+    async registration<T>(user: IFormAuth):Promise<T> {
         try {
             const response = await fetch(PATH.REGISTRATION, {
                 method  : 'POST',
@@ -24,11 +24,11 @@ class AuthApi implements IAuthApi {
 
         }
         catch (error) {
-            throw error;
+            throw checkError(error);
         }
     }
 
-    async login<T>(dataLogin:IFormAuth): Promise<T> {
+    async login<T>(dataLogin:IFormAuth) : Promise<T> {
         try {
             const response = await fetch(PATH.LOGIN, {
                 method  : 'POST',
@@ -48,12 +48,11 @@ class AuthApi implements IAuthApi {
 
         }
         catch (error) {
-
-            throw error;
+            throw checkError(error);
         }
     }
 
-    async authenticate<T>(token:string) : Promise<T> {
+    async authenticate<T>(token:string): Promise<T> {
 
         try {
             const response = await fetch(PATH.AUTHENTICATION, {
@@ -73,7 +72,7 @@ class AuthApi implements IAuthApi {
 
         }
         catch (error) {
-            throw error;
+            throw checkError(error);
         }
     }
 
@@ -95,9 +94,11 @@ class AuthApi implements IAuthApi {
                 throw new Error(error.message);
             }
 
+            return await response.json();
+
         }
         catch (error) {
-            throw error;
+            throw checkError(error);
         }
     }
 }
