@@ -2,17 +2,13 @@ import { validateString } from './validateString';
 
 
 describe('Testing validateString', () => {
-    test('Should return the capital letter', () => {
-        expect(validateString('машина')).toBe('Машина');
-    });
-    test('Should delete spaces', () => {
-        expect(validateString(' Машина ')).toBe('Машина');
-    });
-    test('Should return the first letter big and the rest small', () => {
-        expect(validateString('маШиНа')).toBe('Машина');
-    });
-    test('Should delete spaces ,return big first letter and small others letter', () => {
-        expect(validateString(' мАшиНА ')).toBe('Машина');
-    });
 
+    test.each([
+        ['машина', 'Машина'],
+        [' Машина ','Машина'],
+        ['маШиНа','Машина'],
+        [' мАшиНА ','Машина'],
+    ])('.validateString(%s)', (a,expected) => {
+        expect(validateString(a)).toBe(expected);
+    });
 });
