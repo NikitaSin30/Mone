@@ -20,6 +20,7 @@ class CashFlowController {
 
         try {
             await ServiceCashDB.addSpending(spendingOperation,id);
+            res.status(400).json({ message: 'пиздец' });
 
             res.json({ message: 'Расход добавлен' });
         }
@@ -32,7 +33,6 @@ class CashFlowController {
 
         try {
             await ServiceCashDB.addAccumulation(accumulationOperation,id);
-
             res.json({ message: 'Накопление добавлено' });
         }
         catch (error) {

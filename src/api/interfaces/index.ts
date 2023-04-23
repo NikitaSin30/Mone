@@ -31,7 +31,7 @@ export interface IDataFromDB {
 export interface ICashFlowApi {
   addIncome: (incomeOperation: IIncomeOperation, id: string) => Promise<IIncomeOperation>;
   addAccumulation: (id: string, accumulationOperation: IAccumulationOperation) => Promise<IAccumulationOperation>;
-  addSpending: (id: string, spendingOperation: ISpendingOperation) => Promise<ISpendingOperation>;
+  addSpending: (id: string, spendingOperation: ISpendingOperation) => Promise<void>;
 }
 
 export interface IAuthApi {

@@ -79,13 +79,12 @@ class CashFlowApi implements ICashFlowApi {
 
                 throw new Error(error.message);
             }
-            const result = response.json();
-
-            return result;
-
         }
         catch (error) {
-            throw error;
+            if (error instanceof Error) {
+                throw error;
+            }
+            throw new Error('Приносим извенение. Произошла ошибка');
         }
     }
 }
