@@ -43,7 +43,7 @@ export interface IAuthApi {
 
 
 export interface ICategoriesApi {
-  addCategorie: (categorie: ICategorie, userId: string) => Promise<IResponseMessage>;
+  addCategorie: (categorie: ICategorie, userId: string) => Promise<void>;
 }
 
 export interface ITodoApi {

@@ -7,8 +7,7 @@ export const useToggle = (initialValue : boolean ): IuseToggleReturn => {
     const [value , setValue] = React.useState<boolean>(initialValue);
 
     const toggle = React.useCallback(()=>{
-        console.log('работаю');
-        
+
         setValue(value => !value);
     },[]);
 

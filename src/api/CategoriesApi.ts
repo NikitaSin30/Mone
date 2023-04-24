@@ -1,5 +1,7 @@
 import { ICategorie } from 'shared/store/categoriesStore/interfaces';
-import { ICategoriesApi, IResponseMessage } from './interfaces';
+import { ICategoriesApi } from './interfaces';
+import { ADD_CATEGORIE } from './path';
+
 
 
 export class CategoriesApi implements ICategoriesApi {
@@ -7,7 +9,7 @@ export class CategoriesApi implements ICategoriesApi {
     async addCategorie(categorie : ICategorie, id: string) {
 
         try {
-            const response = await fetch('http://localhost:3002/categories/addcategorie',{
+            const response = await fetch(ADD_CATEGORIE,{
                 method  : 'POST',
                 headers : {
                     'Content-type' : 'application/json',
@@ -19,15 +21,18 @@ export class CategoriesApi implements ICategoriesApi {
             });
 
             if (!response.ok) {
-                throw new Error('');
+                const error = await response.json();
+
+                throw new Error(error.message);
             }
 
-            const result : IResponseMessage = await response.json();
 
-            return result;
         }
         catch (error) {
-            throw new Error();
+            if (error instanceof Error) {
+                throw error;
+            }
+            throw new Error('Приносим извинения.Произошла ошибка');
         }
     }
 

@@ -40,9 +40,10 @@ export const useService = (
                 case CASE.CASE_USESERVICE_SPENDING:
                     await spendingService.addSpending(formData as IFormSpending,switchISModal!);
                     break;
-                case CASE.CASE_USESERVICE_CATEGORIE:
-                    categoriesService.addCategorie(formData as IFormCategorie,switchIsModalErr!,switchISModal!);
-                    break;
+
+                // case CASE.CASE_USESERVICE_CATEGORIE:
+                //     categoriesService.addCategorie(formData as IFormCategorie,switchIsModalErr!,switchISModal!);
+                //     break;
                 case CASE.CASE_USESERVICE_TASK:
                     todoService.addTask(formData as ITaskForm,switchIsModalErr!);
                     break;
