@@ -1,7 +1,7 @@
 import { balanceStore } from 'shared/store/cashFlowStore/BalanceStore';
 import { cashFlowApi } from 'api/CashFlowApi';
 import { userStore } from 'shared/store/userStore/UserStore';
-import { accumulationStore } from 'shared/store/cashFlowStore/AccumulationStore';
+import { accumulationStore } from 'shared/store/cashFlowStore/acuumulationStore/AccumulationStore';
 import { IAccumulationOperation } from 'shared/store/cashFlowStore/interfaces';
 import { IAccumulationService } from './interfaces';
 import { IFormAccumulation } from '../interfaces';

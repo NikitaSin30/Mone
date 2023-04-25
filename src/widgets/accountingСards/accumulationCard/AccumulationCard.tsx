@@ -6,7 +6,7 @@ import { observer } from 'mobx-react-lite';
 import { CardItem } from '../CardItem/CardItem';
 import { ETitleModalErr } from 'shared/enums/enums';
 import { ETitleCard } from 'shared/enums/enums';
-import { accumulationStore } from 'shared/store/cashFlowStore/AccumulationStore';
+import { accumulationStore } from 'shared/store/cashFlowStore/acuumulationStore/AccumulationStore';
 import { IContextMain } from 'pages/main/context/interfaces';
 import { ContextMain } from 'pages/main/context/context';
 
