@@ -3,7 +3,7 @@ import { userStore } from '../../../shared/store/userStore/UserStore';
 import { IFormAuth } from '../interfaces';
 import { IAuthService } from './interfaces';
 import { accumulationStore } from 'shared/store/cashFlowStore/AccumulationStore';
-import { incomeStore } from 'shared/store/cashFlowStore/IncomeStore';
+import { incomeStore } from 'shared/store/cashFlowStore/incomeStore/IncomeStore';
 import { spendingStore } from 'shared/store/cashFlowStore/SpendingStore';
 import { balanceStore } from 'shared/store/cashFlowStore/BalanceStore';
 import { categoriesStore } from 'shared/store/categoriesStore/CategoriesStore';
