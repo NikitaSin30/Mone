@@ -19,8 +19,9 @@ class serviceCategoriesDB {
         }
     }
 
-    async updateCategories(id, categorie) {
+    async addCategories(id, categorie) {
         try {
+            await this.checkHasCategorie(id,categorie);
             await User.updateOne({ _id: id }, { $push: { categories: categorie } });
         }
         catch (error) {

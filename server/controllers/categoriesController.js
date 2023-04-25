@@ -7,11 +7,8 @@ class CategoriesController {
         const { categorie, id } = req.body;
 
         try {
+            await serviceCategoriesDB.addCategories(id,categorie);
 
-            await serviceCategoriesDB.checkHasCategorie(id,categorie);
-
-            await serviceCategoriesDB.updateCategories(id,categorie);
-           
             res.json({ message: 'Категория добавлена' });
 
         }
@@ -22,10 +19,10 @@ class CategoriesController {
 
 
     async deleteCategorie(req,res,next) {
-        const { categories , id } = req.body;
+        const { idCategorie , id } = req.body;
 
         try {
-            await User.deleteOne({ _id: id }, { $push: { categories: categories } });
+            await User.updateOne({ _id: id }, { $pull: { 'categories.0': '' } });
 
             res.json({ message: 'Категория удалена' });
         }

@@ -13,10 +13,16 @@ export const CategorieItem = observer((props:ICategorie) =>{
     const { value: isModalActive, toggle: switchShowModal } = useToggle(false);
 
 
-    function onSuccesDelete(id:string) {
-        switchShowModal();
-        categoriesService.deleteCategorie(id);
-    }
+    const onSuccesDelete = async(id:string) => {
+        try {
+            await categoriesService.deleteCategorie(id);
+            switchShowModal();
+        }
+        catch (error) {
+            console.log(error);
+            
+        }
+    };
 
     return (
         <>
