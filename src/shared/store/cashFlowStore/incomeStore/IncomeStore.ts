@@ -21,7 +21,7 @@ export class IncomeStore implements IIncomeStore {
         balanceStore.updateCashAccount(updatedBalance);
     }
 
-    setIncome(income:number, operations:IIncomeOperation[]) {
+    setIncomeFromDB(income:number, operations:IIncomeOperation[]) {
         this.income = income;
         this.incomeOperations = operations;
     }
