@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-import { IncomeStore } from '../../IncomeStore';
-=======
 import { IncomeStore } from '../IncomeStore';
->>>>>>> master
 import { IIncomeOperation, IIncomeStore } from '../../interfaces';
 import { balanceStore } from '../../BalanceStore';
 
