@@ -17,8 +17,10 @@ export class AccumulationStore implements IAccumulationStore {
         balanceStore.updateCashAccount(updatedBalance);
         this.accumulationOperations.push(operationAccumulation);
     }
-
-    setAccumulation(accumulation:number,operations:IAccumulationOperation[]) {
+    getAccumulationWithDB(accumulation: number) {
+        this.accumulation = accumulation;
+    }
+    setAccumulationFromDB(accumulation:number,operations:IAccumulationOperation[]) {
         this.accumulation = accumulation;
         this.accumulationOperations = operations;
     }
