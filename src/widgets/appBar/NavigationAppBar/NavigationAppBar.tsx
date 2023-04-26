@@ -10,5 +10,5 @@ export const NavigationAppBar = () => {
 
     const { isAuth } = userStore;
 
-    return <>{isAuth ? <UserLogin /> : <UserNotLogin />}</>;
+    return <>{isAuth ? <UserLogin data-testid='userLogin' /> : <UserNotLogin />}</>;
 };
