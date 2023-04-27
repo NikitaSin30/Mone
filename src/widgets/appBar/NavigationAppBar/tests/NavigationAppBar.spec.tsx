@@ -1,29 +1,38 @@
 import { UserLogin } from 'widgets/appBar/userLogin/UserLogin';
+import { UserNotLogin } from 'widgets/appBar/userNotLogin/UserNotLogin';
 import { NavigationAppBar } from '../NavigationAppBar';
+import React from 'react';
 import { render,screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import { UserStore } from 'shared/store/userStore/UserStore';
-import { IUser } from 'shared/store/userStore/interfaces.ts';
+import { userStore } from 'shared/store/userStore/UserStore';
+
+
+
 
 describe('Test NavigationBar',() => {
 
-    let userStore : IUser | null;
+    jest.doMock('widgets/appBar/userNotLogin/UserNotLogin',() => ({
+        UserNotLogin : jest.fn(() => <div>UserNotLogin</div>),
+    }));
 
+    jest.doMock('widgets/appBar/userLogin/UserLogin',() => ({
+        UserLogin : jest.fn(() => <div>UserLogin</div>),
+    }));
 
-    beforeEach(()=>{
-        userStore = new UserStore();
+    jest.doMock('shared/store/userStore/UserStore', () => ({
+        userStore : {
+            isAuth : false,
+        },
+    }));
+
+    test('Render UserNotLogin', () => {
+
+        userStore.isAuth = false;
+        render(<MemoryRouter><NavigationAppBar/></MemoryRouter>);
+        expect(screen.getByText('UserNotLogin')).toBeInTheDocument();
     });
 
-    afterEach(() => {
-        userStore = null;
+    afterEach(() =>{
+        jest.clearAllMocks();
     });
-
-    test('Render UserLogin', () => {
-        render(<NavigationAppBar/>);
-    });
-
-    const userLogin = screen.getByTestId('userLogin');
-
-    expect(userLogin).toBeInTheDocument();
-
 });
