@@ -5,4 +5,5 @@ export interface ICategoriesService {
     addCategorie:(categorie: IFormCategorie, showModalError: () => void, switchShowModal:() => void) => void;
     checkStoreHasCategorie:(validatedCategorie: string) => void;
     createCategorie:(categorie:string) => ICategorie;
+    deleteCategorie:(idCategorie:string) => Promise<void>
 }

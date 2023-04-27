@@ -47,7 +47,7 @@ export class CategoriesApi implements ICategoriesApi {
             if (!response.ok) {
                 const errorMessage = await response.json();
 
-                throw new Error(errorMessage);
+                throw new Error(errorMessage.message);
             }
         }
         catch (error) {

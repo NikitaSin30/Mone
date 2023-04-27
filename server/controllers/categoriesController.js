@@ -1,4 +1,3 @@
-const User = require('../modelsMongo/User');
 const serviceCategoriesDB = require('../serviceMongo/serviceCategoriesDB');
 
 class CategoriesController {
@@ -7,10 +6,9 @@ class CategoriesController {
         const { categorie, id } = req.body;
 
         try {
-            await serviceCategoriesDB.addCategories(id,categorie);
+            await serviceCategoriesDB.addCategorie(id,categorie);
 
             res.json({ message: 'Категория добавлена' });
-
         }
         catch (error) {
             next(error);
@@ -22,7 +20,7 @@ class CategoriesController {
         const { idCategorie , id } = req.body;
 
         try {
-            await User.updateOne({ _id: id }, { $pull: { 'categories.0': '' } });
+            await serviceCategoriesDB.deleteCategorie(id,idCategorie);
 
             res.json({ message: 'Категория удалена' });
         }

@@ -19,10 +19,19 @@ class serviceCategoriesDB {
         }
     }
 
-    async addCategories(id, categorie) {
+    async addCategorie(id, categorie) {
         try {
             await this.checkHasCategorie(id,categorie);
             await User.updateOne({ _id: id }, { $push: { categories: categorie } });
+        }
+        catch (error) {
+            throw error;
+        }
+    }
+
+    async deleteCategorie(id, idCategorie) {
+        try {
+            await User.updateOne({ _id: id }, { $pull: { categories: { id: idCategorie } } });
         }
         catch (error) {
             throw error;

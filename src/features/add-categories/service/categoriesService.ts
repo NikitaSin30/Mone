@@ -32,10 +32,10 @@ class CategoriesService implements ICategoriesService {
     }
 
 
-    async deleteCategorie(id: string) {
+    async deleteCategorie(idCategorie: string) {
         try {
-            await categoriesApi.deleteCategorie(id,userStore.user._id);
-            categoriesStore.removeCategorie(id);
+            await categoriesApi.deleteCategorie(idCategorie,userStore.user._id);
+            categoriesStore.removeCategorie(idCategorie);
 
         }
         catch (error) {
