@@ -5,7 +5,7 @@ const User = require('../../modelsMongo/User');
 
 class ServiceTasksDB {
 
-    async addCategorie(id, task) {
+    async addTask(id, task) {
         try {
             await User.updateOne({ _id: id }, { $push: { tasks: task } });
         }
@@ -18,9 +18,9 @@ class ServiceTasksDB {
 
         try {
             const user = await User.findOne({ _id: id });
-            const hasCategorie = user.tasks.find(item => item.task === task.task);
+            const hasTask = user.tasks.find(item => item.task === task.task);
 
-            if (hasCategorie) {
+            if (hasTask) {
                 throw ApiError.throwBadRequestError('Задача уже есть в списке дел');
             }
         }

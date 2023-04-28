@@ -11,6 +11,7 @@ import { CASE_TYPE_TEXT_RUS } from 'widgets/inputs/validation/constans';
 import { TITLE_REGISTOR_TASK } from 'widgets/inputs/validation/constans';
 import { TITLE_LABEL_TASK } from 'widgets/inputs/label/constans';
 import { TITLE_BUTTON_TASK } from 'widgets/modals/ui/button/constans';
+import { todoService } from './service/todoService';
 
 
 export const BuilderTask = () =>{
@@ -21,8 +22,19 @@ export const BuilderTask = () =>{
         formState: { errors,isValid },
     } = useForm<ITaskForm>({ mode: 'onBlur' });
     const { switchisModalErrActiveTask } = React.useContext<IContextNotebook>(ContextNotebook);
-    const onAddTask = useService(reset, CASE_USESERVICE_TASK, switchisModalErrActiveTask);
 
+    // const onAddTask = useService(reset, CASE_USESERVICE_TASK, switchisModalErrActiveTask);
+
+    const onAddTask = async(formData:ITaskForm) => {
+        try {
+            await todoService.addTask(formData);
+            
+        }
+        catch (error) {
+            console.log(error);
+
+        }
+    };
 
     return (
         <>

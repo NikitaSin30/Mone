@@ -9,6 +9,7 @@ import { balanceStore } from 'shared/store/cashFlowStore/BalanceStore';
 import { categoriesStore } from 'shared/store/categoriesStore/CategoriesStore';
 import { IDataFromDB, IDataUserFromDB, IResponseMessage } from 'api/interfaces';
 import { getToken } from './helpers/getToken';
+import { toDoStore } from 'shared/store/toDoStore/ToDoStore';
 
 
 
@@ -78,6 +79,7 @@ class AuthService implements IAuthService {
         };
 
         userStore.setUserFromDB(user);
+        toDoStore.setTasksFromdDB(userData.tasks);
         incomeStore.setIncomeFromDB(userData.income, userData.incomeOperations);
         accumulationStore.setAccumulationFromDB(userData.accumulation, userData.accumulationOperations);
         spendingStore.setSpendingFromDB(userData.spending, userData.spendingOperations);

@@ -10,17 +10,21 @@ import { ITodoService } from './interfaces';
 
 class TodoService implements ITodoService {
 
-    async addTask({ task }: ITaskForm, includeModalError: () => void) {
-        const taskValidaited = validateString(task);
-        const hasTask = this.onCheckUniqueTask(taskValidaited);
-
-        if (hasTask) return includeModalError();
+    async addTask( { task } : ITaskForm) {
 
         try {
+            const taskValidaited = validateString(task);
 
+            this.checkStoreHasTask(taskValidaited);
+
+            const createdTask = this.createTask(taskValidaited);
+
+            await todoApi.addTask(createdTask,userStore.user._id);
+            toDoStore.addTask(createdTask);
         }
         catch (error) {
-            console.log('Ошибка');
+            throw error;
+
         }
     }
 
@@ -35,7 +39,7 @@ class TodoService implements ITodoService {
     }
 
     async toggleisDoneTask(id: string) {
-     
+
 
         try {
 
@@ -46,8 +50,20 @@ class TodoService implements ITodoService {
         }
     }
 
-    onCheckUniqueTask(newTask: string) {
-        return toDoStore.tasks.some(({ task }) => task === newTask);
+    checkStoreHasTask(newTask: string) {
+        const hasTask = toDoStore.tasks.some(({ task }) => task === newTask);
+
+        if (hasTask) {
+            throw new Error('Задача должна быть уникальна');
+        }
+    }
+
+    createTask( validatedTask : string):ITask {
+        return {
+            task   : validatedTask,
+            id     : validatedTask,
+            isDone : false,
+        };
     }
 }
 
