@@ -1,38 +1,39 @@
-import { UserLogin } from 'widgets/appBar/userLogin/UserLogin';
-import { UserNotLogin } from 'widgets/appBar/userNotLogin/UserNotLogin';
+import { UserLogin } from '../../userLogin/UserLogin';
+import { UserNotLogin } from '../../userNotLogin/UserNotLogin';
 import { NavigationAppBar } from '../NavigationAppBar';
 import React from 'react';
 import { render,screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import { userStore } from 'shared/store/userStore/UserStore';
+import { userStore } from '../../../../shared//store/userStore/UserStore';
 
+jest.mock('../../userNotLogin/UserNotLogin',() => ({
+    UserNotLogin : jest.fn(() => (<div data-testid="UserNotLogin"></div>)),
+}));
+
+jest.mock('../../userLogin/UserLogin',() => ({
+    UserLogin : jest.fn(() => <div>UserLogin</div>),
+}));
+
+jest.mock('../../../../shared//store/userStore/UserStore', () => ({
+    userStore : {
+        isAuth : false,
+    },
+}));
 
 
 
 describe('Test NavigationBar',() => {
 
-    jest.doMock('widgets/appBar/userNotLogin/UserNotLogin',() => ({
-        UserNotLogin : jest.fn(() => <div>UserNotLogin</div>),
-    }));
-
-    jest.doMock('widgets/appBar/userLogin/UserLogin',() => ({
-        UserLogin : jest.fn(() => <div>UserLogin</div>),
-    }));
-
-    jest.doMock('shared/store/userStore/UserStore', () => ({
-        userStore : {
-            isAuth : false,
-        },
-    }));
 
     test('Render UserNotLogin', () => {
-
         userStore.isAuth = false;
-        render(<MemoryRouter><NavigationAppBar/></MemoryRouter>);
-        expect(screen.getByText('UserNotLogin')).toBeInTheDocument();
+
+
+        const { getByTestId } = render(<NavigationAppBar/>);
+
+        expect(getByTestId("UserNotLogin")).toBeInTheDocument();
+
     });
 
-    afterEach(() =>{
-        jest.clearAllMocks();
-    });
+
 });

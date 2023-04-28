@@ -29,7 +29,7 @@ export const CategorieItem = observer((props:ICategorie) =>{
                     {DeleteIcon}
                 </button>
             </li>
-            {isModalActive && <DeleteModal id={id!} categorie={categorie} onSuccesDelete={onSuccesDelete} switchShowModal={switchShowModal} />}
+            {isModalActive && <DeleteModal id={id} categorie={categorie} onSuccesDelete={onSuccesDelete} switchShowModal={switchShowModal} />}
         </>
     );
 });
