@@ -19,7 +19,7 @@ class serviceCategoriesDB {
         }
     }
 
-    async updateCategories(id, categorie) {
+    async addCategorie(id, categorie) {
         try {
             await User.updateOne({ _id: id }, { $push: { categories: categorie } });
         }

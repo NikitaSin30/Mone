@@ -10,8 +10,8 @@ class CategoriesController {
 
             await serviceCategoriesDB.checkHasCategorie(id,categorie);
 
-            await serviceCategoriesDB.updateCategories(id,categorie);
-           
+            await serviceCategoriesDB.addCategorie(id,categorie);
+
             res.json({ message: 'Категория добавлена' });
 
         }
