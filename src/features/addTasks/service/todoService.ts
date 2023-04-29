@@ -24,7 +24,6 @@ class TodoService implements ITodoService {
         }
         catch (error) {
             throw error;
-
         }
     }
 

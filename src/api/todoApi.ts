@@ -6,7 +6,7 @@ import { ITodoApi } from './interfaces';
 
 
 
-class TodoApi {
+class TodoApi implements ITodoApi {
 
     async addTask(task: ITaskForm, id: string) {
 

@@ -2,6 +2,7 @@ import { IAccumulationOperation, IIncomeOperation, ISpendingOperation } from '..
 import { ICategorie } from 'shared/store/categoriesStore/interfaces';
 import { ITask } from 'shared/store/toDoStore/interfaces';
 import { IFormAuth } from '../../features/auth/interfaces';
+import { ITaskForm } from 'features/addTasks/interfaces';
 
 
 export interface IResponseMessage {message:string}
@@ -47,6 +48,6 @@ export interface ICategoriesApi {
 }
 
 export interface ITodoApi {
-  addTask: (task: string, userId: string) => Promise<ITask>;
+  addTask: (task: ITaskForm, id: string) => Promise<void>;
   deleteTask:(key:string, userId:string) => void
 }
