@@ -28,12 +28,21 @@ describe('Test NavigationBar',() => {
     test('Render UserNotLogin', () => {
         userStore.isAuth = false;
 
+        render(<NavigationAppBar/>);
 
-        const { getByTestId } = render(<NavigationAppBar/>);
-
-        expect(getByTestId("UserNotLogin")).toBeInTheDocument();
+        expect(UserNotLogin).toBeCalled();
 
     });
 
+    test('Render UserLogin', () => {
+        userStore.isAuth = true;
+
+        render(<NavigationAppBar/>);
+
+        expect(UserLogin).toBeCalled();
+
+    });
 
 });
+
+
