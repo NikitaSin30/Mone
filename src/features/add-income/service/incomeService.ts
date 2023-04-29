@@ -1,4 +1,4 @@
-import { incomeStore } from 'shared/store/cashFlowStore/IncomeStore';
+import { incomeStore } from 'shared/store/cashFlowStore/incomeStore/IncomeStore';
 import { cashFlowApi } from 'api/CashFlowApi';
 import { IIncomeOperation } from 'shared/store/cashFlowStore/interfaces';
 import { userStore } from 'shared/store/userStore/UserStore';
@@ -11,26 +11,25 @@ import { IFormIncome } from '../interfaces';
 class IncomeService implements IServiceIncome {
     async addIncome({ income,sphere }:IFormIncome,switchShowModal:()=>void) {
         const modifytedSphere = validateString(sphere);
-        const createdOperation = this.createOperations(income,modifytedSphere);
+        const createdOperation = this.createOperation(income,modifytedSphere);
 
         try {
-            const response = await cashFlowApi.addIncome(createdOperation, userStore.user._id);
+            const { message } = await cashFlowApi.addIncome(createdOperation, userStore.user._id);
 
-            //    ===== кидать текст в ui
+            console.log(message);
 
-            console.log(response.message);
             incomeStore.addIncome(createdOperation);
         }
         catch (error) {
             if (error instanceof Error) {
-                throw new Error(error.message);
+                console.log(error.message);
             }
         }
         finally {
             switchShowModal();
         }
     }
-    createOperations(income:number,sphere:string): IIncomeOperation {
+    createOperation(income:number,sphere:string): IIncomeOperation {
         return {
             income : income,
             sphere : sphere,

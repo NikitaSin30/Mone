@@ -1,12 +1,14 @@
 import React from 'react';
-import { ContextGlobal, IContextGlobal } from 'shared/context/context';
+
+import { userStore } from 'shared/store/userStore/UserStore';
 import { UserLogin } from '../userLogin/UserLogin';
 import { UserNotLogin } from '../userNotLogin/UserNotLogin';
 
 
 
 export const NavigationAppBar = () => {
-    const { isLogin } = React.useContext<IContextGlobal>(ContextGlobal);
 
-    return <>{isLogin ? <UserLogin /> : <UserNotLogin />}</>;
+    const { isAuth } = userStore;
+
+    return <>{isAuth ? <UserLogin /> : <UserNotLogin />}</>;
 };

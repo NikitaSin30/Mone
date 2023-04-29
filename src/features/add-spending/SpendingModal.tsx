@@ -1,6 +1,5 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { categoriesStore } from 'shared/store/categoriesStore/CategoriesStore';
 import { IFormSpending } from 'features/add-spending/interfaces';
 import { Select } from 'widgets/select/Select';
 import { Input } from 'widgets/inputs/Input';

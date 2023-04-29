@@ -18,9 +18,9 @@ describe('class BalanceStore',() => {
         test('Shoul update balance', () =>{
 
             balanceStore!.updateCashAccount(balance);
+
             expect(balanceStore!.moneyAccount).toEqual(1000);
-            expect(balanceStore!.moneyAccount).not.toEqual(1001);
-            expect(balanceStore!.moneyAccount).not.toEqual(999);
+
         });
     });
 
@@ -28,10 +28,10 @@ describe('class BalanceStore',() => {
 
         test('Should set balance from mongo', () => {
 
-            balanceStore!.setBalance(balance);
+            balanceStore!.setBalanceFromDB(balance);
+
             expect(balanceStore!.moneyAccount).toEqual(1000);
-            expect(balanceStore!.moneyAccount).not.toEqual(1001);
-            expect(balanceStore!.moneyAccount).not.toEqual(999);
+
         });
     });
 

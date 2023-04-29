@@ -1,59 +1,88 @@
 import { authAPI } from 'api/AuthApi';
 import { userStore } from '../../../shared/store/userStore/UserStore';
 import { IFormAuth } from '../interfaces';
-import { IAuthService } from './IAuthService';
+import { IAuthService } from './interfaces';
 import { accumulationStore } from 'shared/store/cashFlowStore/AccumulationStore';
-import { incomeStore } from 'shared/store/cashFlowStore/IncomeStore';
-import { spendingService } from 'features/add-spending/service/serviceSpending';
+import { incomeStore } from 'shared/store/cashFlowStore/incomeStore/IncomeStore';
 import { spendingStore } from 'shared/store/cashFlowStore/SpendingStore';
 import { balanceStore } from 'shared/store/cashFlowStore/balanceStore/BalanceStore';
+import { categoriesStore } from 'shared/store/categoriesStore/CategoriesStore';
+import { IDataFromDB, IDataUserFromDB, IResponseMessage } from 'api/interfaces';
+import { getToken } from './helpers/getToken';
 
 
 
 class AuthService implements IAuthService {
-    async login(dataLogin:IFormAuth , switchUI: () => void) {
+
+    async login(dataLogin:IFormAuth) {
         try {
-            const res = await authAPI.login(dataLogin);
+            const { user,token } = await authAPI.login<IDataFromDB>(dataLogin);
 
-            //    тут надо метод чтобы цеплять текст ui ?
-            const user : IFormAuth = {
-                email    : res.user.email,
-                country  : res.user.country,
-                nickname : res.user.nickname,
-                password : res.user.password,
-                _id      : res.user._id,
-            };
-
-
-            userStore.setUser(user);
-            incomeStore.setIncome(res.user.income, res.user.incomeOperations);
-            accumulationStore.setAccumulation(res.user.accumulation, res.user.accumulationOperations);
-            spendingStore.setSpending(res.user.spending, res.user.spendingOperations);
-            balanceStore.setBalance(res.user.balance);
-            switchUI();
+            this.setDataFromDB(user);
+            window.localStorage.setItem('wallet' , JSON.stringify(token));
+            userStore.setIsAuth(true);
 
         }
         catch (error) {
-            if (error instanceof Error) {
-                throw new Error();
-            }
+            throw error;
         }
     }
-    async registration(user: IFormAuth, switchUI: () => void) {
+
+    async registration(user: IFormAuth) {
         try {
-            const response = await authAPI.registration(user);
+            const response  = await authAPI.registration<IResponseMessage>(user);
 
+            return response;
+        }
+        catch (error) {
+            throw error;
+        }
 
-            userStore.setUser(response);
-            switchUI();
+    }
+
+    async authenticate() {
+        try {
+            const tokenStorage = getToken();
+            const { user,token } = await authAPI.authenticate<IDataFromDB>(tokenStorage);
+
+            this.setDataFromDB(user);
+
+            window.localStorage.setItem('wallet', JSON.stringify( token ));
+            userStore.setIsAuth(true);
 
         }
         catch (error) {
-            if (error instanceof Error) {
-                throw new Error();
-
-            }
+            throw error;
         }
+    }
+
+    async logout() {
+        try {
+            await authAPI.logout(userStore.user._id);
+
+            localStorage.removeItem('wallet');
+            userStore.setIsAuth(false);
+        }
+        catch (error) {
+            throw error;
+        }
+    }
+
+    setDataFromDB(userData: IDataUserFromDB) {
+        const user : IFormAuth = {
+            email    : userData.email,
+            country  : userData.country,
+            nickname : userData.nickname,
+            password : userData.password,
+            _id      : userData._id,
+        };
+
+        userStore.setUserFromDB(user);
+        incomeStore.setIncomeFromDB(userData.income, userData.incomeOperations);
+        accumulationStore.setAccumulationFromDB(userData.accumulation, userData.accumulationOperations);
+        spendingStore.setSpendingFromDB(userData.spending, userData.spendingOperations);
+        balanceStore.setBalanceFromDB(userData.balance);
+        categoriesStore.setCategoriesFromDB(userData.categories);
     }
 }
 

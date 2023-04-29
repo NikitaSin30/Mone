@@ -1,7 +1,7 @@
 export interface IBalanceStore {
   moneyAccount: number;
   updateCashAccount:(newBalance: number) => void;
-  setBalance: (balance: number) => void;
+  setBalanceFromDB: (sum: number) => void;
 }
 
 
@@ -13,7 +13,7 @@ export interface IAccumulationStore {
   accumulation: number;
   accumulationOperations: IAccumulationOperation[];
   addAccumulation: (newAccumulation: IAccumulationOperation) => void;
-  setAccumulation:(accumulation: number, operations: IAccumulationOperation[]) => void;
+  setAccumulationFromDB:(accumulation: number, operations: IAccumulationOperation[]) => void;
 }
 
 
@@ -29,7 +29,7 @@ export interface ISpendingStore {
   spending: number;
   spendingOperations: ISpendingOperation[];
   addSpending: (operation: ISpendingOperation) => void;
-  setSpendingWithDB:(spending: number, operations: ISpendingOperation[]) => void;
+  setSpendingFromDB:(spending: number, operations: ISpendingOperation[]) => void;
 }
 
 
@@ -43,5 +43,5 @@ export interface IIncomeStore {
   income: number;
   incomeOperations: IIncomeOperation[];
   addIncome: (operation: IIncomeOperation) => void;
-  setIncome:(itcome: number, operations: IIncomeOperation[]) => void;
+  setIncomeFromDB:(itcome: number, operations: IIncomeOperation[]) => void;
 }

@@ -1,7 +1,13 @@
 import { makeAutoObservable } from 'mobx';
+<<<<<<< HEAD:src/shared/store/cashFlowStore/IncomeStore.ts
 import { balanceStore } from './balanceStore/BalanceStore';
 import { IIncomeStore } from './interfaces';
 import { IIncomeOperation } from './interfaces';
+=======
+import { balanceStore } from '../BalanceStore';
+import { IIncomeStore } from '../interfaces';
+import { IIncomeOperation } from '../interfaces';
+>>>>>>> master:src/shared/store/cashFlowStore/incomeStore/IncomeStore.ts
 
 
 export class IncomeStore implements IIncomeStore {
@@ -21,7 +27,7 @@ export class IncomeStore implements IIncomeStore {
         balanceStore.updateCashAccount(updatedBalance);
     }
 
-    setIncome(income:number, operations:IIncomeOperation[]) {
+    setIncomeFromDB(income:number, operations:IIncomeOperation[]) {
         this.income = income;
         this.incomeOperations = operations;
     }

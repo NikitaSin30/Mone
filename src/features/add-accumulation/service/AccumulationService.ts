@@ -12,21 +12,20 @@ class AccumulationService implements IAccumulationService {
 
     async addAccumulation({ accumulation }: IFormAccumulation, showModalError: () => void, switchShowModal: () => void) {
         if (balanceStore.moneyAccount < accumulation) return showModalError();
-        const createdOperation = this.createOperation(accumulation);
+        const createdOperation : IAccumulationOperation = this.createOperation(accumulation);
 
         try {
-            const response =  await cashFlowApi.addAccumulation(userStore.user._id, createdOperation);
+            const { message } =  await cashFlowApi.addAccumulation(userStore.user._id, createdOperation);
 
-            //    ===== кидать текст в ui
-
-            console.log(response.message);
+            console.log(message);
 
             accumulationStore.addAccumulation(createdOperation);
         }
         catch (error) {
             if (error instanceof Error) {
-                throw new Error(error.message);
+                console.log(error.message);
             }
+
         }
         finally {
             switchShowModal();
