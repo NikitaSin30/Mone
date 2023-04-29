@@ -20,7 +20,7 @@ export class AccumulationStore implements IAccumulationStore {
     getAccumulationWithDB(accumulation: number) {
         this.accumulation = accumulation;
     }
-    setAccumulation(accumulation:number,operations:IAccumulationOperation[]) {
+    setAccumulationFromDB(accumulation:number,operations:IAccumulationOperation[]) {
         this.accumulation = accumulation;
         this.accumulationOperations = operations;
     }

@@ -12,7 +12,7 @@ import { ContextNotebook } from '../context/context';
 
 const { uniqueCategorie } = ETitleModalErr;
 
-export const ToDo = observer(()=>{
+const ToDo = observer(()=>{
     const { value: isModalErrActiveTask, toggle: switchisModalErrActiveTask } = useToggle(false);
 
     const context : IContextNotebook = {
@@ -37,3 +37,6 @@ export const ToDo = observer(()=>{
         </>
     );
 });
+
+
+export default ToDo;

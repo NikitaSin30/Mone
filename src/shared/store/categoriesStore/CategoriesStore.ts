@@ -19,17 +19,17 @@ class CategoriesStore implements ICategoriesStore {
     getCategorie(id: string) {
         const categorie = this.categories.find((categorie) => categorie.id === id);
 
-        if (categorie === undefined) {
+        if (!categorie) {
             throw new Error();
         }
 
         return categorie ;
     }
 
-    setCategoriesWithDB(categories: ICategorie[]) {
+    setCategoriesFromDB(categories: ICategorie[]) {
         this.categories = categories;
     }
-    updateSpandingInCategorie(newSpending: IFormSpending): void {
+    updateSpendingInCategorie(newSpending: IFormSpending): void {
         this.categories = this.categories.map((categorie) =>
             categorie.categorie === newSpending.categorie
                 ? {

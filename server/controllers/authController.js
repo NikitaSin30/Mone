@@ -1,89 +1,88 @@
-const User = require('../modelsMongo/User');
+const { validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const { generateAccessToken } = require('../token/generateToken');
+const serviceAuthDB = require('../serviceMongo/serviceAuthDB');
+const ApiError = require('../apiError/ApiError');
+const checkValidation = require('../helpers/checkValidation');
+const checkCorrectPassword = require('../helpers/checkCorrectPasword');
 
 
 
 class AuthController {
-    async registration(req, res) {
+
+    async registration(req, res,next) {
         try {
+
+            checkValidation(req);
+
             const { email,country,nickname,password } = req.body;
 
-            const hasEmail = await User.findOne({ email });
-
-            if (hasEmail) {
-                return res.status(400).json({ message: 'Пользователь c таким email уже существует' });
-            }
-
-            const hasNickname = await User.findOne({ nickname });
-
-            if (hasNickname) {
-                return res.status(400).json({ message: 'Пользователь c таким nickname уже существует' });
-            }
             const hashPassword = bcrypt.hashSync(password,6);
 
-            const user = new User({
-                email,
-                country,
-                nickname,
-                password               : hashPassword,
-                balance                : 0,
-                income                 : 0,
-                incomeOperations       : [],
-                spending               : 0,
-                spendingOperations     : [],
-                accumulation           : 0,
-                accumulationOperations : [],
-                categories             : [],
-                tasks                  : [],
-            });
+            await serviceAuthDB.saveUser(email,country,nickname,hashPassword);
 
-            const saved = await user.save(user);
-            const createdUser = await User.findOne(saved._id);
-
-            const newUser = {
-                email    : createdUser.email,
-                country  : createdUser.country,
-                nickname : createdUser.nickname,
-                password : createdUser.password,
-                _id      : createdUser._id,
-            };
-
-            return res.json(newUser);
+            res.json({ message: 'Учётная запись была создана' });
         }
         catch (error) {
-            res.status(400).json({ message: 'Regeeee error' });
+            next(error);
         }
     }
 
 
-    async login(req, res) {
+    async login(req, res,next) {
+
         try {
+
+            checkValidation(req);
+
             const { email, password } = req.body;
-            const user = await User.findOne({ email });
+            const user = await serviceAuthDB.findUser(email);
 
-            if (!user) {
-                return res.status(400).json({ message: 'Данного пользователя не существует' });
-            }
-
-            const correctPassword = bcrypt.compareSync(password, user.password);
-
-            if (!correctPassword) {
-                return res.status(400).json({ message: 'Пароль неверный. Попробуйте ещё раз.' });
-            }
-
+            checkCorrectPassword(password,user.password);
 
             const token = generateAccessToken(user._id, user.email);
 
-            
-            return res.json({
+            res.json({
                 user,
-                token, 
+                token,
             });
 
         }
         catch (error) {
-            return res.status(400).json({ message: 'Log err' });
+            next(error);
+        }
+    }
+
+
+    async authenticate(req, res,next) {
+
+        const { id } = req.user;
+
+        try {
+            const user = await serviceAuthDB.authenticate(id);
+            const token = generateAccessToken(user._id);
+
+            res.json({
+                token,
+                user,
+            });
+        }
+        catch (error) {
+            next(error);
+        }
+    }
+
+    async logout(req,res, next) {
+
+        const { id } = req.body;
+
+        try {
+            await serviceAuthDB.logout(id);
+
+            res.json({ message: 'Вы вышли из системы' });
+        }
+        catch (error) {
+            next(error);
         }
     }
 }

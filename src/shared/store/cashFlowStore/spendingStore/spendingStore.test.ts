@@ -27,30 +27,31 @@ describe('Class SpendingStore',() => {
             spendingStore!.addSpending(spendingOperations);
 
             expect(spendingStore!.spendingOperations).toHaveLength(1);
-            expect(spendingStore!.spendingOperations).not.toHaveLength(0);
-            expect(spendingStore!.spendingOperations).not.toHaveLength(2);
 
         });
 
 
         test('Should call method balanceStore', () => {
 
-            const mockUpdateCashAccount = jest.spyOn(balanceStore, 'updateCashAccount');
+            const mockUpdateCashAccountSpy = jest.spyOn(balanceStore, 'updateCashAccount');
 
             spendingStore!.addSpending(spendingOperations);
-            expect(mockUpdateCashAccount).toHaveBeenCalledTimes(1);
-            expect(mockUpdateCashAccount).not.toHaveBeenCalledTimes(0);
-            expect(mockUpdateCashAccount).not.toHaveBeenCalledTimes(2);
+
+            expect(mockUpdateCashAccountSpy).toHaveBeenCalledTimes(1);
+
+            spendingStore!.addSpending(spendingOperations);
+
+            expect(mockUpdateCashAccountSpy).toHaveBeenCalledTimes(2);
 
         });
 
         test('Should add spending operations and update spending', () => {
 
             spendingStore!.addSpending(spendingOperations);
-            expect(spendingStore!.spendingOperations).toContainEqual(spendingOperations);
+
+            expect(spendingStore!.spendingOperations[spendingStore!.spendingOperations.length - 1]).toEqual(spendingOperations);
             expect(spendingStore!.spending).toEqual(100);
-            expect(spendingStore!.spending).not.toEqual(99);
-            expect(spendingStore!.spending).not.toEqual(101);
+
 
         });
     });
@@ -59,7 +60,7 @@ describe('Class SpendingStore',() => {
 
         test('Should set spending and operations from mongo', () => {
 
-               spendingStore!.setSpending(spending,[spendingOperations]);
+               spendingStore!.setSpendingFromDB(spending,[spendingOperations]);
                expect(spendingStore!.spendingOperations).toContainEqual(spendingOperations);
                expect(spendingStore!.spending).toEqual(100);
                expect(spendingStore!.spending).not.toEqual(99);
@@ -69,7 +70,7 @@ describe('Class SpendingStore',() => {
 
         test('Should has of equals length array', () => {
 
-              spendingStore!.setSpending(spending,[spendingOperations]);
+              spendingStore!.setSpendingFromDB(spending,[spendingOperations]);
               expect(spendingStore!.spendingOperations).toHaveLength(1);
               expect(spendingStore!.spendingOperations).not.toHaveLength(0);
               expect(spendingStore!.spendingOperations).not.toHaveLength(2);

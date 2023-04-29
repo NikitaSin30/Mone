@@ -20,7 +20,7 @@ export class SpendingStore implements ISpendingStore {
         balanceStore.updateCashAccount(updatedBalance);
     }
 
-    setSpending(spending:number, spendingOperations : ISpendingOperation[]) {
+    setSpendingFromDB(spending:number, spendingOperations : ISpendingOperation[]) {
         this.spending = spending;
         this.spendingOperations = spendingOperations;
     }
