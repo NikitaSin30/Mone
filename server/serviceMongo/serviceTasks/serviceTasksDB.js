@@ -5,7 +5,7 @@ const User = require('../../modelsMongo/User');
 
 class ServiceTasksDB {
 
-    async addCategorie(id, task) {
+    async addTask(id, task) {
         try {
             await User.updateOne({ _id: id }, { $push: { tasks: task } });
         }
