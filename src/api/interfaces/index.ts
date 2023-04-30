@@ -49,5 +49,5 @@ export interface ICategoriesApi {
 
 export interface ITodoApi {
   addTask: (task: ITaskForm, id: string) => Promise<void>;
-  deleteTask:(key:string, userId:string) => void
+  deleteTask:(idTask:string, userId:string) => void
 }

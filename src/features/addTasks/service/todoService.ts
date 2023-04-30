@@ -27,12 +27,13 @@ class TodoService implements ITodoService {
         }
     }
 
-    async deleteTask(id: string) {
+    async deleteTask(idTask: string) {
         try {
-
+            await todoApi.deleteTask(idTask,userStore.user._id);
+            toDoStore.deleteTask(idTask);
         }
         catch (error) {
-            console.log('Ошибка');
+            throw error;
 
         }
     }

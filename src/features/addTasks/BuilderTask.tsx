@@ -12,12 +12,12 @@ import { TITLE_REGISTOR_TASK } from 'widgets/inputs/validation/constans';
 import { TITLE_LABEL_TASK } from 'widgets/inputs/label/constans';
 import { TITLE_BUTTON_TASK } from 'widgets/modals/ui/button/constans';
 import { todoService } from './service/todoService';
-import { IBuilderTask } from './interfaces';
 
 
 
-export const BuilderTask = ({ setErromFromDB }:IBuilderTask) =>{
-    const { switchisModalErrActiveTask } = React.useContext<IContextNotebook>(ContextNotebook);
+
+export const BuilderTask = () =>{
+    const { switchisModalErrActiveTask,setErromFromDB } = React.useContext<IContextNotebook>(ContextNotebook);
 
     const {
         register,
