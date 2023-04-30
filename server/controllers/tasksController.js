@@ -36,6 +36,17 @@ class TasksController {
             next(error);
         }
     }
+    async switchIsDone(req,res,next) {
+        const { id,idTask } = req.body;
+
+        try {
+            await serviceTasksDB.switchIsDone(id,idTask);
+            res.json({ message: 'Статус выполнения задачи изменен' });
+        }
+        catch (error) {
+            next(error);
+        }
+    }
 }
 
 module.exports = new TasksController();

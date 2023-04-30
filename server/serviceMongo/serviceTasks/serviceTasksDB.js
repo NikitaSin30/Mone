@@ -46,6 +46,14 @@ class ServiceTasksDB {
             throw error;
         }
     }
+    async switchIsDone(id, idTask) {
+        try {
+            await User.updateOne({ _id: id }, { $pull: { tasks: { id: idTask } } });
+        }
+        catch (error) {
+            throw error;
+        }
+    }
 }
 
 
