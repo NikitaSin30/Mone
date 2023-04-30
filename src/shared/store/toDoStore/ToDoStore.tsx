@@ -18,7 +18,7 @@ class ToDoStore implements ITodoStore {
     deleteTask(id: string) {
         this.tasks = this.tasks.filter((task) => task.id !== id);
     }
-    removeAllTasks() {
+    deleteAllTasks() {
         this.tasks = [];
     }
 
@@ -48,6 +48,8 @@ class ToDoStore implements ITodoStore {
     }
 
     setTasksFromdDB(task:ITask[]) {
+        console.log(this.tasks);
+
         this.tasks = task;
     }
 }

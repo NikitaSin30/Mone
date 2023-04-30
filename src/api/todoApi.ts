@@ -2,7 +2,7 @@
 import { ITaskForm } from 'features/addTasks/interfaces';
 import { ITask } from 'shared/store/toDoStore/interfaces';
 import { ITodoApi } from './interfaces';
-import { DELETE_TASK } from './path/index';
+import { DELETE_TASK, DELETE_ALL_TASKS } from './path/index';
 
 
 
@@ -49,6 +49,31 @@ class TodoApi implements ITodoApi {
                     id,
                     idTask,
                 }),
+            });
+
+            if (!response.ok) {
+                const error = await response.json();
+
+                throw new Error(error.message);
+            }
+        }
+        catch (error) {
+            if (error instanceof Error) {
+                throw error;
+            }
+            throw new Error('Что-то пошло не так');
+        }
+    }
+
+    async deleteAllTasks(id:string) {
+        try {
+            const response =  await fetch(DELETE_ALL_TASKS, {
+                method  : 'DELETE',
+                headers : {
+                    'Content-type' : 'application/json',
+
+                },
+                body : JSON.stringify({ id }),
             });
 
             if (!response.ok) {

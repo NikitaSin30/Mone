@@ -7,3 +7,4 @@ export const ADD_SPENDING = '/cash/addspending';
 export const AUTHENTICATION = '/auth/authentication';
 export const LOGOUT = '/auth/logout';
 export const DELETE_TASK = '/tasks/deltask';
+export const DELETE_ALL_TASKS = '/tasks/delalltasks';

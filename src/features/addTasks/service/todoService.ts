@@ -38,6 +38,16 @@ class TodoService implements ITodoService {
         }
     }
 
+    async deleteAllTasks() {
+        try {
+            await todoApi.deleteAllTasks(userStore.user._id);
+            toDoStore.deleteAllTasks();
+        }
+        catch (error) {
+
+        }
+    }
+
     async toggleisDoneTask(id: string) {
 
 
