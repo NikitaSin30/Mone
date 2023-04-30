@@ -37,6 +37,15 @@ class ServiceTasksDB {
             throw error;
         }
     }
+
+    async deleteAllTasks(id) {
+        try {
+            await User.updateOne({ _id: id }, { $pull: { tasks: [] } });
+        }
+        catch (error) {
+
+        }
+    }
 }
 
 

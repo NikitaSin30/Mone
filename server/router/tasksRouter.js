@@ -5,5 +5,5 @@ const middlewareAddTask = require('../middlewares/tasksMiddleware/middlewareAddT
 
 router.post('/addtask', middlewareAddTask ,tasksController.addTask);
 router.delete('/deltask',tasksController.deleteTask);
-
+router.delete('/delalltasks',tasksController.deleteAllTasks);
 module.exports = router;
