@@ -4,7 +4,7 @@ import { IFormAuth } from '../interfaces';
 import { IAuthService } from './interfaces';
 import { accumulationStore } from 'shared/store/cashFlowStore/acuumulationStore/AccumulationStore';
 import { incomeStore } from 'shared/store/cashFlowStore/incomeStore/IncomeStore';
-import { spendingStore } from 'shared/store/cashFlowStore/SpendingStore';
+import { spendingStore } from 'shared/store/cashFlowStore/spendingStore/SpendingStore';
 import { balanceStore } from 'shared/store/cashFlowStore/BalanceStore';
 import { categoriesStore } from 'shared/store/categoriesStore/CategoriesStore';
 import { IDataFromDB, IDataUserFromDB, IResponseMessage } from 'api/interfaces';
