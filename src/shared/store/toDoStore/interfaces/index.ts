@@ -11,4 +11,5 @@ export interface ITodoStore {
   deleteAllTasks: () => void;
   getTask: (id: string) => ITask | void;
   setTasksFromdDB: (tasks: ITask[]) => void;
+  switchIsDoneTask:(id:string) => void
 }

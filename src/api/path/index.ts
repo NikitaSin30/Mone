@@ -8,3 +8,4 @@ export const AUTHENTICATION = '/auth/authentication';
 export const LOGOUT = '/auth/logout';
 export const DELETE_TASK = '/tasks/deltask';
 export const DELETE_ALL_TASKS = '/tasks/delalltasks';
+export const SWITCH_IS_DONE = '/taks/switchisdone';

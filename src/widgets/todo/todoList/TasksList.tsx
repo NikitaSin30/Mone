@@ -29,6 +29,20 @@ export const TasksList = observer(() => {
         }
     };
 
+    const onToggleIsDoneTask = async(id:string) =>{
+        try {
+            await todoService.switchIsDoneTask(id);
+        }
+        catch (error) {
+            if (error instanceof Error) {
+                console.log(error.message);
+                
+                setErromFromDB(error.message);
+                switchisModalErrActiveTask();
+            }
+        }
+    };
+
 
     return (
         <div className="flex flex-1 flex-col h-full gap-2">
@@ -38,7 +52,8 @@ export const TasksList = observer(() => {
                     task={task}
                     isDone={isDone}
                     id={id}
-                    onDeleteTask={onDeleteTask} />;
+                    onDeleteTask={onDeleteTask}
+                    onToggleIsDoneTask={onToggleIsDoneTask} />;
             })}
         </div>
     );

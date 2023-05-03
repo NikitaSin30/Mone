@@ -5,4 +5,5 @@ import { ITask } from 'shared/store/toDoStore/interfaces';
 export interface ITodoService {
     checkStoreHasTask: (newTask: string) => void;
     addTask: (task: ITaskForm) => Promise<void>;
+    switchIsDoneTask:(idTask: string) => Promise<void>
 }

@@ -22,7 +22,7 @@ class ToDoStore implements ITodoStore {
         this.tasks = [];
     }
 
-    toggleStatusByIdTask(id: string) {
+    switchIsDoneTask(id: string) {
         this.tasks.map((task) => {
             if (task.id === id) task.isDone = !task.isDone;
         });

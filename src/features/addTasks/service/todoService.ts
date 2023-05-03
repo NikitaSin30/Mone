@@ -1,6 +1,6 @@
 import { ITask } from 'shared/store/toDoStore/interfaces';
 import { toDoStore } from 'shared/store/toDoStore/ToDoStore';
-import { todoApi } from 'api/todoApi';
+import { todoApi } from 'api/TodoApi';
 import { userStore } from 'shared/store/userStore/UserStore';
 import { validateString } from 'shared/mappers/validateString';
 import { ITaskForm } from '../interfaces';
@@ -48,15 +48,14 @@ class TodoService implements ITodoService {
         }
     }
 
-    async toggleisDoneTask(id: string) {
-
+    async switchIsDoneTask(idTask: string) {
 
         try {
-
+            await todoApi.switchIsDoneTask(idTask,userStore.user._id);
+            toDoStore.switchIsDoneTask(idTask);
         }
         catch (error) {
-            console.log('Ошибка');
-
+            throw error;
         }
     }
 
