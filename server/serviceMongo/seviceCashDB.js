@@ -12,10 +12,10 @@ class ServiceCashDB {
             const newBallance = balance + incomeOperation.income;
             const newSpendingBalance = income + incomeOperation.income;
 
-            await User.updateOne({ _id: id }, { $set: { income: newSpendingBalance } });
-            await User.updateOne({ _id: id }, { $set: { balance: newBallance } });
-            await User.updateOne({ _id: id }, { $push: { incomeOperations: incomeOperation } });
-
+            await this.DB.updateOne({ _id: id }, { $set: { income: newSpendingBalance } });
+            await this.DB.updateOne({ _id: id }, { $set: { balance: newBallance } });
+            await this.DB.updateOne({ _id: id }, { $push: { incomeOperations: incomeOperation } });
+            await this.DB.updateOne({ _id: id }, { $push: { allOperations: incomeOperation } });
         }
         catch (error) {
             throw error;
@@ -31,6 +31,7 @@ class ServiceCashDB {
             await this.DB.updateOne({ _id: id }, { $set: { accumulation: newAccumulation } });
             await this.DB.updateOne({ _id: id }, { $set: { balance: newBallance } });
             await this.DB.updateOne({ _id: id }, { $push: { accumulationOperations: accumulationOperation } });
+            await this.DB.updateOne({ _id: id }, { $push: { allOperations: accumulationOperation } });
 
         }
         catch (error) {
@@ -44,9 +45,10 @@ class ServiceCashDB {
             const newBalance = balance - spendingOperation.spending;
             const newSpendingBalance = spending + spendingOperation.spending;
 
-            await User.updateOne({ _id: id }, { $set: { spending: newSpendingBalance } });
-            await User.updateOne({ _id: id }, { $set: { balance: newBalance } });
-            await User.updateOne({ _id: id }, { $push: { spendingOperations: spendingOperation } });
+            await this.DB.updateOne({ _id: id }, { $set: { spending: newSpendingBalance } });
+            await this.DB.updateOne({ _id: id }, { $set: { balance: newBalance } });
+            await this.DB.updateOne({ _id: id }, { $push: { spendingOperations: spendingOperation } });
+            await this.DB.updateOne({ _id: id }, { $push: { allOperations: spendingOperation } });
 
         }
         catch (error) {
@@ -57,6 +59,3 @@ class ServiceCashDB {
 
 
 module.exports = new ServiceCashDB(User);
-
-
-

@@ -41,6 +41,9 @@ const User = new Schema({
     accumulationOperations : {
         type : Array,
     },
+    allOperations : {
+        type : Array,
+    },
     categories : {
         type : Array,
     },
