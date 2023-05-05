@@ -7,7 +7,7 @@ export interface IBalanceStore {
 
 export interface IAccumulationOperation {
   accumulation: number;
-  date: Date;
+  date: string;
 }
 export interface IAccumulationStore {
   accumulation: number;
@@ -22,7 +22,7 @@ export interface IAccumulationStore {
 export interface ISpendingOperation {
   spending: number;
   categorie: string;
-  date: Date;
+  date: string;
 }
 
 export interface ISpendingStore {
@@ -37,7 +37,7 @@ export interface ISpendingStore {
 export interface IIncomeOperation {
   income: number;
   sphere: string;
-  date: Date;
+  date: string;
 }
 export interface IIncomeStore {
   income: number;

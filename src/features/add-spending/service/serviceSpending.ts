@@ -4,6 +4,7 @@ import { categoriesStore } from 'shared/store/categoriesStore/CategoriesStore';
 import { IFormSpending } from '../interfaces';
 import { cashFlowApi } from 'api/CashFlowApi';
 import { ISpendingService } from './interfaces';
+import { operationsStore } from 'shared/store/cashFlowStore/operationsStore/OperationsStore';
 
 
 
@@ -13,10 +14,10 @@ class SpendingService implements ISpendingService {
         const createdOperation =  this.createOperation(newSpending.spending, newSpending.categorie);
 
         try {
-            const { message } = await cashFlowApi.addSpending(userStore.user._id, createdOperation);
+            await cashFlowApi.addSpending(userStore.user._id, createdOperation);
 
-            console.log(message);
             spendingStore.addSpending(createdOperation);
+            operationsStore.addOperation(createdOperation);
             categoriesStore.updateSpendingInCategorie(newSpending);
 
         }
@@ -33,7 +34,7 @@ class SpendingService implements ISpendingService {
         return {
             spending  : spending,
             categorie : categorie,
-            date      : new Date(),
+            date      : new Date().toLocaleDateString(),
         };
     }
 

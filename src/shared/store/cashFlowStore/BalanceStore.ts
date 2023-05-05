@@ -5,6 +5,7 @@ import { IBalanceStore } from './interfaces';
 
 export class BalanceStore implements IBalanceStore {
     moneyAccount = 0;
+    
 
     constructor() {
         makeAutoObservable(this);

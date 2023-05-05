@@ -5,6 +5,7 @@ import { accumulationStore } from 'shared/store/cashFlowStore/AccumulationStore'
 import { IAccumulationOperation } from 'shared/store/cashFlowStore/interfaces';
 import { IAccumulationService } from './interfaces';
 import { IFormAccumulation } from '../interfaces';
+import { operationsStore } from 'shared/store/cashFlowStore/operationsStore/OperationsStore';
 
 
 
@@ -15,11 +16,11 @@ class AccumulationService implements IAccumulationService {
         const createdOperation : IAccumulationOperation = this.createOperation(accumulation);
 
         try {
-            const { message } =  await cashFlowApi.addAccumulation(userStore.user._id, createdOperation);
-
-            console.log(message);
+            await cashFlowApi.addAccumulation(userStore.user._id, createdOperation);
 
             accumulationStore.addAccumulation(createdOperation);
+            operationsStore.addOperation(createdOperation);
+
         }
         catch (error) {
             if (error instanceof Error) {
@@ -34,7 +35,7 @@ class AccumulationService implements IAccumulationService {
     createOperation(accumulation : number) {
         return {
             accumulation : accumulation,
-            date         : new Date(),
+            date         : new Date().toLocaleDateString(),
         };
     }
 }

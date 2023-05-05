@@ -8,6 +8,7 @@ export class User implements IUser {
     isAuth: boolean;
 
     constructor() {
+
         this.isAuth = localStorage.getItem('wallet') ? true : false;
         makeAutoObservable(this);
     }
@@ -18,6 +19,7 @@ export class User implements IUser {
 
     setUserFromDB(user: IFormAuth) {
         this.user = user;
+        console.log(this.user);
     }
 }
 

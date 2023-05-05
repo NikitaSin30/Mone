@@ -5,6 +5,7 @@ import { userStore } from 'shared/store/userStore/UserStore';
 import { validateString } from 'shared/mappers/validateString';
 import { IServiceIncome } from './interfaces';
 import { IFormIncome } from '../interfaces';
+import { operationsStore } from 'shared/store/cashFlowStore/operationsStore/OperationsStore';
 
 
 
@@ -14,11 +15,11 @@ class IncomeService implements IServiceIncome {
         const createdOperation = this.createOperation(income,modifytedSphere);
 
         try {
-            const { message } = await cashFlowApi.addIncome(createdOperation, userStore.user._id);
-
-            console.log(message);
+            await cashFlowApi.addIncome(createdOperation, userStore.user._id);
 
             incomeStore.addIncome(createdOperation);
+            operationsStore.addOperation(createdOperation);
+
         }
         catch (error) {
             if (error instanceof Error) {
@@ -33,7 +34,7 @@ class IncomeService implements IServiceIncome {
         return {
             income : income,
             sphere : sphere,
-            date   : new Date(),
+            date   : new Date().toLocaleDateString(),
         };
     }
 }

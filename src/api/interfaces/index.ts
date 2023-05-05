@@ -3,6 +3,7 @@ import { ICategorie } from 'shared/store/categoriesStore/interfaces';
 import { ITask } from 'shared/store/toDoStore/interfaces';
 import { IFormAuth } from '../../features/auth/interfaces';
 import { ITaskForm } from 'features/addTasks/interfaces';
+import { TAllOperations } from 'shared/store/cashFlowStore/operationsStore/types';
 
 
 export interface IResponseMessage {message:string}
@@ -20,6 +21,7 @@ export interface IDataUserFromDB {
  spendingOperations : ISpendingOperation[],
  accumulation : number,
  accumulationOperations : IAccumulationOperation[],
+ allOperations: TAllOperations[]
  categories : ICategorie[],
  tasks : ITask[],
 }

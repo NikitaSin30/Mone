@@ -39,8 +39,8 @@ class ToDoStore implements ITodoStore {
     getTask(id:string) {
         const task : ITask | undefined = this.tasks.find(task => task.id === id);
 
-        if (task === undefined) {
-            throw new Error();
+        if (!task) {
+            throw new Error('Задачи нет');
         }
 
         return task;
@@ -48,7 +48,6 @@ class ToDoStore implements ITodoStore {
     }
 
     setTasksFromdDB(task:ITask[]) {
-        console.log(this.tasks);
 
         this.tasks = task;
     }

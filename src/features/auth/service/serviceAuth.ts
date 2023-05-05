@@ -10,6 +10,7 @@ import { categoriesStore } from 'shared/store/categoriesStore/CategoriesStore';
 import { IDataFromDB, IDataUserFromDB, IResponseMessage } from 'api/interfaces';
 import { getToken } from './helpers/getToken';
 import { toDoStore } from 'shared/store/toDoStore/ToDoStore';
+import { operationsStore } from 'shared/store/cashFlowStore/operationsStore/OperationsStore';
 
 
 
@@ -49,6 +50,7 @@ class AuthService implements IAuthService {
             this.setDataFromDB(user);
 
             window.localStorage.setItem('wallet', JSON.stringify( token ));
+
             userStore.setIsAuth(true);
 
         }
@@ -78,12 +80,14 @@ class AuthService implements IAuthService {
             _id      : userData._id,
         };
 
+
         userStore.setUserFromDB(user);
         toDoStore.setTasksFromdDB(userData.tasks);
         incomeStore.setIncomeFromDB(userData.income, userData.incomeOperations);
         accumulationStore.setAccumulationFromDB(userData.accumulation, userData.accumulationOperations);
         spendingStore.setSpendingFromDB(userData.spending, userData.spendingOperations);
         balanceStore.setBalanceFromDB(userData.balance);
+        operationsStore.setAllOperationsFromDB(userData.allOperations);
         categoriesStore.setCategoriesFromDB(userData.categories);
     }
 }

@@ -9,7 +9,7 @@ describe('class IncomeStore', ()=>{
     const incomeOperation: IIncomeOperation  = {
         income : 100,
         sphere : 'IT',
-        date   : new Date(),
+        date   : new Date().toLocaleDateString(),
     };
 
     const income = 100;
