@@ -51,7 +51,7 @@ describe('class AccumulationStore', () => {
     describe('Method setAccumulation',() =>{
 
         test('Should set acumulutanion and operatins from mongo' , () =>{
-         accumulationStore!.setAccumulation(accumulation, [accumulationOperation]);
+         accumulationStore!.setAccumulationFromDB(accumulation, [accumulationOperation]);
          expect(accumulationStore!.accumulation).toEqual(100);
          expect(accumulationStore!.accumulation).not.toEqual(101);
          expect(accumulationStore!.accumulation).not.toEqual(99);
@@ -60,7 +60,7 @@ describe('class AccumulationStore', () => {
         });
 
         test('Should has of equal length', () =>{
-            accumulationStore!.setAccumulation(accumulation,[accumulationOperation]);
+            accumulationStore!.setAccumulationFromDB(accumulation,[accumulationOperation]);
             expect(accumulationStore!.accumulationOperations).toHaveLength(1);
             expect(accumulationStore!.accumulationOperations).not.toHaveLength(0);
             expect(accumulationStore!.accumulationOperations).not.toHaveLength(2);
