@@ -2,7 +2,7 @@ import { incomeStore } from 'shared/store/cashFlowStore/incomeStore/IncomeStore'
 import { cashFlowApi } from 'api/CashFlowApi';
 import { IIncomeOperation } from 'shared/store/cashFlowStore/interfaces';
 import { userStore } from 'shared/store/userStore/UserStore';
-import { validateString } from 'shared/mappers/validateString';
+import { validateString } from 'shared/helpers/validateString';
 import { IServiceIncome } from './interfaces';
 import { IFormIncome } from '../interfaces';
 

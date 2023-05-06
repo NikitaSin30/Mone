@@ -10,25 +10,17 @@ import { IFormAccumulation } from '../interfaces';
 
 class AccumulationService implements IAccumulationService {
 
-    async addAccumulation({ accumulation }: IFormAccumulation, showModalError: () => void, switchShowModal: () => void) {
-        if (balanceStore.moneyAccount < accumulation) return showModalError();
+    async addAccumulation({ accumulation }: IFormAccumulation) {
+        if (balanceStore.moneyAccount < accumulation) throw new Error('У вас нет данной суммы на счёте ');
         const createdOperation : IAccumulationOperation = this.createOperation(accumulation);
 
         try {
-            const { message } =  await cashFlowApi.addAccumulation(userStore.user._id, createdOperation);
-
-            console.log(message);
+            await cashFlowApi.addAccumulation(userStore.user._id, createdOperation);
 
             accumulationStore.addAccumulation(createdOperation);
         }
         catch (error) {
-            if (error instanceof Error) {
-                console.log(error.message);
-            }
-
-        }
-        finally {
-            switchShowModal();
+            throw error;
         }
     }
     createOperation(accumulation : number) {
