@@ -29,7 +29,7 @@ export interface IDataFromDB {
 }
 
 export interface ICashFlowApi {
-  addIncome: (incomeOperation: IIncomeOperation, id: string) => Promise<IIncomeOperation>;
+  addIncome: (incomeOperation: IIncomeOperation, id: string) => Promise<void>;
   addAccumulation: (id: string, accumulationOperation: IAccumulationOperation) => Promise<IAccumulationOperation>;
   addSpending: (id: string, spendingOperation: ISpendingOperation) => Promise<ISpendingOperation>;
 }
