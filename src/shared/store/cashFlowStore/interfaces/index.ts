@@ -13,6 +13,7 @@ export interface IAccumulationStore {
   accumulation: number;
   accumulationOperations: IAccumulationOperation[];
   setAccumulationFromDB:(accumulation: number, operations: IAccumulationOperation[]) => void;
+  addAccumulation:(operationAccumulation:IAccumulationOperation ) => void
 }
 
 
