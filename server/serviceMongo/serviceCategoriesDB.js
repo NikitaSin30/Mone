@@ -4,7 +4,7 @@ const User = require('../modelsMongo/User');
 
 class serviceCategoriesDB {
 
-    async checkHasCategorie(id,categorie) {
+    async checkCategorie(id,categorie) {
 
         try {
             const user = await User.findOne({ _id: id });
@@ -19,9 +19,19 @@ class serviceCategoriesDB {
         }
     }
 
-    async updateCategories(id, categorie) {
+    async addCategorie(id, categorie) {
         try {
+            await this.checkCategorie(id,categorie);
             await User.updateOne({ _id: id }, { $push: { categories: categorie } });
+        }
+        catch (error) {
+            throw error;
+        }
+    }
+
+    async deleteCategorie(id, idCategorie) {
+        try {
+            await User.updateOne({ _id: id }, { $pull: { categories: { id: idCategorie } } });
         }
         catch (error) {
             throw error;
