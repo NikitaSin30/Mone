@@ -30,10 +30,6 @@ export const useService = (
     return async <T>(formData:T) => {
         try {
             switch (caseLabel) {
-
-                case CASE.CASE_USESERVICE_ACCUMULATION:
-                    await accumulationService.addAccumulation(formData as IFormAccumulation,switchIsModalErr!,switchISModal!);
-                    break;
                 case CASE.CASE_USESERVICE_SPENDING:
                     await spendingService.addSpending(formData as IFormSpending,switchISModal!);
                     break;

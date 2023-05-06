@@ -7,9 +7,8 @@ class CashFlowController {
 
         try {
             await ServiceCashDB.addIncome(incomeOperation,id);
-            throw new Error('');
 
-            // res.json({ message: 'Доход добавлен' });
+            res.json({ message: 'Доход добавлен' });
         }
         catch (error) {
             next(error);
