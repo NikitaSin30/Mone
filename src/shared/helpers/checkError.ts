@@ -1,7 +1,7 @@
 
 
 
-export const checkError = (error:any) => {
+export const checkError = (error:unknown) => {
 
     if (error instanceof Error) {
         return error;

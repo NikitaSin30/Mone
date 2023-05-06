@@ -1,12 +1,12 @@
 import { IFormAuth } from 'features/auth/interfaces';
 import { checkError } from 'shared/helpers/checkError';
-import { IAuthApi, IDataFromDB } from './interfaces';
+import { IAuthApi, IDataFromDB, IResponseMessage } from './interfaces';
 import * as PATH from './path';
 
 
 class AuthApi implements IAuthApi {
 
-    async registration<T>(user: IFormAuth):Promise<T> {
+    async registration(user: IFormAuth) {
         try {
             const response = await fetch(PATH.REGISTRATION, {
                 method  : 'POST',
@@ -28,7 +28,7 @@ class AuthApi implements IAuthApi {
         }
     }
 
-    async login<T>(dataLogin:IFormAuth) : Promise<T> {
+    async login(dataLogin:IFormAuth) {
         try {
             const response = await fetch(PATH.LOGIN, {
                 method  : 'POST',
@@ -52,7 +52,7 @@ class AuthApi implements IAuthApi {
         }
     }
 
-    async authenticate<T>(token:string): Promise<T> {
+    async authenticate(token:string) {
 
         try {
             const response = await fetch(PATH.AUTHENTICATION, {

@@ -22,10 +22,6 @@ class AccumulationService implements IAccumulationService {
         catch (error) {
             throw error;
         }
-        finally {
-
-            // switchShowModal();
-        }
     }
     createOperation(accumulation : number) {
         return {
