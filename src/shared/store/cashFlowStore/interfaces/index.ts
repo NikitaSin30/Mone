@@ -12,8 +12,8 @@ export interface IAccumulationOperation {
 export interface IAccumulationStore {
   accumulation: number;
   accumulationOperations: IAccumulationOperation[];
-  addAccumulation: (newAccumulation: IAccumulationOperation) => void;
   setAccumulationFromDB:(accumulation: number, operations: IAccumulationOperation[]) => void;
+  addAccumulation:(operationAccumulation:IAccumulationOperation ) => void
 }
 
 
