@@ -2,10 +2,9 @@ import React from 'react';
 import { observer } from 'mobx-react-lite';
 import { ToDoItem } from '../todoItem/TodoItem';
 import { toDoStore } from 'shared/store/toDoStore/ToDoStore';
-import { todoService } from 'features/addTasks/service/todoService';
 import { IContextNotebook } from 'pages/noteBook/context/interfaces';
 import { ContextNotebook } from 'pages/noteBook/context/context';
-
+import { ioContainer } from 'api/IoC/ioc';
 
 
 export const TasksList = observer(() => {
@@ -16,7 +15,7 @@ export const TasksList = observer(() => {
 
     const onDeleteTask = async(idTask:string) => {
         try {
-            await todoService.deleteTask(idTask);
+            await ioContainer.todoService.deleteTask(idTask);
         }
         catch (error) {
             if (error instanceof Error) {
@@ -31,12 +30,12 @@ export const TasksList = observer(() => {
 
     const onToggleIsDoneTask = async(id:string) =>{
         try {
-            await todoService.switchIsDoneTask(id);
+            await ioContainer.todoService.switchIsDoneTask(id);
         }
         catch (error) {
             if (error instanceof Error) {
                 console.log(error.message);
-                
+
                 setErromFromDB(error.message);
                 switchisModalErrActiveTask();
             }

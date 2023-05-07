@@ -122,19 +122,6 @@ class TodoApi implements ITodoApi {
             throw new Error('Что-то пошло не так');
         }
     }
-
-    async updateTask(task:ITask,userId:string) {
-        try {
-            const upadatedTask = {
-                ...task,
-                isDone : !task.isDone,
-            };
-
-        }
-        catch (error) {
-            throw new Error('Может лучше в вебкам ? A не IT');
-        }
-    }
 }
 
-export const todoApi = new TodoApi();
+export default TodoApi;

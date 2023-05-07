@@ -1,13 +1,17 @@
-import { categoriesApi } from 'api/CategoriesApi';
 import { categoriesStore } from 'shared/store/categoriesStore/CategoriesStore';
 import { userStore } from 'shared/store/userStore/UserStore';
-import { ICategorie } from 'shared/store/categoriesStore/interfaces';
 import { validateString } from 'shared/helpers/validateString';
 import { IFormCategorie } from '../interfaces';
 import { ICategoriesService } from './interfaces';
+import { ICategoriesApi } from 'api/interfaces';
 
 
 class CategoriesService implements ICategoriesService {
+    private categoriesApi:ICategoriesApi;
+
+    constructor(categoriesApi:ICategoriesApi) {
+        this.categoriesApi = categoriesApi;
+    }
 
     async addCategorie({ categorie }: IFormCategorie, switchShowModalErr: () => void, switchShowModal:() => void) {
 
@@ -18,7 +22,7 @@ class CategoriesService implements ICategoriesService {
 
             const newCategorie = this.createCategorie(categorieValidated);
 
-            await categoriesApi.addCategorie(newCategorie,userStore.user._id);
+            await this.categoriesApi.addCategorie(newCategorie,userStore.user._id);
             categoriesStore.addCatigorie(newCategorie);
 
         }
@@ -34,7 +38,7 @@ class CategoriesService implements ICategoriesService {
 
     async deleteCategorie(idCategorie: string) {
         try {
-            await categoriesApi.deleteCategorie(idCategorie,userStore.user._id);
+            await this.categoriesApi.deleteCategorie(idCategorie,userStore.user._id);
             categoriesStore.deleteCategorie(idCategorie);
 
         }
@@ -43,7 +47,7 @@ class CategoriesService implements ICategoriesService {
         }
     }
 
-    checkStoreHasCategorie(validatedCategorie: string) {
+    private checkStoreHasCategorie(validatedCategorie: string) {
 
         const hasCategorie = categoriesStore.categories.some(({ categorie }) => categorie === validatedCategorie);
 
@@ -52,7 +56,7 @@ class CategoriesService implements ICategoriesService {
         }
     }
 
-    createCategorie(categorie:string) {
+    private createCategorie(categorie:string) {
 
         return {
             categorie : categorie,
@@ -63,4 +67,4 @@ class CategoriesService implements ICategoriesService {
 }
 
 
-export const categoriesService = new CategoriesService();
+export default CategoriesService;

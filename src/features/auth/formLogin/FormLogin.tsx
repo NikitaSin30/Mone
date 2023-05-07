@@ -10,7 +10,7 @@ import { CASE_TYPE_EMAIL, CASE_TYPE_PASSWORD } from 'widgets/inputs/validation/c
 import { TITLE_REGISTOR_PASSWORD,TITLE_REGISTOR_EMAIL } from 'widgets/inputs/validation/constans';
 import { TITLE_LABEL_PASSWORD, TITLE_LABEL_EMAIL } from 'widgets/inputs/label/constans';
 import { TITLE_BUTTON_LOGIN } from 'widgets/modals/ui/button/constans';
-import { authService } from '../service/serviceAuth';
+import { ioContainer } from 'api/IoC/ioc';
 import { useToggle } from 'shared/hooks/useToggle/useToggle';
 import { userStore } from 'shared/store/userStore/UserStore';
 
@@ -36,7 +36,7 @@ const FormLogin = (): React.ReactElement => {
 
     const onLogin = async(data : IFormAuth) => {
         try {
-            await authService.login(data);
+            await ioContainer.authService.login(data);
             navigate(fromPage);
             reset();
         }

@@ -1,15 +1,20 @@
 import { ITask } from 'shared/store/toDoStore/interfaces';
 import { toDoStore } from 'shared/store/toDoStore/ToDoStore';
-import { todoApi } from 'api/todoApi';
 import { userStore } from 'shared/store/userStore/UserStore';
 import { validateString } from 'shared/helpers/validateString';
 import { ITaskForm } from '../interfaces';
 import { ITodoService } from './interfaces';
+import { ITodoApi } from 'api/interfaces';
 
 
 
 class TodoService implements ITodoService {
+    private todoApi:ITodoApi;
 
+    constructor(todoApi:ITodoApi) {
+        this.todoApi = todoApi;
+    }
+    
     async addTask( { task } : ITaskForm) {
 
         try {
@@ -19,7 +24,7 @@ class TodoService implements ITodoService {
 
             const createdTask = this.createTask(taskValidaited);
 
-            await todoApi.addTask(createdTask,userStore.user._id);
+            await this.todoApi.addTask(createdTask,userStore.user._id);
             toDoStore.addTask(createdTask);
         }
         catch (error) {
@@ -29,7 +34,7 @@ class TodoService implements ITodoService {
 
     async deleteTask(idTask: string) {
         try {
-            await todoApi.deleteTask(idTask,userStore.user._id);
+            await this.todoApi.deleteTask(idTask,userStore.user._id);
             toDoStore.deleteTask(idTask);
         }
         catch (error) {
@@ -40,18 +45,18 @@ class TodoService implements ITodoService {
 
     async deleteAllTasks() {
         try {
-            await todoApi.deleteAllTasks(userStore.user._id);
+            await this.todoApi.deleteAllTasks(userStore.user._id);
             toDoStore.deleteAllTasks();
         }
         catch (error) {
-
+            throw error;
         }
     }
 
     async switchIsDoneTask(idTask: string) {
 
         try {
-            await todoApi.switchIsDoneTask(idTask,userStore.user._id);
+            await this.todoApi.switchIsDoneTask(idTask,userStore.user._id);
             toDoStore.switchIsDoneTask(idTask);
         }
         catch (error) {
@@ -59,7 +64,7 @@ class TodoService implements ITodoService {
         }
     }
 
-    checkStoreHasTask(newTask: string) {
+    private checkStoreHasTask(newTask: string) {
         const hasTask = toDoStore.tasks.some(({ task }) => task === newTask);
 
         if (hasTask) {
@@ -67,7 +72,7 @@ class TodoService implements ITodoService {
         }
     }
 
-    createTask( validatedTask : string):ITask {
+    private createTask( validatedTask : string):ITask {
         return {
             task   : validatedTask,
             id     : validatedTask,
@@ -77,4 +82,4 @@ class TodoService implements ITodoService {
 }
 
 
-export const todoService = new TodoService();
+export default TodoService;

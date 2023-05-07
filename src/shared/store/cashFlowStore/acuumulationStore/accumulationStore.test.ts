@@ -7,7 +7,7 @@ import { balanceStore } from '../BalanceStore';
 describe('class AccumulationStore', () => {
     const accumulationOperation : IAccumulationOperation = {
         accumulation : 100,
-        date         : new Date(),
+        date         : new Date().toLocaleDateString(),
     };
     const accumulation = 100;
     const spy = jest.spyOn(balanceStore, 'updateCashAccount');

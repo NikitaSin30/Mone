@@ -1,20 +1,9 @@
 import React from 'react';
 import * as CASE from './constans';
-import { IFormAccumulation } from 'features/add-accumulation/interfaces';
-import { accumulationService } from 'features/add-accumulation/service/AccumulationService';
 import { IFormCategorie } from 'features/add-categories/interfaces';
-import { categoriesService } from 'features/add-categories/service/categoriesService';
-import { IFormIncome } from 'features/add-income/interfaces';
-import { incomeService } from 'features/add-income/service/incomeService';
 import { IFormSpending } from 'features/add-spending/interfaces';
 import { spendingService } from 'features/add-spending/service/serviceSpending';
-import { ITaskForm } from 'features/addTasks/interfaces';
-import { todoService } from 'features/addTasks/service/todoService';
-import { IFormAuth } from 'features/auth/interfaces';
-import { authService } from 'features/auth/service/serviceAuth';
-import { Navigate } from 'react-router';
-
-
+import { ioContainer } from 'api/IoC/ioc';
 
 
 
@@ -34,7 +23,7 @@ export const useService = (
                     await spendingService.addSpending(formData as IFormSpending,switchISModal!);
                     break;
                 case CASE.CASE_USESERVICE_CATEGORIE:
-                    categoriesService.addCategorie(formData as IFormCategorie,switchIsModalErr!,switchISModal!);
+                    ioContainer.categoriesService.addCategorie(formData as IFormCategorie,switchIsModalErr!,switchISModal!);
                     break;
             }
         }

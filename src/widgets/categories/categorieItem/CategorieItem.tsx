@@ -5,7 +5,7 @@ import { ICategorie } from 'shared/store/categoriesStore/interfaces';
 import { observer } from 'mobx-react-lite';
 import { DeleteIcon } from 'widgets/todo/assets/DeleteIcon';
 import { useToggle } from 'shared/hooks/useToggle/useToggle';
-import { categoriesService } from 'features/add-categories/service/categoriesService';
+import { ioContainer } from 'api/IoC/ioc';
 import ErrorModal from 'widgets/modals/ErrorModal';
 
 export const CategorieItem = observer((props:ICategorie) =>{
@@ -17,7 +17,7 @@ export const CategorieItem = observer((props:ICategorie) =>{
 
     const onSuccesDelete = async(id:string) => {
         try {
-            await categoriesService.deleteCategorie(id);
+            await ioContainer.categoriesService.deleteCategorie(id);
             switchShowModal();
         }
         catch (error) {

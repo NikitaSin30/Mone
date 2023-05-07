@@ -1,4 +1,4 @@
-import { authService } from 'features/auth/service/serviceAuth';
+import { ioContainer } from 'api/IoC/ioc';
 import { observer } from 'mobx-react-lite';
 import { SyntheticEvent } from 'react';
 import { userStore } from 'shared/store/userStore/UserStore';
@@ -12,7 +12,7 @@ export const Account = observer(() => {
     const onlogout = (e:SyntheticEvent) =>{
         e.stopPropagation();
         e.preventDefault();
-        authService.logout();
+        ioContainer.authService.logout();
     };
 
 

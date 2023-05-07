@@ -104,4 +104,4 @@ class AuthApi implements IAuthApi {
 }
 
 
-export const authAPI = new AuthApi();
+export default AuthApi;

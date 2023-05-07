@@ -60,4 +60,4 @@ export class CategoriesApi implements ICategoriesApi {
 
 }
 
-export const categoriesApi = new CategoriesApi();
+export default CategoriesApi;

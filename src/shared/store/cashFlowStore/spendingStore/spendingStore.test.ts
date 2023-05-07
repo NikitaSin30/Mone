@@ -8,7 +8,7 @@ describe('Class SpendingStore',() => {
     const spendingOperations : ISpendingOperation = {
         spending  : 100,
         categorie : 'Медицина',
-        date      : new Date(),
+        date      : new Date().toLocaleDateString(),
     };
 
     const spending = 100;
