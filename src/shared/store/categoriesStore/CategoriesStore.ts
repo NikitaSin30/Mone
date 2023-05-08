@@ -12,7 +12,7 @@ class CategoriesStore implements ICategoriesStore {
     addCatigorie(categorie: ICategorie): void {
         this.categories.push(categorie);
     }
-    removeCategorie(id: string): void {
+    deleteCategorie(id: string): void {
         this.categories = this.categories.filter((categorie) => categorie.id !== id);
     }
 
