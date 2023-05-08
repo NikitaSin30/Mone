@@ -1,8 +1,8 @@
 import { ITask } from 'shared/store/toDoStore/interfaces';
 import { toDoStore } from 'shared/store/toDoStore/ToDoStore';
-import { todoApi } from 'api/TodoApi';
+import { todoApi } from 'api/todoApi';
 import { userStore } from 'shared/store/userStore/UserStore';
-import { validateString } from 'shared/mappers/validateString';
+import { validateString } from 'shared/helpers/validateString';
 import { ITaskForm } from '../interfaces';
 import { ITodoService } from './interfaces';
 
