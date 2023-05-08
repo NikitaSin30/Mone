@@ -1,22 +1,28 @@
 import { balanceStore } from 'shared/store/cashFlowStore/BalanceStore';
-import { cashFlowApi } from 'api/CashFlowApi';
 import { userStore } from 'shared/store/userStore/UserStore';
 import { accumulationStore } from 'shared/store/cashFlowStore/acuumulationStore/AccumulationStore';
-import { IAccumulationOperation } from 'shared/store/cashFlowStore/interfaces';
 import { IAccumulationService } from './interfaces';
 import { IFormAccumulation } from '../interfaces';
 import { operationsStore } from 'shared/store/cashFlowStore/operationsStore/OperationsStore';
-
+import { IAccumulationApi } from 'api/AccumulationApi';
+import { IFactoryOperation } from 'shared/service/factory/interfaces';
+import { TYPE_OPERATION_ACCUMULATION } from 'shared/service/factory/constants';
 
 
 class AccumulationService implements IAccumulationService {
 
-    async addAccumulation({ accumulation }: IFormAccumulation) {
+
+    constructor(private accumulutionApi:IAccumulationApi, private factoryOperation:IFactoryOperation) {
+        this.accumulutionApi = accumulutionApi;
+        this.factoryOperation = factoryOperation;
+    }
+
+    async addAccumulation( { accumulation } : IFormAccumulation) {
         if (balanceStore.moneyAccount < accumulation) throw new Error('У вас нет данной суммы на счёте ');
-        const createdOperation : IAccumulationOperation = this.createOperation(accumulation);
+        const createdOperation  = this.factoryOperation.createOperation(TYPE_OPERATION_ACCUMULATION,accumulation);
 
         try {
-            await cashFlowApi.addAccumulation(userStore.user._id, createdOperation);
+            await this.accumulutionApi.addAccumulation(userStore.user._id, createdOperation);
 
             accumulationStore.addAccumulation(createdOperation);
             operationsStore.addOperation(createdOperation);
@@ -26,12 +32,6 @@ class AccumulationService implements IAccumulationService {
             throw error;
         }
     }
-    createOperation(accumulation : number) {
-        return {
-            accumulation : accumulation,
-            date         : new Date().toLocaleDateString(),
-        };
-    }
 }
 
-export const accumulationService = new AccumulationService();
+export default AccumulationService;

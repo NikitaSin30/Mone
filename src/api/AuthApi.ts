@@ -1,5 +1,5 @@
 import { IFormAuth } from 'features/auth/interfaces';
-import { checkError } from 'shared/helpers/checkError';
+import { checkError } from 'shared/service/helpers/checkError';
 import { IAuthApi, IDataFromDB, IResponseMessage } from './interfaces';
 import * as PATH from './path';
 

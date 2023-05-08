@@ -12,10 +12,9 @@ import { TITLE_LABEL_SPHERE } from 'widgets/inputs/label/constans';
 import { ACTIVE_MODAL_STYLE, HIDEN_MODAL_STYLE } from 'widgets/modals/constans';
 import { TITLE_BUTTON_ADD } from 'widgets/modals/ui/button/constans';
 import { useToggle } from 'shared/hooks/useToggle/useToggle';
-import { incomeService } from './service/incomeService';
 import { SubtitleResponse } from 'widgets/errorResponse/SubtitleResponse';
-import { showErrorFromDB } from 'shared/helpers/showErrorFromDB';
-
+import { showErrorFromDB } from 'shared/service/helpers/showErrorFromDB';
+import { ioContainer } from 'api/IoC/ioc';
 
 
 const ModalIncome = () => {
@@ -34,7 +33,7 @@ const ModalIncome = () => {
 
     const onAddIncome = async(dataForm:IFormIncome) =>{
         try {
-            await incomeService.addIncome(dataForm);
+            await ioContainer.incomeService.addIncome(dataForm);
             switchIsModalActiveIncome();
         }
         catch (error) {

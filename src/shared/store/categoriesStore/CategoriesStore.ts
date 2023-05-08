@@ -1,6 +1,6 @@
-import { IFormSpending } from 'features/add-spending/interfaces';
 import { makeAutoObservable } from 'mobx';
 import { ICategoriesStore, ICategorie } from './interfaces';
+import { ISpendingOperation } from '../cashFlowStore/interfaces';
 
 
 
@@ -29,7 +29,8 @@ class CategoriesStore implements ICategoriesStore {
     setCategoriesFromDB(categories: ICategorie[]) {
         this.categories = categories;
     }
-    updateSpendingInCategorie(newSpending: IFormSpending): void {
+    
+    updateSpendingInCategorie(newSpending: ISpendingOperation): void {
         this.categories = this.categories.map((categorie) =>
             categorie.categorie === newSpending.categorie
                 ? {

@@ -1,7 +1,7 @@
 import { IAccumulationOperation, IIncomeOperation, ISpendingOperation } from 'shared/store/cashFlowStore/interfaces';
 import { ICashFlowApi } from './interfaces';
 import * as PATH from './path/index';
-import { checkError } from 'shared/helpers/checkError';
+import { checkError } from 'shared/service/helpers/checkError';
 
 class CashFlowApi implements ICashFlowApi {
     async addIncome(incomeOperation: IIncomeOperation, id: string) {

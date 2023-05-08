@@ -4,17 +4,14 @@ import { IFormAccumulation } from './interfaces';
 import { Input } from 'widgets/inputs/Input';
 import { Button } from 'widgets/modals/ui/button/Button';
 import { CloseIcon } from 'widgets/modals/assets/CloseIcon';
-import { useService } from 'shared/hooks/useService/useService';
 import { IContextMain } from 'pages/main/context/interfaces';
 import { ContextMain } from 'pages/main/context/context';
-import { CASE_USESERVICE_ACCUMULATION } from 'shared/hooks/useService/constans';
 import { CASE_TYPE_NUMBER } from 'widgets/inputs/validation/constans';
 import { TITLE_REGISTOR_ACCUMULATION } from 'widgets/inputs/validation/constans';
 import { ACTIVE_MODAL_STYLE,HIDEN_MODAL_STYLE } from 'widgets/modals/constans';
 import { TITLE_BUTTON_ADD } from 'widgets/modals/ui/button/constans';
-import { accumulationService } from './service/AccumulationService';
 import { IAccumulationModal } from './interfaces';
-
+import { ioContainer } from 'api/IoC/ioc';
 
 
 
@@ -32,7 +29,7 @@ const AccumulationModal = ({ setTextError } : IAccumulationModal ) => {
 
     const onAddAccumulation = async(formAccumulation : IFormAccumulation) => {
         try {
-            await accumulationService.addAccumulation(formAccumulation);
+            await ioContainer.accumulationService.addAccumulation(formAccumulation);
             switchisModalActiveAccumulation();
         }
         catch (error) {

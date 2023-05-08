@@ -4,11 +4,15 @@ export interface IBalanceStore {
   setBalanceFromDB: (sum: number) => void;
 }
 
+export interface IOperation{
+    data:string
+}
 
 export interface IAccumulationOperation {
   accumulation: number;
   date: string;
 }
+
 export interface IAccumulationStore {
   accumulation: number;
   accumulationOperations: IAccumulationOperation[];

@@ -1,6 +1,6 @@
 import { categoriesStore } from 'shared/store/categoriesStore/CategoriesStore';
 import { userStore } from 'shared/store/userStore/UserStore';
-import { validateString } from 'shared/helpers/validateString';
+import { validateString } from 'shared/service/helpers/validateString';
 import { IFormCategorie } from '../interfaces';
 import { ICategoriesService } from './interfaces';
 import { ICategoriesApi } from 'api/interfaces';

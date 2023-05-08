@@ -1,7 +1,7 @@
 import { ITask } from 'shared/store/toDoStore/interfaces';
 import { toDoStore } from 'shared/store/toDoStore/ToDoStore';
 import { userStore } from 'shared/store/userStore/UserStore';
-import { validateString } from 'shared/helpers/validateString';
+import { validateString } from 'shared/service/helpers/validateString';
 import { ITaskForm } from '../interfaces';
 import { ITodoService } from './interfaces';
 import { ITodoApi } from 'api/interfaces';
@@ -14,7 +14,7 @@ class TodoService implements ITodoService {
     constructor(todoApi:ITodoApi) {
         this.todoApi = todoApi;
     }
-    
+
     async addTask( { task } : ITaskForm) {
 
         try {

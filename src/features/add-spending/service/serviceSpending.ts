@@ -2,23 +2,32 @@ import { userStore } from 'shared/store/userStore/UserStore';
 import { spendingStore } from 'shared/store/cashFlowStore/spendingStore/SpendingStore';
 import { categoriesStore } from 'shared/store/categoriesStore/CategoriesStore';
 import { IFormSpending } from '../interfaces';
-import { cashFlowApi } from 'api/CashFlowApi';
 import { ISpendingService } from './interfaces';
 import { operationsStore } from 'shared/store/cashFlowStore/operationsStore/OperationsStore';
-
+import { ISpendingApi } from 'api/SpendingApi';
+import { IFactoryOperation } from 'shared/service/factory/interfaces';
+import { validateString } from 'shared/service/helpers/validateString';
+import { TYPE_OPERATION_SPENDING } from 'shared/service/factory/constants';
 
 
 class SpendingService implements ISpendingService {
 
-    async addSpending( newSpending : IFormSpending, switchShowModal:()=>void) {
-        const createdOperation =  this.createOperation(newSpending.spending, newSpending.categorie);
+    constructor(private spendingService:ISpendingApi,private factoryOperation:IFactoryOperation) {
+        this.spendingService = spendingService;
+        this.factoryOperation = factoryOperation;
+    }
+
+    async addSpending( { spending,categorie } : IFormSpending, switchShowModal:()=>void) {
+
+        const modifytedCategorie = validateString(categorie);
+        const createdOperation =  this.factoryOperation.createOperation(TYPE_OPERATION_SPENDING,spending,modifytedCategorie);
 
         try {
-            await cashFlowApi.addSpending(userStore.user._id, createdOperation);
+            await this.spendingService.addSpending(userStore.user._id, createdOperation);
 
             spendingStore.addSpending(createdOperation);
             operationsStore.addOperation(createdOperation);
-            categoriesStore.updateSpendingInCategorie(newSpending);
+            categoriesStore.updateSpendingInCategorie(createdOperation);
 
         }
         catch (error) {
@@ -30,15 +39,7 @@ class SpendingService implements ISpendingService {
             switchShowModal();
         }
     }
-    createOperation(spending: number, categorie: string) {
-        return {
-            spending  : spending,
-            categorie : categorie,
-            date      : new Date().toLocaleDateString(),
-        };
-    }
-
 }
 
 
-export const spendingService = new SpendingService();
+export default SpendingService;
