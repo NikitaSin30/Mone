@@ -1,6 +1,6 @@
 import { ICategorie } from 'shared/store/categoriesStore/interfaces';
 import { ICategoriesApi, IResponseMessage } from './interfaces';
-
+import { DELETE_CATEGORIE } from './path';
 
 export class CategoriesApi implements ICategoriesApi {
 
@@ -28,6 +28,33 @@ export class CategoriesApi implements ICategoriesApi {
         }
         catch (error) {
             throw new Error();
+        }
+    }
+
+    async deleteCategorie(idCategorie: string, id: string) {
+        try {
+            const response = await fetch(DELETE_CATEGORIE,{
+                method  : 'DELETE',
+                headers : {
+                    'Content-type' : 'application/json',
+                },
+                body : JSON.stringify({
+                    idCategorie,
+                    id,
+                }),
+            });
+
+            if (!response.ok) {
+                const errorMessage = await response.json();
+
+                throw new Error(errorMessage.message);
+            }
+        }
+        catch (error) {
+            if (error instanceof Error) {
+                throw error;
+            }
+            throw new Error('Приносим извенение. Произошла ошибка');
         }
     }
 

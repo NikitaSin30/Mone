@@ -1,7 +1,7 @@
 import { balanceStore } from 'shared/store/cashFlowStore/BalanceStore';
 import { cashFlowApi } from 'api/CashFlowApi';
 import { userStore } from 'shared/store/userStore/UserStore';
-import { accumulationStore } from 'shared/store/cashFlowStore/AccumulationStore';
+import { accumulationStore } from 'shared/store/cashFlowStore/acuumulationStore/AccumulationStore';
 import { IAccumulationOperation } from 'shared/store/cashFlowStore/interfaces';
 import { IAccumulationService } from './interfaces';
 import { IFormAccumulation } from '../interfaces';
@@ -11,8 +11,8 @@ import { operationsStore } from 'shared/store/cashFlowStore/operationsStore/Oper
 
 class AccumulationService implements IAccumulationService {
 
-    async addAccumulation({ accumulation }: IFormAccumulation, showModalError: () => void, switchShowModal: () => void) {
-        if (balanceStore.moneyAccount < accumulation) return showModalError();
+    async addAccumulation({ accumulation }: IFormAccumulation) {
+        if (balanceStore.moneyAccount < accumulation) throw new Error('У вас нет данной суммы на счёте ');
         const createdOperation : IAccumulationOperation = this.createOperation(accumulation);
 
         try {
@@ -23,13 +23,7 @@ class AccumulationService implements IAccumulationService {
 
         }
         catch (error) {
-            if (error instanceof Error) {
-                console.log(error.message);
-            }
-
-        }
-        finally {
-            switchShowModal();
+            throw error;
         }
     }
     createOperation(accumulation : number) {
