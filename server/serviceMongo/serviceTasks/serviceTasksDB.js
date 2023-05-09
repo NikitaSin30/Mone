@@ -1,13 +1,17 @@
 const ApiError = require('../../apiError/ApiError');
 const User = require('../../modelsMongo/User');
-
+const decoratorID = require('../decorator/decoratorID');
 
 
 class ServiceTasksDB {
 
     async addTask(id, task) {
         try {
-            await User.updateOne({ _id: id }, { $push: { tasks: task } });
+            const modifiedTask = decoratorID(task);
+
+            await User.updateOne({ _id: id }, { $push: { tasks: modifiedTask } });
+
+            return modifiedTask;
         }
         catch (error) {
             throw error;
@@ -49,19 +53,13 @@ class ServiceTasksDB {
     async switchIsDone(id, idTask) {
         try {
 
-            // await User.updateOne({
-            //     _id  : id,
-            //     task : idTask,
-            // }, {
-            //     $set : { isDone: true },
-            // } );
             const user = await User.findOne({ _id: id });
             const task = user.tasks.find(item => item.id === idTask);
 
             await User.updateOne(
                 {
                     _id   : id,
-                    tasks : { $elemMatch: { id: idTask } }, 
+                    tasks : { $elemMatch: { id: idTask } },
                 },
                 { $set: { 'tasks.$.isDone': !task.isDone } }
             );

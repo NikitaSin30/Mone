@@ -1,6 +1,6 @@
 const ApiError = require('../apiError/ApiError');
 const User = require('../modelsMongo/User');
-
+const decoratorID = require('./decorator/decoratorID');
 
 class serviceCategoriesDB {
 
@@ -21,8 +21,12 @@ class serviceCategoriesDB {
 
     async addCategorie(id, categorie) {
         try {
+            const modifiedCategorie = decoratorID(categorie);
+
             await this.checkCategorie(id,categorie);
-            await User.updateOne({ _id: id }, { $push: { categories: categorie } });
+            await User.updateOne({ _id: id }, { $push: { categories: modifiedCategorie } });
+
+            return modifiedCategorie;
         }
         catch (error) {
             throw error;

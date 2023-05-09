@@ -5,8 +5,12 @@ class TasksController {
         const { task, id } = req.body;
 
         try {
-            await serviceTasksDB.addTask(id,task);
-            res.json({ message: 'Задача добавлена' });
+            const modifiedTask =  await serviceTasksDB.addTask(id,task);
+
+            res.json({
+                modifiedTask ,
+                message : 'Задача добавлена', 
+            });
         }
         catch (error) {
             next(error);

@@ -6,9 +6,12 @@ class CashFlowController {
         const { incomeOperation, id } = req.body;
 
         try {
-            await ServiceCashDB.addIncome(incomeOperation,id);
+            const modifiedIncomeOperation  = await ServiceCashDB.addIncome(incomeOperation,id);
 
-            res.json({ message: 'Доход добавлен' });
+            res.json({
+                modifiedIncomeOperation ,
+                message : 'Доход добавлен',
+            });
         }
         catch (error) {
             next(error);
@@ -19,9 +22,12 @@ class CashFlowController {
         const { id, spendingOperation } = req.body;
 
         try {
-            await ServiceCashDB.addSpending(spendingOperation,id);
+            const modifiedSpendingOperation = await ServiceCashDB.addSpending(spendingOperation,id);
 
-            res.json({ message: 'Расход добавлен' });
+            res.json({
+                modifiedSpendingOperation,
+                message : 'Расход добавлен',
+            });
         }
         catch (error) {
             next(error);
@@ -31,9 +37,12 @@ class CashFlowController {
         const { accumulationOperation,id } = req.body;
 
         try {
-            await ServiceCashDB.addAccumulation(accumulationOperation,id);
+            const modifiedAccumulationOperation =  await ServiceCashDB.addAccumulation(accumulationOperation,id);
 
-            res.json({ message: 'Накопление добавлено' });
+            res.json({
+                modifiedAccumulationOperation,
+                message : 'Накопление добавлено',
+            });
         }
         catch (error) {
             next(error);
