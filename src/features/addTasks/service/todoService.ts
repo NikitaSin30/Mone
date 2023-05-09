@@ -1,10 +1,9 @@
-import { ITask } from 'shared/store/toDoStore/interfaces';
 import { toDoStore } from 'shared/store/toDoStore/ToDoStore';
 import { userStore } from 'shared/store/userStore/UserStore';
 import { validateString } from 'shared/service/helpers/validateString';
 import { ITaskForm } from '../interfaces';
 import { ITodoService } from './interfaces';
-import { ITodoApi } from 'api/interfaces';
+import { ITodoApi } from 'api/todoApi/interfaces';
 
 
 
@@ -24,8 +23,9 @@ class TodoService implements ITodoService {
 
             const createdTask = this.createTask(taskValidaited);
 
-            await this.todoApi.addTask(createdTask,userStore.user._id);
-            toDoStore.addTask(createdTask);
+            const { taskWithID } = await this.todoApi.addTask(createdTask,userStore.user._id);
+
+            toDoStore.addTask(taskWithID);
         }
         catch (error) {
             throw error;
@@ -72,10 +72,9 @@ class TodoService implements ITodoService {
         }
     }
 
-    private createTask( validatedTask : string):ITask {
+    private createTask( validatedTask : string) {
         return {
             task   : validatedTask,
-            id     : validatedTask,
             isDone : false,
         };
     }

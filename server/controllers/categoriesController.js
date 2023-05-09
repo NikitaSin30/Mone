@@ -6,11 +6,11 @@ class CategoriesController {
         const { categorie, id } = req.body;
 
         try {
-            const modifiedCategorie = await serviceCategoriesDB.addCategorie(id,categorie);
+            const categorieWithID = await serviceCategoriesDB.addCategorie(id,categorie);
 
             res.json({
-                modifiedCategorie,
-                message : 'Категория добавлена', 
+                categorieWithID,
+                message : 'Категория добавлена',
             });
         }
         catch (error) {

@@ -1,6 +1,8 @@
-import { ICategorie } from 'shared/store/categoriesStore/interfaces';
-import { ICategoriesApi, IResponseMessage } from './interfaces';
-import { DELETE_CATEGORIE } from './path';
+import { ICategorie } from 'features/add-categories/service/interfaces';
+import { ICategoriesApi } from './interfaces';
+import { DELETE_CATEGORIE } from '../path';
+
+
 
 export class CategoriesApi implements ICategoriesApi {
 
@@ -22,9 +24,8 @@ export class CategoriesApi implements ICategoriesApi {
                 throw new Error('');
             }
 
-            const result : IResponseMessage = await response.json();
+            return await response.json();
 
-            return result;
         }
         catch (error) {
             throw new Error();

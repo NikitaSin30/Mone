@@ -21,12 +21,12 @@ class serviceCategoriesDB {
 
     async addCategorie(id, categorie) {
         try {
-            const modifiedCategorie = decoratorID(categorie);
+            const categorieWithID = decoratorID(categorie);
 
             await this.checkCategorie(id,categorie);
-            await User.updateOne({ _id: id }, { $push: { categories: modifiedCategorie } });
+            await User.updateOne({ _id: id }, { $push: { categories: categorieWithID } });
 
-            return modifiedCategorie;
+            return categorieWithID;
         }
         catch (error) {
             throw error;

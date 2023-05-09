@@ -1,14 +1,12 @@
-
-import { ITaskForm } from 'features/addTasks/interfaces';
-import { ITask } from 'shared/store/toDoStore/interfaces';
+import { ITask } from 'features/addTasks/service/interfaces';
 import { ITodoApi } from './interfaces';
-import { DELETE_TASK, DELETE_ALL_TASKS, SWITCH_IS_DONE } from './path/index';
+import { DELETE_TASK, DELETE_ALL_TASKS, SWITCH_IS_DONE } from '../path/index';
 
 
 
 class TodoApi implements ITodoApi {
 
-    async addTask(task: ITaskForm, id: string) {
+    async addTask(task: ITask, id: string) {
 
         try {
             const response = await fetch('/tasks/addtask', {
@@ -27,6 +25,8 @@ class TodoApi implements ITodoApi {
 
                 throw new Error(error.message);
             }
+
+            return await response.json();
 
         }
         catch (error) {

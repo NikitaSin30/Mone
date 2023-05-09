@@ -7,11 +7,11 @@ class ServiceTasksDB {
 
     async addTask(id, task) {
         try {
-            const modifiedTask = decoratorID(task);
+            const taskWithID = decoratorID(task);
 
-            await User.updateOne({ _id: id }, { $push: { tasks: modifiedTask } });
+            await User.updateOne({ _id: id }, { $push: { tasks: taskWithID } });
 
-            return modifiedTask;
+            return taskWithID;
         }
         catch (error) {
             throw error;

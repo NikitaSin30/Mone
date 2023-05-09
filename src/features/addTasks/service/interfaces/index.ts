@@ -1,6 +1,12 @@
-import { ITaskForm } from 'features/addTasks/interfaces';
-import { ITask } from 'shared/store/toDoStore/interfaces';
 
+import { ITaskForm } from 'features/addTasks/interfaces';
+
+
+
+export interface ITask {
+  task: string;
+  isDone: boolean;
+}
 
 export interface ITodoService {
     addTask: (task: ITaskForm) => Promise<void>;

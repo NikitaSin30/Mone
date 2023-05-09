@@ -3,8 +3,8 @@ import { userStore } from 'shared/store/userStore/UserStore';
 import { validateString } from 'shared/service/helpers/validateString';
 import { IFormCategorie } from '../interfaces';
 import { ICategoriesService } from './interfaces';
-import { ICategoriesApi } from 'api/interfaces';
-import { IFactoryOperation } from 'shared/service/factory/interfaces';
+import { ICategoriesApi } from 'api/categoriesApi/interfaces';
+
 
 
 class CategoriesService implements ICategoriesService {
@@ -21,10 +21,11 @@ class CategoriesService implements ICategoriesService {
 
             this.checkStoreHasCategorie(categorieValidated);
 
-            const newCategorie = this.createCategorie(categorieValidated);
+            const modifiedCategorie = this.createCategorie(categorieValidated);
 
-            await this.categoriesApi.addCategorie(newCategorie,userStore.user._id);
-            categoriesStore.addCatigorie(newCategorie);
+            const { categorieWithID } = await this.categoriesApi.addCategorie(modifiedCategorie,userStore.user._id);
+
+            categoriesStore.addCatigorie(categorieWithID);
 
         }
         catch (error) {
@@ -61,7 +62,6 @@ class CategoriesService implements ICategoriesService {
 
         return {
             categorie : categorie,
-            id        : categorie,
             spending  : 0,
         };
     }

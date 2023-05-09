@@ -5,10 +5,10 @@ class TasksController {
         const { task, id } = req.body;
 
         try {
-            const modifiedTask =  await serviceTasksDB.addTask(id,task);
+            const taskWithID =  await serviceTasksDB.addTask(id,task);
 
             res.json({
-                modifiedTask ,
+                taskWithID ,
                 message : 'Задача добавлена',
             });
         }
@@ -32,7 +32,7 @@ class TasksController {
     async deleteAllTasks(req,res,next) {
         const { id } = req.body;
 
-        
+
         try {
             await serviceTasksDB.deleteAllTasks(id);
             res.json({ message: 'Все задачи удалены' });

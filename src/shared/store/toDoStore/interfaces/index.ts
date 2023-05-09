@@ -1,15 +1,15 @@
-export interface ITask {
-  task: string;
-  id: string;
-  isDone: boolean;
+import { ITask } from 'features/addTasks/service/interfaces';
+
+
+export interface ITaskWithID extends ITask {
+  id:string
 }
 
 export interface ITodoStore {
-  tasks: ITask[];
-  addTask: (task: ITask) => void;
+  tasks: ITaskWithID[];
+  addTask: (task: ITaskWithID) => void;
   deleteTask: (id: string) => void;
   deleteAllTasks: () => void;
-  getTask: (id: string) => ITask | void;
-  setTasksFromdDB: (tasks: ITask[]) => void;
+  setTasksFromdDB: (tasks: ITaskWithID[]) => void;
   switchIsDoneTask:(id:string) => void
 }

@@ -97,7 +97,4 @@ class AuthService implements IAuthService {
     }
 }
 
-
-// export const authService = new AuthService();
-
 export default AuthService;

@@ -1,16 +1,16 @@
 import { makeAutoObservable } from 'mobx';
-import { ICategoriesStore, ICategorie } from './interfaces';
+import { ICategoriesStore, ICategorieWithID } from './interfaces';
 import { ISpendingOperationWithID } from '../cashFlowStore/spendingStore/interfaces';
 
 
 
 class CategoriesStore implements ICategoriesStore {
-    categories: ICategorie[] = [];
-    
+    categories: ICategorieWithID[] = [];
+
     constructor() {
         makeAutoObservable(this);
     }
-    addCatigorie(categorie: ICategorie): void {
+    addCatigorie(categorie: ICategorieWithID): void {
         this.categories.push(categorie);
     }
     deleteCategorie(id: string): void {
@@ -27,7 +27,7 @@ class CategoriesStore implements ICategoriesStore {
         return categorie ;
     }
 
-    setCategoriesFromDB(categories: ICategorie[]) {
+    setCategoriesFromDB(categories: ICategorieWithID[]) {
         this.categories = categories;
     }
 
