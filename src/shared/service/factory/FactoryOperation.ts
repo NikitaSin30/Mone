@@ -1,7 +1,9 @@
-import { IIncomeOperation } from 'shared/store/cashFlowStore/interfaces';
-import { ISpendingOperation } from 'shared/store/cashFlowStore/interfaces';
-import { IAccumulationOperation } from 'shared/store/cashFlowStore/interfaces';
+import { IIncomeOperation } from 'features/add-income/service/interfaces';
+import { ISpendingOperation } from 'features/add-spending/service/interfaces';
+import { IAccumulationOperation } from 'features/add-accumulation/service/interfaces';
 import { TYPE_OPERATION_SPENDING,TYPE_OPERATION_ACCUMULATION,TYPE_OPERATION_INCOME } from './constants';
+
+
 
 
 class IncomeOperation implements IIncomeOperation {
@@ -17,6 +19,7 @@ class IncomeOperation implements IIncomeOperation {
 
 }
 
+
 class SpendingOperation implements ISpendingOperation {
     spending: number;
     categorie: string;
@@ -27,6 +30,7 @@ class SpendingOperation implements ISpendingOperation {
         this.date   = new Date().toLocaleDateString();
     }
 }
+
 
 class AccumulationOperation implements IAccumulationOperation {
     accumulation: number;

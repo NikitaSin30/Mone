@@ -11,14 +11,14 @@ class ServiceCashDB {
             const { income, balance } = await User.findById(id);
             const newBallance = balance + incomeOperation.income;
             const newSpendingBalance = income + incomeOperation.income;
-            const modifiedIncomeOperation = decoratorID(incomeOperation);
+            const incomeOperationWithID = decoratorID(incomeOperation);
 
             await this.DB.updateOne({ _id: id }, { $set: { income: newSpendingBalance } });
             await this.DB.updateOne({ _id: id }, { $set: { balance: newBallance } });
-            await this.DB.updateOne({ _id: id }, { $push: { incomeOperations: modifiedIncomeOperation } });
-            await this.DB.updateOne({ _id: id }, { $push: { allOperations: modifiedIncomeOperation } });
+            await this.DB.updateOne({ _id: id }, { $push: { incomeOperations: incomeOperationWithID } });
+            await this.DB.updateOne({ _id: id }, { $push: { allOperations: incomeOperationWithID } });
 
-            return modifiedIncomeOperation;
+            return incomeOperationWithID;
         }
         catch (error) {
             throw error;
@@ -30,15 +30,15 @@ class ServiceCashDB {
             const { accumulation,balance } = await User.findById(id);
             const newBallance = balance - accumulationOperation.accumulation;
             const newAccumulation = accumulation + accumulationOperation.accumulation;
-            const modifiedAccumulationOperation = decoratorID(accumulationOperation);
+            const accumulationOperationWithID = decoratorID(accumulationOperation);
 
 
             await this.DB.updateOne({ _id: id }, { $set: { accumulation: newAccumulation } });
             await this.DB.updateOne({ _id: id }, { $set: { balance: newBallance } });
-            await this.DB.updateOne({ _id: id }, { $push: { accumulationOperations: modifiedAccumulationOperation } });
-            await this.DB.updateOne({ _id: id }, { $push: { allOperations: modifiedAccumulationOperation } });
+            await this.DB.updateOne({ _id: id }, { $push: { accumulationOperations: accumulationOperationWithID } });
+            await this.DB.updateOne({ _id: id }, { $push: { allOperations: accumulationOperationWithID } });
 
-            return modifiedAccumulationOperation;
+            return accumulationOperationWithID;
         }
         catch (error) {
             throw error;
@@ -50,15 +50,15 @@ class ServiceCashDB {
             const { spending, balance } = await User.findById(id);
             const newBalance = balance - spendingOperation.spending;
             const newSpendingBalance = spending + spendingOperation.spending;
-            const modifiedSpendingOperation = decoratorID(spendingOperation);
+            const spendingOperationWithID = decoratorID(spendingOperation);
 
 
             await this.DB.updateOne({ _id: id }, { $set: { spending: newSpendingBalance } });
             await this.DB.updateOne({ _id: id }, { $set: { balance: newBalance } });
-            await this.DB.updateOne({ _id: id }, { $push: { spendingOperations: modifiedSpendingOperation } });
-            await this.DB.updateOne({ _id: id }, { $push: { allOperations: modifiedSpendingOperation } });
+            await this.DB.updateOne({ _id: id }, { $push: { spendingOperations: spendingOperationWithID } });
+            await this.DB.updateOne({ _id: id }, { $push: { allOperations: spendingOperationWithID } });
 
-            return modifiedSpendingOperation;
+            return spendingOperationWithID;
         }
         catch (error) {
             throw error;

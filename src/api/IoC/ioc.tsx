@@ -11,12 +11,12 @@ import { IServiceIncome } from 'features/add-income/service/interfaces';
 import { IAccumulationService } from 'features/add-accumulation/service/interfaces';
 import { ISpendingService } from 'features/add-spending/service/interfaces';
 import IncomeService from 'features/add-income/service/incomeService';
-import IncomeApi from 'api/IncomeApi';
+import IncomeApi from 'api/incomeApi/IncomeApi';
 import FactoryOperation from 'shared/service/factory/FactoryOperation';
 import SpendingService from 'features/add-spending/service/serviceSpending';
-import SpendingApi from 'api/SpendingApi';
+import SpendingApi from 'api/spendingApi/SpendingApi';
 import AccumulationService from 'features/add-accumulation/service/AccumulationService';
-import AccumulationApi from 'api/AccumulationApi';
+import AccumulationApi from 'api/accumulationApi/AccumulationApi';
 import { IIoContainer } from './interface';
 
 

@@ -1,11 +1,8 @@
-import { ISpendingOperation } from 'shared/store/cashFlowStore/interfaces';
-import { ADD_SPENDING } from './path';
+import { ISpendingOperation } from 'features/add-spending/service/interfaces';
+import { ADD_SPENDING } from '../path';
+import { ISpendingApi } from './interfaces';
 
 
-
-export interface ISpendingApi {
-    addSpending:(id: string, spendingOperation: ISpendingOperation) => Promise<void>
-}
 
 class SpendingApi implements ISpendingApi {
     async addSpending(id: string, spendingOperation: ISpendingOperation) {
@@ -27,9 +24,9 @@ class SpendingApi implements ISpendingApi {
 
                 throw new Error(error.message);
             }
-            const result = response.json();
+            
+            return await response.json();
 
-            return result;
 
         }
         catch (error) {

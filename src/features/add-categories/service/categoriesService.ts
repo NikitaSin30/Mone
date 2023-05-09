@@ -4,6 +4,7 @@ import { validateString } from 'shared/service/helpers/validateString';
 import { IFormCategorie } from '../interfaces';
 import { ICategoriesService } from './interfaces';
 import { ICategoriesApi } from 'api/interfaces';
+import { IFactoryOperation } from 'shared/service/factory/interfaces';
 
 
 class CategoriesService implements ICategoriesService {

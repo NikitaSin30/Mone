@@ -1,10 +1,9 @@
-import { IAccumulationOperation } from 'shared/store/cashFlowStore/interfaces';
-import { ADD_ACCUMULATION } from './path';
+import { IAccumulationOperation } from 'features/add-accumulation/service/interfaces';
+import { ADD_ACCUMULATION } from '../path';
 import { checkError } from 'shared/service/helpers/checkError';
+import { IAccumulationApi } from './interfaces';
 
-export interface IAccumulationApi{
-    addAccumulation:(id: string, accumulationOperation: IAccumulationOperation) => Promise<void>
-}
+
 
 class AccumulationApi implements IAccumulationApi {
     async addAccumulation(id: string, accumulationOperation: IAccumulationOperation) {

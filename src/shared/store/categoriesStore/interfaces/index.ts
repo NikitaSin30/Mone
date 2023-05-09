@@ -1,4 +1,4 @@
-import { ISpendingOperation } from 'shared/store/cashFlowStore/interfaces';
+import { ISpendingOperationWithID } from 'shared/store/cashFlowStore/spendingStore/interfaces';
 
 export interface ICategorie {
   categorie: string;
@@ -11,5 +11,5 @@ export interface ICategoriesStore {
   addCatigorie: (categorie: ICategorie) => void;
   deleteCategorie: (id: string) => void;
   setCategoriesFromDB:(categories: ICategorie[]) => void
-  updateSpendingInCategorie:(newSpending: ISpendingOperation)=> void
+  updateSpendingInCategorie:(newSpending: ISpendingOperationWithID)=> void
 }

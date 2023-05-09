@@ -1,14 +1,17 @@
-import { ISpendingOperation, ISpendingStore } from '../interfaces';
-import { SpendingStore } from './SpendingStore';
-import { balanceStore } from '../BalanceStore';
+import { ISpendingStore } from '../interfaces';
+import { ISpendingOperationWithID } from '../interfaces';
+import { SpendingStore } from '../SpendingStore';
+import { balanceStore } from '../../balanceStore/BalanceStore';
+
 
 
 describe('Class SpendingStore',() => {
 
-    const spendingOperations : ISpendingOperation = {
+    const spendingOperations : ISpendingOperationWithID = {
         spending  : 100,
         categorie : 'Медицина',
         date      : new Date().toLocaleDateString(),
+        id        : '123',
     };
 
     const spending = 100;

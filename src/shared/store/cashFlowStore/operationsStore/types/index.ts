@@ -1,3 +1,6 @@
-import { IAccumulationOperation, IIncomeOperation, ISpendingOperation } from '../../interfaces';
+import { IIncomeOperationWithID } from '../../incomeStore/interfaces';
+import { IAccumulationOperationWithID } from '../../acuumulationStore/interfaces';
+import { ISpendingOperationWithID } from '../../spendingStore/interfaces';
 
-export type TAllOperations = IAccumulationOperation | ISpendingOperation | IIncomeOperation
+
+export type TAllOperations = IAccumulationOperationWithID | ISpendingOperationWithID | IIncomeOperationWithID

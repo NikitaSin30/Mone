@@ -5,7 +5,7 @@ import { IAuthService } from './interfaces';
 import { accumulationStore } from 'shared/store/cashFlowStore/acuumulationStore/AccumulationStore';
 import { incomeStore } from 'shared/store/cashFlowStore/incomeStore/IncomeStore';
 import { spendingStore } from 'shared/store/cashFlowStore/spendingStore/SpendingStore';
-import { balanceStore } from 'shared/store/cashFlowStore/BalanceStore';
+import { balanceStore } from 'shared/store/cashFlowStore/balanceStore/BalanceStore';
 import { categoriesStore } from 'shared/store/categoriesStore/CategoriesStore';
 import { IAuthApi, IDataUserFromDB } from 'api/interfaces';
 import { getToken } from './helpers/getToken';

@@ -1,15 +1,16 @@
 import { IncomeStore } from '../IncomeStore';
-import { IIncomeOperation, IIncomeStore } from '../../interfaces';
-import { balanceStore } from '../../BalanceStore';
+import { IIncomeOperationWithID,IIncomeStore } from '../interfaces';
+import { balanceStore } from '../../balanceStore/BalanceStore';
 
 
 
 describe('class IncomeStore', ()=>{
 
-    const incomeOperation: IIncomeOperation  = {
+    const incomeOperation: IIncomeOperationWithID  = {
         income : 100,
         sphere : 'IT',
         date   : new Date().toLocaleDateString(),
+        id     : '312',
     };
 
     const income = 100;

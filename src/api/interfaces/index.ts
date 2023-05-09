@@ -1,9 +1,14 @@
-import { IAccumulationOperation, IIncomeOperation, ISpendingOperation } from '../../shared/store/cashFlowStore/interfaces';
+import { ISpendingOperation } from 'features/add-spending/service/interfaces';
+import { IAccumulationOperation } from 'features/add-accumulation/service/interfaces';
+import { IAccumulationOperationWithID } from 'shared/store/cashFlowStore/acuumulationStore/interfaces';
+import { IIncomeOperationWithID } from 'shared/store/cashFlowStore/incomeStore/interfaces';
+import { IIncomeOperation } from 'features/add-income/service/interfaces';
 import { ICategorie } from 'shared/store/categoriesStore/interfaces';
 import { ITask } from 'shared/store/toDoStore/interfaces';
 import { IFormAuth } from '../../features/auth/interfaces';
 import { ITaskForm } from 'features/addTasks/interfaces';
 import { TAllOperations } from 'shared/store/cashFlowStore/operationsStore/types';
+import { ISpendingOperationWithID } from 'shared/store/cashFlowStore/spendingStore/interfaces';
 
 
 export interface IResponseMessage {message:string}
@@ -16,11 +21,11 @@ export interface IDataUserFromDB {
  _id : string,
  balance : number,
  income : number,
- incomeOperations : IIncomeOperation[],
+ incomeOperations : IIncomeOperationWithID[],
  spending : number,
- spendingOperations : ISpendingOperation[],
+ spendingOperations : ISpendingOperationWithID[],
  accumulation : number,
- accumulationOperations : IAccumulationOperation[],
+ accumulationOperations : IAccumulationOperationWithID[],
  allOperations: TAllOperations[]
  categories : ICategorie[],
  tasks : ITask[],

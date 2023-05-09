@@ -1,10 +1,10 @@
-import { balanceStore } from 'shared/store/cashFlowStore/BalanceStore';
+import { balanceStore } from 'shared/store/cashFlowStore/balanceStore/BalanceStore';
 import { userStore } from 'shared/store/userStore/UserStore';
 import { accumulationStore } from 'shared/store/cashFlowStore/acuumulationStore/AccumulationStore';
 import { IAccumulationService } from './interfaces';
 import { IFormAccumulation } from '../interfaces';
 import { operationsStore } from 'shared/store/cashFlowStore/operationsStore/OperationsStore';
-import { IAccumulationApi } from 'api/AccumulationApi';
+import { IAccumulationApi } from 'api/accumulationApi/interfaces';
 import { IFactoryOperation } from 'shared/service/factory/interfaces';
 import { TYPE_OPERATION_ACCUMULATION } from 'shared/service/factory/constants';
 
@@ -22,10 +22,10 @@ class AccumulationService implements IAccumulationService {
         const createdOperation  = this.factoryOperation.createOperation(TYPE_OPERATION_ACCUMULATION,accumulation);
 
         try {
-            await this.accumulutionApi.addAccumulation(userStore.user._id, createdOperation);
+            const { accumulationOperationWithID } =  await this.accumulutionApi.addAccumulation(userStore.user._id, createdOperation);
 
-            accumulationStore.addAccumulation(createdOperation);
-            operationsStore.addOperation(createdOperation);
+            accumulationStore.addAccumulation(accumulationOperationWithID);
+            operationsStore.addOperation(accumulationOperationWithID);
 
         }
         catch (error) {

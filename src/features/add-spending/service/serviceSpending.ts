@@ -4,7 +4,7 @@ import { categoriesStore } from 'shared/store/categoriesStore/CategoriesStore';
 import { IFormSpending } from '../interfaces';
 import { ISpendingService } from './interfaces';
 import { operationsStore } from 'shared/store/cashFlowStore/operationsStore/OperationsStore';
-import { ISpendingApi } from 'api/SpendingApi';
+import { ISpendingApi } from 'api/spendingApi/interfaces';
 import { IFactoryOperation } from 'shared/service/factory/interfaces';
 import { validateString } from 'shared/service/helpers/validateString';
 import { TYPE_OPERATION_SPENDING } from 'shared/service/factory/constants';
@@ -23,11 +23,11 @@ class SpendingService implements ISpendingService {
         const createdOperation =  this.factoryOperation.createOperation(TYPE_OPERATION_SPENDING,spending,modifytedCategorie);
 
         try {
-            await this.spendingService.addSpending(userStore.user._id, createdOperation);
+            const { spendingOperationWithID } = await this.spendingService.addSpending(userStore.user._id, createdOperation);
 
-            spendingStore.addSpending(createdOperation);
-            operationsStore.addOperation(createdOperation);
-            categoriesStore.updateSpendingInCategorie(createdOperation);
+            spendingStore.addSpending(spendingOperationWithID);
+            operationsStore.addOperation(spendingOperationWithID);
+            categoriesStore.updateSpendingInCategorie(spendingOperationWithID);
 
         }
         catch (error) {
