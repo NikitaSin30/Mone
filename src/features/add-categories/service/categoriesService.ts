@@ -2,7 +2,7 @@ import { categoriesApi } from 'api/CategoriesApi';
 import { categoriesStore } from 'shared/store/categoriesStore/CategoriesStore';
 import { userStore } from 'shared/store/userStore/UserStore';
 import { ICategorie } from 'shared/store/categoriesStore/interfaces';
-import { validateString } from 'shared/mappers/validateString';
+import { validateString } from 'shared/helpers/validateString';
 import { IFormCategorie } from '../interfaces';
 import { ICategoriesService } from './interfaces';
 
@@ -32,14 +32,14 @@ class CategoriesService implements ICategoriesService {
     }
 
 
-    async deleteCategorie(id: string) {
+    async deleteCategorie(idCategorie: string) {
         try {
-
-
+            await categoriesApi.deleteCategorie(idCategorie,userStore.user._id);
+            categoriesStore.deleteCategorie(idCategorie);
 
         }
         catch (error) {
-            return new Error();
+            throw error;
         }
     }
 

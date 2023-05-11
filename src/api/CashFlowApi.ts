@@ -1,7 +1,7 @@
 import { IAccumulationOperation, IIncomeOperation, ISpendingOperation } from 'shared/store/cashFlowStore/interfaces';
 import { ICashFlowApi } from './interfaces';
 import * as PATH from './path/index';
-
+import { checkError } from 'shared/helpers/checkError';
 
 class CashFlowApi implements ICashFlowApi {
     async addIncome(incomeOperation: IIncomeOperation, id: string) {
@@ -23,12 +23,12 @@ class CashFlowApi implements ICashFlowApi {
                 throw new Error(error.message);
             }
 
-            const result = response.json();
-
-            return result;
         }
         catch (error) {
-            throw error;
+            if (error instanceof Error) {
+                throw error;
+            }
+            throw new Error('Произошла ошибка');
         }
     }
 
@@ -51,12 +51,12 @@ class CashFlowApi implements ICashFlowApi {
 
                 throw new Error(error.message);
             }
-            const result = await response.json();
 
-            return result;
+            return await response.json();
+
         }
         catch (error) {
-            throw error;
+            throw checkError(error);
         }
     }
 

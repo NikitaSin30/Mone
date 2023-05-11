@@ -27,12 +27,6 @@ export const useService = (
         try {
             switch (caseLabel) {
 
-                case CASE.CASE_USESERVICE_INCOME:
-                    await incomeService.addIncome(formData as IFormIncome, switchISModal!);
-                    break;
-                case CASE.CASE_USESERVICE_ACCUMULATION:
-                    await accumulationService.addAccumulation(formData as IFormAccumulation,switchIsModalErr!,switchISModal!);
-                    break;
                 case CASE.CASE_USESERVICE_CATEGORIE:
                     categoriesService.addCategorie(formData as IFormCategorie,switchIsModalErr!,switchISModal!);
                     break;
