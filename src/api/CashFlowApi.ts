@@ -81,10 +81,7 @@ class CashFlowApi implements ICashFlowApi {
             }
         }
         catch (error) {
-            if (error instanceof Error) {
-                throw error;
-            }
-            throw new Error('Приносим извенение. Произошла ошибка');
+            throw error;
         }
     }
 }

@@ -1,4 +1,4 @@
 export interface ISubtitleResponse {
-    isStatusResponse:boolean,
+    isErrorVisible:boolean,
     messageFromDB:string
 }

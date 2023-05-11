@@ -18,7 +18,7 @@ class CategoriesService implements ICategoriesService {
 
             const newCategorie = this.createCategorie(categorieValidated);
 
-            await categoriesApi.addCategorie(newCategorie,userStore.user._id);
+            await categoriesApi.addCategorie(newCategorie,userStore.idUser);
             categoriesStore.addCatigorie(newCategorie);
 
         }

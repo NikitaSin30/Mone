@@ -2,11 +2,11 @@
 import { ISubtitleResponse } from './interfaces';
 
 
-export const SubtitleResponse = ({ messageFromDB,isStatusResponse }:ISubtitleResponse) => {
+export const SubtitleResponse = ({ messageFromDB,isErrorVisible }:ISubtitleResponse) => {
 
     return (
         <>
-            {isStatusResponse && <span className='text-red-600 '>{messageFromDB}</span>}
+            {isErrorVisible && <span className='text-red-600 '>{messageFromDB}</span>}
         </>
     );
 };

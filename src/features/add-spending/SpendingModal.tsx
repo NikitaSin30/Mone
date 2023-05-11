@@ -6,10 +6,8 @@ import { Input } from 'widgets/inputs/Input';
 import { Button } from 'widgets/modals/ui/button/Button';
 import { CloseIcon } from 'widgets/modals/assets/CloseIcon';
 import { useToggle } from 'shared/hooks/useToggle/useToggle';
-import { useService } from 'shared/hooks/useService/useService';
 import { IContextMain } from 'pages/main/context/interfaces';
 import { ContextMain } from 'pages/main/context/context';
-import { CASE_USESERVICE_SPENDING } from 'shared/hooks/useService/constans';
 import { CASE_TYPE_NUMBER, CASE_TYPE_SELECT } from 'widgets/inputs/validation/constans';
 import { TITLE_REGISTOR_SPENDING, TITLE_REGISTOR_CATEGORIE } from 'widgets/inputs/validation/constans';
 import { TITLE_LABEL_SELECT } from 'widgets/inputs/label/constans';
@@ -37,7 +35,6 @@ const SpendingModal = () => {
         formState: { errors,isValid },
     } = useForm<IFormSpending>({ mode: 'onBlur' });
 
-    // const onAddSpending = useService(reset, CASE_USESERVICE_SPENDING, switchIsModalActiveSpending, undefined, setValueSelect);
 
     const onAddSpending = async(dataForm:IFormSpending) => {
         try {
@@ -48,7 +45,7 @@ const SpendingModal = () => {
             if (error instanceof Error) {
                 setErrorMessageFromDB(error.message);
                 setIsError();
-                
+
                 setTimeout(()=>{
                     setErrorMessageFromDB('');
                     setIsError();
@@ -78,7 +75,7 @@ const SpendingModal = () => {
                     <div onClick={switchIsModalActiveSpending} className="rounded-full  w-6 h-6 self-end  hover:scale-110">
                         {CloseIcon}
                     </div>
-                    <SubtitleResponse messageFromDB={errorMessageFromDB} isStatusResponse={isError}/>
+                    <SubtitleResponse messageFromDB={errorMessageFromDB} isErrorVisible={isError}/>
                     <span className="text-xl font-bold text-center">Добавить трату</span>
                     <div className="flex justify-between">
                         <span>Категория трат</span>

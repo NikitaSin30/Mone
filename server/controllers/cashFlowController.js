@@ -20,7 +20,6 @@ class CashFlowController {
 
         try {
             await ServiceCashDB.addSpending(spendingOperation,id);
-            res.status(400).json({ message: 'пиздец' });
 
             res.json({ message: 'Расход добавлен' });
         }
