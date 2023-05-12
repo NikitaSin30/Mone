@@ -6,13 +6,9 @@ import { IFormCategorie } from 'features/add-categories/interfaces';
 import { categoriesService } from 'features/add-categories/service/categoriesService';
 import { IFormIncome } from 'features/add-income/interfaces';
 import { incomeService } from 'features/add-income/service/incomeService';
-import { IFormSpending } from 'features/add-spending/interfaces';
-import { spendingService } from 'features/add-spending/service/serviceSpending';
 import { ITaskForm } from 'features/addTasks/interfaces';
 import { todoService } from 'features/addTasks/service/todoService';
-import { IFormAuth } from 'features/auth/interfaces';
-import { authService } from 'features/auth/service/serviceAuth';
-import { Navigate } from 'react-router';
+
 
 
 
@@ -31,15 +27,6 @@ export const useService = (
         try {
             switch (caseLabel) {
 
-                case CASE.CASE_USESERVICE_INCOME:
-                    await incomeService.addIncome(formData as IFormIncome, switchISModal!);
-                    break;
-                case CASE.CASE_USESERVICE_ACCUMULATION:
-                    await accumulationService.addAccumulation(formData as IFormAccumulation,switchIsModalErr!,switchISModal!);
-                    break;
-                case CASE.CASE_USESERVICE_SPENDING:
-                    await spendingService.addSpending(formData as IFormSpending,switchISModal!);
-                    break;
                 case CASE.CASE_USESERVICE_CATEGORIE:
                     categoriesService.addCategorie(formData as IFormCategorie,switchIsModalErr!,switchISModal!);
                     break;
