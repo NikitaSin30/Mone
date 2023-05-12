@@ -2,9 +2,9 @@ import { authAPI } from 'api/AuthApi';
 import { userStore } from '../../../shared/store/userStore/UserStore';
 import { IFormAuth } from '../interfaces';
 import { IAuthService } from './interfaces';
-import { accumulationStore } from 'shared/store/cashFlowStore/AccumulationStore';
+import { accumulationStore } from 'shared/store/cashFlowStore/acuumulationStore/AccumulationStore';
 import { incomeStore } from 'shared/store/cashFlowStore/incomeStore/IncomeStore';
-import { spendingStore } from 'shared/store/cashFlowStore/SpendingStore';
+import { spendingStore } from 'shared/store/cashFlowStore/spendingStore/SpendingStore';
 import { balanceStore } from 'shared/store/cashFlowStore/BalanceStore';
 import { categoriesStore } from 'shared/store/categoriesStore/CategoriesStore';
 import { IDataFromDB, IDataUserFromDB, IResponseMessage } from 'api/interfaces';
@@ -16,7 +16,7 @@ class AuthService implements IAuthService {
 
     async login(dataLogin:IFormAuth) {
         try {
-            const { user,token } = await authAPI.login<IDataFromDB>(dataLogin);
+            const { user,token } = await authAPI.login(dataLogin);
 
             this.setDataFromDB(user);
             window.localStorage.setItem('wallet' , JSON.stringify(token));
@@ -30,7 +30,7 @@ class AuthService implements IAuthService {
 
     async registration(user: IFormAuth) {
         try {
-            const response  = await authAPI.registration<IResponseMessage>(user);
+            const response  = await authAPI.registration(user);
 
             return response;
         }
@@ -43,7 +43,7 @@ class AuthService implements IAuthService {
     async authenticate() {
         try {
             const tokenStorage = getToken();
-            const { user,token } = await authAPI.authenticate<IDataFromDB>(tokenStorage);
+            const { user,token } = await authAPI.authenticate(tokenStorage);
 
             this.setDataFromDB(user);
 

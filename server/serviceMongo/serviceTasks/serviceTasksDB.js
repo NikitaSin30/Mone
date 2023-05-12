@@ -18,10 +18,10 @@ class ServiceTasksDB {
 
         try {
             const user = await User.findOne({ _id: id });
-            const hasCategorie = user.tasks.find(item => item.task === task.task);
+            const hasTask = user.tasks.find(item => item.task === task.task);
 
-            if (hasCategorie) {
-                throw ApiError.throwBadRequestError('Задача уже есть в списке дел');
+            if (hasTask) {
+                throw ApiError.createBadRequestError('Задача уже есть в списке дел');
             }
         }
         catch (error) {
