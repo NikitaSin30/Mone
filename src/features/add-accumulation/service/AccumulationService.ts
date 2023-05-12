@@ -15,7 +15,7 @@ class AccumulationService implements IAccumulationService {
         const createdOperation : IAccumulationOperation = this.createOperation(accumulation);
 
         try {
-            await cashFlowApi.addAccumulation(userStore.user._id, createdOperation);
+            await cashFlowApi.addAccumulation(userStore.idUser, createdOperation);
 
             accumulationStore.addAccumulation(createdOperation);
         }

@@ -14,7 +14,7 @@ class IncomeService implements IServiceIncome {
         const createdOperation = this.createOperation(income,modifytedSphere);
 
         try {
-            await cashFlowApi.addIncome(createdOperation, userStore.user._id);
+            await cashFlowApi.addIncome(createdOperation, userStore.idUser);
 
             incomeStore.addIncome(createdOperation);
         }
