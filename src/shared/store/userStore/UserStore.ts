@@ -21,6 +21,10 @@ export class User implements IUser {
         this.user = user;
         console.log(this.user);
     }
+
+    get idUser() {
+        return this.user._id;
+    }
 }
 
 export const userStore = new User();

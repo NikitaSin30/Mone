@@ -2,7 +2,7 @@ import { IFormSpending } from '../../interfaces';
 
 
 export interface ISpendingService {
-    addSpending: (newSpending : IFormSpending , switchShowModal:() => void) => Promise<void>;
+    addSpending: (newSpending : IFormSpending ) => Promise<void>;
 }
 
 export interface ISpendingOperation {

@@ -40,7 +40,3 @@ export interface IAuthApi {
     authenticate:(token:string) => Promise<IDataFromDB>
     logout:(id:string) => Promise<void>
 }
-
-
-
-

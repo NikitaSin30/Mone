@@ -17,7 +17,7 @@ class SpendingService implements ISpendingService {
         this.factoryOperation = factoryOperation;
     }
 
-    async addSpending( { spending,categorie } : IFormSpending, switchShowModal:()=>void) {
+    async addSpending( { spending,categorie } : IFormSpending) {
 
         const modifytedCategorie = validateString(categorie);
         const createdOperation =  this.factoryOperation.createOperation(TYPE_OPERATION_SPENDING,spending,modifytedCategorie);
@@ -31,12 +31,7 @@ class SpendingService implements ISpendingService {
 
         }
         catch (error) {
-            if (error instanceof Error) {
-                console.log(error.message);
-            }
-        }
-        finally {
-            switchShowModal();
+            throw error;
         }
     }
 }

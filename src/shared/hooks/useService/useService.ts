@@ -1,8 +1,11 @@
 import React from 'react';
 import * as CASE from './constans';
 import { IFormCategorie } from 'features/add-categories/interfaces';
-import { IFormSpending } from 'features/add-spending/interfaces';
 import { ioContainer } from 'api/IoC/ioc';
+
+
+
+
 
 
 
@@ -18,9 +21,6 @@ export const useService = (
     return async <T>(formData:T) => {
         try {
             switch (caseLabel) {
-                case CASE.CASE_USESERVICE_SPENDING:
-                    await ioContainer.spendingService.addSpending(formData as IFormSpending,switchISModal!);
-                    break;
                 case CASE.CASE_USESERVICE_CATEGORIE:
                     ioContainer.categoriesService.addCategorie(formData as IFormCategorie,switchIsModalErr!,switchISModal!);
                     break;

@@ -25,7 +25,7 @@ class ServiceTasksDB {
             const hasTask = user.tasks.find(item => item.task === task.task);
 
             if (hasTask) {
-                throw ApiError.throwBadRequestError('Задача уже есть в списке дел');
+                throw ApiError.createBadRequestError('Задача уже есть в списке дел');
             }
         }
         catch (error) {

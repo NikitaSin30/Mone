@@ -14,12 +14,12 @@ import { useToggle } from 'shared/hooks/useToggle/useToggle';
 import { ioContainer } from 'api/IoC/ioc';
 import { useNavigate } from 'react-router';
 import { LOGIN } from 'shared/routes/path';
-import { SubtitleResponse } from 'widgets/errorResponse/SubtitleResponse';
+import { SubtitleResponse } from 'widgets/subtitleResponse/SubtitleResponse';
 
 
 function FormRegistrationNewUser(): React.ReactElement {
     const [messageFromDB, setmessageFromDB] = React.useState('');
-    const { value: isStatusResponse, toggle:setIsStatusResponse } = useToggle(false);
+    const { value: isErrorVisible, toggle:setIsErrorVisible } = useToggle(false);
 
     const navigate = useNavigate();
 
@@ -33,14 +33,9 @@ function FormRegistrationNewUser(): React.ReactElement {
 
     const onRegistration = async(formData:IFormAuth) => {
         try {
-            const { message }  = await ioContainer.authService.registration(formData);
+            await ioContainer.authService.registration(formData);
 
-            setmessageFromDB(message);
-            setIsStatusResponse();
-
-            setTimeout(()=>{
-                navigate(LOGIN);
-            },3000);
+            navigate(LOGIN);
 
             reset();
         }
@@ -48,11 +43,11 @@ function FormRegistrationNewUser(): React.ReactElement {
             if (error instanceof Error) {
 
                 setmessageFromDB(error.message);
-                setIsStatusResponse();
+                setIsErrorVisible();
 
                 setTimeout(()=>{
                     setmessageFromDB('');
-                    setIsStatusResponse();
+                    setIsErrorVisible();
                 },3000);
             }
 
@@ -63,7 +58,7 @@ function FormRegistrationNewUser(): React.ReactElement {
         <form
             className="flex gap-1 w-full  flex-col  bg text-white bg-slate-900 py-6 px-8 rounded-md shadow-lg md:w-1/2"
             onSubmit={handleSubmit(onRegistration)}>
-            <SubtitleResponse isStatusResponse={isStatusResponse} messageFromDB={messageFromDB}/>
+            <SubtitleResponse isErrorVisible={isErrorVisible} messageFromDB={messageFromDB}/>
             <h2 className="text-xl font-bold text-center">Регистрация</h2>
             <Input
                 caseType={CASE_TYPE_EMAIL}
