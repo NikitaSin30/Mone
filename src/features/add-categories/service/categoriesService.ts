@@ -7,9 +7,10 @@ import { IFormCategorie } from '../interfaces';
 import { ICategoriesService } from './interfaces';
 
 
+
 class CategoriesService implements ICategoriesService {
 
-    async addCategorie({ categorie }: IFormCategorie, switchShowModalErr: () => void, switchShowModal:() => void) {
+    async addCategorie({ categorie }: IFormCategorie) {
 
         try {
             const categorieValidated = validateString(categorie);
@@ -23,12 +24,9 @@ class CategoriesService implements ICategoriesService {
 
         }
         catch (error) {
-            console.log('Ошибка');
-            switchShowModalErr();
+            throw error;
         }
-        finally {
-            switchShowModal();
-        }
+
     }
 
 
