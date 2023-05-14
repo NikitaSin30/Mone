@@ -2,7 +2,6 @@ export interface ITask {
   task: string;
   id: string;
   isDone: boolean;
-  key: string | null;
 }
 
 export interface ITodoStore {
@@ -11,5 +10,5 @@ export interface ITodoStore {
   removeTask: (id: string) => void;
   removeAllTasks: () => void;
   getTask: (id: string) => ITask | void;
-  setTasksWithdDB: (tasks: ITask[]) => void;
+  setTasksFromdDB: (tasks: ITask[]) => void;
 }

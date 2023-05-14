@@ -5,3 +5,7 @@ export interface ITaskForm {
 export interface IInputTask {
   switchShowModalErr: () => void;
 }
+
+export interface IBuilderTask {
+    setErromFromDB: (textMessage:string) => void
+}
