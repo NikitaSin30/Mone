@@ -26,10 +26,8 @@ class TodoApi implements ITodoApi {
 
         }
         catch (error) {
-            if (error instanceof Error) {
-                throw error;
-            }
-            throw new Error('Что-то пошло не так');
+            throw error;
+
         }
     }
 

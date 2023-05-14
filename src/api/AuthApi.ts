@@ -1,6 +1,5 @@
 import { IFormAuth } from 'features/auth/interfaces';
-import { checkError } from 'shared/helpers/checkError';
-import { IAuthApi, IDataFromDB, IResponseMessage } from './interfaces';
+import { IAuthApi } from './interfaces';
 import * as PATH from './path';
 import { request } from './request/request';
 
@@ -21,13 +20,13 @@ class AuthApi implements IAuthApi {
 
         }
         catch (error) {
-            throw checkError(error);
+            throw error;
         }
     }
 
     async login(dataLogin:IFormAuth) {
         try {
-            const response = await request(PATH.LOGIN,'POST',{ dataLogin });
+            const response = await request(PATH.LOGIN,'POST', dataLogin);
 
 
             if (!response.ok) {
@@ -40,7 +39,7 @@ class AuthApi implements IAuthApi {
 
         }
         catch (error) {
-            throw checkError(error);
+            throw error;
         }
     }
 
@@ -59,7 +58,7 @@ class AuthApi implements IAuthApi {
 
         }
         catch (error) {
-            throw checkError(error);
+            throw error;
         }
     }
 
@@ -80,7 +79,7 @@ class AuthApi implements IAuthApi {
 
         }
         catch (error) {
-            throw checkError(error);
+            throw error;
         }
     }
 }

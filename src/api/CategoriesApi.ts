@@ -20,14 +20,12 @@ export class CategoriesApi implements ICategoriesApi {
 
                 throw new Error(error.message);
             }
-         
+
 
         }
         catch (error) {
-            if (error instanceof Error) {
-                throw error;
-            }
-            throw new Error('Приносим извинения.Произошла ошибка');
+            throw error;
+
         }
     }
 
@@ -47,10 +45,7 @@ export class CategoriesApi implements ICategoriesApi {
             }
         }
         catch (error) {
-            if (error instanceof Error) {
-                throw error;
-            }
-            throw new Error('Приносим извенение. Произошла ошибка');
+            throw error;
         }
     }
 

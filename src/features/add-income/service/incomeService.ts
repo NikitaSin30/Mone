@@ -9,6 +9,7 @@ import { IFormIncome } from '../interfaces';
 
 
 class IncomeService implements IServiceIncome {
+    
     async addIncome({ income,sphere }:IFormIncome) {
         const modifytedSphere = validateString(sphere);
         const createdOperation = this.createOperation(income,modifytedSphere);

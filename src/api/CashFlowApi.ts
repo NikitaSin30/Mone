@@ -1,7 +1,6 @@
 import { IAccumulationOperation, IIncomeOperation, ISpendingOperation } from 'shared/store/cashFlowStore/interfaces';
 import { ICashFlowApi } from './interfaces';
 import * as PATH from './path/index';
-import { checkError } from 'shared/helpers/checkError';
 import { request } from './request/request';
 
 
@@ -23,10 +22,7 @@ class CashFlowApi implements ICashFlowApi {
 
         }
         catch (error) {
-            if (error instanceof Error) {
-                throw error;
-            }
-            throw new Error('Произошла ошибка');
+            throw error;
         }
     }
 
@@ -50,7 +46,7 @@ class CashFlowApi implements ICashFlowApi {
 
         }
         catch (error) {
-            throw checkError(error);
+            throw error;
         }
     }
 

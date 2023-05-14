@@ -12,6 +12,18 @@ class TasksController {
             next(error);
         }
     }
+
+    async deleteTask(req,res,next) {
+        const { id,idTask } = req.body;
+
+        try {
+            await serviceTasksDB.deleteTask(id,idTask);
+            res.json({ message: 'Задача удалена' });
+        }
+        catch (error) {
+            next(error);
+        }
+    }
 }
 
 module.exports = new TasksController();
