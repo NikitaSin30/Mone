@@ -4,6 +4,6 @@ import { IAccumulationOperation } from 'shared/store/cashFlowStore/interfaces';
 
 
 export interface IAccumulationService {
-  addAccumulation:(newAccumulation: IFormAccumulation, showModalError: () => void, switchShowModal: () => void) => Promise<any>
+  addAccumulation:(newAccumulation: IFormAccumulation) => Promise<any>
   createOperation:(accumulation : number) => IAccumulationOperation
 }

@@ -7,3 +7,4 @@ export const ADD_SPENDING = '/cash/addspending';
 export const AUTHENTICATION = '/auth/authentication';
 export const LOGOUT = '/auth/logout';
 export const ADD_CATEGORIE = 'categories/addcategorie';
+export const DELETE_CATEGORIE = 'categories/delcategorie';

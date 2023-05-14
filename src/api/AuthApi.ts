@@ -1,18 +1,15 @@
 import { IFormAuth } from 'features/auth/interfaces';
-import { IAuthApi } from './interfaces';
+import { checkError } from 'shared/helpers/checkError';
+import { IAuthApi, IDataFromDB, IResponseMessage } from './interfaces';
 import * as PATH from './path';
-
+import { request } from './request/request';
 
 
 class AuthApi implements IAuthApi {
 
-    async registration<T>(user: IFormAuth) : Promise<T> {
+    async registration(user: IFormAuth) {
         try {
-            const response = await fetch(PATH.REGISTRATION, {
-                method  : 'POST',
-                headers : { 'Content-Type': 'application/json' },
-                body    : JSON.stringify(user),
-            });
+            const response = await request(PATH.REGISTRATION,'POST',{ user });
 
             if (!response.ok) {
                 const error = await response.json();
@@ -24,19 +21,14 @@ class AuthApi implements IAuthApi {
 
         }
         catch (error) {
-            throw error;
+            throw checkError(error);
         }
     }
 
-    async login<T>(dataLogin:IFormAuth): Promise<T> {
+    async login(dataLogin:IFormAuth) {
         try {
-            const response = await fetch(PATH.LOGIN, {
-                method  : 'POST',
-                headers : {
-                    'Content-type' : 'application/json',
-                },
-                body : JSON.stringify(dataLogin),
-            });
+            const response = await request(PATH.LOGIN,'POST',{ dataLogin });
+
 
             if (!response.ok) {
                 const error = await response.json();
@@ -48,20 +40,14 @@ class AuthApi implements IAuthApi {
 
         }
         catch (error) {
-
-            throw error;
+            throw checkError(error);
         }
     }
 
-    async authenticate<T>(token:string) : Promise<T> {
+    async authenticate(token:string) {
 
         try {
-            const response = await fetch(PATH.AUTHENTICATION, {
-                method  : 'GET',
-                headers : {
-                    Authorization : `Bearer ${token}`,
-                },
-            });
+            const response = await request(PATH.AUTHENTICATION,'GET', token);
 
             if (!response.ok) {
                 const error = await response.json();
@@ -73,7 +59,7 @@ class AuthApi implements IAuthApi {
 
         }
         catch (error) {
-            throw error;
+            throw checkError(error);
         }
     }
 
@@ -81,13 +67,8 @@ class AuthApi implements IAuthApi {
     async logout(id:string) {
 
         try {
-            const response = await fetch(PATH.LOGOUT, {
-                method  : 'POST',
-                headers : {
-                    'Content-type' : 'application/json',
-                },
-                body : JSON.stringify({ id }),
-            });
+
+            const response = await request(PATH.LOGOUT,'POST',{ id });
 
             if (!response.ok) {
                 const error = await response.json();
@@ -95,9 +76,11 @@ class AuthApi implements IAuthApi {
                 throw new Error(error.message);
             }
 
+            return await response.json();
+
         }
         catch (error) {
-            throw error;
+            throw checkError(error);
         }
     }
 }

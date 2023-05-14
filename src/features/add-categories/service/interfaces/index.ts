@@ -5,4 +5,5 @@ export interface ICategoriesService {
     addCategorie:(categorie: IFormCategorie) => Promise<void>;
     checkStoreHasCategorie:(validatedCategorie: string) => void;
     createCategorie:(categorie:string) => ICategorie;
+    deleteCategorie:(idCategorie:string) => Promise<void>
 }
