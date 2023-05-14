@@ -3,8 +3,6 @@ import { useForm } from 'react-hook-form';
 import { ITaskForm } from './interfaces';
 import { Input } from 'widgets/inputs/Input';
 import { Button } from 'widgets/modals/ui/button/Button';
-import { useService } from 'shared/hooks/useService/useService';
-import { CASE_USESERVICE_TASK } from 'shared/hooks/useService/constans';
 import { IContextNotebook } from 'pages/noteBook/context/interfaces';
 import { ContextNotebook } from 'pages/noteBook/context/context';
 import { CASE_TYPE_TEXT_RUS } from 'widgets/inputs/validation/constans';
@@ -32,7 +30,7 @@ export const BuilderTask = ({ setErromFromDB }:IBuilderTask) =>{
             await todoService.addTask(formData);
 
         }
-        catch (error) {
+        catch (error ) {
             if (error instanceof Error) {
                 setErromFromDB(error.message);
                 switchisModalErrActiveTask();
