@@ -1,5 +1,8 @@
 import { ICategorie } from 'shared/store/categoriesStore/interfaces';
-import { ICategoriesApi, IResponseMessage } from './interfaces';
+import { ICategoriesApi } from './interfaces';
+import { ADD_CATEGORIE,DELETE_CATEGORIE } from './path';
+import { request } from './request/request';
+
 
 
 export class CategoriesApi implements ICategoriesApi {
@@ -7,27 +10,42 @@ export class CategoriesApi implements ICategoriesApi {
     async addCategorie(categorie : ICategorie, id: string) {
 
         try {
-            const response = await fetch('http://localhost:3002/categories/addcategorie',{
-                method  : 'POST',
-                headers : {
-                    'Content-type' : 'application/json',
-                },
-                body : JSON.stringify({
-                    categorie,
-                    id,
-                }),
+            const response = await request(ADD_CATEGORIE,'POST',{
+                categorie,
+                id,
             });
 
             if (!response.ok) {
-                throw new Error('');
+                const error = await response.json();
+
+                throw new Error(error.message);
             }
 
-            const result : IResponseMessage = await response.json();
 
-            return result;
         }
         catch (error) {
-            throw new Error();
+            throw error;
+
+        }
+    }
+
+    async deleteCategorie(idCategorie: string, id: string) {
+
+        try {
+            const response = await request(DELETE_CATEGORIE,'DELETE',{
+                idCategorie,
+                id,
+            });
+
+
+            if (!response.ok) {
+                const errorMessage = await response.json();
+
+                throw new Error(errorMessage.message);
+            }
+        }
+        catch (error) {
+            throw error;
         }
     }
 

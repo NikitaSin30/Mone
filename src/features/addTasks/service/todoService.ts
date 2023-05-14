@@ -2,7 +2,7 @@ import { ITask } from 'shared/store/toDoStore/interfaces';
 import { toDoStore } from 'shared/store/toDoStore/ToDoStore';
 import { todoApi } from 'api/todoApi';
 import { userStore } from 'shared/store/userStore/UserStore';
-import { validateString } from 'shared/mappers/validateString';
+import { validateString } from 'shared/helpers/validateString';
 import { ITaskForm } from '../interfaces';
 import { ITodoService } from './interfaces';
 
@@ -19,7 +19,7 @@ class TodoService implements ITodoService {
 
             const createdTask = this.createTask(taskValidaited);
 
-            await todoApi.addTask(createdTask,userStore.user._id);
+            await todoApi.addTask(createdTask,userStore.idUser);
             toDoStore.addTask(createdTask);
         }
         catch (error) {
@@ -29,7 +29,7 @@ class TodoService implements ITodoService {
 
     async deleteTask(idTask: string) {
         try {
-            await todoApi.deleteTask(idTask,userStore.user._id);
+            await todoApi.deleteTask(idTask,userStore.idUser);
             toDoStore.deleteTask(idTask);
         }
         catch (error) {
