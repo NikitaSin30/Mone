@@ -26,7 +26,9 @@ export class IncomeStore implements IIncomeStore {
         this.income = income;
         this.incomeOperations = operations;
     }
-
+    deleteOperation({ id }:IIncomeOperationWithID) {
+        this.incomeOperations = this.incomeOperations.filter(operation => operation.id !== id);
+    }
 }
 
 export const incomeStore = new IncomeStore();

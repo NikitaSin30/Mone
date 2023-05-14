@@ -18,6 +18,10 @@ import SpendingApi from 'api/spendingApi/SpendingApi';
 import AccumulationService from 'features/add-accumulation/service/AccumulationService';
 import AccumulationApi from 'api/accumulationApi/AccumulationApi';
 import { IIoContainer } from './interface';
+import { IOperationSevice } from 'service/operationsService/interfaces';
+import OperationsService from 'service/operationsService/OperationService';
+import OperationsApi from 'api/operationsApi/OperationsApi';
+
 
 
 class IoContainer implements IIoContainer {
@@ -27,6 +31,8 @@ class IoContainer implements IIoContainer {
     incomeService:IServiceIncome;
     accumulationService:IAccumulationService;
     spendingService:ISpendingService;
+    operationService:IOperationSevice;
+
 
     constructor() {
         this.authService = new AuthService(new AuthApi());
@@ -35,6 +41,7 @@ class IoContainer implements IIoContainer {
         this.incomeService = new IncomeService(new IncomeApi(), new FactoryOperation());
         this.spendingService = new SpendingService(new SpendingApi(), new FactoryOperation());
         this.accumulationService = new AccumulationService(new AccumulationApi(), new FactoryOperation());
+        this.operationService = new OperationsService(new OperationsApi());
     }
 }
 

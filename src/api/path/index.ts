@@ -10,3 +10,4 @@ export const DELETE_TASK = '/tasks/deltask';
 export const DELETE_ALL_TASKS = '/tasks/delalltasks';
 export const SWITCH_IS_DONE = '/tasks/switchisdone';
 export const DELETE_CATEGORIE = 'categories/delcategorie';
+export const DELETE_OPERATION = '';

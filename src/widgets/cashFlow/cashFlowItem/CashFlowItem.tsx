@@ -1,7 +1,11 @@
-import { DeleteIcon } from 'widgets/todo/assets/DeleteIcon';
 import { ICashFlowItem } from './interfaces';
+import { Delete } from 'features/delete/Delete';
 
-export const CashFlowItem = ({ operation }:ICashFlowItem) => {
+
+
+export const CashFlowItem = ({ operation,deleteOperation }:ICashFlowItem) => {
+
+
 
     return (
         <li className="flex-none h-100% flex px-4 py-2 text-white bg-slate-900  items-center
@@ -27,9 +31,7 @@ export const CashFlowItem = ({ operation }:ICashFlowItem) => {
                     <span className='w-1/3'>Дата: {operation.date}</span>
                 </>
             )}
-            <button className="hover:scale-110">
-                {DeleteIcon}
-            </button>
+            <Delete id={operation.id} deleteMethod={deleteOperation}/>
         </li>
     );
 };

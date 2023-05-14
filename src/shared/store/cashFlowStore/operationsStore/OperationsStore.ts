@@ -1,8 +1,8 @@
 import { makeAutoObservable } from 'mobx';
 import { TAllOperations } from './types';
+import { IOperationsStore } from './interfaces';
 
-
-class OperationsStore {
+class OperationsStore implements IOperationsStore {
     allOperations : TAllOperations[];
 
     constructor() {
@@ -15,6 +15,9 @@ class OperationsStore {
 
     setAllOperationsFromDB(allOperations : TAllOperations[]) {
         this.allOperations = allOperations;
+    }
+    deleteOperation({ id }:TAllOperations) {
+        this.allOperations = this.allOperations.filter(operation => operation.id !== id);
     }
 }
 
