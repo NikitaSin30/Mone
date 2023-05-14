@@ -2,32 +2,27 @@ import { incomeStore } from 'shared/store/cashFlowStore/incomeStore/IncomeStore'
 import { cashFlowApi } from 'api/CashFlowApi';
 import { IIncomeOperation } from 'shared/store/cashFlowStore/interfaces';
 import { userStore } from 'shared/store/userStore/UserStore';
-import { validateString } from 'shared/mappers/validateString';
+import { validateString } from 'shared/helpers/validateString';
 import { IServiceIncome } from './interfaces';
 import { IFormIncome } from '../interfaces';
 
 
 
 class IncomeService implements IServiceIncome {
-    async addIncome({ income,sphere }:IFormIncome,switchShowModal:()=>void) {
+    
+    async addIncome({ income,sphere }:IFormIncome) {
         const modifytedSphere = validateString(sphere);
         const createdOperation = this.createOperation(income,modifytedSphere);
 
         try {
-            const { message } = await cashFlowApi.addIncome(createdOperation, userStore.user._id);
-
-            console.log(message);
+            await cashFlowApi.addIncome(createdOperation, userStore.idUser);
 
             incomeStore.addIncome(createdOperation);
         }
         catch (error) {
-            if (error instanceof Error) {
-                console.log(error.message);
-            }
+            throw error;
         }
-        finally {
-            switchShowModal();
-        }
+
     }
     createOperation(income:number,sphere:string): IIncomeOperation {
         return {

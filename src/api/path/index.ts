@@ -8,3 +8,5 @@ export const AUTHENTICATION = '/auth/authentication';
 export const LOGOUT = '/auth/logout';
 export const DELETE_TASK = '/tasks/deltask';
 export const DELETE_ALL_TASKS = '/tasks/delalltasks';
+export const ADD_CATEGORIE = 'categories/addcategorie';
+export const DELETE_CATEGORIE = 'categories/delcategorie';

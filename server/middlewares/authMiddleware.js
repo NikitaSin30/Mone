@@ -5,7 +5,7 @@ const { secret } = require('../token/config');
 
 
 
-const middlewareAuth = (req, res , next) => {
+module.exports = (req, res , next) => {
     if (req.method === 'OPTIONS') {
         next();
     }
@@ -22,5 +22,3 @@ const middlewareAuth = (req, res , next) => {
         next(error);
     }
 };
-
-module.exports = middlewareAuth;
