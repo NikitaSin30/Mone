@@ -13,11 +13,11 @@ class TodoService implements ITodoService {
     async addTask( { task } : ITaskForm) {
 
         try {
-            const taskValidaited = validateString(task);
+            const validaitedTask = validateString(task);
 
-            this.checkStoreHasTask(taskValidaited);
+            this.checkStoreHasTask(validaitedTask);
 
-            const createdTask = this.createTask(taskValidaited);
+            const createdTask = this.createTask(validaitedTask);
 
             await todoApi.addTask(createdTask,userStore.idUser);
             toDoStore.addTask(createdTask);
