@@ -5,15 +5,10 @@ module.exports = async(req,res,next) => {
 
     try {
         await serviceTasksDB.checkHasTask(id,task);
-        req.body = {
-            id,
-            task,
-        };
+
         next();
     }
     catch (error) {
         next(error);
     }
 };
-
-

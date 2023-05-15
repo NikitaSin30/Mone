@@ -47,8 +47,8 @@ class ToDoStore implements ITodoStore {
 
     }
 
-    setTasksFromdDB(task:ITask[]) {
-        this.tasks = task;
+    setTasksFromdDB(tasks:ITask[]) {
+        this.tasks = tasks;
     }
 }
 
