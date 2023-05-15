@@ -2,6 +2,7 @@
 import { ITaskForm } from 'features/addTasks/interfaces';
 import { ITask } from 'shared/store/toDoStore/interfaces';
 import { ITodoApi } from './interfaces';
+import { DELETE_TASK } from './path/index';
 import { request } from './request/request';
 
 
@@ -31,11 +32,30 @@ class TodoApi implements ITodoApi {
         }
     }
 
-    async deleteTask(key: string, userId: string) {
+    async deleteTask(idTask: string, id: string) {
         try {
+            const response = await fetch(DELETE_TASK,{
+                method  : 'DELETE',
+                headers : {
+                    'Content-type' : 'application/json',
 
+                },
+                body : JSON.stringify({
+                    id,
+                    idTask,
+                }),
+            });
+
+            if (!response.ok) {
+                const error = await response.json();
+
+                throw new Error(error.message);
+            }
         }
         catch (error) {
+            if (error instanceof Error) {
+                throw error;
+            }
             throw new Error('Что-то пошло не так');
         }
     }
