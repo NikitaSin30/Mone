@@ -43,7 +43,7 @@ class ServiceTasksDB {
             await User.updateOne({ _id: id }, { $pull: { tasks: [] } });
         }
         catch (error) {
-
+            throw error;
         }
     }
 }
