@@ -13,14 +13,14 @@ class TodoService implements ITodoService {
     async addTask( { task } : ITaskForm) {
 
         try {
-            const taskValidaited = validateString(task);
+            const validaitedTask = validateString(task);
 
-            this.checkStoreHasTask(taskValidaited);
+            this.checkStoreHasTask(validaitedTask);
 
-            const createdTask = this.createTask(taskValidaited);
+            const newTask = this.createTask(validaitedTask);
 
-            await todoApi.addTask(createdTask,userStore.idUser);
-            toDoStore.addTask(createdTask);
+            await todoApi.addTask(newTask,userStore.idUser);
+            toDoStore.addTask(newTask);
         }
         catch (error) {
             throw error;
@@ -29,7 +29,7 @@ class TodoService implements ITodoService {
 
     async deleteTask(idTask: string) {
         try {
-            await todoApi.deleteTask(idTask,userStore.user._id);
+            await todoApi.deleteTask(idTask,userStore.idUser);
             toDoStore.deleteTask(idTask);
         }
         catch (error) {
