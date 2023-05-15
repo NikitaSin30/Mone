@@ -17,10 +17,10 @@ class TodoService implements ITodoService {
 
             this.checkStoreHasTask(validaitedTask);
 
-            const createdTask = this.createTask(validaitedTask);
+            const newTask = this.createTask(validaitedTask);
 
-            await todoApi.addTask(createdTask,userStore.idUser);
-            toDoStore.addTask(createdTask);
+            await todoApi.addTask(newTask,userStore.idUser);
+            toDoStore.addTask(newTask);
         }
         catch (error) {
             throw error;
