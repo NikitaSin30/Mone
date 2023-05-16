@@ -6,7 +6,7 @@ import { IFormIncome } from '../interfaces';
 import { operationsStore } from 'shared/store/cashFlowStore/operationsStore/OperationsStore';
 import { IIncomeApi } from 'api/incomeApi/interfaces';
 import { IFactoryOperation } from 'shared/service/factory/interfaces';
-import { TYPE_OPERATION_INCOME } from 'shared/service/factory/constants';
+import { OPERATION_INCOME } from 'shared/service/factory/constants';
 
 
 class IncomeService implements IServiceIncome {
@@ -19,7 +19,7 @@ class IncomeService implements IServiceIncome {
     async addIncome({ income, sphere }:IFormIncome) {
 
         const modifytedSphere = validateString(sphere);
-        const createdOperation = this.factoryOperation.createOperation(TYPE_OPERATION_INCOME , income, modifytedSphere);
+        const createdOperation = this.factoryOperation.createOperation(OPERATION_INCOME , income, modifytedSphere);
 
         try {
             const { incomeOperationWithID } = await this.incomeApi.addIncome(createdOperation, userStore.user._id);

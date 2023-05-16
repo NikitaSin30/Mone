@@ -1,7 +1,7 @@
 import { IIncomeOperation } from 'features/add-income/service/interfaces';
 import { ISpendingOperation } from 'features/add-spending/service/interfaces';
 import { IAccumulationOperation } from 'features/add-accumulation/service/interfaces';
-import { TYPE_OPERATION_SPENDING,TYPE_OPERATION_ACCUMULATION,TYPE_OPERATION_INCOME } from './constants';
+import { OPERATION_SPENDING,OPERATION_ACCUMULATION,OPERATION_INCOME } from './constants';
 
 
 
@@ -44,17 +44,17 @@ class AccumulationOperation implements IAccumulationOperation {
 
 class FactoryOperation {
 
-    createOperation(typeOperation:typeof TYPE_OPERATION_ACCUMULATION,accumulation:number):IAccumulationOperation
-    createOperation(typeOperation:typeof TYPE_OPERATION_SPENDING,spending:number,categorie:string):ISpendingOperation
-    createOperation(typeOperation:typeof TYPE_OPERATION_INCOME,income:number, sphere:string):IIncomeOperation
+    createOperation(typeOperation:typeof OPERATION_ACCUMULATION,accumulation:number):IAccumulationOperation
+    createOperation(typeOperation:typeof OPERATION_SPENDING,spending:number,categorie:string):ISpendingOperation
+    createOperation(typeOperation:typeof OPERATION_INCOME,income:number, sphere:string):IIncomeOperation
     createOperation(typeOperation:string,summa:number, classification?:string) {
 
         switch (typeOperation) {
-            case TYPE_OPERATION_INCOME:
+            case OPERATION_INCOME:
                 return new IncomeOperation(summa,classification!);
-            case TYPE_OPERATION_SPENDING:
+            case OPERATION_SPENDING:
                 return new SpendingOperation(summa,classification!);
-            case TYPE_OPERATION_ACCUMULATION:
+            case OPERATION_ACCUMULATION:
                 return new AccumulationOperation(summa);
 
         }

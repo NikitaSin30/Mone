@@ -4,7 +4,7 @@ import { IOperationApi } from './interfaces';
 
 class OperationsApi implements IOperationApi {
 
-    async deleteOperation(idOperation:string,idUser:string) {
+    async deleteOperation(idOperation:string,idUser:string,typeOperation:string) {
 
         try {
             const response = await fetch(DELETE_OPERATION,{

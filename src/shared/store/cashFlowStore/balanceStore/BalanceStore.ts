@@ -18,6 +18,9 @@ export class BalanceStore implements IBalanceStore {
     setBalanceFromDB(balance:number) {
         this.moneyAccount = balance;
     }
+    updateAfterDeleteOperation(sum:number) {
+        this.moneyAccount -= sum;
+    }
 }
 
 export const balanceStore = new BalanceStore();

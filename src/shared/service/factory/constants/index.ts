@@ -1,4 +1,4 @@
 
-export const TYPE_OPERATION_INCOME = 'incomeOperation';
-export const TYPE_OPERATION_SPENDING = 'spendingOperation';
-export const TYPE_OPERATION_ACCUMULATION = 'accumulationOperation';
+export const OPERATION_INCOME = 'income';
+export const OPERATION_SPENDING = 'spending';
+export const OPERATION_ACCUMULATION = 'accumulation';

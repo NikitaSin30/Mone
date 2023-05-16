@@ -6,7 +6,7 @@ import { IFormAccumulation } from '../interfaces';
 import { operationsStore } from 'shared/store/cashFlowStore/operationsStore/OperationsStore';
 import { IAccumulationApi } from 'api/accumulationApi/interfaces';
 import { IFactoryOperation } from 'shared/service/factory/interfaces';
-import { TYPE_OPERATION_ACCUMULATION } from 'shared/service/factory/constants';
+import { OPERATION_ACCUMULATION } from 'shared/service/factory/constants';
 
 
 class AccumulationService implements IAccumulationService {
@@ -19,7 +19,7 @@ class AccumulationService implements IAccumulationService {
 
     async addAccumulation( { accumulation } : IFormAccumulation) {
         if (balanceStore.moneyAccount < accumulation) throw new Error('У вас нет данной суммы на счёте ');
-        const createdOperation  = this.factoryOperation.createOperation(TYPE_OPERATION_ACCUMULATION,accumulation);
+        const createdOperation  = this.factoryOperation.createOperation(OPERATION_ACCUMULATION,accumulation);
 
         try {
             const { accumulationOperationWithID } =  await this.accumulutionApi.addAccumulation(userStore.user._id, createdOperation);
