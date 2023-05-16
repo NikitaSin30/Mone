@@ -2,33 +2,18 @@ import React from 'react';
 import { DeleteModal } from 'widgets/modals/DeleteModal';
 import { observer } from 'mobx-react-lite';
 import { DeleteIcon } from 'widgets/todo/assets/DeleteIcon';
-import { useToggle } from 'shared/hooks/useToggle/useToggle';
-import { ioContainer } from 'api/IoC/ioc';
-import ErrorModal from 'widgets/modals/ErrorModal';
-import { ICategorieWithID } from 'shared/store/categoriesStore/interfaces';
+import { Context, IGlobalContext } from 'shared/context/context';
+import { ICategorieItem } from './interfaces';
 
 
 
-export const CategorieItem = observer(({ id,categorie,spending }:ICategorieWithID) =>{
+export const CategorieItem = observer(({ categorie,onSuccesDelete }:ICategorieItem) =>{
 
-    const { value:isErrorModal, toggle: switchIsErrorModal } = useToggle(false);
-    const [messageError,setMessageError] = React.useState('');
-    const { value: isModalActive, toggle: switchShowModal } = useToggle(false);
+    const {
+        isShowDeleteModal,
+        switchIsShowDeleteModal,
+    } = React.useContext<IGlobalContext>(Context);
 
-
-    const onSuccesDelete = async(id:string) => {
-        try {
-            await ioContainer.categoriesService.deleteCategorie(id);
-            switchShowModal();
-        }
-        catch (error) {
-            if (error instanceof Error) {
-                switchShowModal();
-                setMessageError(error.message);
-                switchIsErrorModal();
-            }
-        }
-    };
 
     return (
         <>
@@ -36,13 +21,17 @@ export const CategorieItem = observer(({ id,categorie,spending }:ICategorieWithI
                 className=" max-h-[40px] flex px-4 py-2 text-white bg-slate-900  items-center
                           justify-between rounded-md shadow-lg "
             >
-                <h2 className="font-semibold text-md">{categorie} : {spending}</h2>
-                <button onClick={switchShowModal} className="hover:scale-110">
+                <h2 className="font-semibold text-md">{categorie.categorie} : {categorie.spending}</h2>
+                <button onClick={switchIsShowDeleteModal} className="hover:scale-110">
                     {DeleteIcon}
                 </button>
             </li>
-            {isModalActive && <DeleteModal id={id} categorie={categorie} onSuccesDelete={onSuccesDelete} switchShowModal={switchShowModal} />}
-            {isErrorModal && <ErrorModal title={messageError} switchShowModalErr={switchIsErrorModal}/>}
+            {isShowDeleteModal
+            && <DeleteModal
+                id={categorie.id}
+                title={categorie.categorie}
+                onSuccesDelete={onSuccesDelete}
+                switchShowModal={switchIsShowDeleteModal} />}
         </>
     );
 });

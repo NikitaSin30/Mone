@@ -15,6 +15,8 @@ import { AuthorizedRoute } from 'shared/routes/hoc/AuthorizedRoute';
 import { NotAuthorizedRoute } from 'shared/routes/hoc/NotAuthorizedRoute';
 import { LazyAuthorizedRoute } from 'shared/routes/hoc/LazyAuthorizedRoute';
 import * as URL from '../shared/routes/path';
+import { useString } from 'shared/hooks/useString/useString';
+import { useToggle } from 'shared/hooks/useToggle/useToggle';
 
 const ToDo = React.lazy(() => import('pages/noteBook/toDo/ToDo'));
 const ShopList = React.lazy(() => import('pages/noteBook/shopList/ShopList'));
@@ -24,9 +26,20 @@ const Analysis = React.lazy(() => import('pages/analysis/Analysis'));
 
 export const App =  observer(() => {
 
+    const { value:messageError,setText:setMessageError } = useString('');
+
+    const { value:isShowErrorModal, toggle: switchIsErrorModal } = useToggle(false);
+    const { value: isShowDeleteModal, toggle: switchIsShowDeleteModal } = useToggle(false);
+
     const { isAuth } = userStore;
     const context: IGlobalContext = {
         isAuth,
+        messageError,
+        setMessageError,
+        isShowErrorModal,
+        switchIsErrorModal,
+        isShowDeleteModal,
+        switchIsShowDeleteModal,
     };
 
 

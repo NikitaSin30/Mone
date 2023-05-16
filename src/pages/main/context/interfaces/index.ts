@@ -6,6 +6,6 @@ export interface IContextMain {
    switchIsModalActiveSpending:() => void
    isModalActiveAccumulation:boolean,
    switchisModalActiveAccumulation: () => void,
-    isModalErrActiveAccumulation:boolean,
-    switchisModalErrActiveAccumulation: () => void
+   isModalErrActiveAccumulation:boolean,
+   switchisModalErrActiveAccumulation: () => void
 }

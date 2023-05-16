@@ -1,4 +1,3 @@
-export interface IDelete {
-    deleteMethod:(id:string) => Promise<void>
-    id:string
+export interface IDeleteButton {
+    switchIsShowDeleteModal:() => void
 }
