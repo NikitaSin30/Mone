@@ -6,6 +6,7 @@ import { operationsStore } from 'shared/store/cashFlowStore/operationsStore/Oper
 import { OPERATION_ACCUMULATION, OPERATION_INCOME,OPERATION_SPENDING } from 'shared/service/factory/constants';
 import { IStrategyContext } from './strategy/interfaces';
 import { StrategyAccumulation, StrategyIncome, StrategySpending } from './strategy/StrategyOperation';
+import { IIncomeOperationWithID } from 'shared/store/cashFlowStore/incomeStore/interfaces';
 
 
 
