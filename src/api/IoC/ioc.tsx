@@ -21,6 +21,7 @@ import { IIoContainer } from './interface';
 import { IOperationSevice } from 'service/operationsService/interfaces';
 import OperationsService from 'service/operationsService/OperationService';
 import OperationsApi from 'api/operationsApi/OperationsApi';
+import { StrategyContext } from 'service/operationsService/strategy/StrategyOperation';
 
 
 
@@ -41,7 +42,7 @@ class IoContainer implements IIoContainer {
         this.incomeService = new IncomeService(new IncomeApi(), new FactoryOperation());
         this.spendingService = new SpendingService(new SpendingApi(), new FactoryOperation());
         this.accumulationService = new AccumulationService(new AccumulationApi(), new FactoryOperation());
-        this.operationService = new OperationsService(new OperationsApi());
+        this.operationService = new OperationsService(new OperationsApi(),new StrategyContext());
     }
 }
 

@@ -2,17 +2,18 @@ import { IOperationApi } from 'api/operationsApi/interfaces';
 import { TAllOperations } from 'shared/store/cashFlowStore/operationsStore/types';
 import { userStore } from 'shared/store/userStore/UserStore';
 import { IOperationSevice } from './interfaces';
-import { incomeStore } from 'shared/store/cashFlowStore/incomeStore/IncomeStore';
-import { spendingStore } from 'shared/store/cashFlowStore/spendingStore/SpendingStore';
-import { accumulationStore } from 'shared/store/cashFlowStore/acuumulationStore/AccumulationStore';
 import { operationsStore } from 'shared/store/cashFlowStore/operationsStore/OperationsStore';
 import { OPERATION_ACCUMULATION, OPERATION_INCOME,OPERATION_SPENDING } from 'shared/service/factory/constants';
-import { balanceStore } from 'shared/store/cashFlowStore/balanceStore/BalanceStore';
+import { IStrategyContext } from './strategy/interfaces';
+import { StrategyAccumulation, StrategyIncome, StrategySpending } from './strategy/StrategyOperation';
+
+
 
 class OperationsService implements IOperationSevice {
 
-    constructor(private operationsApi:IOperationApi) {
+    constructor(private operationsApi:IOperationApi, private strategyContext : IStrategyContext) {
         this.operationsApi = operationsApi;
+        this.strategyContext = strategyContext;
     }
 
     async deleteOperation(id:string) {
@@ -22,8 +23,7 @@ class OperationsService implements IOperationSevice {
             const typeOperation = this.defineTypeOperation(operation);
 
             await this.operationsApi.deleteOperation(id,userStore.idUser,typeOperation);
-            this.deleteOperationFromStore(operation);
-            this.updateBalance(operation);
+            this.updateStore(operation);
         }
         catch (error) {
             throw error;
@@ -39,14 +39,6 @@ class OperationsService implements IOperationSevice {
 
     }
 
-    private deleteOperationFromStore(operation:TAllOperations) {
-        if (OPERATION_INCOME in operation) return incomeStore.deleteOperation(operation);
-        if (OPERATION_SPENDING in operation) return spendingStore.deleteOperation(operation);
-        if (OPERATION_ACCUMULATION in operation) return accumulationStore.deleteOperation(operation);
-
-        throw new Error('Приносим извенение. Произошла ошибка');
-    }
-
     private defineTypeOperation(operation:TAllOperations) {
         if (OPERATION_INCOME in operation) return OPERATION_INCOME;
         if (OPERATION_SPENDING in operation) return OPERATION_SPENDING;
@@ -55,19 +47,29 @@ class OperationsService implements IOperationSevice {
         throw new Error('Приносим извенение. Произошла ошибка');
 
     }
-    private updateBalance(operation:TAllOperations) {
+
+    private updateStore(operation:TAllOperations) {
 
         if (OPERATION_INCOME in operation) {
-            incomeStore.updateAfterDeleteOperation(operation.income);
-            balanceStore.updateAfterDeleteOperation(operation.income);
+            this.strategyContext.setStrategy(new StrategyIncome());
+            const { strategy } = this.strategyContext;
+
+            strategy.upadateBalance(operation.income);
+            strategy.deleteOperation(operation);
         }
         else if (OPERATION_SPENDING in operation) {
-            spendingStore.updateAfterDeleteOperation(operation.spending);
-            balanceStore.updateAfterDeleteOperation(operation.spending);
+            this.strategyContext.setStrategy(new StrategySpending());
+            const { strategy } = this.strategyContext;
+
+            strategy.upadateBalance(operation.spending);
+            strategy.deleteOperation(operation);
         }
         else if (OPERATION_ACCUMULATION in operation) {
-            accumulationStore.updateAfterDeleteOperation(operation.accumulation);
-            balanceStore.updateAfterDeleteOperation(operation.accumulation);
+            this.strategyContext.setStrategy(new StrategyAccumulation());
+            const { strategy } = this.strategyContext;
+
+            strategy.upadateBalance(operation.accumulation);
+            strategy.deleteOperation(operation);
         }
     }
 }
