@@ -15,8 +15,15 @@ class OperationsApi implements IOperationApi {
                 body : JSON.stringify({
                     idUser,
                     idOperation,
+                    typeOperation,
                 }),
             });
+
+            if (!response.ok) {
+                const errorMesage = await response.json();
+
+                throw new Error(errorMesage);
+            }
 
         }
         catch (error) {
