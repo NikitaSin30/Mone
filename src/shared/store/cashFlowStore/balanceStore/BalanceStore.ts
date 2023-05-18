@@ -1,5 +1,6 @@
 import { makeAutoObservable } from 'mobx';
 import { IBalanceStore } from './interfaces';
+import { OPERATION_INCOME } from 'shared/service/factory/constants';
 
 
 
@@ -18,8 +19,13 @@ export class BalanceStore implements IBalanceStore {
     setBalanceFromDB(balance:number) {
         this.moneyAccount = balance;
     }
-    updateAfterDeleteOperation(sum:number) {
-        this.moneyAccount -= sum;
+    updateAfterDeleteOperation(sum:number, typeOperation:string) {
+        if (typeOperation === OPERATION_INCOME ) {
+            this.moneyAccount -= sum;
+        }
+        else {
+            this.moneyAccount += sum;
+        }
     }
 }
 

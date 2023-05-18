@@ -18,6 +18,9 @@ app.use('/cash', cashRouter);
 app.use('/auth' , authRouter);
 app.use('/categories', categorieRouter);
 app.use('/tasks',tasksRouter);
+app.use('*', (req,res) =>{
+    res.status(404).json({ message: 'Страница нет' });
+});
 app.use(middlewareErr);
 
 

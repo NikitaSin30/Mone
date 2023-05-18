@@ -20,9 +20,9 @@ class OperationsApi implements IOperationApi {
             });
 
             if (!response.ok) {
-                const errorMesage = await response.json();
+                const error = await response.json();
 
-                throw new Error(errorMesage);
+                throw new Error(error.message);
             }
 
         }

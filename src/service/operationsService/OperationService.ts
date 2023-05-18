@@ -12,19 +12,20 @@ import { StrategyAccumulation, StrategyIncome, StrategySpending } from './strate
 
 class OperationsService implements IOperationSevice {
 
-    constructor(private operationsApi:IOperationApi, private strategyContext : IStrategyContext) {
+    constructor(private operationsApi:IOperationApi, private strategyUpdateStore : IStrategyContext) {
         this.operationsApi = operationsApi;
-        this.strategyContext = strategyContext;
+        this.strategyUpdateStore = strategyUpdateStore;
     }
 
     async deleteOperation(id:string) {
         const operation = this.getOperation(id);
 
         try {
-            const typeOperation = this.defineTypeOperation(operation);
+            const { typeOperation,sum } = this.defineTypeOperation(operation);
 
-            await this.operationsApi.deleteOperation(id,userStore.idUser,typeOperation);
-            this.updateStore(operation);
+            await this.operationsApi.deleteOperation(userStore.idUser,id,typeOperation,sum);
+
+            this.updateStore(operation,typeOperation);
         }
         catch (error) {
             throw error;
@@ -34,42 +35,57 @@ class OperationsService implements IOperationSevice {
     private getOperation(id:string) {
         const operation = operationsStore.allOperations.find(operation => operation.id === id);
 
-        if (!operation) throw new Error('Некорректные даныее');
+        if (!operation) throw new Error('приносим извенения. Произошла');
 
         return operation;
 
     }
 
-    private defineTypeOperation(operation:TAllOperations) {
-        if (OPERATION_INCOME in operation) return OPERATION_INCOME;
-        if (OPERATION_SPENDING in operation) return OPERATION_SPENDING;
-        if (OPERATION_ACCUMULATION in operation) return OPERATION_ACCUMULATION;
+    private defineTypeOperation(operation:TAllOperations):{typeOperation:string, sum:number} {
+        if (OPERATION_INCOME in operation) {
+            return {
+                sum           : operation.income,
+                typeOperation : OPERATION_INCOME,
+            };
+        }
+        if (OPERATION_SPENDING in operation) {
+            return {
+                sum           : operation.spending,
+                typeOperation : OPERATION_SPENDING,
+            };
+        }
+        if (OPERATION_ACCUMULATION in operation) {
+            return {
+                sum           : operation.accumulation,
+                typeOperation : OPERATION_ACCUMULATION,
+            };
+        };
 
         throw new Error('Приносим извенение. Произошла ошибка');
 
     }
 
-    private updateStore(operation:TAllOperations) {
+    private updateStore(operation:TAllOperations,typeOperation:string) {
 
         if (OPERATION_INCOME in operation) {
-            this.strategyContext.setStrategy(new StrategyIncome());
-            const { strategy } = this.strategyContext;
+            this.strategyUpdateStore.setStrategy(new StrategyIncome());
+            const { strategy } = this.strategyUpdateStore;
 
-            strategy.upadateBalance(operation.income);
+            strategy.upadateBalance(operation.income,typeOperation);
             strategy.deleteOperation(operation);
         }
         else if (OPERATION_SPENDING in operation) {
-            this.strategyContext.setStrategy(new StrategySpending());
-            const { strategy } = this.strategyContext;
+            this.strategyUpdateStore.setStrategy(new StrategySpending());
+            const { strategy } = this.strategyUpdateStore;
 
-            strategy.upadateBalance(operation.spending);
+            strategy.upadateBalance(operation.spending,typeOperation);
             strategy.deleteOperation(operation);
         }
         else if (OPERATION_ACCUMULATION in operation) {
-            this.strategyContext.setStrategy(new StrategyAccumulation());
-            const { strategy } = this.strategyContext;
+            this.strategyUpdateStore.setStrategy(new StrategyAccumulation());
+            const { strategy } = this.strategyUpdateStore;
 
-            strategy.upadateBalance(operation.accumulation);
+            strategy.upadateBalance(operation.accumulation,typeOperation);
             strategy.deleteOperation(operation);
         }
     }

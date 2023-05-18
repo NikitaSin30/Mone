@@ -11,9 +11,9 @@ import { IStrategy, IStrategyContext } from './interfaces';
 
 
 export class StrategyIncome implements IStrategy {
-    upadateBalance(sum:number) {
+    upadateBalance(sum:number, typeOperation:string) {
         incomeStore.updateAfterDeleteOperation(sum);
-        balanceStore.updateAfterDeleteOperation(sum);
+        balanceStore.updateAfterDeleteOperation(sum,typeOperation);
     }
 
     deleteOperation<T>(operation:T) {
@@ -23,9 +23,9 @@ export class StrategyIncome implements IStrategy {
 }
 
 export class StrategySpending implements IStrategy {
-    upadateBalance(sum:number) {
+    upadateBalance(sum:number,typeOperation:string) {
         spendingStore.updateAfterDeleteOperation(sum);
-        balanceStore.updateAfterDeleteOperation(sum);
+        balanceStore.updateAfterDeleteOperation(sum,typeOperation);
     }
 
     deleteOperation<T>(operation:T) {
@@ -36,9 +36,9 @@ export class StrategySpending implements IStrategy {
     }
 }
 export class StrategyAccumulation implements IStrategy {
-    upadateBalance(sum:number) {
+    upadateBalance(sum:number,typeOperation:string) {
         accumulationStore.updateAfterDeleteOperation(sum);
-        balanceStore.updateAfterDeleteOperation(sum);
+        balanceStore.updateAfterDeleteOperation(sum,typeOperation);
     }
 
     deleteOperation<T>(operation:T) {
@@ -48,7 +48,7 @@ export class StrategyAccumulation implements IStrategy {
 }
 
 
-export class StrategyContext implements IStrategyContext {
+export class StrategyUpdateStore implements IStrategyContext {
     strategy:IStrategy;
 
     setStrategy(newStrategy:IStrategy) {
