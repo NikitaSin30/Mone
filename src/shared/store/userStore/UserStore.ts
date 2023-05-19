@@ -19,6 +19,10 @@ export class UserStore implements IUser {
     setUserFromDB(user: IFormAuth) {
         this.user = user;
     }
+
+    get idUser() {
+        return this.user._id;
+    }
 }
 
 export const userStore = new UserStore();

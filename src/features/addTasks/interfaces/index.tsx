@@ -5,3 +5,4 @@ export interface ITaskForm {
 export interface IInputTask {
   switchShowModalErr: () => void;
 }
+
