@@ -1,62 +1,62 @@
+import { categoriesApi } from 'api/CategoriesApi';
 import { categoriesStore } from 'shared/store/categoriesStore/CategoriesStore';
-import { categorieApi } from 'api/CategoriesApi';
 import { userStore } from 'shared/store/userStore/UserStore';
 import { ICategorie } from 'shared/store/categoriesStore/interfaces';
-import { validateString } from 'shared/mappers/validateString';
+import { validateString } from 'shared/helpers/validateString';
 import { IFormCategorie } from '../interfaces';
 import { ICategoriesService } from './interfaces';
 
 
+
 class CategoriesService implements ICategoriesService {
 
-    async addCategorie({ categorie }: IFormCategorie, showModalError: () => void, switchShowModal: () => void) {
-        const categorieValidated = validateString(categorie);
-        const hasCategorie = this.checkStoreHasCategorie(categorieValidated);
-
-        if (hasCategorie) return showModalError();
+    async addCategorie({ categorie }: IFormCategorie) {
 
         try {
+            const categorieValidated = validateString(categorie);
+
+            this.checkStoreHasCategorie(categorieValidated);
+
+            const newCategorie = this.createCategorie(categorieValidated);
+
+            await categoriesApi.addCategorie(newCategorie,userStore.idUser);
+            categoriesStore.addCatigorie(newCategorie);
 
         }
         catch (error) {
-            return new Error();
+            throw error;
         }
-        finally {
-            switchShowModal();
-        }
+
     }
 
-    async deleteCategorie(id: string) {
+
+    async deleteCategorie(idCategorie: string) {
         try {
-
-
+            await categoriesApi.deleteCategorie(idCategorie,userStore.user._id);
+            categoriesStore.deleteCategorie(idCategorie);
 
         }
         catch (error) {
-            return new Error();
+            throw error;
         }
     }
 
-    async addSpendingInCategorie(id: string, spending: number) {
-        const categorie: ICategorie = categoriesStore.getCategorie(id);
-
-
-        const updatedCategorie: ICategorie = {
-            ...categorie,
-            spending : categorie.spending + spending,
-        };
-
-        try {
-            await categorieApi.addSpendingInCategorie(updatedCategorie, userStore.userId);
-
-        }
-        catch (error) {
-            console.log('Ошибка');
-
-        }
-    }
     checkStoreHasCategorie(validatedCategorie: string) {
-        return categoriesStore.categories.some(({ categorie }) => categorie === validatedCategorie);
+
+        const hasCategorie = categoriesStore.categories.some(({ categorie }) => categorie === validatedCategorie);
+
+        if (hasCategorie) {
+            throw new Error('Категория уже существует');
+        }
+    }
+
+    createCategorie(categorie:string) {
+
+        return {
+            categorie : categorie,
+            id        : categorie,
+            spending  : 0,
+        };
     }
 }
 

@@ -1,38 +1,54 @@
 import { ICategorie } from 'shared/store/categoriesStore/interfaces';
+import { ICategoriesApi } from './interfaces';
+import { ADD_CATEGORIE,DELETE_CATEGORIE } from './path';
+import { request } from './request/request';
 
 
 
-class CategoriesApi {
+export class CategoriesApi implements ICategoriesApi {
 
-    async addCategorie(categorie: string, userId: string) {
+    async addCategorie(categorie : ICategorie, id: string) {
+
         try {
+            const response = await request(ADD_CATEGORIE,'POST',{
+                categorie,
+                id,
+            });
 
+            if (!response.ok) {
+                const error = await response.json();
 
+                throw new Error(error.message);
+            }
 
 
         }
         catch (error) {
-            throw new Error('Что-то пошло не так');
+            throw error;
+
         }
     }
 
-    async deleteCategorie(key: string, userId: string) {
-        try {
+    async deleteCategorie(idCategorie: string, id: string) {
 
+        try {
+            const response = await request(DELETE_CATEGORIE,'DELETE',{
+                idCategorie,
+                id,
+            });
+
+
+            if (!response.ok) {
+                const errorMessage = await response.json();
+
+                throw new Error(errorMessage.message);
+            }
         }
         catch (error) {
-            throw new Error('Что-то пошло не так');
+            throw error;
         }
     }
 
-    async addSpendingInCategorie(categorie: ICategorie, userId: string) {
-        try {
-
-        }
-        catch (error) {
-            throw new Error('Что-то пошло не так');
-        }
-    }
 }
 
-export const categorieApi = new CategoriesApi();
+export const categoriesApi = new CategoriesApi();

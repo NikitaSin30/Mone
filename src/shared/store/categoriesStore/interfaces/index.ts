@@ -8,6 +8,6 @@ export interface ICategorie {
 export interface ICategoriesStore {
   categories: Array<ICategorie>;
   addCatigorie: (categorie: ICategorie) => void;
-  removeCategorie: (id: string) => void;
-  setCategoriesWithDB:(categories: ICategorie[]) => void
+  deleteCategorie: (id: string) => void;
+  setCategoriesFromDB:(categories: ICategorie[]) => void
 }

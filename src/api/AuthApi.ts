@@ -1,59 +1,88 @@
 import { IFormAuth } from 'features/auth/interfaces';
 import { IAuthApi } from './interfaces';
-
+import * as PATH from './path';
+import { request } from './request/request';
 
 
 class AuthApi implements IAuthApi {
 
     async registration(user: IFormAuth) {
         try {
-            const response = await fetch('http://localhost:3002/auth/registration', {
-                method  : 'POST',
-                headers : { 'Content-Type': 'application/json' },
-                body    : JSON.stringify(user),
-            });
+            const response = await request(PATH.REGISTRATION,'POST',{ user });
 
             if (!response.ok) {
-                throw new Error();
+                const error = await response.json();
+
+                throw new Error(error.message);
             }
 
-            const result:IFormAuth = await response.json();
+            return await response.json();
 
-
-            return result;
         }
-        catch (err) {
-            throw new Error('Что то пошло не так');
+        catch (error) {
+            throw error;
         }
     }
-
 
     async login(dataLogin:IFormAuth) {
         try {
-            const response = await fetch('http://localhost:3002/auth/login', {
-                method  : 'POST',
-                headers : {
-                    'Content-type' : 'application/json',
-                },
-                body : JSON.stringify(dataLogin),
-            });
+            const response = await request(PATH.LOGIN,'POST', dataLogin);
+
 
             if (!response.ok) {
-                throw new Error();
-            }
-            const res = await response.json();
+                const error = await response.json();
 
-            return res;
+                throw new Error(error.message);
+            }
+
+            return await response.json();
+
         }
         catch (error) {
-            throw new Error();
-
-
+            throw error;
         }
     }
 
-}
+    async authenticate(token:string) {
 
+        try {
+            const response = await request(PATH.AUTHENTICATION,'GET', token);
+
+            if (!response.ok) {
+                const error = await response.json();
+
+                throw new Error(error.message);
+            }
+
+            return await response.json();
+
+        }
+        catch (error) {
+            throw error;
+        }
+    }
+
+
+    async logout(id:string) {
+
+        try {
+
+            const response = await request(PATH.LOGOUT,'POST',{ id });
+
+            if (!response.ok) {
+                const error = await response.json();
+
+                throw new Error(error.message);
+            }
+
+            return await response.json();
+
+        }
+        catch (error) {
+            throw error;
+        }
+    }
+}
 
 
 export const authAPI = new AuthApi();

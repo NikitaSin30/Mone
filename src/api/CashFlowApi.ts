@@ -1,88 +1,72 @@
 import { IAccumulationOperation, IIncomeOperation, ISpendingOperation } from 'shared/store/cashFlowStore/interfaces';
 import { ICashFlowApi } from './interfaces';
-
+import * as PATH from './path/index';
+import { request } from './request/request';
 
 
 class CashFlowApi implements ICashFlowApi {
     async addIncome(incomeOperation: IIncomeOperation, id: string) {
         try {
-            const response = await fetch('http://localhost:3002/cash/addincome', {
-                method  : 'POST',
-                headers : {
-                    'Content-type' : 'application/json',
-                },
-                body : JSON.stringify({
-                    incomeOperation,
-                    id,
-                }),
+
+            const response = await request(PATH.ADD_INCOME,'POST',{
+                incomeOperation,
+                id,
             });
 
+
             if (!response.ok) {
-                throw new Error('');
+                const error = await response.json();
+
+                throw new Error(error.message);
             }
 
-            const result = response.json();
-
-            return result;
         }
         catch (error) {
-            throw new Error('Что-то пошло не так');
+            throw error;
         }
     }
 
     async addAccumulation(id: string, accumulationOperation: IAccumulationOperation) {
-        console.log(accumulationOperation);
 
         try {
-            const response = await fetch('http://localhost:3002/cash/addaccumulation', {
-                method  : 'POST',
-                headers : {
-                    'Content-type' : 'application/json',
-                },
-                body : JSON.stringify({
-                    accumulationOperation,
-                    id,
-                }),
+
+            const response = await request(PATH.ADD_ACCUMULATION,'POST',{
+                accumulationOperation,
+                id,
             });
 
+
             if (!response.ok) {
-                throw new Error('');
+                const error = await response.json();
+
+                throw new Error(error.message);
             }
-            const result = response.json();
 
+            return await response.json();
 
-            return result;
         }
         catch (error) {
-            throw new Error('Что-то пошло не так');
+            throw error;
         }
     }
 
     async addSpending(id: string, spendingOperation: ISpendingOperation) {
 
         try {
-            const response = await fetch('http://localhost:3002/cash/addspending', {
-                method  : 'POST',
-                headers : {
-                    'Content-type' : 'application/json',
-                },
-                body : JSON.stringify({
-                    spendingOperation,
-                    id,
-                }),
+
+            const response = await request(PATH.ADD_SPENDING,'POST',{
+                spendingOperation,
+                id,
             });
 
             if (!response.ok) {
-                throw new Error('Что-то пошло не так');
+                const error = await response.json();
+
+                throw new Error(error.message);
             }
-            const result = response.json();
-
-
-            return result;
-
         }
         catch (error) {
-            throw new Error('Что-то пошло не так');
+            throw error;
         }
     }
 }

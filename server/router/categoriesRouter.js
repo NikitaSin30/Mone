@@ -1,5 +1,8 @@
-const Router = require('express')
-const router = new Router()
+const Router = require('express');
+const router = new Router();
+const categoriesController = require('../controllers/categoriesController');
 
+router.post('/addcategorie',categoriesController.addCategorie);
+router.delete('/delcategorie',categoriesController.deleteCategorie);
 
-router.post('/addcategorie',);
+module.exports = router;

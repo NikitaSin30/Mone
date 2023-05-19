@@ -1,44 +1,69 @@
+import React from 'react';
 import { Route, Routes } from 'react-router-dom';
+import { observer } from 'mobx-react-lite';
+
 import Layout from '../shared/layout/Layout';
 import Main from '../pages/main/Main';
-import { Account } from '../pages/account/Account';
-import Analysis from '../pages/analysis/Analysis';
+import { Account } from 'pages/account/Account';
 import Authorization from '../pages/auth/authorization/Authorization';
 import Registration from '../pages/auth/registration/Registration';
-import { ContextGlobal, IContextGlobal } from 'shared/context/context';
+import { IGlobalContext,Context } from 'shared/context/context';
 import Notebook from 'pages/noteBook/Notebook';
-import { ToDo } from 'pages/noteBook/toDo/ToDo';
-import { ShopList } from 'pages/noteBook/shopList/ShopList';
-import { Navigate } from 'react-router-dom';
-import { useToggle } from 'shared/hooks/useToggle/useToggle';
+import { authService } from 'features/auth/service/serviceAuth';
+import { userStore } from 'shared/store/userStore/UserStore';
+import { AuthorizedRoute } from 'shared/routes/hoc/AuthorizedRoute';
+import { NotAuthorizedRoute } from 'shared/routes/hoc/NotAuthorizedRoute';
+import { LazyAuthorizedRoute } from 'shared/routes/hoc/LazyAuthorizedRoute';
+import * as URL from '../shared/routes/path';
+
+const ToDo = React.lazy(() => import('pages/noteBook/toDo/ToDo'));
+const ShopList = React.lazy(() => import('pages/noteBook/shopList/ShopList'));
+const Analysis = React.lazy(() => import('pages/analysis/Analysis'));
 
 
 
-export const App = () => {
-    const { value: isLogin, toggle: onChangeIsLogin } = useToggle(false);
+export const App =  observer(() => {
 
-    const context: IContextGlobal = {
-        isLogin,
-        onChangeIsLogin,
+    const { isAuth } = userStore;
+    const context: IGlobalContext = {
+        isAuth,
     };
+
+
+    React.useEffect(()=>{
+        const authenticate = async() => {
+            try {
+                await authService.authenticate();
+            }
+            catch (error) {
+                if (error instanceof Error) {
+                    console.log(error.message);
+                    localStorage.removeItem('wallet');
+                }
+            }
+        };
+
+        authenticate();
+
+    },[]);
 
 
     return (
         <>
-            <ContextGlobal.Provider value={context}>
+            <Context.Provider value={context}>
                 <Routes>
-                    <Route path="/" element={<Layout />}>
-                        <Route index element={isLogin ? <Main /> : <Navigate to="/login" />} />
-                        <Route path="/account" element={isLogin ? <Account/> : <Navigate to="/login" />} />
-                        <Route path="/analysis" element={isLogin ? <Analysis /> : <Navigate to="/login" />} />
-                        <Route path="/notebook" element={isLogin ? <Notebook /> : <Navigate to="/login" />} />
-                        <Route path="/notebook/todo" element={isLogin ? <ToDo /> : <Navigate to="/login" />} />
-                        <Route path="/notebook/shopList" element={isLogin ? <ShopList /> : <Navigate to="/login" />} />
-                        <Route path="/login" element={!isLogin ? <Authorization /> : <Navigate to="/" />} />
-                        <Route path="/registration" element={!isLogin ? <Registration /> : <Navigate to="/" />} />
+                    <Route path={URL.BASIC} element={<Layout />}>
+                        <Route index element={ <AuthorizedRoute><Main/></AuthorizedRoute> }/>
+                        <Route path={URL.ACCOUNT} element={ <AuthorizedRoute><Account/></AuthorizedRoute> } />
+                        <Route path={URL.ANALYSIS} element={<LazyAuthorizedRoute><Analysis/></LazyAuthorizedRoute>} />
+                        <Route path={URL.NOTEBOOK} element={ <AuthorizedRoute><Notebook/></AuthorizedRoute> } />
+                        <Route path={URL.TODO} element={ <LazyAuthorizedRoute><ToDo/></LazyAuthorizedRoute>} />
+                        <Route path={URL.SHOPLIST} element={ <LazyAuthorizedRoute><ShopList/></LazyAuthorizedRoute>} />
+                        <Route path={URL.LOGIN} element={<NotAuthorizedRoute><Authorization/></NotAuthorizedRoute>} />
+                        <Route path={URL.REGISTRATION} element={<NotAuthorizedRoute><Registration/></NotAuthorizedRoute>} />
                     </Route>
                 </Routes>
-            </ContextGlobal.Provider>
+            </Context.Provider>
         </>
     );
-};
+});
