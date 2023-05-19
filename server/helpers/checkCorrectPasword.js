@@ -6,6 +6,6 @@ module.exports = (inputPassword, dbPassword) => {
     const correctPassword = bcrypt.compareSync(inputPassword, dbPassword);
 
     if (!correctPassword) {
-        throw ApiError.trowUnauthorizedError('Пароль неверный');
+        throw ApiError.createUnauthorizedError('Пароль неверный');
     }
 };

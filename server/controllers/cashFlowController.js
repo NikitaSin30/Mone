@@ -32,7 +32,6 @@ class CashFlowController {
 
         try {
             await ServiceCashDB.addAccumulation(accumulationOperation,id);
-
             res.json({ message: 'Накопление добавлено' });
         }
         catch (error) {

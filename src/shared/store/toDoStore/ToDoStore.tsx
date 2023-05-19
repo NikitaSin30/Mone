@@ -15,8 +15,8 @@ class ToDoStore implements ITodoStore {
         this.tasks.push(task);
     }
 
-    deleteTask(id: string) {
-        this.tasks = this.tasks.filter((task) => task.id !== id);
+    deleteTask(idTask: string) {
+        this.tasks = this.tasks.filter((task) => task.id !== idTask);
     }
     deleteAllTasks() {
         this.tasks = [];
@@ -25,21 +25,23 @@ class ToDoStore implements ITodoStore {
     switchIsDoneTask(id: string) {
         this.tasks.map((task) => {
             if (task.id === id) task.isDone = !task.isDone;
-        });
-    }
-
-    updateTask(id:string): void {
-        this.tasks.map((task) => {
-            if (task.id === id) task.isDone = !task.isDone;
 
             return task;
         });
     }
 
-    getTask(id:string) {
-        const task : ITask | undefined = this.tasks.find(task => task.id === id);
+    updateTask(idTask:string): void {
+        this.tasks.map((task) => {
+            if (task.id === idTask) task.isDone = !task.isDone;
 
-        if (task === undefined) {
+            return task;
+        });
+    }
+
+    getTask(idTask:string) {
+        const task : ITask | undefined = this.tasks.find(task => task.id === idTask);
+
+        if (!task) {
             throw new Error();
         }
 
@@ -47,10 +49,8 @@ class ToDoStore implements ITodoStore {
 
     }
 
-    setTasksFromdDB(task:ITask[]) {
-        console.log(this.tasks);
-
-        this.tasks = task;
+    setTasksFromdDB(tasks:ITask[]) {
+        this.tasks = tasks;
     }
 }
 

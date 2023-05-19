@@ -9,24 +9,18 @@ import { ISpendingService } from './interfaces';
 
 class SpendingService implements ISpendingService {
 
-    async addSpending( newSpending : IFormSpending, switchShowModal:()=>void) {
+    async addSpending( newSpending : IFormSpending) {
         const createdOperation =  this.createOperation(newSpending.spending, newSpending.categorie);
 
         try {
-            const { message } = await cashFlowApi.addSpending(userStore.user._id, createdOperation);
+            await cashFlowApi.addSpending(userStore.user._id, createdOperation);
 
-            console.log(message);
             spendingStore.addSpending(createdOperation);
             categoriesStore.updateSpendingInCategorie(newSpending);
 
         }
         catch (error) {
-            if (error instanceof Error) {
-                console.log(error.message);
-            }
-        }
-        finally {
-            switchShowModal();
+            throw error;
         }
     }
     createOperation(spending: number, categorie: string) {
