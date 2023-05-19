@@ -10,14 +10,19 @@ import { IContextNotebook } from '../context/interfaces';
 import { ContextNotebook } from '../context/context';
 
 
-const { uniqueCategorie } = ETitleModalErr;
 
 const ToDo = observer(()=>{
     const { value: isModalErrActiveTask, toggle: switchisModalErrActiveTask } = useToggle(false);
+    const [ errMessage, setErrorMessage ] = React.useState('');
+
+    const setErromFromDB = (errorMessage:string) => {
+        setErrorMessage(errorMessage);
+    };
 
     const context : IContextNotebook = {
         isModalErrActiveTask,
         switchisModalErrActiveTask,
+        setErromFromDB,
     };
 
 
@@ -29,10 +34,11 @@ const ToDo = observer(()=>{
                         <h2 className="flex self-center mb-2 text-lg font-semibold">Список дел</h2>
                         <TodoHeader />
                         <TasksList />
-                        <BuilderTask/>
+                        <BuilderTask />
                     </div>
-                    {isModalErrActiveTask && <ErrorModal title={uniqueCategorie} switchShowModalErr={switchisModalErrActiveTask} />}
+                    {isModalErrActiveTask && <ErrorModal title={errMessage} switchShowModalErr={switchisModalErrActiveTask} />}
                 </div>
+
             </ContextNotebook.Provider>
         </>
     );

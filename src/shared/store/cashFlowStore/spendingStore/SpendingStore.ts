@@ -1,9 +1,9 @@
 import { makeAutoObservable } from 'mobx';
-import { balanceStore } from './balanceStore/BalanceStore';
-import { ISpendingStore } from './interfaces';
-import { ISpendingOperation } from './interfaces';
+import { balanceStore } from '../balanceStore/BalanceStore';
+import { ISpendingStore } from '../interfaces';
+import { ISpendingOperation } from '../interfaces';
 
-class SpendingStore implements ISpendingStore {
+export class SpendingStore implements ISpendingStore {
     spendingOperations: ISpendingOperation[] = [];
     spending:number = 0;
 
