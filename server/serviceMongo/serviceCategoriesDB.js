@@ -11,7 +11,7 @@ class serviceCategoriesDB {
             const hasCategorie = user.categories.find(item => item.categorie === categorie.categorie);
 
             if (hasCategorie) {
-                throw ApiError.throwBadRequestError('Категория не уникальна');
+                throw ApiError.createBadRequestError('Категория не уникальна');
             }
         }
         catch (error) {
