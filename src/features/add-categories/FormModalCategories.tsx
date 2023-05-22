@@ -12,7 +12,7 @@ import { TITLE_LABEL_CATEGORIE } from 'widgets/inputs/label/constans';
 import { ACTIVE_MODAL_STYLE, HIDEN_MODAL_STYLE } from 'widgets/modals/constans';
 import { TITLE_BUTTON_CATEGORIE } from 'widgets/modals/ui/button/constans';
 import { categoriesService } from './service/categoriesService';
-import { SubtitleResponse } from 'widgets/subtittleResponse/SubtittleResponse';
+import { SubtitleResponse } from 'widgets/errorResponse/SubtitleResponse';
 import { useShowError } from 'shared/hooks/useShowError/useShowError';
 
 
@@ -38,8 +38,10 @@ const FormModalCategories = () => {
         }
         catch (error) {
             if (error instanceof Error) {
-
                 showMessageError(error.message);
+            }
+            else {
+                showMessageError('Произошла ошибка');
             }
         }
         finally {
