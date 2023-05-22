@@ -1,21 +1,18 @@
 import { IAccumulationOperation, IIncomeOperation, ISpendingOperation } from 'shared/store/cashFlowStore/interfaces';
 import { ICashFlowApi } from './interfaces';
-import * as PATH from './path/index';
-import { checkError } from 'shared/helpers/checkError';
+import { ADD_INCOME_URL,ADD_ACCUMULATION_URL,ADD_SPENDING_URL } from './path/index';
+import { request } from './request/request';
+
 
 class CashFlowApi implements ICashFlowApi {
     async addIncome(incomeOperation: IIncomeOperation, id: string) {
         try {
-            const response = await fetch(PATH.ADD_INCOME, {
-                method  : 'POST',
-                headers : {
-                    'Content-type' : 'application/json',
-                },
-                body : JSON.stringify({
-                    incomeOperation,
-                    id,
-                }),
+
+            const response = await request(ADD_INCOME_URL,'POST',{
+                incomeOperation,
+                id,
             });
+
 
             if (!response.ok) {
                 const error = await response.json();
@@ -25,26 +22,19 @@ class CashFlowApi implements ICashFlowApi {
 
         }
         catch (error) {
-            if (error instanceof Error) {
-                throw error;
-            }
-            throw new Error('Произошла ошибка');
+            throw error;
         }
     }
 
     async addAccumulation(id: string, accumulationOperation: IAccumulationOperation) {
 
         try {
-            const response = await fetch(PATH.ADD_ACCUMULATION, {
-                method  : 'POST',
-                headers : {
-                    'Content-type' : 'application/json',
-                },
-                body : JSON.stringify({
-                    accumulationOperation,
-                    id,
-                }),
+
+            const response = await request(ADD_ACCUMULATION_URL,'POST',{
+                accumulationOperation,
+                id,
             });
+
 
             if (!response.ok) {
                 const error = await response.json();
@@ -56,22 +46,17 @@ class CashFlowApi implements ICashFlowApi {
 
         }
         catch (error) {
-            throw checkError(error);
+            throw error;
         }
     }
 
     async addSpending(id: string, spendingOperation: ISpendingOperation) {
 
         try {
-            const response = await fetch(PATH.ADD_SPENDING, {
-                method  : 'POST',
-                headers : {
-                    'Content-type' : 'application/json',
-                },
-                body : JSON.stringify({
-                    spendingOperation,
-                    id,
-                }),
+
+            const response = await request(ADD_SPENDING_URL,'POST',{
+                spendingOperation,
+                id,
             });
 
             if (!response.ok) {
@@ -79,10 +64,6 @@ class CashFlowApi implements ICashFlowApi {
 
                 throw new Error(error.message);
             }
-            const result = response.json();
-
-            return result;
-
         }
         catch (error) {
             throw error;

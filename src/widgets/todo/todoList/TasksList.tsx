@@ -20,11 +20,8 @@ export const TasksList = observer(() => {
         }
         catch (error) {
             if (error instanceof Error) {
-                if (error instanceof Error) {
-                    setErromFromDB(error.message);
-                    switchisModalErrActiveTask();
-                }
-
+                setErromFromDB(error.message);
+                switchisModalErrActiveTask();
             }
         }
     };
