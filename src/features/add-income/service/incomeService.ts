@@ -9,19 +9,14 @@ import { IFormIncome } from '../interfaces';
 
 
 class IncomeService implements IServiceIncome {
-    
+
     async addIncome({ income,sphere }:IFormIncome) {
         const modifytedSphere = validateString(sphere);
         const createdOperation = this.createOperation(income,modifytedSphere);
 
-        try {
-            await cashFlowApi.addIncome(createdOperation, userStore.idUser);
+        await cashFlowApi.addIncome(createdOperation, userStore.idUser);
 
-            incomeStore.addIncome(createdOperation);
-        }
-        catch (error) {
-            throw error;
-        }
+        incomeStore.addIncome(createdOperation);
 
     }
     createOperation(income:number,sphere:string): IIncomeOperation {

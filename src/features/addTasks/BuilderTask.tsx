@@ -28,11 +28,14 @@ export const BuilderTask = () =>{
     const onAddTask = async(formData:ITaskForm) => {
         try {
             await todoService.addTask(formData);
-
         }
         catch (error ) {
             if (error instanceof Error) {
                 setErromFromDB(error.message);
+                switchisModalErrActiveTask();
+            }
+            else {
+                setErromFromDB('Произошла ошибка');
                 switchisModalErrActiveTask();
             }
 

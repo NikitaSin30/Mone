@@ -1,6 +1,6 @@
 import { IAccumulationOperation, IIncomeOperation, ISpendingOperation } from 'shared/store/cashFlowStore/interfaces';
 import { ICashFlowApi } from './interfaces';
-import * as PATH from './path/index';
+import { ADD_INCOME_URL,ADD_ACCUMULATION_URL,ADD_SPENDING_URL } from './path/index';
 import { request } from './request/request';
 
 
@@ -8,7 +8,7 @@ class CashFlowApi implements ICashFlowApi {
     async addIncome(incomeOperation: IIncomeOperation, id: string) {
         try {
 
-            const response = await request(PATH.ADD_INCOME,'POST',{
+            const response = await request(ADD_INCOME_URL,'POST',{
                 incomeOperation,
                 id,
             });
@@ -30,7 +30,7 @@ class CashFlowApi implements ICashFlowApi {
 
         try {
 
-            const response = await request(PATH.ADD_ACCUMULATION,'POST',{
+            const response = await request(ADD_ACCUMULATION_URL,'POST',{
                 accumulationOperation,
                 id,
             });
@@ -54,7 +54,7 @@ class CashFlowApi implements ICashFlowApi {
 
         try {
 
-            const response = await request(PATH.ADD_SPENDING,'POST',{
+            const response = await request(ADD_SPENDING_URL,'POST',{
                 spendingOperation,
                 id,
             });

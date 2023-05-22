@@ -2,7 +2,7 @@
 import { ITaskForm } from 'features/addTasks/interfaces';
 import { ITask } from 'shared/store/toDoStore/interfaces';
 import { ITodoApi } from './interfaces';
-import { DELETE_TASK, DELETE_ALL_TASKS } from './path/index';
+import { DELETE_TASK_URL, DELETE_ALL_TASKS_URL } from './path/index';
 import { request } from './request/request';
 
 
@@ -10,12 +10,12 @@ import { request } from './request/request';
 
 class TodoApi implements ITodoApi {
 
-    async addTask(task: ITaskForm, id: string) {
+    async addTask(task: ITaskForm, idUser: string) {
 
         try {
             const response = await request('/tasks/addtask','POST',{
                 task,
-                id,
+                id : idUser,
             });
 
 
@@ -32,10 +32,10 @@ class TodoApi implements ITodoApi {
         }
     }
 
-    async deleteTask(idTask: string, id: string) {
+    async deleteTask(idTask: string, idUser: string) {
         try {
-            const response = await request(DELETE_TASK,'DELETE',{
-                id,
+            const response = await request(DELETE_TASK_URL,'DELETE',{
+                id : idUser,
                 idTask,
             });
 
@@ -54,9 +54,9 @@ class TodoApi implements ITodoApi {
         }
     }
 
-    async deleteAllTasks(id:string) {
+    async deleteAllTasks(idUser:string) {
         try {
-            const response = await request(DELETE_ALL_TASKS,'DELETE',{ id });
+            const response = await request(DELETE_ALL_TASKS_URL,'DELETE',{ id: idUser });
 
             if (!response.ok) {
                 const error = await response.json();
@@ -65,10 +65,8 @@ class TodoApi implements ITodoApi {
             }
         }
         catch (error) {
-            if (error instanceof Error) {
-                throw error;
-            }
-            throw new Error('Что-то пошло не так');
+
+            throw error;
         }
     }
 

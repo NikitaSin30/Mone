@@ -12,33 +12,23 @@ class CategoriesService implements ICategoriesService {
 
     async addCategorie({ categorie }: IFormCategorie) {
 
-        try {
-            const categorieValidated = validateString(categorie);
+        const categorieValidated = validateString(categorie);
 
-            this.checkStoreHasCategorie(categorieValidated);
+        this.checkStoreHasCategorie(categorieValidated);
 
-            const newCategorie = this.createCategorie(categorieValidated);
+        const newCategorie = this.createCategorie(categorieValidated);
 
-            await categoriesApi.addCategorie(newCategorie,userStore.idUser);
-            categoriesStore.addCatigorie(newCategorie);
-
-        }
-        catch (error) {
-            throw error;
-        }
+        await categoriesApi.addCategorie(newCategorie,userStore.idUser);
+        categoriesStore.addCatigorie(newCategorie);
 
     }
 
 
     async deleteCategorie(idCategorie: string) {
-        try {
-            await categoriesApi.deleteCategorie(idCategorie,userStore.user._id);
-            categoriesStore.deleteCategorie(idCategorie);
 
-        }
-        catch (error) {
-            throw error;
-        }
+        await categoriesApi.deleteCategorie(idCategorie,userStore.user._id);
+        categoriesStore.deleteCategorie(idCategorie);
+
     }
 
     checkStoreHasCategorie(validatedCategorie: string) {

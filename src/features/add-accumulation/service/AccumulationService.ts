@@ -14,14 +14,10 @@ class AccumulationService implements IAccumulationService {
         if (balanceStore.moneyAccount < accumulation) throw new Error('У вас нет данной суммы на счёте ');
         const createdOperation : IAccumulationOperation = this.createOperation(accumulation);
 
-        try {
-            await cashFlowApi.addAccumulation(userStore.idUser, createdOperation);
+        await cashFlowApi.addAccumulation(userStore.idUser, createdOperation);
 
-            accumulationStore.addAccumulation(createdOperation);
-        }
-        catch (error) {
-            throw error;
-        }
+        accumulationStore.addAccumulation(createdOperation);
+
     }
     createOperation(accumulation : number) {
         return {
