@@ -12,40 +12,24 @@ class TodoService implements ITodoService {
 
     async addTask( { task } : ITaskForm) {
 
-        try {
-            const validaitedTask = validateString(task);
+        const validaitedTask = validateString(task);
 
-            this.checkStoreHasTask(validaitedTask);
+        this.checkStoreHasTask(validaitedTask);
 
-            const newTask = this.createTask(validaitedTask);
+        const newTask = this.createTask(validaitedTask);
 
-            await todoApi.addTask(newTask,userStore.idUser);
-            toDoStore.addTask(newTask);
-        }
-        catch (error) {
-            throw error;
-        }
+        await todoApi.addTask(newTask,userStore.idUser);
+        toDoStore.addTask(newTask);
     }
 
     async deleteTask(idTask: string) {
-        try {
-            await todoApi.deleteTask(idTask,userStore.idUser);
-            toDoStore.deleteTask(idTask);
-        }
-        catch (error) {
-            throw error;
-
-        }
+        await todoApi.deleteTask(idTask,userStore.idUser);
+        toDoStore.deleteTask(idTask);
     }
 
     async deleteAllTasks() {
-        try {
-            await todoApi.deleteAllTasks(userStore.user._id);
-            toDoStore.deleteAllTasks();
-        }
-        catch (error) {
-
-        }
+        await todoApi.deleteAllTasks(userStore.idUser);
+        toDoStore.deleteAllTasks();
     }
 
     async switchIsDoneTask(idTask: string) {
@@ -67,7 +51,7 @@ class TodoService implements ITodoService {
         }
     }
 
-    createTask( validatedTask : string):ITask {
+    private createTask( validatedTask : string):ITask {
         return {
             task   : validatedTask,
             id     : validatedTask,
