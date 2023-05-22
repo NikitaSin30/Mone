@@ -51,6 +51,7 @@ const SpendingModal = () => {
                     setIsError();
                 },3000);
             }
+
         }
         finally {
             reset();

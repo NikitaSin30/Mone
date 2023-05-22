@@ -18,7 +18,7 @@ class ToDoStore implements ITodoStore {
     deleteTask(idTask: string) {
         this.tasks = this.tasks.filter((task) => task.id !== idTask);
     }
-    removeAllTasks() {
+    deleteAllTasks() {
         this.tasks = [];
     }
 

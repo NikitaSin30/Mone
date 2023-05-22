@@ -1,6 +1,6 @@
 import { IFormAuth } from 'features/auth/interfaces';
 import { IAuthApi } from './interfaces';
-import * as PATH from './path';
+import { REGISTRATION_URL,LOGIN_URL,LOGOUT_URL,AUTHENTICATION_URL } from './path';
 import { request } from './request/request';
 
 
@@ -8,7 +8,7 @@ class AuthApi implements IAuthApi {
 
     async registration(user: IFormAuth) {
         try {
-            const response = await request(PATH.REGISTRATION,'POST',{ user });
+            const response = await request(REGISTRATION_URL,'POST',{ user });
 
             if (!response.ok) {
                 const error = await response.json();
@@ -26,7 +26,7 @@ class AuthApi implements IAuthApi {
 
     async login(dataLogin:IFormAuth) {
         try {
-            const response = await request(PATH.LOGIN,'POST', dataLogin);
+            const response = await request(LOGIN_URL,'POST', dataLogin);
 
 
             if (!response.ok) {
@@ -46,7 +46,7 @@ class AuthApi implements IAuthApi {
     async authenticate(token:string) {
 
         try {
-            const response = await request(PATH.AUTHENTICATION,'GET', token);
+            const response = await request(AUTHENTICATION_URL,'GET', token);
 
             if (!response.ok) {
                 const error = await response.json();
@@ -67,7 +67,7 @@ class AuthApi implements IAuthApi {
 
         try {
 
-            const response = await request(PATH.LOGOUT,'POST',{ id });
+            const response = await request(LOGOUT_URL,'POST',{ id });
 
             if (!response.ok) {
                 const error = await response.json();
