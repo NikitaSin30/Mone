@@ -3,18 +3,11 @@ const serviceAuthDB = require('../serviceMongo/serviceAuthDB');
 module.exports = async(req,res,next) => {
 
     try {
-        const { email,nickname,country,password } = req.body;
+        const { email,nickname } = req.body;
 
         await serviceAuthDB.checkEmail(email);
 
         await serviceAuthDB.checkNickmane(nickname);
-
-        req.body = {
-            email,
-            nickname,
-            country,
-            password,
-        };
 
         next();
     }
@@ -22,5 +15,3 @@ module.exports = async(req,res,next) => {
         next(error);
     }
 };
-
-
