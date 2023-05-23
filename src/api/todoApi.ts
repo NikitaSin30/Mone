@@ -2,7 +2,7 @@
 import { ITaskForm } from 'features/addTasks/interfaces';
 import { ITask } from 'shared/store/toDoStore/interfaces';
 import { ITodoApi } from './interfaces';
-import { DELETE_TASK_URL, DELETE_ALL_TASKS_URL,SWITCH_IS_DONE_URL } from './path/index';
+import { DELETE_TASK_URL, DELETE_ALL_TASKS_URL, SWITCH_IS_DONE_URL,ADD_TASK_URL } from './path/index';
 import { request } from './request/request';
 
 
@@ -13,9 +13,9 @@ class TodoApi implements ITodoApi {
     async addTask(task: ITaskForm, idUser: string) {
 
         try {
-            const response = await request('/tasks/addtask','POST',{
+            const response = await request(ADD_TASK_URL,'POST',{
                 task,
-                id : idUser,
+                idUser,
             });
 
 
@@ -35,7 +35,7 @@ class TodoApi implements ITodoApi {
     async deleteTask(idTask: string, idUser: string) {
         try {
             const response = await request(DELETE_TASK_URL,'DELETE',{
-                id : idUser,
+                idUser,
                 idTask,
             });
 
@@ -56,7 +56,7 @@ class TodoApi implements ITodoApi {
 
     async deleteAllTasks(idUser:string) {
         try {
-            const response = await request(DELETE_ALL_TASKS_URL,'DELETE',{ id: idUser });
+            const response = await request(DELETE_ALL_TASKS_URL,'DELETE',{ idUser });
 
             if (!response.ok) {
                 const error = await response.json();
@@ -70,7 +70,7 @@ class TodoApi implements ITodoApi {
         }
     }
 
-    async switchIsDoneTask(idTask:string,id:string) {
+    async switchIsDoneTask(idTask:string,idUser:string) {
         try {
             const response = await fetch(SWITCH_IS_DONE_URL, {
                 method  : 'PUT',
@@ -78,16 +78,12 @@ class TodoApi implements ITodoApi {
                     'Content-type' : 'application/json',
                 },
                 body : JSON.stringify({
-                    id,
+                    idUser,
                     idTask,
                 }),
             });
 
             if (!response.ok) {
-                if (response.status === 404) {
-                    throw new Error('Плохо');
-
-                }
 
                 const error = await response.json();
 

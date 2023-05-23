@@ -35,7 +35,7 @@ class TodoService implements ITodoService {
     async switchIsDoneTask(idTask: string) {
 
         try {
-            await todoApi.switchIsDoneTask(idTask,userStore.user._id);
+            await todoApi.switchIsDoneTask(idTask,userStore.idUser);
             toDoStore.switchIsDoneTask(idTask);
         }
         catch (error) {

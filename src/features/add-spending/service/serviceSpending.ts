@@ -12,7 +12,7 @@ class SpendingService implements ISpendingService {
     async addSpending( newSpending : IFormSpending) {
         const createdOperation =  this.createOperation(newSpending.spending, newSpending.categorie);
 
-        await cashFlowApi.addSpending(userStore.user._id, createdOperation);
+        await cashFlowApi.addSpending(userStore.idUser, createdOperation);
 
         spendingStore.addSpending(createdOperation);
         categoriesStore.updateSpendingInCategorie(newSpending);

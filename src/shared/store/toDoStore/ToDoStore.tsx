@@ -42,7 +42,7 @@ class ToDoStore implements ITodoStore {
         const task : ITask | undefined = this.tasks.find(task => task.id === idTask);
 
         if (!task) {
-            throw new Error();
+            throw new Error('Произошла ошибка');
         }
 
         return task;
