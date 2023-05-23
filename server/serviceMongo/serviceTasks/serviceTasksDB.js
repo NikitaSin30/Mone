@@ -48,14 +48,14 @@ class ServiceTasksDB {
     }
     async switchIsDone(idUser, idTask) {
         try {
-
+    
             const user = await User.findOne({ _id: idUser });
             const task = user.tasks.find(item => item.id === idTask);
 
             await User.updateOne(
                 {
-                    _id   : idUser,
-                    tasks : { $elemMatch: { id: idTask } },
+                    _id        : idUser,
+                    'tasks.id' : idTask ,
                 },
                 { $set: { 'tasks.$.isDone': !task.isDone } }
             );
