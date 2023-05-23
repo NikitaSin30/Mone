@@ -5,12 +5,12 @@ import { request } from './request/request';
 
 
 class CashFlowApi implements ICashFlowApi {
-    async addIncome(incomeOperation: IIncomeOperation, id: string) {
+    async addIncome(incomeOperation: IIncomeOperation, idUser: string) {
         try {
 
             const response = await request(ADD_INCOME_URL,'POST',{
                 incomeOperation,
-                id,
+                idUser,
             });
 
 
@@ -26,13 +26,13 @@ class CashFlowApi implements ICashFlowApi {
         }
     }
 
-    async addAccumulation(id: string, accumulationOperation: IAccumulationOperation) {
+    async addAccumulation(idUser: string, accumulationOperation: IAccumulationOperation) {
 
         try {
 
             const response = await request(ADD_ACCUMULATION_URL,'POST',{
                 accumulationOperation,
-                id,
+                idUser,
             });
 
 
@@ -50,13 +50,13 @@ class CashFlowApi implements ICashFlowApi {
         }
     }
 
-    async addSpending(id: string, spendingOperation: ISpendingOperation) {
+    async addSpending(idUser: string, spendingOperation: ISpendingOperation) {
 
         try {
 
             const response = await request(ADD_SPENDING_URL,'POST',{
                 spendingOperation,
-                id,
+                idUser,
             });
 
             if (!response.ok) {

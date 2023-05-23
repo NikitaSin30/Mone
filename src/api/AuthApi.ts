@@ -63,11 +63,11 @@ class AuthApi implements IAuthApi {
     }
 
 
-    async logout(id:string) {
+    async logout(idUser:string) {
 
         try {
 
-            const response = await request(LOGOUT_URL,'POST',{ id });
+            const response = await request(LOGOUT_URL,'POST',{ idUser });
 
             if (!response.ok) {
                 const error = await response.json();
