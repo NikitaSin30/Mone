@@ -32,15 +32,14 @@ class TodoService implements ITodoService {
         toDoStore.deleteAllTasks();
     }
 
-    async toggleisDoneTask(id: string) {
-
+    async switchIsDoneTask(idTask: string) {
 
         try {
-
+            await todoApi.switchIsDoneTask(idTask,userStore.idUser);
+            toDoStore.switchIsDoneTask(idTask);
         }
         catch (error) {
-            console.log('Ошибка');
-
+            throw error;
         }
     }
 

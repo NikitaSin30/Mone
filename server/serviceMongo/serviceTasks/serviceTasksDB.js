@@ -48,7 +48,18 @@ class ServiceTasksDB {
     }
     async switchIsDone(idUser, idTask) {
         try {
-            await User.updateOne({ _id: idUser }, { $pull: { tasks: { id: idTask } } });
+    
+            const user = await User.findOne({ _id: idUser });
+            const task = user.tasks.find(item => item.id === idTask);
+
+            await User.updateOne(
+                {
+                    _id        : idUser,
+                    'tasks.id' : idTask ,
+                },
+                { $set: { 'tasks.$.isDone': !task.isDone } }
+            );
+
         }
         catch (error) {
             throw error;

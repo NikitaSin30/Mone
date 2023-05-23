@@ -49,6 +49,7 @@ export interface ICategoriesApi {
 }
 
 export interface ITodoApi {
+  switchIsDoneTask:(idTask:string, idUser:string) => Promise<void>
   addTask: (task: ITaskForm, idUser: string) => Promise<void>;
   deleteTask:(idTask:string, idUser:string) => Promise<void>
 }

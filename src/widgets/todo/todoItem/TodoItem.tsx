@@ -1,12 +1,11 @@
 import { DeleteIcon } from 'widgets/todo/assets/DeleteIcon';
-import { toDoStore } from 'shared/store/toDoStore/ToDoStore';
 import { ITodoItem } from '../interfaces';
-import { todoService } from 'features/addTasks/service/todoService';
 
 
 
-export const ToDoItem = ( props:ITodoItem ) =>{
-    const { task, isDone, id,onDeleteTask } = props;
+
+export const ToDoItem = ( { task, isDone, id,onDeleteTask,onToggleIsDoneTask } :ITodoItem ) =>{
+
     const completed = isDone ? 'border-green-600' : 'border-red-900';
 
     return (
@@ -16,7 +15,8 @@ export const ToDoItem = ( props:ITodoItem ) =>{
             </h3>
             <div className="flex gap-2">
                 <button
-                    onClick={() => todoService.toggleisDoneTask(id)}
+
+                    onClick={() => onToggleIsDoneTask(id)}
                     className={`flex items-center justify-center w-6 h-6 border-solid rounded-full cursor-pointer
                 border-4 ${completed}`}
                 >
