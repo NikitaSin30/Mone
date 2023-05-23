@@ -59,7 +59,7 @@ class AuthService implements IAuthService {
 
     async logout() {
         try {
-            await authAPI.logout(userStore.user._id);
+            await authAPI.logout(userStore.idUser);
 
             localStorage.removeItem('wallet');
             userStore.setIsAuth(false);
