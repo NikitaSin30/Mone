@@ -12,7 +12,7 @@ class ServiceAuthDB {
             const user = await User.findOne({ email });
 
             if (!user) {
-                throw ApiError.trowUnauthorizedError(`Пользователя c email: ${email} не существует`);
+                throw ApiError.createUnauthorizedError(`Пользователя c email: ${email} не существует`);
             }
 
             return user;
@@ -28,7 +28,7 @@ class ServiceAuthDB {
             const hasEmail = await this.DB.findOne({ email });
 
             if (hasEmail) {
-                throw ApiError.throwBadRequestError(`Пользователь c email: ${email} уже существует`);
+                throw ApiError.createBadRequestError(`Пользователь c email: ${email} уже существует`);
             }
         }
         catch (error) {
@@ -41,7 +41,7 @@ class ServiceAuthDB {
             const hasNickname = await this.DB.findOne({ nickname });
 
             if (hasNickname) {
-                throw ApiError.throwBadRequestError(`Пользователь c nickname: ${nickname} уже существует`);
+                throw ApiError.createBadRequestError(`Пользователь c nickname: ${nickname} уже существует`);
             }
         }
         catch (error) {
@@ -77,23 +77,23 @@ class ServiceAuthDB {
 
     }
 
-    async logout(id) {
+    async logout(idUser) {
         try {
-            await User.updateOne({ _id: id }, { $set: { isAuth: false } });
+            await User.updateOne({ _id: idUser }, { $set: { isAuth: false } });
         }
         catch (error) {
             throw error;
         }
     }
 
-    async authenticate(id) {
+    async authenticate(idUser) {
         try {
-            const user = await User.findOne({ _id: id });
+            const user = await User.findOne({ _id: idUser });
 
             return user;
         }
         catch (error) {
-            throw ApiError.trowUnauthorizedError('Необходимо ввести почту и пароль');
+            throw ApiError.createUnauthorizedError('Необходимо ввести почту и пароль');
         }
     }
 }

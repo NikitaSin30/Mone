@@ -4,10 +4,8 @@ import { IFormAccumulation } from './interfaces';
 import { Input } from 'widgets/inputs/Input';
 import { Button } from 'widgets/modals/ui/button/Button';
 import { CloseIcon } from 'widgets/modals/assets/CloseIcon';
-import { useService } from 'shared/hooks/useService/useService';
 import { IContextMain } from 'pages/main/context/interfaces';
 import { ContextMain } from 'pages/main/context/context';
-import { CASE_USESERVICE_ACCUMULATION } from 'shared/hooks/useService/constans';
 import { CASE_TYPE_NUMBER } from 'widgets/inputs/validation/constans';
 import { TITLE_REGISTOR_ACCUMULATION } from 'widgets/inputs/validation/constans';
 import { ACTIVE_MODAL_STYLE,HIDEN_MODAL_STYLE } from 'widgets/modals/constans';
@@ -39,6 +37,11 @@ const AccumulationModal = ({ setTextError } : IAccumulationModal ) => {
             if (error instanceof Error) {
                 switchisModalActiveAccumulation();
                 setTextError(error.message);
+                switchisModalErrActiveAccumulation();
+            }
+            else {
+                switchisModalActiveAccumulation();
+                setTextError('Ошибка');
                 switchisModalErrActiveAccumulation();
             }
         }

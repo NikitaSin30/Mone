@@ -5,6 +5,6 @@ module.exports = (req) => {
     const errValidation = validationResult(req);
 
     if (!errValidation.isEmpty()) {
-        return ApiError.throwBadRequestError('Некоректно введённые данные');
+        return ApiError.createBadRequestError('Некоректно введённые данные');
     }
 };

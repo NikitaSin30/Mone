@@ -1,6 +1,6 @@
 import { ISpendingOperation, ISpendingStore } from '../interfaces';
 import { SpendingStore } from './SpendingStore';
-import { balanceStore } from '../BalanceStore';
+import { balanceStore } from '../balanceStore/BalanceStore';
 
 
 describe('Class SpendingStore',() => {
@@ -8,7 +8,7 @@ describe('Class SpendingStore',() => {
     const spendingOperations : ISpendingOperation = {
         spending  : 100,
         categorie : 'Медицина',
-        date      : new Date(),
+        date      : new Date().toDateString(),
     };
 
     const spending = 100;

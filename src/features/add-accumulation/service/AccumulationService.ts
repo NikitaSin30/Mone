@@ -1,4 +1,4 @@
-import { balanceStore } from 'shared/store/cashFlowStore/BalanceStore';
+import { balanceStore } from 'shared/store/cashFlowStore/balanceStore/BalanceStore';
 import { cashFlowApi } from 'api/CashFlowApi';
 import { userStore } from 'shared/store/userStore/UserStore';
 import { accumulationStore } from 'shared/store/cashFlowStore/acuumulationStore/AccumulationStore';
@@ -15,17 +15,13 @@ class AccumulationService implements IAccumulationService {
         if (balanceStore.moneyAccount < accumulation) throw new Error('У вас нет данной суммы на счёте ');
         const createdOperation : IAccumulationOperation = this.createOperation(accumulation);
 
-        try {
-            await cashFlowApi.addAccumulation(userStore.user._id, createdOperation);
+        await cashFlowApi.addAccumulation(userStore.idUser, createdOperation);
 
-            accumulationStore.addAccumulation(createdOperation);
-            operationsStore.addOperation(createdOperation);
+        accumulationStore.addAccumulation(createdOperation);
+        operationsStore.addOperation(createdOperation);
 
-        }
-        catch (error) {
-            throw error;
-        }
     }
+
     createOperation(accumulation : number) {
         return {
             accumulation : accumulation,

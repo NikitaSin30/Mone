@@ -1,5 +1,5 @@
 import { makeAutoObservable } from 'mobx';
-import { IBalanceStore } from './interfaces';
+import { IBalanceStore } from '../interfaces';
 
 
 
