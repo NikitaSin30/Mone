@@ -7,12 +7,12 @@ import { request } from './request/request';
 
 export class CategoriesApi implements ICategoriesApi {
 
-    async addCategorie(categorie : ICategorie, id: string) {
+    async addCategorie(categorie : ICategorie, idUser: string) {
 
         try {
             const response = await request(ADD_CATEGORIE_URL,'POST',{
                 categorie,
-                id,
+                idUser,
             });
 
             if (!response.ok) {
@@ -29,12 +29,12 @@ export class CategoriesApi implements ICategoriesApi {
         }
     }
 
-    async deleteCategorie(idCategorie: string, id: string) {
+    async deleteCategorie(idCategorie: string, idUser: string) {
 
         try {
             const response = await request(DELETE_CATEGORIE_URL,'DELETE',{
                 idCategorie,
-                id,
+                idUser,
             });
 
 

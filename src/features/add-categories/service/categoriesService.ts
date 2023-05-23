@@ -26,7 +26,7 @@ class CategoriesService implements ICategoriesService {
 
     async deleteCategorie(idCategorie: string) {
 
-        await categoriesApi.deleteCategorie(idCategorie,userStore.user._id);
+        await categoriesApi.deleteCategorie(idCategorie,userStore.idUser);
         categoriesStore.deleteCategorie(idCategorie);
 
     }

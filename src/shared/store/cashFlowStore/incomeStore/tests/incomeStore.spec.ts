@@ -1,6 +1,6 @@
 import { IncomeStore } from '../IncomeStore';
 import { IIncomeOperation, IIncomeStore } from '../../interfaces';
-import { balanceStore } from '../../BalanceStore';
+import { balanceStore } from '../../balanceStore/BalanceStore';
 
 
 
@@ -14,7 +14,7 @@ describe('class IncomeStore', ()=>{
 
     const income = 100;
     let incomeStore : IIncomeStore | null;
-    
+
     const mockupdateCashAccountSpy = jest.spyOn(balanceStore, 'updateCashAccount');
 
     beforeEach(() => {

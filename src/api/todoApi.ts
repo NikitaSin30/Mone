@@ -15,7 +15,7 @@ class TodoApi implements ITodoApi {
         try {
             const response = await request('/tasks/addtask','POST',{
                 task,
-                id : idUser,
+                idUser,
             });
 
 
@@ -35,7 +35,7 @@ class TodoApi implements ITodoApi {
     async deleteTask(idTask: string, idUser: string) {
         try {
             const response = await request(DELETE_TASK_URL,'DELETE',{
-                id : idUser,
+                idUser,
                 idTask,
             });
 
@@ -56,7 +56,7 @@ class TodoApi implements ITodoApi {
 
     async deleteAllTasks(idUser:string) {
         try {
-            const response = await request(DELETE_ALL_TASKS_URL,'DELETE',{ id: idUser });
+            const response = await request(DELETE_ALL_TASKS_URL,'DELETE',{ idUser });
 
             if (!response.ok) {
                 const error = await response.json();
