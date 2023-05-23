@@ -64,6 +64,7 @@ class ServiceAuthDB {
                 spendingOperations     : [],
                 accumulation           : 0,
                 accumulationOperations : [],
+                allOperations          : [],
                 categories             : [],
                 tasks                  : [],
             });

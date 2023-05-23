@@ -4,7 +4,7 @@ import { ITodoItem } from '../interfaces';
 
 
 
-export const ToDoItem = ( { task, isDone, id,onDeleteTask,onToggleIsDoneTask } :ITodoItem ) =>{
+export const TodoItem = ( { task, isDone, id,onDeleteTask,onToggleIsDoneTask } :ITodoItem ) =>{
 
     const completed = isDone ? 'border-green-600' : 'border-red-900';
 

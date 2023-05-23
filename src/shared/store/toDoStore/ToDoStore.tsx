@@ -22,9 +22,9 @@ class ToDoStore implements ITodoStore {
         this.tasks = [];
     }
 
-    switchIsDoneTask(id: string) {
+    switchIsDoneTask(idTask: string) {
         this.tasks.map((task) => {
-            if (task.id === id) task.isDone = !task.isDone;
+            if (task.id === idTask) task.isDone = !task.isDone;
 
             return task;
         });
@@ -42,7 +42,7 @@ class ToDoStore implements ITodoStore {
         const task : ITask | undefined = this.tasks.find(task => task.id === idTask);
 
         if (!task) {
-            throw new Error();
+            throw new Error('Произошла ошибка');
         }
 
         return task;
