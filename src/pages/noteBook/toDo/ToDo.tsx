@@ -1,7 +1,7 @@
 import React from 'react';
 import { observer } from 'mobx-react-lite';
 import { BuilderTask } from 'features/addTasks/BuilderTask';
-import { TodoList } from 'widgets/todo/todoList/TasksList';
+import { TodoList } from 'widgets/todo/todoList/TodoList';
 import ErrorModal from 'widgets/modals/ErrorModal';
 import { ETitleModalErr } from 'shared/enums/enums';
 import { TodoHeader } from '../../../widgets/todo/TodoHeader';

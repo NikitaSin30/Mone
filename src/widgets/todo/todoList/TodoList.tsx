@@ -14,7 +14,7 @@ export const TodoList = observer(() => {
     const { tasks } = toDoStore;
 
 
-    const onDeleteTask = async(idTask:string) => {
+    const onDeleteTask = React.useCallback(async(idTask:string) => {
         try {
             await todoService.deleteTask(idTask);
         }
@@ -24,9 +24,9 @@ export const TodoList = observer(() => {
                 switchisModalErrActiveTask();
             }
         }
-    };
+    },[setErromFromDB, switchisModalErrActiveTask]);
 
-    const onToggleIsDoneTask = async(id:string) =>{
+    const onToggleIsDoneTask = React.useCallback(async(id:string) =>{
         try {
             await todoService.switchIsDoneTask(id);
         }
@@ -36,7 +36,7 @@ export const TodoList = observer(() => {
                 switchisModalErrActiveTask();
             }
         }
-    };
+    },[setErromFromDB, switchisModalErrActiveTask]);
 
 
     return (
@@ -53,6 +53,3 @@ export const TodoList = observer(() => {
         </div>
     );
 });
-
-
-

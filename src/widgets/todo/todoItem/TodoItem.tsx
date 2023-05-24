@@ -15,7 +15,6 @@ export const TodoItem = ( { task, isDone, id,onDeleteTask,onToggleIsDoneTask } :
             </h3>
             <div className="flex gap-2">
                 <button
-
                     onClick={() => onToggleIsDoneTask(id)}
                     className={`flex items-center justify-center w-6 h-6 border-solid rounded-full cursor-pointer
                 border-4 ${completed}`}
