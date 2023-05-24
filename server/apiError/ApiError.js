@@ -7,11 +7,11 @@ module.exports = class ApiError extends Error {
         this.status = status;
     }
 
-    static throwBadRequestError(message) {
+    static createBadRequestError(message) {
         return new ApiError(400, message);
     }
 
-    static trowUnauthorizedError(message) {
+    static createUnauthorizedError(message) {
         return new ApiError(401, message);
     }
 

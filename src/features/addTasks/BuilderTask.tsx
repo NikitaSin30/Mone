@@ -30,9 +30,13 @@ export const BuilderTask = () =>{
             await ioContainer.todoService.addTask(formData);
 
         }
-        catch (error) {
+        catch (error ) {
             if (error instanceof Error) {
                 setErromFromDB(error.message);
+                switchisModalErrActiveTask();
+            }
+            else {
+                setErromFromDB('Произошла ошибка');
                 switchisModalErrActiveTask();
             }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { observer } from 'mobx-react-lite';
 import { BuilderTask } from 'features/addTasks/BuilderTask';
-import { TasksList } from 'widgets/todo/todoList/TasksList';
+import { TodoList } from 'widgets/todo/todoList/TodoList';
 import ErrorModal from 'widgets/modals/ErrorModal';
 import { ETitleModalErr } from 'shared/enums/enums';
 import { TodoHeader } from '../../../widgets/todo/TodoHeader';
@@ -33,7 +33,7 @@ const ToDo = observer(()=>{
                     <div className="flex-1 flex flex-col h-full w-full ">
                         <h2 className="flex self-center mb-2 text-lg font-semibold">Список дел</h2>
                         <TodoHeader />
-                        <TasksList />
+                        <TodoList />
                         <BuilderTask />
                     </div>
                     {isModalErrActiveTask && <ErrorModal title={errMessage} switchShowModalErr={switchisModalErrActiveTask} />}

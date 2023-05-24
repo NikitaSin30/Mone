@@ -3,7 +3,7 @@ import { IUser } from './interfaces.ts';
 import { IFormAuth } from 'features/auth/interfaces';
 
 
-export class User implements IUser {
+export class UserStore implements IUser {
     user: IFormAuth;
     isAuth: boolean;
 
@@ -21,6 +21,10 @@ export class User implements IUser {
         this.user = user;
         console.log(this.user);
     }
+
+    get idUser() {
+        return this.user._id;
+    }
 }
 
-export const userStore = new User();
+export const userStore = new UserStore();

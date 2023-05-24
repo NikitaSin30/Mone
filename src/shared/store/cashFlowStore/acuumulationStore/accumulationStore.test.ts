@@ -1,7 +1,7 @@
 import { AccumulationStore } from './AccumulationStore';
 import { IAccumulationOperation } from '../interfaces';
 import { IAccumulationStore } from '../interfaces';
-import { balanceStore } from '../BalanceStore';
+import { balanceStore } from '../balanceStore/BalanceStore';
 
 
 describe('class AccumulationStore', () => {

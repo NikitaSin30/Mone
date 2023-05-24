@@ -1,12 +1,11 @@
 import { DeleteIcon } from 'widgets/todo/assets/DeleteIcon';
-import { toDoStore } from 'shared/store/toDoStore/ToDoStore';
 import { ITodoItem } from '../interfaces';
 
 
 
 
-export const ToDoItem = ( props:ITodoItem ) =>{
-    const { task, isDone, id,onDeleteTask,onToggleIsDoneTask } = props;
+export const TodoItem = ( { task, isDone, id,onDeleteTask,onToggleIsDoneTask } :ITodoItem ) =>{
+
     const completed = isDone ? 'border-green-600' : 'border-red-900';
 
     return (

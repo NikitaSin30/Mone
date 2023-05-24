@@ -1,6 +1,6 @@
 import { ISpendingOperation, ISpendingStore } from '../interfaces';
 import { SpendingStore } from './SpendingStore';
-import { balanceStore } from '../BalanceStore';
+import { balanceStore } from '../balanceStore/BalanceStore';
 
 
 describe('Class SpendingStore',() => {
