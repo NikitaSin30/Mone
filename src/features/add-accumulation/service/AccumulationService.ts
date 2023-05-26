@@ -13,13 +13,12 @@ class AccumulationService implements IAccumulationService {
 
     async addAccumulation({ accumulation }: IFormAccumulation) {
         if (balanceStore.moneyAccount < accumulation) throw new Error('У вас нет данной суммы на счёте ');
-        const createdOperation : IAccumulationOperation = this.createOperation(accumulation);
+        const operation : IAccumulationOperation = this.createOperation(accumulation);
 
-        await cashFlowApi.addAccumulation(userStore.idUser, createdOperation);
+        await cashFlowApi.addAccumulation(userStore.idUser, operation);
 
-        accumulationStore.addAccumulation(createdOperation);
-        operationsStore.addOperation(createdOperation);
-
+        accumulationStore.addAccumulation(operation);
+        operationsStore.addOperation(operation);
     }
 
     createOperation(accumulation : number) {

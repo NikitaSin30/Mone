@@ -8,7 +8,7 @@ class ServiceCashDB {
 
     async addIncome(incomeOperation,idUser) {
         try {
-            const { income, balance } = await User.findById(idUser);
+            const { income, balance } = await this.DB.findById(idUser);
             const newBallance = balance + incomeOperation.income;
             const newIncomeBalance = income + incomeOperation.income;
 

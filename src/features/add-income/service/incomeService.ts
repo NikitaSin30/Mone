@@ -13,12 +13,12 @@ class IncomeService implements IServiceIncome {
 
     async addIncome({ income,sphere }:IFormIncome) {
         const modifytedSphere = validateString(sphere);
-        const createdOperation = this.createOperation(income,modifytedSphere);
+        const operation = this.createOperation(income,modifytedSphere);
 
-        await cashFlowApi.addIncome(createdOperation, userStore.idUser);
+        await cashFlowApi.addIncome(operation, userStore.idUser);
 
-        incomeStore.addIncome(createdOperation);
-        operationsStore.addOperation(createdOperation);
+        incomeStore.addIncome(operation);
+        operationsStore.addOperation(operation);
 
 
     }

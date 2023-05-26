@@ -5,24 +5,24 @@ import { ITodoStore, ITask } from './interfaces';
 
 
 class ToDoStore implements ITodoStore {
-    tasks: ITask[] = [];
+    public tasks: ITask[] = [];
 
     constructor() {
         makeAutoObservable(this);
     }
 
-    addTask(task: ITask) {
+    public addTask(task: ITask) {
         this.tasks.push(task);
     }
 
-    deleteTask(idTask: string) {
+    public deleteTask(idTask: string) {
         this.tasks = this.tasks.filter((task) => task.id !== idTask);
     }
-    deleteAllTasks() {
+    public deleteAllTasks() {
         this.tasks = [];
     }
 
-    switchIsDoneTask(idTask: string) {
+    public switchIsDoneTask(idTask: string) {
         this.tasks.map((task) => {
             if (task.id === idTask) task.isDone = !task.isDone;
 
@@ -30,7 +30,7 @@ class ToDoStore implements ITodoStore {
         });
     }
 
-    updateTask(idTask:string): void {
+    public updateTask(idTask:string): void {
         this.tasks.map((task) => {
             if (task.id === idTask) task.isDone = !task.isDone;
 

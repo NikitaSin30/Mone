@@ -11,12 +11,12 @@ import { operationsStore } from 'shared/store/cashFlowStore/operationsStore/Oper
 class SpendingService implements ISpendingService {
 
     async addSpending( newSpending : IFormSpending) {
-        const createdOperation =  this.createOperation(newSpending.spending, newSpending.categorie);
+        const operation =  this.createOperation(newSpending.spending, newSpending.categorie);
 
-        await cashFlowApi.addSpending(userStore.idUser, createdOperation);
+        await cashFlowApi.addSpending(userStore.idUser, operation);
 
-        spendingStore.addSpending(createdOperation);
-        operationsStore.addOperation(createdOperation);
+        spendingStore.addSpending(operation);
+        operationsStore.addOperation(operation);
         categoriesStore.updateSpendingInCategorie(newSpending);
 
     }
