@@ -1,5 +1,4 @@
 import React from 'react';
-import { categoriesStore } from 'shared/store/categoriesStore/CategoriesStore';
 import { DeleteModal } from 'widgets/modals/DeleteModal';
 import { ICategorie } from 'shared/store/categoriesStore/interfaces';
 import { observer } from 'mobx-react-lite';
