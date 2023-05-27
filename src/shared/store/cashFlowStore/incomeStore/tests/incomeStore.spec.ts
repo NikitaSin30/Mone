@@ -1,5 +1,5 @@
 import { IncomeStore } from '../IncomeStore';
-import { IIncomeOperation, IIncomeStore } from '../../interfaces';
+import { EOperationType, IIncomeOperation, IIncomeStore } from '../../interfaces';
 import { balanceStore } from '../../balanceStore/BalanceStore';
 
 
@@ -9,6 +9,7 @@ describe('class IncomeStore', ()=>{
     const incomeOperation: IIncomeOperation  = {
         income : 100,
         sphere : 'IT',
+        type   : EOperationType.Income,
         date   : new Date().toLocaleDateString(),
     };
 

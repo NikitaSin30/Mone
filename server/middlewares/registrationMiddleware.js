@@ -1,17 +1,19 @@
+const ApiError = require('../apiError/ApiError');
 const serviceAuthDB = require('../serviceMongo/serviceAuthDB');
 
-module.exports = async(req,res,next) => {
+const registrationMiddleware = async(req,res,next) => {
 
     try {
         const { email,nickname } = req.body;
 
         await serviceAuthDB.checkEmail(email);
-
-        await serviceAuthDB.checkNickmane(nickname);
-
+        await serviceAuthDB.checkNickname(nickname);
+      
         next();
     }
     catch (error) {
         next(error);
     }
 };
+
+module.exports = registrationMiddleware;

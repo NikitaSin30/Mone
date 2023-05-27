@@ -1,6 +1,6 @@
 import { incomeStore } from 'shared/store/cashFlowStore/incomeStore/IncomeStore';
 import { cashFlowApi } from 'api/CashFlowApi';
-import { IIncomeOperation } from 'shared/store/cashFlowStore/interfaces';
+import { EOperationType, IIncomeOperation } from 'shared/store/cashFlowStore/interfaces';
 import { userStore } from 'shared/store/userStore/UserStore';
 import { validateString } from 'shared/helpers/validateString';
 import { IServiceIncome } from './interfaces';
@@ -26,6 +26,7 @@ class IncomeService implements IServiceIncome {
         return {
             income : income,
             sphere : sphere,
+            type   : EOperationType.Income,
             date   : new Date().toLocaleDateString(),
         };
     }

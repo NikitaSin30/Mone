@@ -17,7 +17,7 @@ class AuthController {
 
             const { email,country,nickname,password } = req.body;
 
-            const hashPassword = bcrypt.hashSync(password,6);
+            const hashPassword = bcrypt.hashSync(password,7);
 
             await serviceAuthDB.saveUser(email,country,nickname,hashPassword);
 

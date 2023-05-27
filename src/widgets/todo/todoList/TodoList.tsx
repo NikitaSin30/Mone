@@ -13,7 +13,6 @@ export const TodoList = observer(() => {
 
     const { tasks } = toDoStore;
 
-
     const onDeleteTask = React.useCallback(async(idTask:string) => {
         try {
             await todoService.deleteTask(idTask);

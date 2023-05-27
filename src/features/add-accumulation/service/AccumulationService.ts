@@ -2,7 +2,7 @@ import { balanceStore } from 'shared/store/cashFlowStore/balanceStore/BalanceSto
 import { cashFlowApi } from 'api/CashFlowApi';
 import { userStore } from 'shared/store/userStore/UserStore';
 import { accumulationStore } from 'shared/store/cashFlowStore/acuumulationStore/AccumulationStore';
-import { IAccumulationOperation } from 'shared/store/cashFlowStore/interfaces';
+import { IAccumulationOperation, EOperationType } from 'shared/store/cashFlowStore/interfaces';
 import { IAccumulationService } from './interfaces';
 import { IFormAccumulation } from '../interfaces';
 import { operationsStore } from 'shared/store/cashFlowStore/operationsStore/OperationsStore';
@@ -21,9 +21,10 @@ class AccumulationService implements IAccumulationService {
         operationsStore.addOperation(operation);
     }
 
-    createOperation(accumulation : number) {
+    createOperation(accumulation : number):IAccumulationOperation {
         return {
             accumulation : accumulation,
+            type         : EOperationType.Accumulation,
             date         : new Date().toLocaleDateString(),
         };
     }

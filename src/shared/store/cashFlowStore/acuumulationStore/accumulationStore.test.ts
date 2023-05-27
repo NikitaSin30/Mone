@@ -1,5 +1,5 @@
 import { AccumulationStore } from './AccumulationStore';
-import { IAccumulationOperation } from '../interfaces';
+import { EOperationType, IAccumulationOperation } from '../interfaces';
 import { IAccumulationStore } from '../interfaces';
 import { balanceStore } from '../balanceStore/BalanceStore';
 
@@ -7,6 +7,7 @@ import { balanceStore } from '../balanceStore/BalanceStore';
 describe('class AccumulationStore', () => {
     const accumulationOperation : IAccumulationOperation = {
         accumulation : 100,
+        type         : EOperationType.Accumulation,
         date         : new Date().toDateString(),
     };
     const accumulation = 100;

@@ -5,7 +5,7 @@ import { IFormSpending } from '../interfaces';
 import { cashFlowApi } from 'api/CashFlowApi';
 import { ISpendingService } from './interfaces';
 import { operationsStore } from 'shared/store/cashFlowStore/operationsStore/OperationsStore';
-
+import { EOperationType, ISpendingOperation } from 'shared/store/cashFlowStore/interfaces';
 
 
 class SpendingService implements ISpendingService {
@@ -20,10 +20,11 @@ class SpendingService implements ISpendingService {
         categoriesStore.updateSpendingInCategorie(newSpending);
 
     }
-    createOperation(spending: number, categorie: string) {
+    createOperation(spending: number, categorie: string):ISpendingOperation {
         return {
             spending  : spending,
             categorie : categorie,
+            type      : EOperationType.Spending,
             date      : new Date().toLocaleDateString(),
         };
     }
