@@ -1,7 +1,7 @@
 import CashFlow from 'widgets/cashFlow/CashFlow';
 import { IncomeCard } from 'widgets/accountingСards/incomeCard/IncomeCard';
 import { SpendingCard } from 'widgets/accountingСards/spendingCard/SpendingCard';
-import { AccumulationCard } from 'widgets/accountingСards/accumulationCard/AccumulationCard';
+import AccumulationCard from 'widgets/accountingСards/accumulationCard/AccumulationCard';
 import { BalanceCard } from 'widgets/accountingСards/balanceCard/BalanceCard';
 import { AnalysisGraphs } from 'widgets/analysisGraphs/AnalysisGraphs';
 import { useToggle } from 'shared/hooks/useToggle/useToggle';

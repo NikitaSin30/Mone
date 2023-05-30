@@ -19,7 +19,7 @@ export const IncomeCard = observer(() => {
     return (
         <>
             <CardItem switchShowModal={switchIsModalActiveIncome} title={incomeCard} money={income} iconCard={IncomeIcon} />
-            <ModalIncome />
+            <ModalIncome/>
         </>
     );
 });

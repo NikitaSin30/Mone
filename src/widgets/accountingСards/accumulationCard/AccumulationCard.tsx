@@ -12,7 +12,7 @@ import { ContextMain } from 'pages/main/context/context';
 const { accumulationCard } = ETitleCard;
 
 
-export const AccumulationCard = observer(() => {
+const AccumulationCard = observer(() => {
     const [contentError,setContentError] = React.useState('');
     const { isModalErrActiveAccumulation,switchisModalActiveAccumulation,switchisModalErrActiveAccumulation } = React.useContext<IContextMain>(ContextMain);
     const { accumulation } = accumulationStore;
@@ -35,3 +35,5 @@ export const AccumulationCard = observer(() => {
         </>
     );
 });
+
+export default AccumulationCard;
