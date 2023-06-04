@@ -2,45 +2,44 @@ import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import Main from '../Main';
 
-import { BalanceCard } from 'widgets/accountingСards/balanceCard/BalanceCard';
-import { SpendingCard } from 'widgets/accountingСards/spendingCard/SpendingCard';
-import { IncomeCard } from 'widgets/accountingСards/incomeCard/IncomeCard';
+jest.mock('widgets/cashFlow/CashFlow', () => {
+    return {
+        __esModule : true,
+        default    : () => <div>CashFlow Mock</div>,
+    };
+});
 
-
-jest.mock('../../../widgets/accountingСards/accumulationCard/AccumulationCard', () => ({
-    __esModule : true,
-    default    : () => <div>накоплено</div>,
+jest.mock('widgets/accountingСards/incomeCard/IncomeCard', () => ({
+    IncomeCard : () => <div>IncomeCard Mock</div>,
 }));
 
-jest.mock('../../../widgets/accountingСards/spendingCard/SpendingCard', () => ({
-    __esModule : true,
-    default    : () => <div>потрачено</div>,
+jest.mock('widgets/accountingСards/spendingCard/SpendingCard', () => ({
+    SpendingCard : () => <div>SpendingCard Mock</div>,
 }));
 
-jest.mock('../../../widgets/accountingСards/incomeCard/IncomeCard', () => ({
-    __esModule : true,
-    default    : () => <div>доход</div>,
+jest.mock('widgets/accountingСards/accumulationCard/AccumulationCard', () => {
+    return {
+        __esModule : true,
+        default    : () => <div>AccumulationCard Mock</div>,
+    };
+});
+
+jest.mock('widgets/accountingСards/balanceCard/BalanceCard', () => ({
+    BalanceCard : () => <div>BalanceCard Mock</div>,
 }));
 
-jest.mock('../../../widgets/accountingСards/balanceCard/BalanceCard', () => ({
-    __esModule : true,
-    default    : () => <div>на счёте</div>,
+jest.mock('widgets/analysisGraphs/AnalysisGraphs', () => ({
+    AnalysisGraphs : () => <div>AnalysisGraphs Mock</div>,
 }));
 
-describe('Test Main', () => {
+describe('Main Page', () => {
 
-    test('Render Main', () => {
-
+    it('should render base html structure', () => {
         render(<Main />);
-        const accumulationTitle = screen.getByText(/накоплено/i);
-        const spendingTitle = screen.getByText(/потрачено/i);
-        const incomeTitle = screen.getByText(/доход/i);
-        const balanceTitle = screen.getByText(/на счёте/i);
 
-        expect(accumulationTitle).toBeInTheDocument();
-        expect(spendingTitle).toBeInTheDocument();
-        expect(balanceTitle).toBeInTheDocument();
-        expect(incomeTitle).toBeInTheDocument();
-
+        expect(screen.getByText(/BalanceCard Mock/gi)).toBeInTheDocument();
+        expect(screen.getByText(/IncomeCard Mock/gi)).toBeInTheDocument();
+        expect(screen.getByText(/SpendingCard Mock/gi)).toBeInTheDocument();
+        expect(screen.getByText(/AccumulationCard Mock/gi)).toBeInTheDocument();
     });
 });
