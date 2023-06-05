@@ -1,6 +1,6 @@
 export const mockComponent = (pathToComponent:string,stringOutput : string) => {
-    return jest.mock(pathToComponent, () => ({
-        __esModule : true,
-        default    : () => <div>{stringOutput}</div>,
+    jest.mock('widgets/accountingСards/CardItem/CardItem',() =>({
+        CardItem : () => <div>43</div>,
     }));
+
 };
