@@ -10,10 +10,11 @@ export const Input = ({ register,titleRegister,titleLabel = 'Сумма', caseTy
 
     return (
         <>
-            <Label titleLabel={titleLabel} errMessage={errMessage}/>
+            <Label errMessage={errMessage}/>
             <input
                 className=" flex-1 w-full placeholder-slate-900 text-black font-semibold rounded-md shadow-lg px-2 py-1"
                 type={validation?.type}
+                placeholder='Введите задачу'
                 {...register(titleRegister, validation?.validation )}
             />
         </>
