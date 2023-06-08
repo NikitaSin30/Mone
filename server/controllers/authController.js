@@ -1,8 +1,6 @@
-const { validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const { generateAccessToken } = require('../token/generateToken');
 const serviceAuthDB = require('../serviceMongo/serviceAuthDB');
-const ApiError = require('../apiError/ApiError');
 const checkValidation = require('../helpers/checkValidation');
 const checkCorrectPassword = require('../helpers/checkCorrectPasword');
 

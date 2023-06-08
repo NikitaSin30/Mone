@@ -1,5 +1,4 @@
 import React from 'react';
-import { categoriesStore } from 'shared/store/categoriesStore/CategoriesStore';
 import { DeleteModal } from 'widgets/modals/DeleteModal';
 import { ICategorie } from 'shared/store/categoriesStore/interfaces';
 import { observer } from 'mobx-react-lite';
@@ -32,7 +31,7 @@ export const CategorieItem = observer((props:ICategorie) =>{
     return (
         <>
             <li
-                className="flex-none max-h-[40px] flex px-4 py-2 text-white bg-slate-900  items-center
+                className="max-h-[40px] flex px-4 py-2 text-white bg-slate-900  items-center
                           justify-between rounded-md shadow-lg"
             >
                 <h2 className="font-semibold text-md">{categorie}</h2>

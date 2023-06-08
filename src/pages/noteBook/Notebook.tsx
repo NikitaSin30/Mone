@@ -1,11 +1,8 @@
 import { Link } from 'react-router-dom';
-import { useToggle } from 'shared/hooks/useToggle/useToggle';
-import { IContextNotebook } from './context/interfaces';
 
 
 
 export const Notebook = () => {
-
 
     return (
         <div className="flex  flex-1 items-center justify-center w-6/6 h-6/6 gap-2 md:gap-3">

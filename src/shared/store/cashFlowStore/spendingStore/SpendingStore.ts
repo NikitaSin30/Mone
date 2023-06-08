@@ -3,15 +3,17 @@ import { balanceStore } from '../balanceStore/BalanceStore';
 import { ISpendingStore } from '../interfaces';
 import { ISpendingOperation } from '../interfaces';
 
+
+
 export class SpendingStore implements ISpendingStore {
-    spendingOperations: ISpendingOperation[] = [];
-    spending:number = 0;
+    public spendingOperations: ISpendingOperation[] = [];
+    public spending:number = 0;
 
     constructor() {
         makeAutoObservable(this);
     }
 
-    addSpending(operation: ISpendingOperation) {
+    public addSpending(operation: ISpendingOperation) {
         this.spending = this.spending + operation.spending ;
         const updatedBalance = balanceStore.moneyAccount - operation.spending;
 
@@ -20,7 +22,7 @@ export class SpendingStore implements ISpendingStore {
         balanceStore.updateCashAccount(updatedBalance);
     }
 
-    setSpendingFromDB(spending:number, spendingOperations : ISpendingOperation[]) {
+    public setSpendingFromDB(spending:number, spendingOperations : ISpendingOperation[]) {
         this.spending = spending;
         this.spendingOperations = spendingOperations;
     }

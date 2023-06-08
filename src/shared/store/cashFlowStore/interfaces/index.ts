@@ -4,11 +4,21 @@ export interface IBalanceStore {
   setBalanceFromDB: (sum: number) => void;
 }
 
-
-export interface IAccumulationOperation {
-  accumulation: number;
-  date: Date;
+export enum EOperationType{
+  Income = 'Income',
+  Accumulation = 'Accumulation',
+  Spending = 'Spending',
 }
+
+interface Operation {
+  date: string
+}
+
+export interface IAccumulationOperation extends Operation {
+  accumulation: number;
+  type:EOperationType.Accumulation;
+}
+
 export interface IAccumulationStore {
   accumulation: number;
   accumulationOperations: IAccumulationOperation[];
@@ -19,10 +29,10 @@ export interface IAccumulationStore {
 
 
 
-export interface ISpendingOperation {
+export interface ISpendingOperation extends Operation {
   spending: number;
   categorie: string;
-  date: Date;
+  type:EOperationType.Spending,
 }
 
 export interface ISpendingStore {
@@ -34,10 +44,10 @@ export interface ISpendingStore {
 
 
 
-export interface IIncomeOperation {
+export interface IIncomeOperation extends Operation {
   income: number;
   sphere: string;
-  date: Date;
+  type:EOperationType.Income
 }
 export interface IIncomeStore {
   income: number;
