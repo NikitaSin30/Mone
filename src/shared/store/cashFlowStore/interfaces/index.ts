@@ -1,5 +1,5 @@
 export interface IOperation{
-    data:string
+    date:string
 }
 
 export interface IAccumulationOperation {
@@ -14,20 +14,17 @@ export enum EOperationType{
 }
 
 export interface IAccumulationOperation extends IOperation {
-  date: string;
   accumulation: number;
   type:EOperationType.Accumulation;
 }
 
 export interface ISpendingOperation extends IOperation {
-  date: string;
   spending: number;
   categorie: string;
   type:EOperationType.Spending,
 }
 
-export interface IIncomeOperation extends IOperation {
-  date: string;
+export interface IIncomeOperation extends IOperation{
   income: number;
   sphere: string;
   type:EOperationType.Income

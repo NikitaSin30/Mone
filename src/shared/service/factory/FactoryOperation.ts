@@ -1,19 +1,21 @@
 import { IIncomeOperation } from '../../store/cashFlowStore/interfaces';
 import { ISpendingOperation } from '../../store/cashFlowStore/interfaces';
 import { IAccumulationOperation } from '../../store/cashFlowStore/interfaces';
-
+import { EOperationType } from '../../store/cashFlowStore/interfaces';
 import { TYPE_OPERATION_SPENDING,TYPE_OPERATION_ACCUMULATION,TYPE_OPERATION_INCOME } from './constants';
 
 
 class IncomeOperation implements IIncomeOperation {
+    date: string;
     income: number;
     sphere: string;
-    date:string;
+    type:EOperationType.Income;
 
     constructor(income:number, sphere:string ) {
         this.income = income;
         this.sphere = sphere;
         this.date   = new Date().toLocaleDateString();
+        this.type = EOperationType.Income;
     }
 
 }
@@ -22,19 +24,25 @@ class SpendingOperation implements ISpendingOperation {
     spending: number;
     categorie: string;
     date:string;
+    type:EOperationType.Spending;
+
     constructor(spending:number, categorie : string ) {
         this.spending = spending;
         this.categorie = categorie;
         this.date   = new Date().toLocaleDateString();
+        this.type = EOperationType.Spending;
     }
 }
 
 class AccumulationOperation implements IAccumulationOperation {
     accumulation: number;
     date:string;
+    type:EOperationType.Accumulation;
+
     constructor(accumulation:number) {
         this.accumulation = accumulation;
         this.date   = new Date().toLocaleDateString();
+        this.type = EOperationType.Accumulation;
     }
 }
 
