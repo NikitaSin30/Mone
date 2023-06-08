@@ -13,7 +13,7 @@ router.post('/registration',
         check('password','Минимальная длина 6 символов').isString().isLength({ min: 6 }),
         check('nickname','Минимальная длина 3 символа').isString().isLength({ min: 3 }),
     ],
-    registrationMiddleware ,
+    registrationMiddleware,
     authController.registration);
 
 

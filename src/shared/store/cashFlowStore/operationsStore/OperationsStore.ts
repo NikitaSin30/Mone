@@ -1,19 +1,21 @@
 import { makeAutoObservable } from 'mobx';
 import { TAllOperations } from './types';
+import { IOperationStore } from './interfaces';
 
 
-class OperationsStore {
-    allOperations : TAllOperations[];
+
+class OperationsStore implements IOperationStore {
+    public allOperations : TAllOperations[];
 
     constructor() {
         makeAutoObservable(this);
     }
 
-    addOperation(operation : TAllOperations) {
+    public addOperation(operation : TAllOperations) {
         this.allOperations.push(operation);
     }
 
-    setAllOperationsFromDB(allOperations : TAllOperations[]) {
+    public setAllOperationsFromDB(allOperations : TAllOperations[]) {
         this.allOperations = allOperations;
     }
 }

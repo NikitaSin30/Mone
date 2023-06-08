@@ -1,6 +1,7 @@
-import { IIncomeOperation } from 'shared/store/cashFlowStore/interfaces';
-import { ISpendingOperation } from 'shared/store/cashFlowStore/interfaces';
-import { IAccumulationOperation } from 'shared/store/cashFlowStore/interfaces';
+import { IIncomeOperation } from '../../store/cashFlowStore/interfaces';
+import { ISpendingOperation } from '../../store/cashFlowStore/interfaces';
+import { IAccumulationOperation } from '../../store/cashFlowStore/interfaces';
+
 import { TYPE_OPERATION_SPENDING,TYPE_OPERATION_ACCUMULATION,TYPE_OPERATION_INCOME } from './constants';
 
 

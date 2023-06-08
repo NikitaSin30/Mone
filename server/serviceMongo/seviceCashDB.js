@@ -8,14 +8,23 @@ class ServiceCashDB {
 
     async addIncome(incomeOperation,idUser) {
         try {
-            const { income, balance } = await User.findById(idUser);
+            const { income, balance } = await this.DB.findById(idUser);
             const newBallance = balance + incomeOperation.income;
-            const newSpendingBalance = income + incomeOperation.income;
+            const newIncomeBalance = income + incomeOperation.income;
 
-            await this.DB.updateOne({ _id: idUser }, { $set: { income: newSpendingBalance } });
-            await this.DB.updateOne({ _id: idUser }, { $set: { balance: newBallance } });
-            await this.DB.updateOne({ _id: idUser }, { $push: { incomeOperations: incomeOperation } });
-            await this.DB.updateOne({ _id: idUser }, { $push: { allOperations: incomeOperation } });
+            await this.DB.updateOne(
+                { _id: idUser },
+                {
+                    $set : {
+                        income  : newIncomeBalance,
+                        balance : newBallance,
+                    },
+                    $push : {
+                        incomeOperations : incomeOperation,
+                        allOperations    : incomeOperation,
+                    },
+                }
+            );
         }
         catch (error) {
             throw error;
@@ -25,13 +34,22 @@ class ServiceCashDB {
     async addAccumulation(accumulationOperation,idUser) {
         try {
             const { accumulation,balance } = await User.findById(idUser);
-            const newBallance = balance - accumulationOperation.accumulation;
-            const newAccumulation = accumulation + accumulationOperation.accumulation;
+            const newBalance = balance - accumulationOperation.accumulation;
+            const newAccumulationBalance = accumulation + accumulationOperation.accumulation;
 
-            await this.DB.updateOne({ _id: idUser }, { $set: { accumulation: newAccumulation } });
-            await this.DB.updateOne({ _id: idUser }, { $set: { balance: newBallance } });
-            await this.DB.updateOne({ _id: idUser }, { $push: { accumulationOperations: accumulationOperation } });
-            await this.DB.updateOne({ _id: idUser }, { $push: { allOperations: accumulationOperation } });
+            await this.DB.updateOne(
+                { _id: idUser },
+                {
+                    $set : {
+                        accumulation : newAccumulationBalance,
+                        balance      : newBalance,
+                    },
+                    $push : {
+                        accumulationOperations : accumulationOperation,
+                        allOperations          : accumulationOperation,
+                    },
+                }
+            );
 
         }
         catch (error) {
@@ -45,11 +63,20 @@ class ServiceCashDB {
             const newBalance = balance - spendingOperation.spending;
             const newSpendingBalance = spending + spendingOperation.spending;
 
-            await User.updateOne({ _id: idUser }, { $set: { spending: newSpendingBalance } });
-            await User.updateOne({ _id: idUser }, { $set: { balance: newBalance } });
-            await User.updateOne({ _id: idUser }, { $push: { spendingOperations: spendingOperation } });
-            await this.DB.updateOne({ _id: idUser }, { $push: { allOperations: spendingOperation } });
 
+            await this.DB.updateOne(
+                { _id: idUser },
+                {
+                    $set : {
+                        spending : newSpendingBalance,
+                        balance  : newBalance,
+                    },
+                    $push : {
+                        spendingOperations : spendingOperation,
+                        allOperations      : spendingOperation,
+                    },
+                }
+            );
 
         }
         catch (error) {

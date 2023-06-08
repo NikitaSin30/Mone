@@ -10,6 +10,7 @@ import { validateString } from 'shared/service/helpers/validateString';
 import { TYPE_OPERATION_SPENDING } from 'shared/service/factory/constants';
 
 
+
 class SpendingService implements ISpendingService {
 
     constructor(private spendingService:ISpendingApi,private factoryOperation:IFactoryOperation) {

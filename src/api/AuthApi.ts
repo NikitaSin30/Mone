@@ -8,7 +8,7 @@ class AuthApi implements IAuthApi {
 
     async registration(user: IFormAuth) {
         try {
-            const response = await request(REGISTRATION_URL,'POST',{ user });
+            const response = await request(REGISTRATION_URL,'POST', user );
 
             if (!response.ok) {
                 const error = await response.json();

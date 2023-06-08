@@ -28,6 +28,7 @@ class TasksController {
     async deleteAllTasks(req,res,next) {
         const { idUser } = req.body;
 
+        
         try {
             await serviceTasksDB.deleteAllTasks(idUser);
             res.json({ message: 'Все задачи удалены' });

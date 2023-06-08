@@ -3,9 +3,10 @@ import { IUser } from './interfaces.ts';
 import { IFormAuth } from 'features/auth/interfaces';
 
 
+
 export class UserStore implements IUser {
-    user: IFormAuth;
-    isAuth: boolean;
+    public user: IFormAuth;
+    public isAuth: boolean;
 
     constructor() {
 
@@ -13,13 +14,12 @@ export class UserStore implements IUser {
         makeAutoObservable(this);
     }
 
-    setIsAuth(isAuthStatus:boolean) {
+    public setIsAuth(isAuthStatus:boolean) {
         this.isAuth = isAuthStatus;
     }
 
-    setUserFromDB(user: IFormAuth) {
+    public setUserFromDB(user: IFormAuth) {
         this.user = user;
-        console.log(this.user);
     }
 
     get idUser() {
