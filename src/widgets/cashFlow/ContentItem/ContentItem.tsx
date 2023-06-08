@@ -10,7 +10,7 @@ export const ContentItem:React.FC<IContentItem> = ({ action,sum,date,subTitle = 
             <span className='w-1/3'>{action}: {sum}</span>
             <span className='w-1/3'>{subTitle}: {chapter}</span>
             <time className='w-1/3'>Дата: {date}</time>
-              <div className="cursor-pointer hover:scale-110">
+            <div className="cursor-pointer hover:scale-110">
                 {DeleteIcon}
             </div>
         </li>
