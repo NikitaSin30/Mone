@@ -47,7 +47,7 @@ export const BuilderTask = () =>{
 
     return (
         <>
-            <form className="flex flex-col  w-full" onSubmit={handleSubmit(onAddTask)}>
+            <form className="flex flex-col w-full" data-testid="builder-task-form" onSubmit={handleSubmit(onAddTask)}>
                 <Input
                     register={register}
                     caseType={CASE_TYPE_TEXT_RUS}
