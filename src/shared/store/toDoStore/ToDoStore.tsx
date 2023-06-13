@@ -5,51 +5,52 @@ import { ITodoStore, ITask } from './interfaces';
 
 
 class ToDoStore implements ITodoStore {
-    tasks: ITask[] = [];
+    public tasks: ITask[] = [];
 
     constructor() {
         makeAutoObservable(this);
     }
 
-    addTask(task: ITask) {
+    public addTask(task: ITask) {
         this.tasks.push(task);
     }
 
-    deleteTask(id: string) {
-        this.tasks = this.tasks.filter((task) => task.id !== id);
+    public deleteTask(idTask: string) {
+        this.tasks = this.tasks.filter((task) => task.id !== idTask);
     }
-    deleteAllTasks() {
+    public deleteAllTasks() {
         this.tasks = [];
     }
 
-    switchIsDoneTask(id: string) {
+    public switchIsDoneTask(idTask: string) {
         this.tasks.map((task) => {
-            if (task.id === id) task.isDone = !task.isDone;
-        });
-    }
-
-    updateTask(id:string): void {
-        this.tasks.map((task) => {
-            if (task.id === id) task.isDone = !task.isDone;
+            if (task.id === idTask) task.isDone = !task.isDone;
 
             return task;
         });
     }
 
-    getTask(id:string) {
-        const task : ITask | undefined = this.tasks.find(task => task.id === id);
+    public updateTask(idTask:string): void {
+        this.tasks.map((task) => {
+            if (task.id === idTask) task.isDone = !task.isDone;
+
+            return task;
+        });
+    }
+
+    getTask(idTask:string) {
+        const task : ITask | undefined = this.tasks.find(task => task.id === idTask);
 
         if (!task) {
-            throw new Error('Задачи нет');
+            throw new Error('Произошла ошибка');
         }
 
         return task;
 
     }
 
-    setTasksFromdDB(task:ITask[]) {
-
-        this.tasks = task;
+    setTasksFromdDB(tasks:ITask[]) {
+        this.tasks = tasks;
     }
 }
 

@@ -10,6 +10,7 @@ import { validateString } from 'shared/service/helpers/validateString';
 import { TYPE_OPERATION_SPENDING } from 'shared/service/factory/constants';
 
 
+
 class SpendingService implements ISpendingService {
 
     constructor(private spendingService:ISpendingApi,private factoryOperation:IFactoryOperation) {
@@ -17,27 +18,17 @@ class SpendingService implements ISpendingService {
         this.factoryOperation = factoryOperation;
     }
 
-    async addSpending( { spending,categorie } : IFormSpending, switchShowModal:()=>void) {
+    async addSpending( { spending,categorie } : IFormSpending) {
 
         const modifytedCategorie = validateString(categorie);
         const createdOperation =  this.factoryOperation.createOperation(TYPE_OPERATION_SPENDING,spending,modifytedCategorie);
 
-        try {
-            await this.spendingService.addSpending(userStore.user._id, createdOperation);
+        await this.spendingService.addSpending(userStore.idUser, createdOperation);
 
-            spendingStore.addSpending(createdOperation);
-            operationsStore.addOperation(createdOperation);
-            categoriesStore.updateSpendingInCategorie(createdOperation);
+        spendingStore.addSpending(createdOperation);
+        operationsStore.addOperation(createdOperation);
+        categoriesStore.updateSpendingInCategorie(createdOperation);
 
-        }
-        catch (error) {
-            if (error instanceof Error) {
-                console.log(error.message);
-            }
-        }
-        finally {
-            switchShowModal();
-        }
     }
 }
 

@@ -38,6 +38,11 @@ const AccumulationModal = ({ setTextError } : IAccumulationModal ) => {
                 setTextError(error.message);
                 switchisModalErrActiveAccumulation();
             }
+            else {
+                switchisModalActiveAccumulation();
+                setTextError('Ошибка');
+                switchisModalErrActiveAccumulation();
+            }
         }
         finally {
             reset();

@@ -1,23 +1,23 @@
 import { IAccumulationOperation } from 'shared/store/cashFlowStore/interfaces';
-import { ADD_ACCUMULATION } from './path';
-import { checkError } from 'shared/service/helpers/checkError';
+import { ADD_ACCUMULATION_URL } from './path';
+
 
 export interface IAccumulationApi{
-    addAccumulation:(id: string, accumulationOperation: IAccumulationOperation) => Promise<void>
+    addAccumulation:(idUser: string, accumulationOperation: IAccumulationOperation) => Promise<void>
 }
 
 class AccumulationApi implements IAccumulationApi {
-    async addAccumulation(id: string, accumulationOperation: IAccumulationOperation) {
+    async addAccumulation(idUser: string, accumulationOperation: IAccumulationOperation) {
 
         try {
-            const response = await fetch(ADD_ACCUMULATION, {
+            const response = await fetch(ADD_ACCUMULATION_URL, {
                 method  : 'POST',
                 headers : {
                     'Content-type' : 'application/json',
                 },
                 body : JSON.stringify({
                     accumulationOperation,
-                    id,
+                    idUser,
                 }),
             });
 
@@ -31,7 +31,7 @@ class AccumulationApi implements IAccumulationApi {
 
         }
         catch (error) {
-            throw checkError(error);
+            throw error;
         }
     }
 }

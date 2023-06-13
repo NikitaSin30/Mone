@@ -1,8 +1,6 @@
-const { validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const { generateAccessToken } = require('../token/generateToken');
 const serviceAuthDB = require('../serviceMongo/serviceAuthDB');
-const ApiError = require('../apiError/ApiError');
 const checkValidation = require('../helpers/checkValidation');
 const checkCorrectPassword = require('../helpers/checkCorrectPasword');
 
@@ -56,10 +54,10 @@ class AuthController {
 
     async authenticate(req, res,next) {
 
-        const { id } = req.user;
+        const { idUser } = req.user;
 
         try {
-            const user = await serviceAuthDB.authenticate(id);
+            const user = await serviceAuthDB.authenticate(idUser);
             const token = generateAccessToken(user._id);
 
             res.json({
@@ -88,7 +86,3 @@ class AuthController {
 }
 
 module.exports = new AuthController();
-
-
-
-

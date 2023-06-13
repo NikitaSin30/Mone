@@ -3,9 +3,10 @@ import { IUser } from './interfaces.ts';
 import { IFormAuth } from 'features/auth/interfaces';
 
 
-export class User implements IUser {
-    user: IFormAuth;
-    isAuth: boolean;
+
+export class UserStore implements IUser {
+    public user: IFormAuth;
+    public isAuth: boolean;
 
     constructor() {
 
@@ -13,14 +14,17 @@ export class User implements IUser {
         makeAutoObservable(this);
     }
 
-    setIsAuth(isAuthStatus:boolean) {
+    public setIsAuth(isAuthStatus:boolean) {
         this.isAuth = isAuthStatus;
     }
 
-    setUserFromDB(user: IFormAuth) {
+    public setUserFromDB(user: IFormAuth) {
         this.user = user;
-        console.log(this.user);
+    }
+
+    get idUser() {
+        return this.user._id;
     }
 }
 
-export const userStore = new User();
+export const userStore = new UserStore();

@@ -1,5 +1,5 @@
 import React from 'react';
-import { CashFlowList } from './cashFlowList/CashFlowList';
+import { OperationList } from './cashFlowList/OperationList';
 
 
 const CashFlow = () => {
@@ -11,7 +11,7 @@ const CashFlow = () => {
       md:h-80"
         >
             <h2 className="text-center text-black text-xl font-semibold">Последние операции</h2>
-            <CashFlowList/>
+            <OperationList/>
         </aside>
     );
 };

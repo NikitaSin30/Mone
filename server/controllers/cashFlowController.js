@@ -3,10 +3,10 @@ const ServiceCashDB = require('../serviceMongo/seviceCashDB');
 class CashFlowController {
 
     async addIncome(req, res,next) {
-        const { incomeOperation, id } = req.body;
+        const { incomeOperation, idUser } = req.body;
 
         try {
-            const modifiedIncomeOperation  = await ServiceCashDB.addIncome(incomeOperation,id);
+            const modifiedIncomeOperation  = await ServiceCashDB.addIncome(incomeOperation,idUser);
 
             res.json({
                 modifiedIncomeOperation ,
@@ -19,10 +19,10 @@ class CashFlowController {
     }
 
     async addSpending(req, res,next) {
-        const { id, spendingOperation } = req.body;
+        const { idUser, spendingOperation } = req.body;
 
         try {
-            const modifiedSpendingOperation = await ServiceCashDB.addSpending(spendingOperation,id);
+            const modifiedSpendingOperation = await ServiceCashDB.addSpending(spendingOperation,idUser);
 
             res.json({
                 modifiedSpendingOperation,
@@ -34,10 +34,10 @@ class CashFlowController {
         }
     }
     async addAccumulation(req, res,next) {
-        const { accumulationOperation,id } = req.body;
+        const { accumulationOperation,idUser } = req.body;
 
         try {
-            const modifiedAccumulationOperation =  await ServiceCashDB.addAccumulation(accumulationOperation,id);
+            const modifiedAccumulationOperation =  await ServiceCashDB.addAccumulation(accumulationOperation,idUser);
 
             res.json({
                 modifiedAccumulationOperation,

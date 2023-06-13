@@ -32,22 +32,22 @@ export interface IDataFromDB {
 }
 
 export interface ICashFlowApi {
-  addIncome: (incomeOperation: IIncomeOperation, id: string) => Promise<void>;
-  addAccumulation: (id: string, accumulationOperation: IAccumulationOperation) => Promise<IAccumulationOperation>;
-  addSpending: (id: string, spendingOperation: ISpendingOperation) => Promise<ISpendingOperation>;
+  addIncome: (incomeOperation: IIncomeOperation, idUser: string) => Promise<void>;
+  addAccumulation: (idUser: string, accumulationOperation: IAccumulationOperation) => Promise<IAccumulationOperation>;
+  addSpending: (idUser: string, spendingOperation: ISpendingOperation) => Promise<void>;
 }
 
 export interface IAuthApi {
     registration:(user: IFormAuth) => Promise<IResponseMessage>;
     login:(dataLogin:IFormAuth) => Promise<IDataFromDB>
     authenticate:(token:string) => Promise<IDataFromDB>
-    logout:(id:string) => Promise<void>
+    logout:(idUser:string) => Promise<void>
 }
 
 
 export interface ICategoriesApi {
-  addCategorie: (categorie: ICategorie, userId: string) => Promise<IResponseMessage>;
-  deleteCategorie: (idCategorie:string, userId:string) => Promise<void>
+  addCategorie: (categorie: ICategorie, idUser: string) => Promise<void>;
+  deleteCategorie: (idCategorie:string, idUser:string) => Promise<void>
 }
 
 export interface ITodoApi {

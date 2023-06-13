@@ -5,7 +5,7 @@ import { IAuthService } from './interfaces';
 import { accumulationStore } from 'shared/store/cashFlowStore/acuumulationStore/AccumulationStore';
 import { incomeStore } from 'shared/store/cashFlowStore/incomeStore/IncomeStore';
 import { spendingStore } from 'shared/store/cashFlowStore/spendingStore/SpendingStore';
-import { balanceStore } from 'shared/store/cashFlowStore/BalanceStore';
+import { balanceStore } from 'shared/store/cashFlowStore/balanceStore/BalanceStore';
 import { categoriesStore } from 'shared/store/categoriesStore/CategoriesStore';
 import { IAuthApi, IDataUserFromDB } from 'api/interfaces';
 import { getToken } from './helpers/getToken';
@@ -66,7 +66,7 @@ class AuthService implements IAuthService {
 
     async logout() {
         try {
-            await this.authApi.logout(userStore.user._id);
+            await this.authApi.logout(userStore.idUser);
 
             localStorage.removeItem('wallet');
             userStore.setIsAuth(false);

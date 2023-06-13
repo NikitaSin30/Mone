@@ -4,14 +4,14 @@ const decoratorID = require('./decorator/decoratorID');
 
 class serviceCategoriesDB {
 
-    async checkCategorie(id,categorie) {
+    async checkCategorie(idUser,categorie) {
 
         try {
-            const user = await User.findOne({ _id: id });
+            const user = await User.findOne({ _id: idUser });
             const hasCategorie = user.categories.find(item => item.categorie === categorie.categorie);
 
             if (hasCategorie) {
-                throw ApiError.throwBadRequestError('Категория не уникальна');
+                throw ApiError.createBadRequestError('Категория не уникальна');
             }
         }
         catch (error) {
@@ -19,12 +19,12 @@ class serviceCategoriesDB {
         }
     }
 
-    async addCategorie(id, categorie) {
+    async addCategorie(idUser, categorie) {
         try {
             const modifiedCategorie = decoratorID(categorie);
 
-            await this.checkCategorie(id,categorie);
-            await User.updateOne({ _id: id }, { $push: { categories: modifiedCategorie } });
+            await this.checkCategorie(idUser,categorie);
+            await User.updateOne({ _id: idUser }, { $push: { categories: modifiedCategorie } });
 
             return modifiedCategorie;
         }
@@ -33,9 +33,9 @@ class serviceCategoriesDB {
         }
     }
 
-    async deleteCategorie(id, idCategorie) {
+    async deleteCategorie(idUser, idCategorie) {
         try {
-            await User.updateOne({ _id: id }, { $pull: { categories: { id: idCategorie } } });
+            await User.updateOne({ _id: idUser }, { $pull: { categories: { id: idCategorie } } });
         }
         catch (error) {
             throw error;

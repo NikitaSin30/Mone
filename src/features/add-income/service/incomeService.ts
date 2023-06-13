@@ -1,6 +1,4 @@
 import { incomeStore } from 'shared/store/cashFlowStore/incomeStore/IncomeStore';
-import { cashFlowApi } from 'api/CashFlowApi';
-import { IIncomeOperation, ISpendingOperation } from 'shared/store/cashFlowStore/interfaces';
 import { userStore } from 'shared/store/userStore/UserStore';
 import { validateString } from 'shared/service/helpers/validateString';
 import { IServiceIncome } from './interfaces';
@@ -23,16 +21,10 @@ class IncomeService implements IServiceIncome {
         const modifytedSphere = validateString(sphere);
         const createdOperation = this.factoryOperation.createOperation(TYPE_OPERATION_INCOME , income, modifytedSphere);
 
-        try {
-            await this.incomeApi.addIncome(createdOperation, userStore.user._id);
+        await this.incomeApi.addIncome(createdOperation, userStore.idUser);
 
-            incomeStore.addIncome(createdOperation);
-            operationsStore.addOperation(createdOperation);
-
-        }
-        catch (error) {
-            throw error;
-        }
+        incomeStore.addIncome(createdOperation);
+        operationsStore.addOperation(createdOperation);
 
     }
 }

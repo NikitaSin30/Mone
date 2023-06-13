@@ -1,6 +1,6 @@
 import { IncomeStore } from '../IncomeStore';
-import { IIncomeOperation, IIncomeStore } from '../../interfaces';
-import { balanceStore } from '../../BalanceStore';
+import { EOperationType, IIncomeOperation, IIncomeStore } from '../../interfaces';
+import { balanceStore } from '../../balanceStore/BalanceStore';
 
 
 
@@ -9,11 +9,13 @@ describe('class IncomeStore', ()=>{
     const incomeOperation: IIncomeOperation  = {
         income : 100,
         sphere : 'IT',
+        type   : EOperationType.Income,
         date   : new Date().toLocaleDateString(),
     };
 
     const income = 100;
     let incomeStore : IIncomeStore | null;
+
     const mockupdateCashAccountSpy = jest.spyOn(balanceStore, 'updateCashAccount');
 
     beforeEach(() => {

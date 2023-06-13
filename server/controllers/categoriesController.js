@@ -3,14 +3,14 @@ const serviceCategoriesDB = require('../serviceMongo/serviceCategoriesDB');
 class CategoriesController {
 
     async addCategorie(req,res,next) {
-        const { categorie, id } = req.body;
+        const { categorie, idUser } = req.body;
 
         try {
-            const modifiedCategorie = await serviceCategoriesDB.addCategorie(id,categorie);
+            const modifiedCategorie = await serviceCategoriesDB.addCategorie(idUser,categorie);
 
             res.json({
                 modifiedCategorie,
-                message : 'Категория добавлена', 
+                message : 'Категория добавлена',
             });
         }
         catch (error) {
@@ -20,10 +20,10 @@ class CategoriesController {
 
 
     async deleteCategorie(req,res,next) {
-        const { idCategorie , id } = req.body;
+        const { idCategorie , idUser } = req.body;
 
         try {
-            await serviceCategoriesDB.deleteCategorie(id,idCategorie);
+            await serviceCategoriesDB.deleteCategorie(idUser,idCategorie);
 
             res.json({ message: 'Категория удалена' });
         }

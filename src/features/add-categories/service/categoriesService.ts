@@ -6,6 +6,7 @@ import { ICategoriesService } from './interfaces';
 import { ICategoriesApi } from 'api/interfaces';
 
 
+
 class CategoriesService implements ICategoriesService {
     private categoriesApi:ICategoriesApi;
 
@@ -13,38 +14,26 @@ class CategoriesService implements ICategoriesService {
         this.categoriesApi = categoriesApi;
     }
 
-    async addCategorie({ categorie }: IFormCategorie, switchShowModalErr: () => void, switchShowModal:() => void) {
+    async addCategorie({ categorie }: IFormCategorie) {
 
-        try {
-            const categorieValidated = validateString(categorie);
+        const categorieValidated = validateString(categorie);
 
-            this.checkStoreHasCategorie(categorieValidated);
+        this.checkStoreHasCategorie(categorieValidated);
 
-            const newCategorie = this.createCategorie(categorieValidated);
+        const newCategorie = this.createCategorie(categorieValidated);
 
-            await this.categoriesApi.addCategorie(newCategorie,userStore.user._id);
-            categoriesStore.addCatigorie(newCategorie);
+        await this.categoriesApi.addCategorie(newCategorie,userStore.idUser);
+        categoriesStore.addCatigorie(newCategorie);
 
-        }
-        catch (error) {
-            console.log('Ошибка');
-            switchShowModalErr();
-        }
-        finally {
-            switchShowModal();
-        }
     }
 
 
     async deleteCategorie(idCategorie: string) {
-        try {
-            await this.categoriesApi.deleteCategorie(idCategorie,userStore.user._id);
-            categoriesStore.deleteCategorie(idCategorie);
 
-        }
-        catch (error) {
-            throw error;
-        }
+        await this.categoriesApi.deleteCategorie(idCategorie,userStore.idUser);
+        categoriesStore.deleteCategorie(idCategorie);
+
+
     }
 
     private checkStoreHasCategorie(validatedCategorie: string) {

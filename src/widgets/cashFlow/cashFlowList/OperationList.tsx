@@ -1,11 +1,11 @@
 import React from 'react';
 import { operationsStore } from 'shared/store/cashFlowStore/operationsStore/OperationsStore';
 import { observer } from 'mobx-react-lite';
-import { CashFlowItem } from '../cashFlowItem/CashFlowItem';
+import { OperationItem } from '../cashFlowItem/OperationItem';
 
 
 
-export const CashFlowList = observer(() => {
+export const OperationList = observer(() => {
 
     const { allOperations } =  operationsStore;
 
@@ -13,7 +13,7 @@ export const CashFlowList = observer(() => {
         <>
             <ul className='flex flex-col gap-1'>
                 { allOperations?.slice(-3).reverse().map((operation,index) => {
-                    return <CashFlowItem operation={operation} key={index}/>;
+                    return <OperationItem operation={operation} key={index}/>;
                 })}
             </ul>
 

@@ -1,5 +1,5 @@
 import { TAllOperations } from 'shared/store/cashFlowStore/operationsStore/types';
 
-export interface ICashFlowItem {
+export interface IOperationItem {
     operation : TAllOperations
 }
