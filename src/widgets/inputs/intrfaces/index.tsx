@@ -6,5 +6,6 @@ export interface IInput {
   titleRegister: string;
   caseType : string
   errMessage : string | undefined
-  titleLabel?: string
+  titleLabel?: string,
+  textPlaceholder?:string
 }

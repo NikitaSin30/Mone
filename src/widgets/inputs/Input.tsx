@@ -4,7 +4,7 @@ import { createValidation } from './validation/fabricValadation';
 
 
 
-export const Input = ({ register,titleRegister, titleLabel = 'Сумма', caseType,errMessage }:IInput) => {
+export const Input = ({ register,titleRegister, titleLabel = 'Сумма', caseType,errMessage , textPlaceholder}:IInput) => {
 
     const validation = createValidation(caseType);
 
