@@ -122,8 +122,7 @@ describe('BuilderTask', () => {
     })
 
     describe('Others',() => {
-        it('should hide spanError when client deleted not correct characters',async() =>{
-        todoService.addTask = jest.fn().mockImplementation(()=>Promise.resolve())
+        it('should hide the spanError when client deleted not correct characters',async() =>{
 
         render(<BuilderTask/>)
 
@@ -131,9 +130,9 @@ describe('BuilderTask', () => {
 
         expect(screen.queryByTestId('span-error')).toBeNull()
 
-          await act(async() => {
-         await userEvent.type(input,'Something')
-         fireEvent.focusOut(input);
+        await act(async() => {
+        await userEvent.type(input,'Something')
+        fireEvent.focusOut(input);
         })
 
         expect(await screen.findByTestId('span-error')).toBeInTheDocument()
@@ -142,11 +141,11 @@ describe('BuilderTask', () => {
          await userEvent.type(input,'Тест')
          fireEvent.focusOut(input);
         })
-        // не понимаю, почему он тут ложиться, ведь элемент уходит со страницы
+
+        await waitFor(() =>{
         expect(screen.queryByTestId('span-error')).toBeNull()
-
-        })
-
         })
 
     })
+    })
+})
