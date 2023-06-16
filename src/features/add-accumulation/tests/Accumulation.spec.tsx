@@ -6,11 +6,23 @@ import { accumulationService } from '../service/AccumulationService';
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
-import { waitForElementToBeRemoved } from '@testing-library/react';
+
+
+// Вот этот тест компонента , которы является модалкой, и вот я замокал бульку на true, и тесты вроде как проходят. Но
+// я не пойму
+// 1 Вот когда мы пишем тест в этом компоненте, уже предпологается что он как бы активен или правильно что сделал тру мок
+// 2 я управлять динамически этой булькой. что проверять компонент скрывается или нет.
+// 3 ну и как правильно в этом случае spy или mock ? я подумал что spy,  так как мы чисто првоеряем вызов , но тут опять же
+// функция которая мокнута должна менять бульку другого мока.
+// 4 как тестировать такие взаимодействия моков ?
+// 5 также пока путаю , когда нужно тестировать чисто вызов функции а когда чтобы возврат был.
+// 6 Вот у меня есть useForm , я его не мокал нигде, там мне по сути нужно тестирвоать только то что reset удалил все данные
+// с поля , но я подумал так - это ведь всё протестировано в React Form , я решил тестить то что именнно форма пустая стала , как итог
+// В билдере компоненте всё ок работает так , а тут я не понимаю, почему не работает
 
 
 const switchisModalActiveAccumulation = jest.fn()
-const  switchisModalErrActiveAccumulation = jest.fn()
+const switchisModalErrActiveAccumulation = jest.fn()
 
 jest.spyOn(React, 'useContext').mockReturnValue({
     switchisModalActiveAccumulation,
@@ -54,6 +66,13 @@ describe('AccumulationModal',() =>{
            expect(accumulationService.addAccumulation).toBeCalled()
         })
 
+        screen.debug()
+
+       expect(input).toHaveValue('');
+
+
+
+
 // не понимаю пока как тестировать динамические булевые значения из пропсов или из контекста и тд
     // expect(screen.queryByText('Сколько хотите отложить ?')).toBeNull()
 
@@ -85,8 +104,9 @@ describe('AccumulationModal',() =>{
         await waitFor(()=>{
             expect(accumulationService.addAccumulation).not.toBeCalled()
         })
+
  })
-    it('should call function when request was rejected', async() => {
+    it('should call functions when request was rejected', async() => {
         accumulationService.addAccumulation = jest.fn().mockImplementation(() => Promise.reject())
 
         render(<AccumulationModal setTextError={setTextErrorMock}/>)
@@ -113,7 +133,7 @@ describe('AccumulationModal',() =>{
 
  describe('Other cases', () => {
 
-    it('should hide the spanError when client deleted not correct characters', async() =>{
+    it('should hide the spanError when client deleted not correct characters and wrote correct', async() =>{
 
         render(<AccumulationModal setTextError={setTextErrorMock}/>)
 

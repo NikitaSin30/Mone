@@ -10,4 +10,5 @@ export interface ICategoriesStore {
   addCatigorie: (categorie: ICategorie) => void;
   deleteCategorie: (id: string) => void;
   setCategoriesFromDB:(categories: ICategorie[]) => void
+  getCategorie:(id: string) => ICategorie
 }

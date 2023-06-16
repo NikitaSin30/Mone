@@ -4,7 +4,7 @@ import { ICategoriesStore, ICategorie } from './interfaces';
 
 
 
-class CategoriesStore implements ICategoriesStore {
+export class CategoriesStore implements ICategoriesStore {
     categories: ICategorie[] = [];
     constructor() {
         makeAutoObservable(this);
