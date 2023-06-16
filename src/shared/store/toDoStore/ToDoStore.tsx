@@ -4,7 +4,7 @@ import { ITodoStore, ITask } from './interfaces';
 
 
 
-class ToDoStore implements ITodoStore {
+export class ToDoStore implements ITodoStore {
     tasks: ITask[] = [];
 
     constructor() {

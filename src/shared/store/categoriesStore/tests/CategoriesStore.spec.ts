@@ -45,6 +45,7 @@ describe('CategoriesStore',() => {
     it('should delete categorie from store',() => {
         categoriesStore?.addCatigorie(categorieMock)
         categoriesStore?.addCatigorie(categorieMock2)
+        expect(categoriesStore?.categories).toHaveLength(2)
 
         categoriesStore?.deleteCategorie('Медицина')
 
