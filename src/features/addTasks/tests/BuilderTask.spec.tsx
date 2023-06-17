@@ -16,10 +16,17 @@ jest.spyOn(React, 'useContext').mockReturnValue({
 
 describe('BuilderTask', () => {
 
+    beforeEach(() => {
+        todoService.addTask = jest.fn().mockImplementation(()=>Promise.resolve())
+
+    })
+
+    afterEach(() => {
+      jest.clearAllMocks()
+    })
+
     describe('Success case',() => {
     it('should send data from form when the input is not empty', async() => {
-
-        todoService.addTask = jest.fn().mockImplementation(()=>Promise.resolve())
 
         render(<BuilderTask />);
 
@@ -47,8 +54,6 @@ describe('BuilderTask', () => {
 
     it('should not be sent data from form when the input is empty', async() => {
 
-        todoService.addTask = jest.fn().mockImplementation(()=>Promise.resolve())
-
         render(<BuilderTask />);
 
         const button = screen.getByText('Создать задачу');
@@ -56,6 +61,7 @@ describe('BuilderTask', () => {
         expect(screen.queryByTestId('span-error')).toBeNull()
 
         userEvent.click(button)
+
         expect(todoService.addTask).not.toHaveBeenCalled();
         expect(switchisModalErrActiveTask).not.toHaveBeenCalled();
         expect(setErromFromDB).not.toHaveBeenCalledWith('Произошла ошибка');
@@ -64,8 +70,6 @@ describe('BuilderTask', () => {
 
 
         it('should not send data from form when the input is not filled with Cyrillic', async() => {
-
-        todoService.addTask = jest.fn().mockImplementation(()=>Promise.resolve())
 
         render(<BuilderTask />);
 

@@ -1,6 +1,8 @@
 import { IFormAuth } from 'features/auth/interfaces';
 
-export interface IUser {
+export interface IUserStore {
   user: IFormAuth;
-  setUserFromDB(user: IFormAuth): void;
+  isAuth: boolean;
+  setUserFromDB: (user: IFormAuth) => void;
+  setIsAuth:(isAuthStatus:boolean) => void
 }

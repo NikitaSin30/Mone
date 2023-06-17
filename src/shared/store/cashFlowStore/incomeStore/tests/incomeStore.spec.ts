@@ -13,7 +13,7 @@ describe('class IncomeStore', ()=>{
     };
 
     const income = 100;
-    let incomeStore : IIncomeStore | null;
+    let incomeStore : IncomeStore | null;
 
     const mockupdateCashAccountSpy = jest.spyOn(balanceStore, 'updateCashAccount');
 

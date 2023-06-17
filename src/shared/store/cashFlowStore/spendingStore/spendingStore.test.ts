@@ -13,7 +13,7 @@ describe('Class SpendingStore',() => {
 
     const spending = 100;
 
-    let spendingStore : ISpendingStore | null;
+    let spendingStore : SpendingStore | null;
 
     beforeEach(() => {
         spendingStore  = new SpendingStore();

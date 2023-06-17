@@ -19,7 +19,7 @@ describe('TodoStore',() => {
         isDone: false,
     }
 
-    let todoStore: ITodoStore | null
+    let todoStore: ToDoStore | null
 
     beforeEach(() => {
       todoStore = new ToDoStore()
@@ -47,7 +47,7 @@ describe('TodoStore',() => {
             todoStore?.addTask(task1)
             todoStore?.addTask(task2)
             expect(todoStore?.tasks).toHaveLength(2)
-            
+
             todoStore?.deleteTask('Купить')
 
             expect(todoStore?.tasks).toHaveLength(1)

@@ -7,7 +7,7 @@ describe('class BalanceStore',() => {
 
     const balance = 1000;
 
-    let balanceStore : IBalanceStore | null;
+    let balanceStore : BalanceStore | null;
 
     beforeEach(() => {
         balanceStore = new BalanceStore();

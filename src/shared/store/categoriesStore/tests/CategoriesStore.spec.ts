@@ -17,7 +17,7 @@ describe('CategoriesStore',() => {
   spending: 0,
 }
 
-    let categoriesStore : ICategoriesStore | null;
+    let categoriesStore : CategoriesStore | null;
 
     beforeEach(() => {
         categoriesStore = new CategoriesStore();

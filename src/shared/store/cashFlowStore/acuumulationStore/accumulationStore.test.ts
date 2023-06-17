@@ -12,7 +12,7 @@ describe('class AccumulationStore', () => {
     const accumulation = 100;
     const spy = jest.spyOn(balanceStore, 'updateCashAccount');
 
-    let accumulationStore : IAccumulationStore | null;
+    let accumulationStore : AccumulationStore | null;
 
     beforeEach(() => {
         accumulationStore = new AccumulationStore();

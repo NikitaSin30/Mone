@@ -1,9 +1,9 @@
 import { makeAutoObservable } from 'mobx';
-import { IUser } from './interfaces.ts';
+import { IUserStore } from './interfaces.ts';
 import { IFormAuth } from 'features/auth/interfaces';
 
 
-export class UserStore implements IUser {
+export  class UserStore implements IUserStore {
     user: IFormAuth;
     isAuth: boolean;
 

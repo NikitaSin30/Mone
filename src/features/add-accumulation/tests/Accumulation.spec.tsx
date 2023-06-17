@@ -8,19 +8,6 @@ import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 
 
-// Вот этот тест компонента , которы является модалкой, и вот я замокал бульку на true, и тесты вроде как проходят. Но
-// я не пойму
-// 1 Вот когда мы пишем тест в этом компоненте, уже предпологается что он как бы активен или правильно что сделал тру мок
-// 2 я управлять динамически этой булькой. что проверять компонент скрывается или нет.
-// 3 ну и как правильно в этом случае spy или mock ? я подумал что spy,  так как мы чисто првоеряем вызов , но тут опять же
-// функция которая мокнута должна менять бульку другого мока.
-// 4 как тестировать такие взаимодействия моков ?
-// 5 также пока путаю , когда нужно тестировать чисто вызов функции а когда чтобы возврат был.
-// 6 Вот у меня есть useForm , я его не мокал нигде, там мне по сути нужно тестирвоать только то что reset удалил все данные
-// с поля , но я подумал так - это ведь всё протестировано в React Form , я решил тестить то что именнно форма пустая стала , как итог
-// В билдере компоненте всё ок работает так , а тут я не понимаю, почему не работает
-
-
 const switchisModalActiveAccumulation = jest.fn()
 const switchisModalErrActiveAccumulation = jest.fn()
 
@@ -29,15 +16,6 @@ jest.spyOn(React, 'useContext').mockReturnValue({
     switchisModalErrActiveAccumulation,
     isModalActiveAccumulation: true,
   });
-
-// jest.mock('React', () => ({
-//   useContext: jest.fn().mockReturnValue({
-//     isModalActiveAccumulation: true,
-//     switchisModalActiveAccumulation: jest.fn(),
-//     switchisModalErrActiveAccumulation: jest.fn(),
-//   }),
-// }));
-
 
 
 describe('AccumulationModal',() =>{
@@ -65,16 +43,6 @@ describe('AccumulationModal',() =>{
         await waitFor(()=>{
            expect(accumulationService.addAccumulation).toBeCalled()
         })
-
-        screen.debug()
-
-       expect(input).toHaveValue('');
-
-
-
-
-// не понимаю пока как тестировать динамические булевые значения из пропсов или из контекста и тд
-    // expect(screen.queryByText('Сколько хотите отложить ?')).toBeNull()
 
  })
 })
