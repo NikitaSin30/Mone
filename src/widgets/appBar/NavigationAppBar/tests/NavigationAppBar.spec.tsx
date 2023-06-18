@@ -2,47 +2,42 @@ import { UserLogin } from '../../userLogin/UserLogin';
 import { UserNotLogin } from '../../userNotLogin/UserNotLogin';
 import { NavigationAppBar } from '../NavigationAppBar';
 import React from 'react';
-import { render,screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import { userStore } from '../../../../shared//store/userStore/UserStore';
-
-jest.mock('../../userNotLogin/UserNotLogin',() => ({
-    UserNotLogin : jest.fn(() => (<div data-testid="UserNotLogin"></div>)),
-}));
-
-jest.mock('../../userLogin/UserLogin',() => ({
-    UserLogin : jest.fn(() => <div>UserLogin</div>),
-}));
-
-jest.mock('../../../../shared//store/userStore/UserStore', () => ({
-    userStore : {
-        isAuth : false,
-    },
-}));
+import '@testing-library/jest-dom/extend-expect';
+import { render,screen } from '@testing-library/react';
 
 
+describe('NavigationAppBar', () => {
+  it('should render UserLogin component when isAuth is true', () => {
 
-describe('Test NavigationBar',() => {
+     jest.mock('../../../../shared//store/userStore/UserStore', () => ({
+      default: {
+        isAuth: true,
+      },
+    }));
 
+    render(
+ <MemoryRouter>
+        <NavigationAppBar />
+      </MemoryRouter>
+   );
 
-    test('Render UserNotLogin', () => {
-        userStore.isAuth = false;
+    expect( screen.getByTestId('user-login')).toBeInTheDocument();
+    expect(screen.getByTestId('user-not-login')).not.toBeInTheDocument();
+  });
 
-        render(<NavigationAppBar/>);
+  it('should render UserNotLogin component when isAuth is false', () => {
+     jest.mock('../../../../shared//store/userStore/UserStore', () => ({
+      default: {
+        isAuth: false,
+      },
+    }));
 
-        expect(UserNotLogin).toBeCalled();
+    render( <MemoryRouter>
+        <NavigationAppBar />
+      </MemoryRouter>);
 
-    });
-
-    test('Render UserLogin', () => {
-        userStore.isAuth = true;
-
-        render(<NavigationAppBar/>);
-
-        expect(UserLogin).toBeCalled();
-
-    });
-
+    expect(screen.getByTestId('user-not-login')).toBeInTheDocument();
+    expect(screen.getByTestId('user-login')).not.toBeInTheDocument();
+  });
 });
-
-
