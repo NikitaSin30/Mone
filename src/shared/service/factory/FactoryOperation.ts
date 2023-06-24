@@ -52,19 +52,19 @@ class FactoryOperation {
     createOperation(typeOperation:typeof TYPE_OPERATION_ACCUMULATION,accumulation:number):IAccumulationOperation
     createOperation(typeOperation:typeof TYPE_OPERATION_SPENDING,spending:number,categorie:string):ISpendingOperation
     createOperation(typeOperation:typeof TYPE_OPERATION_INCOME,income:number, sphere:string):IIncomeOperation
-    createOperation(typeOperation:string,summa:number, classification?:string) {
+    createOperation(typeOperation:string,sum:number, classification?:string) {
 
         switch (typeOperation) {
             case TYPE_OPERATION_INCOME:
-                return new IncomeOperation(summa,classification!);
+                return new IncomeOperation(sum,classification!);
             case TYPE_OPERATION_SPENDING:
-                return new SpendingOperation(summa,classification!);
+                return new SpendingOperation(sum,classification!);
             case TYPE_OPERATION_ACCUMULATION:
-                return new AccumulationOperation(summa);
-
+                return new AccumulationOperation(sum);
+            default:
+                throw new Error('Приносим извинения. Произошла ошибка');
         }
 
-        throw new Error('Приносим извинения. Произошла ошибка');
     }
 
 }

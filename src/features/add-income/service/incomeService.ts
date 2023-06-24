@@ -1,27 +1,27 @@
 import { incomeStore } from 'shared/store/cashFlowStore/incomeStore/IncomeStore';
 import { userStore } from 'shared/store/userStore/UserStore';
 import { validateString } from 'shared/service/helpers/validateString';
-import { IServiceIncome } from './interfaces';
 import { IFormIncome } from '../interfaces';
 import { operationsStore } from 'shared/store/cashFlowStore/operationsStore/OperationsStore';
-import { IIncomeApi } from 'api/IncomeApi';
-import { IFactoryOperation } from 'shared/service/factory/interfaces';
+import { IIncomeAPI } from 'api/IncomeApi';
 import { TYPE_OPERATION_INCOME } from 'shared/service/factory/constants';
+import { AbstractOperationService } from 'service/abstractClasses/AbstractOperationService';
 
 
-class IncomeService implements IServiceIncome {
 
-    constructor(private incomeApi:IIncomeApi,private factoryOperation:IFactoryOperation) {
-        this.incomeApi = incomeApi;
-        this.factoryOperation = factoryOperation;
+class IncomeService extends AbstractOperationService {
+
+    constructor(private incomeAPI:IIncomeAPI) {
+        super();
+        this.incomeAPI = incomeAPI;
     }
 
-    async addIncome({ income, sphere }:IFormIncome) {
+    async add({ income, sphere }:IFormIncome) {
 
         const modifytedSphere = validateString(sphere);
         const createdOperation = this.factoryOperation.createOperation(TYPE_OPERATION_INCOME , income, modifytedSphere);
 
-        await this.incomeApi.addIncome(createdOperation, userStore.idUser);
+        await this.incomeAPI.add(userStore.userID,createdOperation);
 
         incomeStore.addIncome(createdOperation);
         operationsStore.addOperation(createdOperation);

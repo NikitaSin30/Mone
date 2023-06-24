@@ -14,7 +14,7 @@ import { TITLE_BUTTON_ADD } from 'widgets/modals/ui/button/constans';
 import { useToggle } from 'shared/hooks/useToggle/useToggle';
 import { SubtitleResponse } from 'widgets/errorResponse/SubtitleResponse';
 import { showErrorFromDB } from 'shared/service/helpers/showErrorFromDB';
-import { ioContainer } from 'api/IoC/ioc';
+import { services } from 'api/IoC/ioc';
 
 
 const ModalIncome = () => {
@@ -33,7 +33,7 @@ const ModalIncome = () => {
 
     const onAddIncome = async(dataForm:IFormIncome) =>{
         try {
-            await ioContainer.incomeService.addIncome(dataForm);
+            await services.income.add(dataForm);
             switchIsModalActiveIncome();
         }
         catch (error) {

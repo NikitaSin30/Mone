@@ -5,11 +5,11 @@ import { ISpendingService } from 'features/add-spending/service/interfaces';
 import { ITodoService } from 'features/addTasks/service/interfaces';
 import { IAuthService } from 'features/auth/service/interfaces';
 
-export interface IIoContainer {
-    authService : IAuthService;
-    categoriesService:ICategoriesService;
-    todoService:ITodoService;
-    incomeService:IServiceIncome;
-    accumulationService:IAccumulationService;
-    spendingService:ISpendingService
+export type TcreateIoContainerReturn = {
+        auth : IAuthService,
+        categories : ICategoriesService,
+        todo : ITodoService,
+        income : IServiceIncome,
+        spending : ISpendingService,
+        accumulation : IAccumulationService,
 }

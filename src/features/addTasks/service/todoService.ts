@@ -4,18 +4,18 @@ import { userStore } from 'shared/store/userStore/UserStore';
 import { validateString } from 'shared/service/helpers/validateString';
 import { ITaskForm } from '../interfaces';
 import { ITodoService } from './interfaces';
-import { ITodoApi } from 'api/interfaces';
+import { ITodoAPI } from 'api/interfaces';
 
 
 
 class TodoService implements ITodoService {
-    private todoApi:ITodoApi;
+    private todoAPI:ITodoAPI;
 
-    constructor(todoApi:ITodoApi) {
-        this.todoApi = todoApi;
+    constructor(todoAPI:ITodoAPI) {
+        this.todoAPI = todoAPI;
     }
 
-    async addTask( { task } : ITaskForm) {
+    async add( { task } : ITaskForm) {
 
         const validaitedTask = validateString(task);
 
@@ -23,16 +23,16 @@ class TodoService implements ITodoService {
 
         const newTask = this.createTask(validaitedTask);
 
-        await this.todoApi.addTask(newTask,userStore.idUser);
+        await this.todoAPI.add(newTask,userStore.userID);
         toDoStore.addTask(newTask);
     }
 
 
 
-    async deleteTask(idTask: string) {
+    async delete(taskID: string) {
         try {
-            await this.todoApi.deleteTask(idTask,userStore.idUser);
-            toDoStore.deleteTask(idTask);
+            await this.todoAPI.delete(taskID,userStore.userID);
+            toDoStore.deleteTask(taskID);
         }
         catch (error) {
             throw error;
@@ -40,9 +40,9 @@ class TodoService implements ITodoService {
         }
     }
 
-    async deleteAllTasks() {
+    async deleteAll() {
         try {
-            await this.todoApi.deleteAllTasks(userStore.idUser);
+            await this.todoAPI.deleteAll(userStore.userID);
             toDoStore.deleteAllTasks();
         }
         catch (error) {
@@ -50,11 +50,11 @@ class TodoService implements ITodoService {
         }
     }
 
-    async switchIsDoneTask(idTask: string) {
+    async switchIsDoneTask(taskID: string) {
 
         try {
-            await this.todoApi.switchIsDoneTask(idTask,userStore.idUser);
-            toDoStore.switchIsDoneTask(idTask);
+            await this.todoAPI.switchIsDoneTask(taskID,userStore.userID);
+            toDoStore.switchIsDoneTask(taskID);
         }
         catch (error) {
             throw error;

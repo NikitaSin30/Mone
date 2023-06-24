@@ -31,28 +31,28 @@ export interface IDataFromDB {
   token : string,
 }
 
-export interface ICashFlowApi {
-  addIncome: (incomeOperation: IIncomeOperation, idUser: string) => Promise<void>;
-  addAccumulation: (idUser: string, accumulationOperation: IAccumulationOperation) => Promise<IAccumulationOperation>;
-  addSpending: (idUser: string, spendingOperation: ISpendingOperation) => Promise<void>;
+export interface ICashFlowAPI {
+  addIncome: (incomeOperation: IIncomeOperation, userID: string) => Promise<void>;
+  addAccumulation: (userID: string, accumulationOperation: IAccumulationOperation) => Promise<IAccumulationOperation>;
+  addSpending: (userID: string, spendingOperation: ISpendingOperation) => Promise<void>;
 }
 
-export interface IAuthApi {
+export interface IAuthAPI {
     registration:(user: IFormAuth) => Promise<IResponseMessage>;
     login:(dataLogin:IFormAuth) => Promise<IDataFromDB>
     authenticate:(token:string) => Promise<IDataFromDB>
-    logout:(idUser:string) => Promise<void>
+    logout:(userID:string) => Promise<void>
 }
 
 
-export interface ICategoriesApi {
-  addCategorie: (categorie: ICategorie, idUser: string) => Promise<void>;
-  deleteCategorie: (idCategorie:string, idUser:string) => Promise<void>
+export interface ICategoriesAPI {
+  add: (categorie: ICategorie, userID: string) => Promise<void>;
+  delete: (categorieID:string, userID:string) => Promise<void>
 }
 
-export interface ITodoApi {
-  addTask: (task: ITaskForm, id: string) => Promise<void>;
-  deleteTask:(idTask:string, id:string) => Promise<void>
-  deleteAllTasks:(id:string) => Promise<void>
-  switchIsDoneTask:(idTask:string, id:string) => Promise<void>
+export interface ITodoAPI {
+  add: (task: ITaskForm, userID: string) => Promise<void>;
+  delete:(taskID:string, userID:string) => Promise<void>
+  deleteAll:(id:string) => Promise<void>
+  switchIsDoneTask:(taskID:string, userID:string) => Promise<void>
 }

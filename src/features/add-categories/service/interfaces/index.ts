@@ -3,6 +3,6 @@ import { IFormCategorie } from 'features/add-categories/interfaces';
 
 
 export interface ICategoriesService {
-    addCategorie:(categorie: IFormCategorie) => Promise<void>;
-    deleteCategorie:(idCategorie:string) => Promise<void>
+    add:(categorie: IFormCategorie) => Promise<void>;
+    delete:(categorieID:string) => Promise<void>
 }

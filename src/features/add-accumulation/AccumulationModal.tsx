@@ -11,8 +11,7 @@ import { TITLE_REGISTOR_ACCUMULATION } from 'widgets/inputs/validation/constans'
 import { ACTIVE_MODAL_STYLE,HIDEN_MODAL_STYLE } from 'widgets/modals/constans';
 import { TITLE_BUTTON_ADD } from 'widgets/modals/ui/button/constans';
 import { IAccumulationModal } from './interfaces';
-import { ioContainer } from 'api/IoC/ioc';
-
+import { services } from 'api/IoC/ioc';
 
 
 const AccumulationModal = ({ setTextError } : IAccumulationModal ) => {
@@ -29,7 +28,7 @@ const AccumulationModal = ({ setTextError } : IAccumulationModal ) => {
 
     const onAddAccumulation = async(formAccumulation : IFormAccumulation) => {
         try {
-            await ioContainer.accumulationService.addAccumulation(formAccumulation);
+            await services.accumulation.add(formAccumulation);
             switchisModalActiveAccumulation();
         }
         catch (error) {

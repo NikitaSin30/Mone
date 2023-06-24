@@ -1,4 +1,3 @@
-// import { authAPI } from 'api/AuthApi';
 import { userStore } from '../../../shared/store/userStore/UserStore';
 import { IFormAuth } from '../interfaces';
 import { IAuthService } from './interfaces';
@@ -7,23 +6,23 @@ import { incomeStore } from 'shared/store/cashFlowStore/incomeStore/IncomeStore'
 import { spendingStore } from 'shared/store/cashFlowStore/spendingStore/SpendingStore';
 import { balanceStore } from 'shared/store/cashFlowStore/balanceStore/BalanceStore';
 import { categoriesStore } from 'shared/store/categoriesStore/CategoriesStore';
-import { IAuthApi, IDataUserFromDB } from 'api/interfaces';
+import { IAuthAPI, IDataUserFromDB } from 'api/interfaces';
 import { getToken } from './helpers/getToken';
 import { toDoStore } from 'shared/store/toDoStore/ToDoStore';
 import { operationsStore } from 'shared/store/cashFlowStore/operationsStore/OperationsStore';
 
 
 
-class AuthService implements IAuthService {
-    private authApi: IAuthApi;
+export class AuthService implements IAuthService {
+    private authAPI: IAuthAPI;
 
-    constructor(authApi:IAuthApi) {
-        this.authApi = authApi;
+    constructor(authAPI:IAuthAPI) {
+        this.authAPI = authAPI;
     }
 
     async login(dataLogin:IFormAuth) {
         try {
-            const { user,token } = await this.authApi.login(dataLogin);
+            const { user,token } = await this.authAPI.login(dataLogin);
 
             this.setDataFromDB(user);
             window.localStorage.setItem('wallet' , JSON.stringify(token));
@@ -37,7 +36,7 @@ class AuthService implements IAuthService {
 
     async registration(user: IFormAuth) {
         try {
-            const response  = await this.authApi.registration(user);
+            const response  = await this.authAPI.registration(user);
 
             return response;
         }
@@ -50,7 +49,7 @@ class AuthService implements IAuthService {
     async authenticate() {
         try {
             const tokenStorage = getToken();
-            const { user,token } = await this.authApi.authenticate(tokenStorage);
+            const { user,token } = await this.authAPI.authenticate(tokenStorage);
 
             this.setDataFromDB(user);
 
@@ -66,7 +65,7 @@ class AuthService implements IAuthService {
 
     async logout() {
         try {
-            await this.authApi.logout(userStore.idUser);
+            await this.authAPI.logout(userStore.userID);
 
             localStorage.removeItem('wallet');
             userStore.setIsAuth(false);
@@ -96,8 +95,3 @@ class AuthService implements IAuthService {
         categoriesStore.setCategoriesFromDB(userData.categories);
     }
 }
-
-
-// export const authService = new AuthService();
-
-export default AuthService;

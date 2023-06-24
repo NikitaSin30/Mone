@@ -9,7 +9,7 @@ import { CASE_TYPE_TEXT_RUS } from 'widgets/inputs/validation/constans';
 import { TITLE_REGISTOR_TASK } from 'widgets/inputs/validation/constans';
 import { TITLE_LABEL_TASK } from 'widgets/inputs/label/constans';
 import { TITLE_BUTTON_TASK } from 'widgets/modals/ui/button/constans';
-import { ioContainer } from 'api/IoC/ioc';
+import { services } from 'api/IoC/ioc';
 
 
 
@@ -27,7 +27,7 @@ export const BuilderTask = () =>{
 
     const onAddTask = async(formData:ITaskForm) => {
         try {
-            await ioContainer.todoService.addTask(formData);
+            await services.todo.add(formData);
 
         }
         catch (error ) {

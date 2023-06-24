@@ -25,8 +25,6 @@ export const AccumulationCard = observer(() => {
     };
 
 
-
-
     return (
         <>
             <CardItem title={accumulationCard} money={accumulation} iconCard={AccumulationIcon} switchShowModal={switchisModalActiveAccumulation} />

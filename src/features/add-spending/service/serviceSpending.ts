@@ -2,28 +2,27 @@ import { userStore } from 'shared/store/userStore/UserStore';
 import { spendingStore } from 'shared/store/cashFlowStore/spendingStore/SpendingStore';
 import { categoriesStore } from 'shared/store/categoriesStore/CategoriesStore';
 import { IFormSpending } from '../interfaces';
-import { ISpendingService } from './interfaces';
 import { operationsStore } from 'shared/store/cashFlowStore/operationsStore/OperationsStore';
-import { ISpendingApi } from 'api/SpendingApi';
-import { IFactoryOperation } from 'shared/service/factory/interfaces';
+import { ISpendingAPI } from 'api/SpendingApi';
 import { validateString } from 'shared/service/helpers/validateString';
 import { TYPE_OPERATION_SPENDING } from 'shared/service/factory/constants';
+import { AbstractOperationService } from 'service/abstractClasses/AbstractOperationService';
 
 
 
-class SpendingService implements ISpendingService {
+export class SpendingService extends AbstractOperationService {
 
-    constructor(private spendingService:ISpendingApi,private factoryOperation:IFactoryOperation) {
-        this.spendingService = spendingService;
-        this.factoryOperation = factoryOperation;
+    constructor(private spendingAPI:ISpendingAPI) {
+        super();
+        this.spendingAPI = spendingAPI;
     }
 
-    async addSpending( { spending,categorie } : IFormSpending) {
+    async add( { spending,categorie } : IFormSpending) {
 
         const modifytedCategorie = validateString(categorie);
         const createdOperation =  this.factoryOperation.createOperation(TYPE_OPERATION_SPENDING,spending,modifytedCategorie);
 
-        await this.spendingService.addSpending(userStore.idUser, createdOperation);
+        await this.spendingAPI.add(userStore.userID, createdOperation);
 
         spendingStore.addSpending(createdOperation);
         operationsStore.addOperation(createdOperation);
@@ -33,4 +32,4 @@ class SpendingService implements ISpendingService {
 }
 
 
-export default SpendingService;
+

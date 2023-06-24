@@ -3,36 +3,35 @@ import { userStore } from 'shared/store/userStore/UserStore';
 import { validateString } from 'shared/service/helpers/validateString';
 import { IFormCategorie } from '../interfaces';
 import { ICategoriesService } from './interfaces';
-import { ICategoriesApi } from 'api/interfaces';
+import { ICategoriesAPI } from 'api/interfaces';
 
 
 
-class CategoriesService implements ICategoriesService {
-    private categoriesApi:ICategoriesApi;
+export class CategoriesService implements ICategoriesService {
+    private categoriesAPI:ICategoriesAPI;
 
-    constructor(categoriesApi:ICategoriesApi) {
-        this.categoriesApi = categoriesApi;
+    constructor(categoriesAPI:ICategoriesAPI) {
+        this.categoriesAPI = categoriesAPI;
     }
 
-    async addCategorie({ categorie }: IFormCategorie) {
+    async add({ categorie }: IFormCategorie) {
 
         const categorieValidated = validateString(categorie);
 
         this.checkStoreHasCategorie(categorieValidated);
 
-        const newCategorie = this.createCategorie(categorieValidated);
+        const newCategorie = this.create(categorieValidated);
 
-        await this.categoriesApi.addCategorie(newCategorie,userStore.idUser);
+        await this.categoriesAPI.add(newCategorie,userStore.userID);
         categoriesStore.addCatigorie(newCategorie);
 
     }
 
 
-    async deleteCategorie(idCategorie: string) {
+    async delete(categorieID: string) {
 
-        await this.categoriesApi.deleteCategorie(idCategorie,userStore.idUser);
-        categoriesStore.deleteCategorie(idCategorie);
-
+        await this.categoriesAPI.delete(categorieID,userStore.userID);
+        categoriesStore.deleteCategorie(categorieID);
 
     }
 
@@ -45,7 +44,7 @@ class CategoriesService implements ICategoriesService {
         }
     }
 
-    private createCategorie(categorie:string) {
+    private create(categorie:string) {
 
         return {
             categorie : categorie,
@@ -54,6 +53,3 @@ class CategoriesService implements ICategoriesService {
         };
     }
 }
-
-
-export default CategoriesService;

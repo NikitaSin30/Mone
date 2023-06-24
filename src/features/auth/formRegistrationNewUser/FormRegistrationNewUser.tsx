@@ -11,7 +11,7 @@ import { TITLE_REGISTOR_COUNTRY,
 import { TITLE_LABEL_EMAIL,TITLE_LABEL_PASSWORD,TITLE_LABEL_COUNTRY,TITLE_LABEL_NICKNAME } from 'widgets/inputs/label/constans';
 import { TITLE_BUTTON_REGISTRATION } from 'widgets/modals/ui/button/constans';
 import { useToggle } from 'shared/hooks/useToggle/useToggle';
-import { ioContainer } from 'api/IoC/ioc';
+import { services } from 'api/IoC/ioc';
 import { useNavigate } from 'react-router';
 import { LOGIN } from 'shared/routes/path';
 import { SubtitleResponse } from 'widgets/errorResponse/SubtitleResponse';
@@ -33,7 +33,7 @@ function FormRegistrationNewUser(): React.ReactElement {
 
     const onRegistration = async(formData:IFormAuth) => {
         try {
-            const { message }  = await ioContainer.authService.registration(formData);
+            const { message }  = await services.auth.registration(formData);
 
             setmessageFromDB(message);
             setIsStatusResponse();

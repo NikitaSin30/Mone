@@ -1,23 +1,21 @@
 import { IIncomeOperation } from 'shared/store/cashFlowStore/interfaces';
 import { ADD_INCOME_URL } from './path';
+import { request } from './request/request';
 
-export interface IIncomeApi{
-    addIncome:(incomeOperation: IIncomeOperation, idUser: string) => Promise<void>
+import { AbstractOperationAPI } from './abstractClasses/AbstractOperationAPI';
+
+export interface IIncomeAPI{
+    add:( userID: string,incomeOperation: IIncomeOperation) => Promise<void>
 }
 
-class IncomeApi implements IIncomeApi {
+export class IncomeAPI extends AbstractOperationAPI {
 
-    async addIncome(incomeOperation: IIncomeOperation, idUser: string) {
+    async add( userID: string,incomeOperation: IIncomeOperation) {
+
         try {
-            const response = await fetch(ADD_INCOME_URL, {
-                method  : 'POST',
-                headers : {
-                    'Content-type' : 'application/json',
-                },
-                body : JSON.stringify({
-                    incomeOperation,
-                    idUser,
-                }),
+            const response = await request(ADD_INCOME_URL,'POST',{
+                incomeOperation,
+                userID,
             });
 
             if (!response.ok) {
@@ -35,5 +33,3 @@ class IncomeApi implements IIncomeApi {
         }
     }
 }
-
-export default IncomeApi;

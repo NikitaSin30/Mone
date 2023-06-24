@@ -1,25 +1,21 @@
 import { ISpendingOperation } from 'shared/store/cashFlowStore/interfaces';
 import { ADD_SPENDING_URL } from './path';
+import { request } from './request/request';
+import { AbstractOperationAPI } from './abstractClasses/AbstractOperationAPI';
 
 
 
-export interface ISpendingApi {
-    addSpending:(idUser: string, spendingOperation: ISpendingOperation) => Promise<void>
+export interface ISpendingAPI {
+    add:(userID: string, spendingOperation: ISpendingOperation) => Promise<void>
 }
 
-class SpendingApi implements ISpendingApi {
-    async addSpending(idUser: string, spendingOperation: ISpendingOperation) {
+export class SpendingAPI extends AbstractOperationAPI {
+    async add(userID: string, spendingOperation: ISpendingOperation) {
 
         try {
-            const response = await fetch(ADD_SPENDING_URL, {
-                method  : 'POST',
-                headers : {
-                    'Content-type' : 'application/json',
-                },
-                body : JSON.stringify({
-                    spendingOperation,
-                    idUser,
-                }),
+            const response = await request(ADD_SPENDING_URL,'POST',{
+                spendingOperation,
+                userID,
             });
 
             if (!response.ok) {
@@ -37,6 +33,3 @@ class SpendingApi implements ISpendingApi {
         }
     }
 }
-
-
-export default SpendingApi;

@@ -54,10 +54,10 @@ class AuthController {
 
     async authenticate(req, res,next) {
 
-        const { idUser } = req.user;
+        const { userID } = req.user;
 
         try {
-            const user = await serviceAuthDB.authenticate(idUser);
+            const user = await serviceAuthDB.authenticate(userID);
             const token = generateAccessToken(user._id);
 
             res.json({
@@ -72,10 +72,10 @@ class AuthController {
 
     async logout(req,res, next) {
 
-        const { id } = req.body;
+        const { userID } = req.body;
 
         try {
-            await serviceAuthDB.logout(id);
+            await serviceAuthDB.logout(userID);
 
             res.json({ message: 'Вы вышли из системы' });
         }

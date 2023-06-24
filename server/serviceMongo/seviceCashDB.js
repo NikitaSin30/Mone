@@ -6,14 +6,14 @@ class ServiceCashDB {
         this.DB = model;
     }
 
-    async addIncome(incomeOperation,idUser) {
+    async addIncome(incomeOperation,userID) {
         try {
-            const { income, balance } = await this.DB.findById(idUser);
+            const { income, balance } = await this.DB.findById(userID);
             const newBallance = balance + incomeOperation.income;
             const newIncomeBalance = income + incomeOperation.income;
 
             await this.DB.updateOne(
-                { _id: idUser },
+                { _id: userID },
                 {
                     $set : {
                         income  : newIncomeBalance,
@@ -31,14 +31,14 @@ class ServiceCashDB {
         }
     }
 
-    async addAccumulation(accumulationOperation,idUser) {
+    async addAccumulation(accumulationOperation,userID) {
         try {
-            const { accumulation,balance } = await User.findById(idUser);
+            const { accumulation,balance } = await User.findById(userID);
             const newBalance = balance - accumulationOperation.accumulation;
             const newAccumulationBalance = accumulation + accumulationOperation.accumulation;
 
             await this.DB.updateOne(
-                { _id: idUser },
+                { _id: userID },
                 {
                     $set : {
                         accumulation : newAccumulationBalance,
@@ -57,15 +57,15 @@ class ServiceCashDB {
         }
     }
 
-    async addSpending(spendingOperation,idUser) {
+    async addSpending(spendingOperation,userID) {
         try {
-            const { spending, balance } = await User.findById(idUser);
+            const { spending, balance } = await User.findById(userID);
             const newBalance = balance - spendingOperation.spending;
             const newSpendingBalance = spending + spendingOperation.spending;
 
 
             await this.DB.updateOne(
-                { _id: idUser },
+                { _id: userID },
                 {
                     $set : {
                         spending : newSpendingBalance,

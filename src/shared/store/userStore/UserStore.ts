@@ -22,7 +22,7 @@ export class UserStore implements IUser {
         this.user = user;
     }
 
-    get idUser() {
+    get userID() {
         return this.user._id;
     }
 }

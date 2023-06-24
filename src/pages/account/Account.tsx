@@ -1,4 +1,4 @@
-import { ioContainer } from 'api/IoC/ioc';
+import { services } from 'api/IoC/ioc';
 import { observer } from 'mobx-react-lite';
 import { SyntheticEvent } from 'react';
 import { userStore } from 'shared/store/userStore/UserStore';
@@ -9,10 +9,10 @@ import { PHOTO } from './assets/assets';
 export const Account = observer(() => {
 
     const { user } = userStore;
-    const onLogout = (e:SyntheticEvent) =>{
+    const onLogout = async(e:SyntheticEvent) =>{
         e.stopPropagation();
         e.preventDefault();
-        ioContainer.authService.logout();
+        await services.auth.logout();
     };
 
 

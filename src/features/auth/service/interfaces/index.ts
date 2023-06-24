@@ -1,4 +1,4 @@
-import { IAuthApi, IDataUserFromDB, IResponseMessage } from 'api/interfaces';
+import { IResponseMessage } from 'api/interfaces';
 import { IFormAuth } from 'features/auth/interfaces';
 
 
