@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { ITaskForm } from './interfaces';
+import { ITaskForm } from 'interfaces';
 import { Input } from 'widgets/inputs/Input';
 import { Button } from 'widgets/modals/ui/button/Button';
 import { IContextNotebook } from 'pages/noteBook/context/interfaces';
@@ -9,7 +9,7 @@ import { CASE_TYPE_TEXT_RUS } from 'widgets/inputs/validation/constans';
 import { TITLE_REGISTOR_TASK } from 'widgets/inputs/validation/constans';
 import { TITLE_LABEL_TASK } from 'widgets/inputs/label/constans';
 import { TITLE_BUTTON_TASK } from 'widgets/modals/ui/button/constans';
-import { todoService } from './service/todoService';
+import { services } from 'service/ioC/ioc';
 
 
 
@@ -27,7 +27,8 @@ export const BuilderTask = () =>{
 
     const onAddTask = async(formData:ITaskForm) => {
         try {
-            await todoService.addTask(formData);
+            await services.todo.add(formData);
+
         }
         catch (error ) {
             if (error instanceof Error) {

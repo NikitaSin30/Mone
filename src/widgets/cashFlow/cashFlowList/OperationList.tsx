@@ -1,4 +1,3 @@
-import React from 'react';
 import { operationsStore } from 'shared/store/cashFlowStore/operationsStore/OperationsStore';
 import { observer } from 'mobx-react-lite';
 import { OperationItem } from '../cashFlowItem/OperationItem';

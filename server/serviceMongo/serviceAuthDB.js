@@ -77,18 +77,18 @@ class ServiceAuthDB {
 
     }
 
-    async logout(idUser) {
+    async logout(userID) {
         try {
-            await User.updateOne({ _id: idUser }, { $set: { isAuth: false } });
+            await User.updateOne({ _id: userID }, { $set: { isAuth: false } });
         }
         catch (error) {
             throw error;
         }
     }
 
-    async authenticate(idUser) {
+    async authenticate(userID) {
         try {
-            const user = await User.findOne({ _id: idUser });
+            const user = await User.findOne({ _id: userID });
 
             return user;
         }

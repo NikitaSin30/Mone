@@ -1,10 +1,10 @@
 import React from 'react';
 import { DeleteModal } from 'widgets/modals/DeleteModal';
-import { ICategorie } from 'shared/store/categoriesStore/interfaces';
+import { ICategorie } from 'interfaces';
 import { observer } from 'mobx-react-lite';
 import { DeleteIcon } from 'widgets/todo/assets/DeleteIcon';
 import { useToggle } from 'shared/hooks/useToggle/useToggle';
-import { categoriesService } from 'features/add-categories/service/categoriesService';
+import { services } from 'service/ioC/ioc';
 import ErrorModal from 'widgets/modals/ErrorModal';
 
 export const CategorieItem = observer((props:ICategorie) =>{
@@ -16,7 +16,7 @@ export const CategorieItem = observer((props:ICategorie) =>{
 
     const onSuccesDelete = async(id:string) => {
         try {
-            await categoriesService.deleteCategorie(id);
+            await services.categories.delete(id);
             switchShowModal();
         }
         catch (error) {

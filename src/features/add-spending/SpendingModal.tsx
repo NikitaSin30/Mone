@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { IFormSpending } from 'features/add-spending/interfaces';
+import { IFormSpending } from 'interfaces';
 import { Select } from 'widgets/select/Select';
 import { Input } from 'widgets/inputs/Input';
 import { Button } from 'widgets/modals/ui/button/Button';
@@ -13,8 +13,9 @@ import { TITLE_REGISTOR_SPENDING, TITLE_REGISTOR_CATEGORIE } from 'widgets/input
 import { TITLE_LABEL_SELECT } from 'widgets/inputs/label/constans';
 import { ACTIVE_MODAL_STYLE, HIDEN_MODAL_STYLE } from 'widgets/modals/constans';
 import { TITLE_BUTTON_ADD } from 'widgets/modals/ui/button/constans';
-import { spendingService } from './service/serviceSpending';
 import { SubtitleResponse } from 'widgets/subtitleResponse/SubtitleResponse';
+import { services } from 'service/ioC/ioc';
+
 
 
 const SpendingModal = () => {
@@ -38,7 +39,7 @@ const SpendingModal = () => {
 
     const onAddSpending = async(dataForm:IFormSpending) => {
         try {
-            await spendingService.addSpending(dataForm);
+            await services.spending.add(dataForm);
             switchIsModalActiveSpending();
         }
         catch (error) {

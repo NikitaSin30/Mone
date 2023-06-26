@@ -1,4 +1,4 @@
-import { TAllOperations } from '../types';
+import { TAllOperations } from 'types';
 
 export interface IOperationStore {
     allOperations : TAllOperations[];

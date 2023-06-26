@@ -2,10 +2,9 @@ import React from 'react';
 import { observer } from 'mobx-react-lite';
 import { TodoItem } from '../todoItem/TodoItem';
 import { toDoStore } from 'shared/store/toDoStore/ToDoStore';
-import { todoService } from 'features/addTasks/service/todoService';
 import { IContextNotebook } from 'pages/noteBook/context/interfaces';
 import { ContextNotebook } from 'pages/noteBook/context/context';
-
+import { services } from 'service/ioC/ioc';
 
 
 export const TodoList = observer(() => {
@@ -15,7 +14,7 @@ export const TodoList = observer(() => {
 
     const onDeleteTask = React.useCallback(async(idTask:string) => {
         try {
-            await todoService.deleteTask(idTask);
+            await services.todo.delete(idTask);
         }
         catch (error) {
             if (error instanceof Error) {
@@ -27,7 +26,7 @@ export const TodoList = observer(() => {
 
     const onToggleIsDoneTask = React.useCallback(async(id:string) =>{
         try {
-            await todoService.switchIsDoneTask(id);
+            await services.todo.switchIsDoneTask(id);
         }
         catch (error) {
             if (error instanceof Error) {

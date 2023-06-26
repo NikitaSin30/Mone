@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { IFormCategorie } from './interfaces';
+import { IFormCategorie } from 'interfaces';
 import { Button } from 'widgets/modals/ui/button/Button';
 import { Input } from 'widgets/inputs/Input';
 import { CloseIcon } from 'widgets/modals/assets/CloseIcon';
@@ -11,10 +11,9 @@ import { TITLE_REGISTOR_CATEGORIE } from 'widgets/inputs/validation/constans';
 import { TITLE_LABEL_CATEGORIE } from 'widgets/inputs/label/constans';
 import { ACTIVE_MODAL_STYLE, HIDEN_MODAL_STYLE } from 'widgets/modals/constans';
 import { TITLE_BUTTON_CATEGORIE } from 'widgets/modals/ui/button/constans';
-import { categoriesService } from './service/categoriesService';
 import { SubtitleResponse } from 'widgets/errorResponse/SubtitleResponse';
 import { useShowError } from 'shared/hooks/useShowError/useShowError';
-
+import { services } from 'service/ioC/ioc';
 
 
 const FormModalCategories = () => {
@@ -33,7 +32,7 @@ const FormModalCategories = () => {
 
     const onAddCategorie = async(formData:IFormCategorie) => {
         try {
-            await categoriesService.addCategorie(formData);
+            await services.categories.add(formData);
             switchIsModalActiveAnalysis();
         }
         catch (error) {

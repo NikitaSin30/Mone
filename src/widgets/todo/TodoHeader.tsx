@@ -1,11 +1,10 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { toDoStore } from 'shared/store/toDoStore/ToDoStore';
 import { observer } from 'mobx-react-lite';
-import { todoService } from 'features/addTasks/service/todoService';
-import React from 'react';
 import { IContextNotebook } from 'pages/noteBook/context/interfaces';
 import { ContextNotebook } from 'pages/noteBook/context/context';
-
+import { services } from 'service/ioC/ioc';
 
 export const TodoHeader = observer(() => {
     const { switchisModalErrActiveTask,setErromFromDB } = React.useContext<IContextNotebook>(ContextNotebook);
@@ -15,7 +14,7 @@ export const TodoHeader = observer(() => {
 
     const onDeleteAllTasks = async() => {
         try {
-            await todoService.deleteAllTasks();
+            await services.todo.deleteAll();
         }
         catch (error) {
             if (error instanceof Error) {
@@ -25,7 +24,7 @@ export const TodoHeader = observer(() => {
         }
     };
 
-    
+
 
     return (
         <div className="flex justify-between items-center">

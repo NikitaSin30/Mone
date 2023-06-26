@@ -1,15 +1,14 @@
 import { makeAutoObservable } from 'mobx';
-import { IUser } from './interfaces.ts';
-import { IFormAuth } from 'features/auth/interfaces';
+import { IUserStore } from './interfaces/index.js';
+import { IFormAuth } from 'interfaces/index.js';
 
 
 
-export class UserStore implements IUser {
+export class UserStore implements IUserStore {
     public user: IFormAuth;
     public isAuth: boolean;
 
     constructor() {
-
         this.isAuth = localStorage.getItem('wallet') ? true : false;
         makeAutoObservable(this);
     }
@@ -22,7 +21,7 @@ export class UserStore implements IUser {
         this.user = user;
     }
 
-    get idUser() {
+    get userID() {
         return this.user._id;
     }
 }

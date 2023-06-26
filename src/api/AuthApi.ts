@@ -1,10 +1,10 @@
-import { IFormAuth } from 'features/auth/interfaces';
-import { IAuthApi } from './interfaces';
+import { IFormAuth } from 'interfaces';
+import { IAuthAPI } from './interfaces';
 import { REGISTRATION_URL,LOGIN_URL,LOGOUT_URL,AUTHENTICATION_URL } from './path';
 import { request } from './request/request';
 
 
-class AuthApi implements IAuthApi {
+export class AuthAPI implements IAuthAPI {
 
     async registration(user: IFormAuth) {
         try {
@@ -63,11 +63,11 @@ class AuthApi implements IAuthApi {
     }
 
 
-    async logout(idUser:string) {
+    async logout(userID:string) {
 
         try {
 
-            const response = await request(LOGOUT_URL,'POST',{ idUser });
+            const response = await request(LOGOUT_URL,'POST',{ userID });
 
             if (!response.ok) {
                 const error = await response.json();
@@ -83,6 +83,3 @@ class AuthApi implements IAuthApi {
         }
     }
 }
-
-
-export const authAPI = new AuthApi();

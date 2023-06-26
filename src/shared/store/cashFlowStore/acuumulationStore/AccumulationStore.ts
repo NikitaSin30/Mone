@@ -1,6 +1,7 @@
 import { makeAutoObservable } from 'mobx';
 import { balanceStore } from '../balanceStore/BalanceStore';
-import { IAccumulationOperation, IAccumulationStore } from '../interfaces';
+import { IAccumulationOperation } from 'interfaces';
+import { IAccumulationStore } from '../interfaces';
 
 
 export class AccumulationStore implements IAccumulationStore {

@@ -1,5 +1,5 @@
 import { makeAutoObservable } from 'mobx';
-import { TAllOperations } from './types';
+import { TAllOperations } from 'types';
 import { IOperationStore } from './interfaces';
 
 

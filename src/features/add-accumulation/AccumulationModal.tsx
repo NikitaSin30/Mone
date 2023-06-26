@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { IFormAccumulation } from './interfaces';
+import { IFormAccumulation } from 'interfaces';
 import { Input } from 'widgets/inputs/Input';
 import { Button } from 'widgets/modals/ui/button/Button';
 import { CloseIcon } from 'widgets/modals/assets/CloseIcon';
@@ -10,10 +10,8 @@ import { CASE_TYPE_NUMBER } from 'widgets/inputs/validation/constans';
 import { TITLE_REGISTOR_ACCUMULATION } from 'widgets/inputs/validation/constans';
 import { ACTIVE_MODAL_STYLE,HIDEN_MODAL_STYLE } from 'widgets/modals/constans';
 import { TITLE_BUTTON_ADD } from 'widgets/modals/ui/button/constans';
-import { accumulationService } from './service/AccumulationService';
 import { IAccumulationModal } from './interfaces';
-
-
+import { services } from 'service/ioC/ioc';
 
 
 const AccumulationModal = ({ setTextError } : IAccumulationModal ) => {
@@ -30,7 +28,7 @@ const AccumulationModal = ({ setTextError } : IAccumulationModal ) => {
 
     const onAddAccumulation = async(formAccumulation : IFormAccumulation) => {
         try {
-            await accumulationService.addAccumulation(formAccumulation);
+            await services.accumulation.add(formAccumulation);
             switchisModalActiveAccumulation();
         }
         catch (error) {

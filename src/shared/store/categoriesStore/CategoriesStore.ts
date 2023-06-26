@@ -1,6 +1,7 @@
-import { IFormSpending } from 'features/add-spending/interfaces';
 import { makeAutoObservable } from 'mobx';
-import { ICategoriesStore, ICategorie } from './interfaces';
+import { ICategoriesStore } from './interfaces';
+import { ICategorie } from 'interfaces';
+import { IFormSpending } from 'interfaces';
 
 
 

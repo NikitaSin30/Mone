@@ -2,10 +2,10 @@ const serviceTasksDB = require('../serviceMongo/serviceTasks/serviceTasksDB');
 
 class TasksController {
     async addTask(req,res,next) {
-        const { task, idUser } = req.body;
+        const { task, userID } = req.body;
 
         try {
-            await serviceTasksDB.addTask(idUser,task);
+            await serviceTasksDB.addTask(userID,task);
             res.json({ message: 'Задача добавлена' });
         }
         catch (error) {
@@ -14,10 +14,10 @@ class TasksController {
     }
 
     async deleteTask(req,res,next) {
-        const { idUser,idTask } = req.body;
+        const { userID,taskID } = req.body;
 
         try {
-            await serviceTasksDB.deleteTask(idUser,idTask);
+            await serviceTasksDB.deleteTask(userID,taskID);
             res.json({ message: 'Задача удалена' });
         }
         catch (error) {
@@ -26,11 +26,11 @@ class TasksController {
     }
 
     async deleteAllTasks(req,res,next) {
-        const { idUser } = req.body;
+        const { userID } = req.body;
 
-        
+
         try {
-            await serviceTasksDB.deleteAllTasks(idUser);
+            await serviceTasksDB.deleteAllTasks(userID);
             res.json({ message: 'Все задачи удалены' });
         }
         catch (error) {

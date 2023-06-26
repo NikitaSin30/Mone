@@ -1,21 +1,20 @@
 
-import { ITaskForm } from 'features/addTasks/interfaces';
-import { ITask } from 'shared/store/toDoStore/interfaces';
-import { ITodoApi } from './interfaces';
+import { ITask, ITaskForm } from 'interfaces';
+import { ITodoAPI } from './interfaces';
 import { DELETE_TASK_URL, DELETE_ALL_TASKS_URL, SWITCH_IS_DONE_URL,ADD_TASK_URL } from './path/index';
 import { request } from './request/request';
 
 
 
 
-class TodoApi implements ITodoApi {
+export class TodoAPI implements ITodoAPI {
 
-    async addTask(task: ITaskForm, idUser: string) {
+    async add(task: ITask, userID: string) {
 
         try {
             const response = await request(ADD_TASK_URL,'POST',{
                 task,
-                idUser,
+                userID,
             });
 
 
@@ -32,11 +31,11 @@ class TodoApi implements ITodoApi {
         }
     }
 
-    async deleteTask(idTask: string, idUser: string) {
+    async delete(taskID: string, userID: string) {
         try {
             const response = await request(DELETE_TASK_URL,'DELETE',{
-                idUser,
-                idTask,
+                userID,
+                taskID,
             });
 
 
@@ -54,9 +53,9 @@ class TodoApi implements ITodoApi {
         }
     }
 
-    async deleteAllTasks(idUser:string) {
+    async deleteAll(userID:string) {
         try {
-            const response = await request(DELETE_ALL_TASKS_URL,'DELETE',{ idUser });
+            const response = await request(DELETE_ALL_TASKS_URL,'DELETE',{ userID });
 
             if (!response.ok) {
                 const error = await response.json();
@@ -70,7 +69,7 @@ class TodoApi implements ITodoApi {
         }
     }
 
-    async switchIsDoneTask(idTask:string,idUser:string) {
+    async switchIsDoneTask(taskID:string,userID:string) {
         try {
             const response = await fetch(SWITCH_IS_DONE_URL, {
                 method  : 'PUT',
@@ -78,8 +77,8 @@ class TodoApi implements ITodoApi {
                     'Content-type' : 'application/json',
                 },
                 body : JSON.stringify({
-                    idUser,
-                    idTask,
+                    userID,
+                    taskID,
                 }),
             });
 
@@ -98,19 +97,4 @@ class TodoApi implements ITodoApi {
             throw new Error('Что-то пошло не так');
         }
     }
-
-    async updateTask(task:ITask,userId:string) {
-        try {
-            const upadatedTask = {
-                ...task,
-                isDone : !task.isDone,
-            };
-
-        }
-        catch (error) {
-            throw new Error('Может лучше в вебкам ? A не IT');
-        }
-    }
 }
-
-export const todoApi = new TodoApi();

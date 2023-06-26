@@ -9,7 +9,7 @@ import Authorization from '../pages/auth/authorization/Authorization';
 import Registration from '../pages/auth/registration/Registration';
 import { IGlobalContext,Context } from 'shared/context/context';
 import Notebook from 'pages/noteBook/Notebook';
-import { authService } from 'features/auth/service/serviceAuth';
+import { services } from 'service/ioC/ioc';
 import { userStore } from 'shared/store/userStore/UserStore';
 import { AuthorizedRoute } from 'shared/routes/hoc/AuthorizedRoute';
 import { NotAuthorizedRoute } from 'shared/routes/hoc/NotAuthorizedRoute';
@@ -33,11 +33,10 @@ export const App =  observer(() => {
     React.useEffect(()=>{
         const authenticate = async() => {
             try {
-                await authService.authenticate();
+                await services.auth.authenticate();
             }
             catch (error) {
                 if (error instanceof Error) {
-                    console.log(error.message);
                     localStorage.removeItem('wallet');
                 }
             }
