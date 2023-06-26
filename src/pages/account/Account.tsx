@@ -1,4 +1,4 @@
-import { services } from 'api/IoC/ioc';
+import { services } from 'service/ioC/ioc';
 import { observer } from 'mobx-react-lite';
 import { SyntheticEvent } from 'react';
 import { userStore } from 'shared/store/userStore/UserStore';

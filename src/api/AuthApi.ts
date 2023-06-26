@@ -1,4 +1,4 @@
-import { IFormAuth } from 'features/auth/interfaces';
+import { IFormAuth } from 'interfaces';
 import { IAuthAPI } from './interfaces';
 import { REGISTRATION_URL,LOGIN_URL,LOGOUT_URL,AUTHENTICATION_URL } from './path';
 import { request } from './request/request';

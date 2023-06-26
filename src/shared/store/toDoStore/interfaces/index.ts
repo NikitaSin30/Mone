@@ -1,8 +1,4 @@
-export interface ITask {
-  task: string;
-  id: string;
-  isDone: boolean;
-}
+import { ITask } from 'interfaces';
 
 export interface ITodoStore {
   tasks: ITask[];

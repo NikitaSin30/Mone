@@ -1,6 +1,5 @@
 
-import { ITaskForm } from 'features/addTasks/interfaces';
-import { ITask } from 'shared/store/toDoStore/interfaces';
+import { ITask, ITaskForm } from 'interfaces';
 import { ITodoAPI } from './interfaces';
 import { DELETE_TASK_URL, DELETE_ALL_TASKS_URL, SWITCH_IS_DONE_URL,ADD_TASK_URL } from './path/index';
 import { request } from './request/request';
@@ -10,7 +9,7 @@ import { request } from './request/request';
 
 export class TodoAPI implements ITodoAPI {
 
-    async add(task: ITaskForm, userID: string) {
+    async add(task: ITask, userID: string) {
 
         try {
             const response = await request(ADD_TASK_URL,'POST',{

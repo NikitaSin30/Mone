@@ -17,10 +17,10 @@ class CategoriesController {
 
 
     async deleteCategorie(req,res,next) {
-        const { idCategorie , userID } = req.body;
+        const { categorieID , userID } = req.body;
 
         try {
-            await serviceCategoriesDB.deleteCategorie(userID,idCategorie);
+            await serviceCategoriesDB.deleteCategorie(userID,categorieID);
 
             res.json({ message: 'Категория удалена' });
         }

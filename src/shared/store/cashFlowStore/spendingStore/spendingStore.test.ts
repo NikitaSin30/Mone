@@ -1,7 +1,9 @@
-import { ISpendingOperation, ISpendingStore } from '../interfaces';
+import { ISpendingOperation } from 'interfaces';
+import { ISpendingStore } from '../interfaces';
 import { SpendingStore } from './SpendingStore';
 import { balanceStore } from '../balanceStore/BalanceStore';
-import { EOperationType } from '../interfaces';
+import { EOperationType } from 'enum';
+
 
 describe('Class SpendingStore',() => {
 

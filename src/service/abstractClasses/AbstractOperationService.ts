@@ -1,14 +1,13 @@
-import { IFactoryOperation } from 'shared/service/factory/interfaces';
-import FactoryOperation from 'shared/service/factory/FactoryOperation';
-import { IFormAccumulation } from 'features/add-accumulation/interfaces';
-import { IFormIncome } from 'features/add-income/interfaces';
-import { IFormSpending } from 'features/add-spending/interfaces';
-
+import { IFormAccumulation } from 'interfaces';
+import { IFormIncome } from 'interfaces';
+import { IFormSpending } from 'interfaces';
+import { IAccumulationOperation,IIncomeOperation, ISpendingOperation } from 'interfaces';
 
 
 type TDataForm = IFormAccumulation | IFormIncome | IFormSpending
+type TCreatedOperation = IAccumulationOperation | ISpendingOperation | IIncomeOperation
 
 export abstract class AbstractOperationService {
-    protected factoryOperation:IFactoryOperation = new FactoryOperation();
+    protected abstract createOperation(data:TDataForm) : TCreatedOperation
     protected abstract add(data: TDataForm): Promise<void>;
 }

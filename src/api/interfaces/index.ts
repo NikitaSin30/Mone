@@ -1,41 +1,11 @@
-import { IAccumulationOperation, IIncomeOperation, ISpendingOperation } from '../../shared/store/cashFlowStore/interfaces';
-import { ICategorie } from 'shared/store/categoriesStore/interfaces';
-import { ITask } from 'shared/store/toDoStore/interfaces';
-import { IFormAuth } from '../../features/auth/interfaces';
-import { ITaskForm } from 'features/addTasks/interfaces';
-import { TAllOperations } from 'shared/store/cashFlowStore/operationsStore/types';
+import { IAccumulationOperation, IDataFromDB, IIncomeOperation, ISpendingOperation, ITask } from 'interfaces';
+import { ICategorie } from 'interfaces';
+import { IFormAuth } from 'interfaces';
+import { ITaskForm } from 'interfaces';
+
 
 
 export interface IResponseMessage {message:string}
-
-export interface IDataUserFromDB {
- email : string,
- country : string,
- nickname : string,
- password : string,
- _id : string,
- balance : number,
- income : number,
- incomeOperations : IIncomeOperation[],
- spending : number,
- spendingOperations : ISpendingOperation[],
- accumulation : number,
- accumulationOperations : IAccumulationOperation[],
- allOperations: TAllOperations[]
- categories : ICategorie[],
- tasks : ITask[],
-}
-
-export interface IDataFromDB {
-  user: IDataUserFromDB,
-  token : string,
-}
-
-export interface ICashFlowAPI {
-  addIncome: (incomeOperation: IIncomeOperation, userID: string) => Promise<void>;
-  addAccumulation: (userID: string, accumulationOperation: IAccumulationOperation) => Promise<IAccumulationOperation>;
-  addSpending: (userID: string, spendingOperation: ISpendingOperation) => Promise<void>;
-}
 
 export interface IAuthAPI {
     registration:(user: IFormAuth) => Promise<IResponseMessage>;
@@ -51,8 +21,20 @@ export interface ICategoriesAPI {
 }
 
 export interface ITodoAPI {
-  add: (task: ITaskForm, userID: string) => Promise<void>;
+  add: (task: ITask, userID: string) => Promise<void>;
   delete:(taskID:string, userID:string) => Promise<void>
   deleteAll:(id:string) => Promise<void>
   switchIsDoneTask:(taskID:string, userID:string) => Promise<void>
+}
+
+export interface IIncomeAPI{
+    add:( userID: string,incomeOperation: IIncomeOperation) => Promise<void>
+}
+
+export interface IAccumulationAPI{
+    add:(userID: string, accumulationOperation: IAccumulationOperation) => Promise<void>
+}
+
+export interface ISpendingAPI {
+    add:(userID: string, spendingOperation: ISpendingOperation) => Promise<void>
 }

@@ -1,11 +1,9 @@
-import { IAccumulationOperation } from 'shared/store/cashFlowStore/interfaces';
+import { IAccumulationOperation } from 'interfaces';
 import { ADD_ACCUMULATION_URL } from './path';
 import { request } from './request/request';
 import { AbstractOperationAPI } from './abstractClasses/AbstractOperationAPI';
 
-export interface IAccumulationAPI{
-    add:(userID: string, accumulationOperation: IAccumulationOperation) => Promise<void>
-}
+
 
 export class AccumulationAPI extends AbstractOperationAPI {
 

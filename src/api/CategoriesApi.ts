@@ -1,4 +1,4 @@
-import { ICategorie } from 'shared/store/categoriesStore/interfaces';
+import { ICategorie } from 'interfaces';
 import { ICategoriesAPI } from './interfaces';
 import { ADD_CATEGORIE_URL,DELETE_CATEGORIE_URL } from './path';
 import { request } from './request/request';

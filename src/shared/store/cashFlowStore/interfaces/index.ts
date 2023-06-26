@@ -1,36 +1,4 @@
-export interface IOperation{
-    date:string
-}
-
-export interface IAccumulationOperation {
-  accumulation: number;
-  date: string;
-}
-
-export enum EOperationType{
-  Income = 'Income',
-  Accumulation = 'Accumulation',
-  Spending = 'Spending',
-}
-
-export interface IAccumulationOperation extends IOperation {
-  accumulation: number;
-  type:EOperationType.Accumulation;
-}
-
-export interface ISpendingOperation extends IOperation {
-  spending: number;
-  categorie: string;
-  type:EOperationType.Spending,
-}
-
-export interface IIncomeOperation extends IOperation{
-  income: number;
-  sphere: string;
-  type:EOperationType.Income
-}
-
-
+import { IIncomeOperation, IAccumulationOperation,ISpendingOperation } from 'interfaces';
 
 export interface IBalanceStore {
   moneyAccount: number;

@@ -1,12 +1,12 @@
 import { IOperationItem } from './interfaces';
 import { ContentItem } from '../ContentItem/ContentItem';
 import { EContentItem } from '../ContentItem/enums';
-import { EOperationType } from 'shared/store/cashFlowStore/interfaces';
+import { EOperationType } from 'enum';
 
 
 
 export const OperationItem:React.FC<IOperationItem> = ({ operation }) => {
-    
+
     switch (operation.type) {
         case EOperationType.Income:
             return (

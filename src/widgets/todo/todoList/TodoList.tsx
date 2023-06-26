@@ -4,7 +4,7 @@ import { TodoItem } from '../todoItem/TodoItem';
 import { toDoStore } from 'shared/store/toDoStore/ToDoStore';
 import { IContextNotebook } from 'pages/noteBook/context/interfaces';
 import { ContextNotebook } from 'pages/noteBook/context/context';
-import { services } from 'api/IoC/ioc';
+import { services } from 'service/ioC/ioc';
 
 
 export const TodoList = observer(() => {

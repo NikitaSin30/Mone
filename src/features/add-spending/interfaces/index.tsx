@@ -3,7 +3,4 @@ export interface ISpendingModal {
   isActive: boolean
 }
 
-export interface IFormSpending {
-  categorie: string;
-  spending: number;
-}
+

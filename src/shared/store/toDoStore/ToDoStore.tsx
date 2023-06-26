@@ -1,6 +1,6 @@
 import { makeAutoObservable } from 'mobx';
-import { ITodoStore, ITask } from './interfaces';
-
+import { ITodoStore } from './interfaces';
+import { ITask } from 'interfaces';
 
 
 

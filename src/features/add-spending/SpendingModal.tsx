@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { IFormSpending } from 'features/add-spending/interfaces';
+import { IFormSpending } from 'interfaces';
 import { Select } from 'widgets/select/Select';
 import { Input } from 'widgets/inputs/Input';
 import { Button } from 'widgets/modals/ui/button/Button';
@@ -14,7 +14,9 @@ import { TITLE_LABEL_SELECT } from 'widgets/inputs/label/constans';
 import { ACTIVE_MODAL_STYLE, HIDEN_MODAL_STYLE } from 'widgets/modals/constans';
 import { TITLE_BUTTON_ADD } from 'widgets/modals/ui/button/constans';
 import { SubtitleResponse } from 'widgets/subtitleResponse/SubtitleResponse';
-import { services } from 'api/IoC/ioc';
+import { services } from 'service/ioC/ioc';
+
+
 
 const SpendingModal = () => {
     const { isModalActiveSpending,switchIsModalActiveSpending } = React.useContext<IContextMain>(ContextMain);

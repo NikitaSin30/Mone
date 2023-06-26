@@ -4,7 +4,7 @@ import { toDoStore } from 'shared/store/toDoStore/ToDoStore';
 import { observer } from 'mobx-react-lite';
 import { IContextNotebook } from 'pages/noteBook/context/interfaces';
 import { ContextNotebook } from 'pages/noteBook/context/context';
-import { services } from 'api/IoC/ioc';
+import { services } from 'service/ioC/ioc';
 
 export const TodoHeader = observer(() => {
     const { switchisModalErrActiveTask,setErromFromDB } = React.useContext<IContextNotebook>(ContextNotebook);

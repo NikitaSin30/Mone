@@ -1,7 +1,8 @@
 import { AccumulationStore } from './AccumulationStore';
-import { EOperationType, IAccumulationOperation } from '../interfaces';
+import { EOperationType } from 'enum';
 import { IAccumulationStore } from '../interfaces';
 import { balanceStore } from '../balanceStore/BalanceStore';
+import { IAccumulationOperation } from 'interfaces';
 
 
 describe('class AccumulationStore', () => {

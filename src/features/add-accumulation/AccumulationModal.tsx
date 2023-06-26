@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { IFormAccumulation } from './interfaces';
+import { IFormAccumulation } from 'interfaces';
 import { Input } from 'widgets/inputs/Input';
 import { Button } from 'widgets/modals/ui/button/Button';
 import { CloseIcon } from 'widgets/modals/assets/CloseIcon';
@@ -11,7 +11,7 @@ import { TITLE_REGISTOR_ACCUMULATION } from 'widgets/inputs/validation/constans'
 import { ACTIVE_MODAL_STYLE,HIDEN_MODAL_STYLE } from 'widgets/modals/constans';
 import { TITLE_BUTTON_ADD } from 'widgets/modals/ui/button/constans';
 import { IAccumulationModal } from './interfaces';
-import { services } from 'api/IoC/ioc';
+import { services } from 'service/ioC/ioc';
 
 
 const AccumulationModal = ({ setTextError } : IAccumulationModal ) => {

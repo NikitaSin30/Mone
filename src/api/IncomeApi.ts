@@ -1,12 +1,10 @@
-import { IIncomeOperation } from 'shared/store/cashFlowStore/interfaces';
+import { IIncomeOperation } from 'interfaces';
 import { ADD_INCOME_URL } from './path';
 import { request } from './request/request';
 
 import { AbstractOperationAPI } from './abstractClasses/AbstractOperationAPI';
 
-export interface IIncomeAPI{
-    add:( userID: string,incomeOperation: IIncomeOperation) => Promise<void>
-}
+
 
 export class IncomeAPI extends AbstractOperationAPI {
 

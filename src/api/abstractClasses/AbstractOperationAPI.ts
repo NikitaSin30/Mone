@@ -1,4 +1,4 @@
-import { IAccumulationOperation, IIncomeOperation, ISpendingOperation } from 'shared/store/cashFlowStore/interfaces';
+import { ISpendingOperation,IIncomeOperation, IAccumulationOperation } from 'interfaces';
 
 
 type TOperation = ISpendingOperation | IAccumulationOperation | IIncomeOperation
