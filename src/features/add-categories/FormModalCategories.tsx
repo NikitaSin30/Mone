@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { IFormCategorie } from './interfaces';
+import { IFormCategorie } from 'interfaces';
 import { Button } from 'widgets/modals/ui/button/Button';
 import { Input } from 'widgets/inputs/Input';
 import { CloseIcon } from 'widgets/modals/assets/CloseIcon';
@@ -13,7 +13,7 @@ import { ACTIVE_MODAL_STYLE, HIDEN_MODAL_STYLE } from 'widgets/modals/constans';
 import { TITLE_BUTTON_CATEGORIE } from 'widgets/modals/ui/button/constans';
 import { SubtitleResponse } from 'widgets/errorResponse/SubtitleResponse';
 import { useShowError } from 'shared/hooks/useShowError/useShowError';
-import { ioContainer } from 'api/IoC/ioc';
+import { services } from 'service/ioC/ioc';
 
 
 const FormModalCategories = () => {
@@ -32,7 +32,7 @@ const FormModalCategories = () => {
 
     const onAddCategorie = async(formData:IFormCategorie) => {
         try {
-            await ioContainer.categoriesService.addCategorie(formData);
+            await services.categories.add(formData);
             switchIsModalActiveAnalysis();
         }
         catch (error) {

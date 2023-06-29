@@ -1,18 +1,18 @@
-import { ICategorie } from 'shared/store/categoriesStore/interfaces';
-import { ICategoriesApi } from './interfaces';
+import { ICategorie } from 'interfaces';
+import { ICategoriesAPI } from './interfaces';
 import { ADD_CATEGORIE_URL,DELETE_CATEGORIE_URL } from './path';
 import { request } from './request/request';
 
 
 
-export class CategoriesApi implements ICategoriesApi {
+export class CategoriesAPI implements ICategoriesAPI {
 
-    async addCategorie(categorie : ICategorie, idUser: string) {
+    async add<T>(categorie : ICategorie, userID: string) : Promise<T> {
 
         try {
             const response = await request(ADD_CATEGORIE_URL,'POST',{
                 categorie,
-                idUser,
+                userID,
             });
 
             if (!response.ok) {
@@ -21,6 +21,7 @@ export class CategoriesApi implements ICategoriesApi {
                 throw new Error(error.message);
             }
 
+            return response.json();
 
         }
         catch (error) {
@@ -29,12 +30,12 @@ export class CategoriesApi implements ICategoriesApi {
         }
     }
 
-    async deleteCategorie(idCategorie: string, idUser: string) {
+    async delete(categorieID: string, userID: string) {
 
         try {
             const response = await request(DELETE_CATEGORIE_URL,'DELETE',{
-                idCategorie,
-                idUser,
+                categorieID,
+                userID,
             });
 
 
@@ -50,5 +51,3 @@ export class CategoriesApi implements ICategoriesApi {
     }
 
 }
-
-export default CategoriesApi;

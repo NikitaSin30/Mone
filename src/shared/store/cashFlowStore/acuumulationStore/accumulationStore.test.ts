@@ -1,14 +1,16 @@
 import { AccumulationStore } from './AccumulationStore';
-import { EOperationType, IAccumulationOperation } from '../interfaces';
+import { EOperationType } from 'enum';
 import { IAccumulationStore } from '../interfaces';
 import { balanceStore } from '../balanceStore/BalanceStore';
+import { IResponseAccumulationOperation } from 'interfaces';
 
 
 describe('class AccumulationStore', () => {
-    const accumulationOperation : IAccumulationOperation = {
+    const accumulationOperation : IResponseAccumulationOperation = {
         accumulation : 100,
         date         : new Date().toLocaleDateString(),
         type         : EOperationType.Accumulation,
+        id           : '1',
     };
     const accumulation = 100;
     const spy = jest.spyOn(balanceStore, 'updateCashAccount');

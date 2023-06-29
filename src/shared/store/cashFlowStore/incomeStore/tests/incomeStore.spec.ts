@@ -1,16 +1,19 @@
 import { IncomeStore } from '../IncomeStore';
-import { EOperationType, IIncomeOperation, IIncomeStore } from '../../interfaces';
+import { EOperationType } from 'enum';
+import { IResponseIncomeOperation } from 'interfaces';
+import { IIncomeStore } from '../../interfaces';
 import { balanceStore } from '../../balanceStore/BalanceStore';
 
 
 
 describe('class IncomeStore', ()=>{
 
-    const incomeOperation: IIncomeOperation  = {
+    const incomeOperation: IResponseIncomeOperation  = {
         income : 100,
         sphere : 'IT',
         type   : EOperationType.Income,
         date   : new Date().toLocaleDateString(),
+        id     : '1',
     };
 
     const income = 100;

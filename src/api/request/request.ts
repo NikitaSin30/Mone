@@ -20,5 +20,3 @@ export const request = <T>(url:string,method:string,data:T) =>{
         body : JSON.stringify(data),
     });
 };
-
-

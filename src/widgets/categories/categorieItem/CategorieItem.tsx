@@ -1,14 +1,20 @@
 import React from 'react';
 import { DeleteModal } from 'widgets/modals/DeleteModal';
-import { ICategorie } from 'shared/store/categoriesStore/interfaces';
+import { ICategorie, IResponseCategorie } from 'interfaces';
 import { observer } from 'mobx-react-lite';
 import { DeleteIcon } from 'widgets/todo/assets/DeleteIcon';
 import { useToggle } from 'shared/hooks/useToggle/useToggle';
-import { ioContainer } from 'api/IoC/ioc';
+import { services } from 'service/ioC/ioc';
 import ErrorModal from 'widgets/modals/ErrorModal';
 
-export const CategorieItem = observer((props:ICategorie) =>{
-    const { categorie, id } = props;
+interface ICategorieItem {
+    categorie:string,
+    id:string,
+    spending: number
+}
+
+export const CategorieItem = observer(({ categorie,id,spending }:ICategorieItem) =>{
+
     const { value:isErrorModal, toggle: switchIsErrorModal } = useToggle(false);
     const [messageError,setMessageError] = React.useState('');
     const { value: isModalActive, toggle: switchShowModal } = useToggle(false);
@@ -16,7 +22,7 @@ export const CategorieItem = observer((props:ICategorie) =>{
 
     const onSuccesDelete = async(id:string) => {
         try {
-            await ioContainer.categoriesService.deleteCategorie(id);
+            await services.categories.delete(id);
             switchShowModal();
         }
         catch (error) {
@@ -35,6 +41,7 @@ export const CategorieItem = observer((props:ICategorie) =>{
                           justify-between rounded-md shadow-lg"
             >
                 <h2 className="font-semibold text-md">{categorie}</h2>
+                <h2 className="font-semibold text-md">{spending}</h2>
                 <button onClick={switchShowModal} className="hover:scale-110">
                     {DeleteIcon}
                 </button>

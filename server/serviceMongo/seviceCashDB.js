@@ -1,22 +1,31 @@
 const User = require('../modelsMongo/User');
-const decoratorID = require('./decorator/decoratorID');
+const decoratorIDandDate = require('./decorator/decoratorID');
 
 class ServiceCashDB {
     constructor(model) {
         this.DB = model;
     }
 
-    async addIncome(incomeOperation,idUser) {
+    async addIncome(incomeOperation,userID) {
         try {
-            const { income, balance } = await this.DB.findById(idUser);
+            const { income, balance } = await User.findById(userID);
             const newBallance = balance + incomeOperation.income;
-            const newSpendingBalance = income + incomeOperation.income;
-            const modifiedIncomeOperation = decoratorID(incomeOperation);
+            const newIncomeBalance = income + incomeOperation.income;
+            const modifiedIncomeOperation = decoratorIDandDate(incomeOperation);
 
-            await this.DB.updateOne({ _id: idUser }, { $set: { income: newSpendingBalance } });
-            await this.DB.updateOne({ _id: idUser }, { $set: { balance: newBallance } });
-            await this.DB.updateOne({ _id: idUser }, { $push: { incomeOperations: modifiedIncomeOperation } });
-            await this.DB.updateOne({ _id: idUser }, { $push: { allOperations: modifiedIncomeOperation } });
+            await this.DB.updateOne(
+                { _id: userID },
+                {
+                    $set : {
+                        income  : newIncomeBalance,
+                        balance : newBallance,
+                    },
+                    $push : {
+                        incomeOperations : modifiedIncomeOperation,
+                        allOperations    : modifiedIncomeOperation,
+                    },
+                }
+            );
 
             return modifiedIncomeOperation;
         }
@@ -25,18 +34,26 @@ class ServiceCashDB {
         }
     }
 
-    async addAccumulation(accumulationOperation,idUser) {
+    async addAccumulation(accumulationOperation,userID) {
         try {
-            const { accumulation,balance } = await User.findById(idUser);
-            const newBallance = balance - accumulationOperation.accumulation;
-            const newAccumulation = accumulation + accumulationOperation.accumulation;
-            const modifiedAccumulationOperation = decoratorID(accumulationOperation);
+            const { accumulation,balance } = await User.findById(userID);
+            const newBalance = balance - accumulationOperation.accumulation;
+            const newAccumulationBalance = accumulation + accumulationOperation.accumulation;
+            const modifiedAccumulationOperation = decoratorIDandDate(accumulationOperation);
 
-
-            await this.DB.updateOne({ _id: idUser }, { $set: { accumulation: newAccumulation } });
-            await this.DB.updateOne({ _id: idUser }, { $set: { balance: newBallance } });
-            await this.DB.updateOne({ _id: idUser }, { $push: { accumulationOperations: modifiedAccumulationOperation } });
-            await this.DB.updateOne({ _id: idUser }, { $push: { allOperations: modifiedAccumulationOperation } });
+            await this.DB.updateOne(
+                { _id: userID },
+                {
+                    $set : {
+                        accumulation : newAccumulationBalance,
+                        balance      : newBalance,
+                    },
+                    $push : {
+                        accumulationOperations : modifiedAccumulationOperation,
+                        allOperations          : modifiedAccumulationOperation,
+                    },
+                }
+            );
 
             return modifiedAccumulationOperation;
         }
@@ -45,18 +62,27 @@ class ServiceCashDB {
         }
     }
 
-    async addSpending(spendingOperation,idUser) {
+    async addSpending(spendingOperation,userID) {
         try {
-            const { spending, balance } = await User.findById(idUser);
+            const { spending, balance } = await User.findById(userID);
             const newBalance = balance - spendingOperation.spending;
             const newSpendingBalance = spending + spendingOperation.spending;
-            const modifiedSpendingOperation = decoratorID(spendingOperation);
+            const modifiedSpendingOperation = decoratorIDandDate(spendingOperation);
 
 
-            await this.DB.updateOne({ _id: idUser }, { $set: { spending: newSpendingBalance } });
-            await this.DB.updateOne({ _id: idUser }, { $set: { balance: newBalance } });
-            await this.DB.updateOne({ _id: idUser }, { $push: { spendingOperations: modifiedSpendingOperation } });
-            await this.DB.updateOne({ _id: idUser }, { $push: { allOperations: modifiedSpendingOperation } });
+            await this.DB.updateOne(
+                { _id: userID },
+                {
+                    $set : {
+                        spending : newSpendingBalance,
+                        balance  : newBalance,
+                    },
+                    $push : {
+                        spendingOperations : modifiedSpendingOperation,
+                        allOperations      : modifiedSpendingOperation,
+                    },
+                }
+            );
 
             return modifiedSpendingOperation;
         }

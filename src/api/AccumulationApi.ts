@@ -1,24 +1,18 @@
-import { IAccumulationOperation } from 'shared/store/cashFlowStore/interfaces';
+import { IAccumulationOperation } from 'interfaces';
 import { ADD_ACCUMULATION_URL } from './path';
+import { request } from './request/request';
+import { AbstractOperationAPI } from './abstractClasses/AbstractOperationAPI';
 
 
-export interface IAccumulationApi{
-    addAccumulation:(idUser: string, accumulationOperation: IAccumulationOperation) => Promise<void>
-}
 
-class AccumulationApi implements IAccumulationApi {
-    async addAccumulation(idUser: string, accumulationOperation: IAccumulationOperation) {
+export class AccumulationAPI extends AbstractOperationAPI {
+
+    async add<T>(userID: string, accumulationOperation: IAccumulationOperation):Promise<T> {
 
         try {
-            const response = await fetch(ADD_ACCUMULATION_URL, {
-                method  : 'POST',
-                headers : {
-                    'Content-type' : 'application/json',
-                },
-                body : JSON.stringify({
-                    accumulationOperation,
-                    idUser,
-                }),
+            const response = await request(ADD_ACCUMULATION_URL,'POST',{
+                accumulationOperation,
+                userID,
             });
 
             if (!response.ok) {
@@ -35,6 +29,3 @@ class AccumulationApi implements IAccumulationApi {
         }
     }
 }
-
-
-export default AccumulationApi;

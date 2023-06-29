@@ -3,14 +3,15 @@ const ServiceCashDB = require('../serviceMongo/seviceCashDB');
 class CashFlowController {
 
     async addIncome(req, res,next) {
-        const { incomeOperation, idUser } = req.body;
+        const { incomeOperation, userID } = req.body;
 
         try {
-            const modifiedIncomeOperation  = await ServiceCashDB.addIncome(incomeOperation,idUser);
+            const modifiedIncomeOperation  = await ServiceCashDB.addIncome(incomeOperation,userID);
 
             res.json({
-                modifiedIncomeOperation ,
+                data    : modifiedIncomeOperation ,
                 message : 'Доход добавлен',
+                success : true,
             });
         }
         catch (error) {
@@ -19,14 +20,15 @@ class CashFlowController {
     }
 
     async addSpending(req, res,next) {
-        const { idUser, spendingOperation } = req.body;
+        const { userID, spendingOperation } = req.body;
 
         try {
-            const modifiedSpendingOperation = await ServiceCashDB.addSpending(spendingOperation,idUser);
+            const modifiedSpendingOperation = await ServiceCashDB.addSpending(spendingOperation,userID);
 
             res.json({
-                modifiedSpendingOperation,
+                data    : modifiedSpendingOperation,
                 message : 'Расход добавлен',
+                success : true,
             });
         }
         catch (error) {
@@ -34,14 +36,15 @@ class CashFlowController {
         }
     }
     async addAccumulation(req, res,next) {
-        const { accumulationOperation,idUser } = req.body;
+        const { accumulationOperation,userID } = req.body;
 
         try {
-            const modifiedAccumulationOperation =  await ServiceCashDB.addAccumulation(accumulationOperation,idUser);
+            const modifiedAccumulationOperation =  await ServiceCashDB.addAccumulation(accumulationOperation,userID);
 
             res.json({
-                modifiedAccumulationOperation,
+                data    : modifiedAccumulationOperation,
                 message : 'Накопление добавлено',
+                success : true,
             });
         }
         catch (error) {

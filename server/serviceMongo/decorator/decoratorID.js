@@ -8,5 +8,6 @@ module.exports = (obj) => {
     return {
         ...obj,
         id,
+        date : new Date().toLocaleDateString(),
     };
 };

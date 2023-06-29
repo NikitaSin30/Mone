@@ -1,10 +1,10 @@
 const serviceTasksDB = require('../../serviceMongo/serviceTasks/serviceTasksDB');
 
 module.exports = async(req,res,next) => {
-    const { idUser,task } = req.body;
+    const { userID,task } = req.body;
 
     try {
-        await serviceTasksDB.checkHasTask(idUser,task);
+        await serviceTasksDB.checkHasTask(userID,task);
 
         next();
     }
