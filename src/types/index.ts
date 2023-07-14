@@ -1,3 +1,3 @@
-import { IAccumulationOperation,IIncomeOperation, ISpendingOperation } from 'interfaces';
+import { IResponseAccumulationOperation, IResponseIncomeOperation, IResponseSpendingOperation } from 'interfaces';
 
-export type TAllOperations = IAccumulationOperation | ISpendingOperation | IIncomeOperation
+export type TAllOperations = IResponseAccumulationOperation | IResponseSpendingOperation | IResponseIncomeOperation

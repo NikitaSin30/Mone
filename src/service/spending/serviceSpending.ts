@@ -1,7 +1,7 @@
 import { userStore } from 'shared/store/userStore/UserStore';
 import { spendingStore } from 'shared/store/cashFlowStore/spendingStore/SpendingStore';
 import { categoriesStore } from 'shared/store/categoriesStore/CategoriesStore';
-import { IFormSpending } from 'interfaces';
+import { IFormSpending, IDataResponse, IResponseSpendingOperation } from 'interfaces';
 import { operationsStore } from 'shared/store/cashFlowStore/operationsStore/OperationsStore';
 import { ISpendingAPI } from 'api/interfaces';
 import { AbstractOperationService } from 'service/abstractClasses/AbstractOperationService';
@@ -19,14 +19,14 @@ export class SpendingService extends AbstractOperationService {
         this.spendingAPI = spendingAPI;
     }
 
-    async add( data : IFormSpending) {
-        const createdOperation =  this.createOperation(data);
+    async add( formSpending : IFormSpending) {
+        const createdOperation =  this.createOperation(formSpending);
 
-        await this.spendingAPI.add(userStore.userID, createdOperation);
+        const { data } = await this.spendingAPI.add<IDataResponse<IResponseSpendingOperation>>(userStore.userID, createdOperation);
 
-        spendingStore.addSpending(createdOperation);
-        operationsStore.addOperation(createdOperation);
-        categoriesStore.updateSpendingInCategorie(createdOperation);
+        spendingStore.addSpending(data);
+        operationsStore.addOperation(data);
+        categoriesStore.updateSpendingInCategorie(data);
 
     }
 
@@ -36,7 +36,6 @@ export class SpendingService extends AbstractOperationService {
         return {
             spending,
             categorie : validatedCategorie,
-            date      : new Date().toLocaleDateString(),
             type      : EOperationType.Spending,
         };
     }

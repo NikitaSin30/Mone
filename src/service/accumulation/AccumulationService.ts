@@ -1,7 +1,7 @@
 import { balanceStore } from 'shared/store/cashFlowStore/balanceStore/BalanceStore';
 import { userStore } from 'shared/store/userStore/UserStore';
 import { accumulationStore } from 'shared/store/cashFlowStore/acuumulationStore/AccumulationStore';
-import { IFormAccumulation } from 'interfaces';
+import { IFormAccumulation, IDataResponse, IResponseAccumulationOperation } from 'interfaces';
 import { operationsStore } from 'shared/store/cashFlowStore/operationsStore/OperationsStore';
 import { IAccumulationAPI } from 'api/interfaces';
 import { AbstractOperationService } from 'service/abstractClasses/AbstractOperationService';
@@ -18,21 +18,20 @@ export class AccumulationService extends AbstractOperationService {
         this.accumulutionAPI = accumulutionAPI;
     }
 
-    async add( data : IFormAccumulation) {
-        if (balanceStore.moneyAccount < data.accumulation) throw new Error('У вас нет данной суммы на счёте ');
+    async add( formAccumulation : IFormAccumulation) {
+        if (balanceStore.moneyAccount < formAccumulation.accumulation) throw new Error('У вас нет данной суммы на счёте ');
 
-        const createdOperation = this.createOperation(data);
+        const createdOperation = this.createOperation(formAccumulation);
 
-        await this.accumulutionAPI.add(userStore.userID, createdOperation);
+        const { data } =  await this.accumulutionAPI.add<IDataResponse<IResponseAccumulationOperation>>(userStore.userID, createdOperation);
 
-        accumulationStore.addAccumulation(createdOperation);
-        operationsStore.addOperation(createdOperation);
+        accumulationStore.addAccumulation(data);
+        operationsStore.addOperation(data);
     }
 
     createOperation({ accumulation } : IFormAccumulation):IAccumulationOperation {
         return {
             accumulation,
-            date : new Date().toLocaleDateString(),
             type : EOperationType.Accumulation,
         };
     }

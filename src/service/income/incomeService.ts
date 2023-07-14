@@ -1,6 +1,6 @@
 import { incomeStore } from 'shared/store/cashFlowStore/incomeStore/IncomeStore';
 import { userStore } from 'shared/store/userStore/UserStore';
-import { IFormIncome } from 'interfaces';
+import { IFormIncome, IDataResponse, IResponseIncomeOperation } from 'interfaces';
 import { operationsStore } from 'shared/store/cashFlowStore/operationsStore/OperationsStore';
 import { IIncomeAPI } from 'api/interfaces';
 import { AbstractOperationService } from 'service/abstractClasses/AbstractOperationService';
@@ -18,13 +18,13 @@ export class IncomeService extends AbstractOperationService {
         this.incomeAPI = incomeAPI;
     }
 
-    async add(data:IFormIncome) {
-        const createdOperation = this.createOperation(data);
+    async add(formIncome:IFormIncome) {
+        const createdOperation = this.createOperation(formIncome);
 
-        await this.incomeAPI.add(userStore.userID,createdOperation);
+        const { data } = await this.incomeAPI.add<IDataResponse<IResponseIncomeOperation>>(userStore.userID,createdOperation);
 
-        incomeStore.addIncome(createdOperation);
-        operationsStore.addOperation(createdOperation);
+        incomeStore.addIncome(data);
+        operationsStore.addOperation(data);
 
     }
 
@@ -34,7 +34,6 @@ export class IncomeService extends AbstractOperationService {
         return {
             income,
             sphere : validatedCategorie,
-            date   : new Date().toLocaleDateString(),
             type   : EOperationType.Income,
         };
     }

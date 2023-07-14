@@ -7,7 +7,7 @@ import { AbstractOperationAPI } from './abstractClasses/AbstractOperationAPI';
 
 export class AccumulationAPI extends AbstractOperationAPI {
 
-    async add(userID: string, accumulationOperation: IAccumulationOperation) {
+    async add<T>(userID: string, accumulationOperation: IAccumulationOperation):Promise<T> {
 
         try {
             const response = await request(ADD_ACCUMULATION_URL,'POST',{

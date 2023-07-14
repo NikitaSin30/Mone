@@ -6,9 +6,13 @@ class CategoriesController {
         const { categorie, userID } = req.body;
 
         try {
-            await serviceCategoriesDB.addCategorie(userID,categorie);
+            const modifiedCategorie = await serviceCategoriesDB.addCategorie(userID,categorie);
 
-            res.json({ message: 'Категория добавлена' });
+            res.json({
+                data    : modifiedCategorie,
+                message : 'Категория добавлена',
+                success : true,
+            });
         }
         catch (error) {
             next(error);
@@ -22,7 +26,10 @@ class CategoriesController {
         try {
             await serviceCategoriesDB.deleteCategorie(userID,categorieID);
 
-            res.json({ message: 'Категория удалена' });
+            res.json({
+                message : 'Категория удалена',
+                success : true,
+            });
         }
         catch (error) {
             next(error);

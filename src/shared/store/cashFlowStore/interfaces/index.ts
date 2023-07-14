@@ -1,4 +1,4 @@
-import { IIncomeOperation, IAccumulationOperation,ISpendingOperation } from 'interfaces';
+import { IIncomeOperation, IAccumulationOperation,ISpendingOperation, IResponseAccumulationOperation } from 'interfaces';
 
 export interface IBalanceStore {
   moneyAccount: number;
@@ -22,7 +22,7 @@ export interface ISpendingStore {
 
 export interface IAccumulationStore {
   accumulation: number;
-  accumulationOperations: IAccumulationOperation[];
-  setAccumulationFromDB:(accumulation: number, operations: IAccumulationOperation[]) => void;
-  addAccumulation:(operationAccumulation:IAccumulationOperation ) => void
+  accumulationOperations: IResponseAccumulationOperation[];
+  setAccumulationFromDB:(accumulation: number, operations: IResponseAccumulationOperation[]) => void;
+  addAccumulation:(operationAccumulation:IResponseAccumulationOperation ) => void
 }

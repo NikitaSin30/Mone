@@ -1,5 +1,5 @@
 const User = require('../modelsMongo/User');
-
+const decoratorIDandDate = require('./decorator/decoratorID');
 
 class ServiceCashDB {
     constructor(model) {
@@ -8,9 +8,10 @@ class ServiceCashDB {
 
     async addIncome(incomeOperation,userID) {
         try {
-            const { income, balance } = await this.DB.findById(userID);
+            const { income, balance } = await User.findById(userID);
             const newBallance = balance + incomeOperation.income;
             const newIncomeBalance = income + incomeOperation.income;
+            const modifiedIncomeOperation = decoratorIDandDate(incomeOperation);
 
             await this.DB.updateOne(
                 { _id: userID },
@@ -20,11 +21,13 @@ class ServiceCashDB {
                         balance : newBallance,
                     },
                     $push : {
-                        incomeOperations : incomeOperation,
-                        allOperations    : incomeOperation,
+                        incomeOperations : modifiedIncomeOperation,
+                        allOperations    : modifiedIncomeOperation,
                     },
                 }
             );
+
+            return modifiedIncomeOperation;
         }
         catch (error) {
             throw error;
@@ -36,6 +39,7 @@ class ServiceCashDB {
             const { accumulation,balance } = await User.findById(userID);
             const newBalance = balance - accumulationOperation.accumulation;
             const newAccumulationBalance = accumulation + accumulationOperation.accumulation;
+            const modifiedAccumulationOperation = decoratorIDandDate(accumulationOperation);
 
             await this.DB.updateOne(
                 { _id: userID },
@@ -45,12 +49,13 @@ class ServiceCashDB {
                         balance      : newBalance,
                     },
                     $push : {
-                        accumulationOperations : accumulationOperation,
-                        allOperations          : accumulationOperation,
+                        accumulationOperations : modifiedAccumulationOperation,
+                        allOperations          : modifiedAccumulationOperation,
                     },
                 }
             );
 
+            return modifiedAccumulationOperation;
         }
         catch (error) {
             throw error;
@@ -62,6 +67,7 @@ class ServiceCashDB {
             const { spending, balance } = await User.findById(userID);
             const newBalance = balance - spendingOperation.spending;
             const newSpendingBalance = spending + spendingOperation.spending;
+            const modifiedSpendingOperation = decoratorIDandDate(spendingOperation);
 
 
             await this.DB.updateOne(
@@ -72,12 +78,13 @@ class ServiceCashDB {
                         balance  : newBalance,
                     },
                     $push : {
-                        spendingOperations : spendingOperation,
-                        allOperations      : spendingOperation,
+                        spendingOperations : modifiedSpendingOperation,
+                        allOperations      : modifiedSpendingOperation,
                     },
                 }
             );
 
+            return modifiedSpendingOperation;
         }
         catch (error) {
             throw error;

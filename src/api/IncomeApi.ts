@@ -22,6 +22,7 @@ export class IncomeAPI extends AbstractOperationAPI {
                 throw new Error(error.message);
             }
 
+            return response.json();
         }
         catch (error) {
             if (error instanceof Error) {

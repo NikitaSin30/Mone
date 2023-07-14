@@ -1,4 +1,4 @@
-import { ITask } from 'interfaces';
+import { IResponseTask, IDataResponse, ITask } from 'interfaces';
 import { toDoStore } from 'shared/store/toDoStore/ToDoStore';
 import { userStore } from 'shared/store/userStore/UserStore';
 import { validateString } from 'shared/mappers/validateString';
@@ -23,8 +23,9 @@ class TodoService implements ITodoService {
 
         const newTask = this.createTask(validaitedTask);
 
-        await this.todoAPI.add(newTask,userStore.userID);
-        toDoStore.addTask(newTask);
+        const { data } = await this.todoAPI.add<IDataResponse<IResponseTask>>(newTask,userStore.userID);
+
+        toDoStore.add(data);
     }
 
 
@@ -32,7 +33,7 @@ class TodoService implements ITodoService {
     async delete(taskID: string) {
         try {
             await this.todoAPI.delete(taskID,userStore.userID);
-            toDoStore.deleteTask(taskID);
+            toDoStore.delete(taskID);
         }
         catch (error) {
             throw error;
@@ -43,7 +44,7 @@ class TodoService implements ITodoService {
     async deleteAll() {
         try {
             await this.todoAPI.deleteAll(userStore.userID);
-            toDoStore.deleteAllTasks();
+            toDoStore.deleteAll();
         }
         catch (error) {
             throw error;
@@ -54,7 +55,7 @@ class TodoService implements ITodoService {
 
         try {
             await this.todoAPI.switchIsDoneTask(taskID,userStore.userID);
-            toDoStore.switchIsDoneTask(taskID);
+            toDoStore.switchIsDone(taskID);
         }
         catch (error) {
             throw error;
@@ -72,7 +73,6 @@ class TodoService implements ITodoService {
     private createTask( validatedTask : string):ITask {
         return {
             task   : validatedTask,
-            id     : validatedTask,
             isDone : false,
         };
     }

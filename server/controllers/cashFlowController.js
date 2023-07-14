@@ -1,4 +1,4 @@
-const ServiceCashDB = require('../serviceMongo/seviceCashDB');
+const serviceCashDB = require('../serviceMongo/seviceCashDB');
 
 class CashFlowController {
 
@@ -6,9 +6,13 @@ class CashFlowController {
         const { incomeOperation, userID } = req.body;
 
         try {
-            await ServiceCashDB.addIncome(incomeOperation,userID);
+            const modifiedIncomeOperation  = await serviceCashDB.addIncome(incomeOperation,userID);
 
-            res.json({ message: 'Доход добавлен' });
+            res.json({
+                data    : modifiedIncomeOperation ,
+                message : 'Доход добавлен',
+                success : true,
+            });
         }
         catch (error) {
             next(error);
@@ -19,9 +23,13 @@ class CashFlowController {
         const { userID, spendingOperation } = req.body;
 
         try {
-            await ServiceCashDB.addSpending(spendingOperation,userID);
+            const modifiedSpendingOperation = await serviceCashDB.addSpending(spendingOperation,userID);
 
-            res.json({ message: 'Расход добавлен' });
+            res.json({
+                data    : modifiedSpendingOperation,
+                message : 'Расход добавлен',
+                success : true,
+            });
         }
         catch (error) {
             next(error);
@@ -31,8 +39,13 @@ class CashFlowController {
         const { accumulationOperation,userID } = req.body;
 
         try {
-            await ServiceCashDB.addAccumulation(accumulationOperation,userID);
-            res.json({ message: 'Накопление добавлено' });
+            const modifiedAccumulationOperation =  await serviceCashDB.addAccumulation(accumulationOperation,userID);
+
+            res.json({
+                data    : modifiedAccumulationOperation,
+                message : 'Накопление добавлено',
+                success : true,
+            });
         }
         catch (error) {
             next(error);

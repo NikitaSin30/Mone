@@ -1,5 +1,5 @@
 import { userStore } from '../../shared/store/userStore/UserStore';
-import { IFormAuth } from 'interfaces';
+import { IDataFromDB, IDataResponse, IFormAuth } from 'interfaces';
 import { IAuthService } from './interfaces';
 import { accumulationStore } from 'shared/store/cashFlowStore/acuumulationStore/AccumulationStore';
 import { incomeStore } from 'shared/store/cashFlowStore/incomeStore/IncomeStore';
@@ -21,58 +21,39 @@ export class AuthService implements IAuthService {
     }
 
     async login(dataLogin:IFormAuth) {
-        try {
-            const { user,token } = await this.authAPI.login(dataLogin);
 
-            this.setDataFromDB(user);
-            window.localStorage.setItem('wallet' , JSON.stringify(token));
-            userStore.setIsAuth(true);
+        const { data } = await this.authAPI.login<IDataResponse<IDataFromDB>>(dataLogin);
 
-        }
-        catch (error) {
-            throw error;
-        }
+        this.setDataFromDB(data.user);
+        window.localStorage.setItem('wallet' , JSON.stringify(data.token));
+        userStore.setIsAuth(true);
+
     }
 
     async registration(user: IFormAuth) {
-        try {
-            const response  = await this.authAPI.registration(user);
-
-            return response;
-        }
-        catch (error) {
-            throw error;
-        }
-
+        return await this.authAPI.registration(user);
     }
 
     async authenticate() {
-        try {
-            const tokenStorage = this.getToken();
-            const { user,token } = await this.authAPI.authenticate(tokenStorage);
 
-            this.setDataFromDB(user);
+        const tokenStorage = this.getToken();
+        const { data } = await this.authAPI.authenticate<IDataResponse<IDataFromDB>>(tokenStorage);
 
-            window.localStorage.setItem('wallet', JSON.stringify( token ));
+        this.setDataFromDB(data.user);
 
-            userStore.setIsAuth(true);
+        window.localStorage.setItem('wallet', JSON.stringify( data.token ));
 
-        }
-        catch (error) {
-            throw error;
-        }
+        userStore.setIsAuth(true);
+
     }
 
     async logout() {
-        try {
-            await this.authAPI.logout(userStore.userID);
 
-            localStorage.removeItem('wallet');
-            userStore.setIsAuth(false);
-        }
-        catch (error) {
-            throw error;
-        }
+        await this.authAPI.logout(userStore.userID);
+
+        localStorage.removeItem('wallet');
+        userStore.setIsAuth(false);
+        
     }
 
     private getToken():string {

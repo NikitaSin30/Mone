@@ -4,5 +4,5 @@ import { ISpendingOperation,IIncomeOperation, IAccumulationOperation } from 'int
 type TOperation = ISpendingOperation | IAccumulationOperation | IIncomeOperation
 
 export abstract class AbstractOperationAPI {
-    protected abstract add(userID: string, operation: TOperation): Promise<void>;
+    protected abstract add<T>(userID: string, operation: TOperation): Promise<T>;
 }

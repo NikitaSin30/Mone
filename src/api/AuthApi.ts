@@ -24,7 +24,7 @@ export class AuthAPI implements IAuthAPI {
         }
     }
 
-    async login(dataLogin:IFormAuth) {
+    async login<T>(dataLogin:IFormAuth) : Promise<T> {
         try {
             const response = await request(LOGIN_URL,'POST', dataLogin);
 
@@ -43,7 +43,7 @@ export class AuthAPI implements IAuthAPI {
         }
     }
 
-    async authenticate(token:string) {
+    async authenticate<T>(token:string): Promise<T> {
 
         try {
             const response = await request(AUTHENTICATION_URL,'GET', token);

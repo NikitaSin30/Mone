@@ -5,8 +5,13 @@ class TasksController {
         const { task, userID } = req.body;
 
         try {
-            await serviceTasksDB.addTask(userID,task);
-            res.json({ message: 'Задача добавлена' });
+            const modifiedTask =  await serviceTasksDB.addTask(userID,task);
+
+            res.json({
+                data    : modifiedTask ,
+                message : 'Задача добавлена',
+                success : true,
+            });
         }
         catch (error) {
             next(error);
@@ -18,7 +23,10 @@ class TasksController {
 
         try {
             await serviceTasksDB.deleteTask(userID,taskID);
-            res.json({ message: 'Задача удалена' });
+            res.json({
+                message : 'Задача удалена',
+                success : true,
+            });
         }
         catch (error) {
             next(error);
@@ -31,7 +39,10 @@ class TasksController {
 
         try {
             await serviceTasksDB.deleteAllTasks(userID);
-            res.json({ message: 'Все задачи удалены' });
+            res.json({
+                message : 'Все задачи удалены',
+                success : true,
+            });
         }
         catch (error) {
             next(error);
@@ -42,7 +53,10 @@ class TasksController {
 
         try {
             await serviceTasksDB.switchIsDone(idUser,idTask);
-            res.json({ message: 'Статус выполнения задачи изменен' });
+            res.json({
+                message : 'Статус выполнения задачи изменен',
+                success : true,
+            });
         }
         catch (error) {
             next(error);

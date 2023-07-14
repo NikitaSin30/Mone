@@ -1,36 +1,28 @@
 import { makeAutoObservable } from 'mobx';
 import { ITodoStore } from './interfaces';
-import { ITask } from 'interfaces';
+import { IResponseTask } from 'interfaces';
 
 
 
 class ToDoStore implements ITodoStore {
-    public tasks: ITask[] = [];
+    public tasks: IResponseTask[] = [];
 
     constructor() {
         makeAutoObservable(this);
     }
 
-    public addTask(task: ITask) {
+    public add(task: IResponseTask) {
         this.tasks.push(task);
     }
 
-    public deleteTask(idTask: string) {
+    public delete(idTask: string) {
         this.tasks = this.tasks.filter((task) => task.id !== idTask);
     }
-    public deleteAllTasks() {
+    public deleteAll() {
         this.tasks = [];
     }
 
-    public switchIsDoneTask(idTask: string) {
-        this.tasks.map((task) => {
-            if (task.id === idTask) task.isDone = !task.isDone;
-
-            return task;
-        });
-    }
-
-    public updateTask(idTask:string): void {
+    public switchIsDone(idTask: string) {
         this.tasks.map((task) => {
             if (task.id === idTask) task.isDone = !task.isDone;
 
@@ -39,7 +31,7 @@ class ToDoStore implements ITodoStore {
     }
 
     getTask(idTask:string) {
-        const task : ITask | undefined = this.tasks.find(task => task.id === idTask);
+        const task : IResponseTask | undefined = this.tasks.find(task => task.id === idTask);
 
         if (!task) {
             throw new Error('Произошла ошибка');
@@ -49,7 +41,7 @@ class ToDoStore implements ITodoStore {
 
     }
 
-    setTasksFromdDB(tasks:ITask[]) {
+    setTasksFromdDB(tasks:IResponseTask[]) {
         this.tasks = tasks;
     }
 }

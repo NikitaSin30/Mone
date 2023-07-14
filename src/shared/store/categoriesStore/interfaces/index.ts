@@ -1,10 +1,10 @@
-import { ICategorie, ISpendingOperation } from 'interfaces';
+import { IResponseCategorie, IResponseSpendingOperation } from 'interfaces';
 
 
 export interface ICategoriesStore {
-  categories: ICategorie[];
-  addCatigorie: (categorie: ICategorie) => void;
-  deleteCategorie: (id: string) => void;
-  setCategoriesFromDB:(categories: ICategorie[]) => void
-  updateSpendingInCategorie:(newSpending: ISpendingOperation)=> void
+  categories: IResponseCategorie[];
+  add: (categorie: IResponseCategorie) => void;
+  delete: (id: string) => void;
+  setCategoriesFromDB:(categories: IResponseCategorie[]) => void
+  updateSpendingInCategorie:(newSpending: IResponseSpendingOperation)=> void
 }

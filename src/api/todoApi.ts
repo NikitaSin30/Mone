@@ -1,5 +1,5 @@
 
-import { ITask, ITaskForm } from 'interfaces';
+import { ITask } from 'interfaces';
 import { ITodoAPI } from './interfaces';
 import { DELETE_TASK_URL, DELETE_ALL_TASKS_URL, SWITCH_IS_DONE_URL,ADD_TASK_URL } from './path/index';
 import { request } from './request/request';
@@ -9,7 +9,7 @@ import { request } from './request/request';
 
 export class TodoAPI implements ITodoAPI {
 
-    async add(task: ITask, userID: string) {
+    async add<T>(task: ITask, userID: string):Promise<T> {
 
         try {
             const response = await request(ADD_TASK_URL,'POST',{
@@ -23,6 +23,8 @@ export class TodoAPI implements ITodoAPI {
 
                 throw new Error(error.message);
             }
+
+            return response.json();
 
         }
         catch (error) {
@@ -44,6 +46,8 @@ export class TodoAPI implements ITodoAPI {
 
                 throw new Error(error.message);
             }
+
+
         }
         catch (error) {
             if (error instanceof Error) {

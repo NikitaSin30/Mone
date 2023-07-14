@@ -19,7 +19,10 @@ class AuthController {
 
             await serviceAuthDB.saveUser(email,country,nickname,hashPassword);
 
-            res.json({ message: 'Учётная запись была создана' });
+            res.json({
+                message : 'Учётная запись была создана',
+                success : true,
+            });
         }
         catch (error) {
             next(error);
@@ -41,8 +44,13 @@ class AuthController {
             const token = generateAccessToken(user._id, user.email);
 
             res.json({
-                user,
-                token,
+                message : 'Вы вошли в систему',
+                success : true,
+                data    : {
+                    user,
+                    token,
+                },
+
             });
 
         }
@@ -60,9 +68,14 @@ class AuthController {
             const user = await serviceAuthDB.authenticate(userID);
             const token = generateAccessToken(user._id);
 
-            res.json({
-                token,
-                user,
+            res.json( {
+                message : 'Аунтификация прошла успешно',
+                success : true,
+                data    : {
+                    user,
+                    token,
+                },
+
             });
         }
         catch (error) {
@@ -77,7 +90,10 @@ class AuthController {
         try {
             await serviceAuthDB.logout(userID);
 
-            res.json({ message: 'Вы вышли из системы' });
+            res.json({
+                message : 'Вы вышли из системы' ,
+                success : true,
+            });
         }
         catch (error) {
             next(error);

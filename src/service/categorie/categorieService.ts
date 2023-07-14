@@ -1,7 +1,7 @@
 import { categoriesStore } from 'shared/store/categoriesStore/CategoriesStore';
 import { userStore } from 'shared/store/userStore/UserStore';
 import { validateString } from 'shared/mappers/validateString';
-import { IFormCategorie } from 'interfaces';
+import { ICategorie, IFormCategorie, IDataResponse, IResponseCategorie } from 'interfaces';
 import { ICategoriesService } from './interfaces';
 import { ICategoriesAPI } from 'api/interfaces';
 
@@ -20,10 +20,11 @@ export class CategorieService implements ICategoriesService {
 
         this.checkStoreHasCategorie(categorieValidated);
 
-        const newCategorie = this.create(categorieValidated);
+        const newCategorie = this.createCategorie(categorieValidated);
 
-        await this.categoriesAPI.add(newCategorie,userStore.userID);
-        categoriesStore.addCatigorie(newCategorie);
+        const { data } =  await this.categoriesAPI.add<IDataResponse<IResponseCategorie>>(newCategorie,userStore.userID);
+
+        categoriesStore.add(data);
 
     }
 
@@ -31,7 +32,7 @@ export class CategorieService implements ICategoriesService {
     async delete(categorieID: string) {
 
         await this.categoriesAPI.delete(categorieID,userStore.userID);
-        categoriesStore.deleteCategorie(categorieID);
+        categoriesStore.delete(categorieID);
 
     }
 
@@ -44,11 +45,10 @@ export class CategorieService implements ICategoriesService {
         }
     }
 
-    private create(categorie:string) {
+    private createCategorie(categorie:string):ICategorie {
 
         return {
             categorie : categorie,
-            id        : categorie,
             spending  : 0,
         };
     }

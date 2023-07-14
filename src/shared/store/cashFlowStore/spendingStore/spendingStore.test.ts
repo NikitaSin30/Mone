@@ -1,4 +1,4 @@
-import { ISpendingOperation } from 'interfaces';
+import { IResponseSpendingOperation } from 'interfaces';
 import { ISpendingStore } from '../interfaces';
 import { SpendingStore } from './SpendingStore';
 import { balanceStore } from '../balanceStore/BalanceStore';
@@ -7,11 +7,12 @@ import { EOperationType } from 'enum';
 
 describe('Class SpendingStore',() => {
 
-    const spendingOperations : ISpendingOperation = {
+    const spendingOperations : IResponseSpendingOperation = {
         spending  : 100,
         categorie : 'Медицина',
         type      : EOperationType.Spending,
         date      : new Date().toDateString(),
+        id        : '1',
     };
 
     const spending = 100;

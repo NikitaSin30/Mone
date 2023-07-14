@@ -1,13 +1,17 @@
 const ApiError = require('../../apiError/ApiError');
 const User = require('../../modelsMongo/User');
-
+const decoratorIDandDate = require('../decorator/decoratorID');
 
 
 class ServiceTasksDB {
 
     async addTask(userID, task) {
         try {
-            await User.updateOne({ _id: userID }, { $push: { tasks: task } });
+            const modifiedTask = decoratorIDandDate(task);
+
+            await User.updateOne({ _id: userID }, { $push: { tasks: modifiedTask } });
+
+            return modifiedTask;
         }
         catch (error) {
             throw error;

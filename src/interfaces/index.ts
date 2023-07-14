@@ -36,37 +36,74 @@ export interface ITaskForm {
 
 // Операция связанные с деньгами
 
-export interface IOperation{
-    date:string
-}
 
-export interface IAccumulationOperation extends IFormAccumulation,IOperation {
+export interface IAccumulationOperation extends IFormAccumulation {
   type:EOperationType.Accumulation;
 }
 
-export interface ISpendingOperation extends IFormSpending,IOperation {
+export interface ISpendingOperation extends IFormSpending {
   type:EOperationType.Spending,
 }
 
-export interface IIncomeOperation extends IFormIncome,IOperation{
+export interface IIncomeOperation extends IFormIncome{
   type:EOperationType.Income
 }
+
+
 
 // Категории
 
 export interface ICategorie extends IFormCategorie {
-  id: string;
   spending: number;
 }
 
 // Таски
 
 export interface ITask extends ITaskForm {
-  id: string;
   isDone: boolean;
 }
 
-// Данные клиенты с бэка
+// Ответ с сервера
+
+export interface IBaseResponse {
+  message: string;
+  success:boolean;
+}
+
+export interface IDataResponse<T> extends IBaseResponse {
+ data : T
+}
+
+
+export type TResponseOperation<T> = T & {
+  id: string;
+  date: string;
+};
+
+export interface IResponseAccumulationOperation extends IAccumulationOperation {
+  id: string;
+  date: string;
+}
+
+export interface IResponseIncomeOperation extends IIncomeOperation {
+  id: string;
+  date: string;
+}
+
+export interface IResponseSpendingOperation extends ISpendingOperation {
+  id: string;
+  date: string;
+}
+
+export interface IResponseCategorie extends ICategorie {
+  id:string,
+  date:string,
+}
+
+export interface IResponseTask extends ITask{
+  id:string,
+  date:string
+}
 
 export interface IDataUserFromDB {
  email : string,
@@ -76,14 +113,14 @@ export interface IDataUserFromDB {
  _id : string,
  balance : number,
  income : number,
- incomeOperations : IIncomeOperation[],
+ incomeOperations : IResponseIncomeOperation[],
  spending : number,
- spendingOperations : ISpendingOperation[],
+ spendingOperations : IResponseSpendingOperation[],
  accumulation : number,
- accumulationOperations : IAccumulationOperation[],
+ accumulationOperations : IResponseAccumulationOperation[],
  allOperations: TAllOperations[]
- categories : ICategorie[],
- tasks : ITask[],
+ categories : IResponseCategorie[],
+ tasks : IResponseTask[],
 }
 
 export interface IDataFromDB {

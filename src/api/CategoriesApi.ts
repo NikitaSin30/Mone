@@ -7,7 +7,7 @@ import { request } from './request/request';
 
 export class CategoriesAPI implements ICategoriesAPI {
 
-    async add(categorie : ICategorie, userID: string) {
+    async add<T>(categorie : ICategorie, userID: string) : Promise<T> {
 
         try {
             const response = await request(ADD_CATEGORIE_URL,'POST',{
@@ -21,6 +21,7 @@ export class CategoriesAPI implements ICategoriesAPI {
                 throw new Error(error.message);
             }
 
+            return response.json();
 
         }
         catch (error) {
