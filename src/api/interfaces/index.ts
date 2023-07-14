@@ -1,12 +1,11 @@
-import { IAccumulationOperation,
-    IBaseResponse, IIncomeOperation,
+import {
+    IAccumulationOperation,
+    IBaseResponse,
+    IIncomeOperation,
     ISpendingOperation,
     ITask,ICategorie,
-    IFormAuth } from 'interfaces';
-
-
-
-
+    IFormAuth
+    } from 'interfaces';
 
 
 
