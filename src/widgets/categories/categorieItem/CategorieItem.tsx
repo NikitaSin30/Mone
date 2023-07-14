@@ -3,13 +3,17 @@ import { DeleteModal } from 'widgets/modals/DeleteModal';
 import { observer } from 'mobx-react-lite';
 import { DeleteIcon } from 'widgets/todo/assets/DeleteIcon';
 import { useToggle } from 'shared/hooks/useToggle/useToggle';
-import { ioContainer } from 'api/IoC/ioc';
+import { services } from 'service/ioC/ioc';
 import ErrorModal from 'widgets/modals/ErrorModal';
-import { ICategorieWithID } from 'shared/store/categoriesStore/interfaces';
 
 
+interface ICategorieItem {
+    categorie:string,
+    id:string,
+    spending: number
+}
 
-export const CategorieItem = observer(({ id,categorie,spending }:ICategorieWithID) =>{
+export const CategorieItem = observer(({ categorie,id,spending }:ICategorieItem) =>{
 
     const { value:isErrorModal, toggle: switchIsErrorModal } = useToggle(false);
     const [messageError,setMessageError] = React.useState('');
@@ -18,7 +22,7 @@ export const CategorieItem = observer(({ id,categorie,spending }:ICategorieWithI
 
     const onSuccesDelete = async(id:string) => {
         try {
-            await ioContainer.categoriesService.deleteCategorie(id);
+            await services.categories.delete(id);
             switchShowModal();
         }
         catch (error) {
@@ -33,10 +37,11 @@ export const CategorieItem = observer(({ id,categorie,spending }:ICategorieWithI
     return (
         <>
             <li
-                className=" max-h-[40px] flex px-4 py-2 text-white bg-slate-900  items-center
-                          justify-between rounded-md shadow-lg "
+                className="max-h-[40px] flex px-4 py-2 text-white bg-slate-900  items-center
+                          justify-between rounded-md shadow-lg"
             >
-                <h2 className="font-semibold text-md">{categorie} : {spending}</h2>
+                <h2 className="font-semibold text-md">{categorie}</h2>
+                <h2 className="font-semibold text-md">{spending}</h2>
                 <button onClick={switchShowModal} className="hover:scale-110">
                     {DeleteIcon}
                 </button>

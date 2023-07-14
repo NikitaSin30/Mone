@@ -4,7 +4,6 @@ import ErrorModal from 'widgets/modals/ErrorModal';
 import { AccumulationIcon } from 'pages/main/assets/AccumulationIcon';
 import { observer } from 'mobx-react-lite';
 import { CardItem } from '../CardItem/CardItem';
-import { ETitleModalErr } from 'shared/enums/enums';
 import { ETitleCard } from 'shared/enums/enums';
 import { accumulationStore } from 'shared/store/cashFlowStore/acuumulationStore/AccumulationStore';
 import { IContextMain } from 'pages/main/context/interfaces';
@@ -24,8 +23,6 @@ export const AccumulationCard = observer(() => {
     const setTextError = (textError:string) => {
         setContentError(textError);
     };
-
-
 
 
     return (

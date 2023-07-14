@@ -1,17 +1,18 @@
 import { makeAutoObservable } from 'mobx';
 import { balanceStore } from '../balanceStore/BalanceStore';
-import { IAccumulationStore, IAccumulationOperationWithID } from './interfaces';
-
+import { IResponseAccumulationOperation } from 'interfaces';
+import { IAccumulationStore } from '../interfaces';
 
 
 export class AccumulationStore implements IAccumulationStore {
-    accumulation = 0;
-    accumulationOperations:IAccumulationOperationWithID[] = [];
+    public accumulation = 0;
+    public accumulationOperations:IResponseAccumulationOperation[] = [];
 
     constructor() {
         makeAutoObservable(this);
     }
-    addAccumulation(operationAccumulation:IAccumulationOperationWithID ) {
+
+    public addAccumulation(operationAccumulation:IResponseAccumulationOperation ) {
         this.accumulation = this.accumulation + operationAccumulation.accumulation;
         const updatedBalance = balanceStore.moneyAccount - operationAccumulation.accumulation;
 
@@ -19,7 +20,7 @@ export class AccumulationStore implements IAccumulationStore {
         this.accumulationOperations.push(operationAccumulation);
     }
 
-    setAccumulationFromDB(accumulation:number,operations:IAccumulationOperationWithID[]) {
+    public setAccumulationFromDB(accumulation:number,operations:IResponseAccumulationOperation[]) {
         this.accumulation = accumulation;
         this.accumulationOperations = operations;
     }

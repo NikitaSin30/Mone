@@ -1,27 +1,27 @@
 const ApiError = require('../../apiError/ApiError');
 const User = require('../../modelsMongo/User');
-const decoratorID = require('../decorator/decoratorID');
+const decoratorIDandDate = require('../decorator/decoratorID');
 
 
 class ServiceTasksDB {
 
-    async addTask(id, task) {
+    async addTask(userID, task) {
         try {
-            const taskWithID = decoratorID(task);
+            const modifiedTask = decoratorIDandDate(task);
 
-            await User.updateOne({ _id: id }, { $push: { tasks: taskWithID } });
+            await User.updateOne({ _id: userID }, { $push: { tasks: modifiedTask } });
 
-            return taskWithID;
+            return modifiedTask;
         }
         catch (error) {
             throw error;
         }
     }
 
-    async checkHasTask(id,task) {
+    async checkHasTask(userID,task) {
 
         try {
-            const user = await User.findOne({ _id: id });
+            const user = await User.findOne({ _id: userID });
             const hasTask = user.tasks.find(item => item.task === task.task);
 
             if (hasTask) {
@@ -32,9 +32,9 @@ class ServiceTasksDB {
             throw error;
         }
     }
-    async deleteTask(id,idTask) {
+    async deleteTask(userID,taskID) {
         try {
-            await User.updateOne({ _id: id }, { $pull: { tasks: { id: idTask } } });
+            await User.updateOne({ _id: userID }, { $pull: { tasks: { id: taskID } } });
 
         }
         catch (error) {
@@ -42,24 +42,24 @@ class ServiceTasksDB {
         }
     }
 
-    async deleteAllTasks(id) {
+    async deleteAllTasks(userID) {
         try {
-            await User.updateOne({ _id: id }, { $unset: { tasks: [] } });
+            await User.updateOne({ _id: userID }, { $unset: { tasks: [] } });
         }
         catch (error) {
             throw error;
         }
     }
-    async switchIsDone(id, idTask) {
+    async switchIsDone(userID, taskID) {
         try {
 
-            const user = await User.findOne({ _id: id });
-            const task = user.tasks.find(item => item.id === idTask);
+            const user = await User.findOne({ _id: userID });
+            const task = user.tasks.find(item => item.id === taskID);
 
             await User.updateOne(
                 {
-                    _id   : id,
-                    tasks : { $elemMatch: { id: idTask } },
+                    _id        : userID,
+                    'tasks.id' : taskID ,
                 },
                 { $set: { 'tasks.$.isDone': !task.isDone } }
             );

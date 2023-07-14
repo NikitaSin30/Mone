@@ -1,13 +1,13 @@
 const ApiError = require('../apiError/ApiError');
 const User = require('../modelsMongo/User');
-const decoratorID = require('./decorator/decoratorID');
+const decoratorIDandDate = require('./decorator/decoratorID');
 
 class serviceCategoriesDB {
 
-    async checkCategorie(id,categorie) {
+    async checkCategorie(userID,categorie) {
 
         try {
-            const user = await User.findOne({ _id: id });
+            const user = await User.findOne({ _id: userID });
             const hasCategorie = user.categories.find(item => item.categorie === categorie.categorie);
 
             if (hasCategorie) {
@@ -19,23 +19,23 @@ class serviceCategoriesDB {
         }
     }
 
-    async addCategorie(id, categorie) {
+    async addCategorie(userID, categorie) {
         try {
-            const categorieWithID = decoratorID(categorie);
+            const modifiedCategorie = decoratorIDandDate(categorie);
 
-            await this.checkCategorie(id,categorie);
-            await User.updateOne({ _id: id }, { $push: { categories: categorieWithID } });
+            await this.checkCategorie(userID,categorie);
+            await User.updateOne({ _id: userID }, { $push: { categories: modifiedCategorie } });
 
-            return categorieWithID;
+            return modifiedCategorie;
         }
         catch (error) {
             throw error;
         }
     }
 
-    async deleteCategorie(id, idCategorie) {
+    async deleteCategorie(userID, categorieID) {
         try {
-            await User.updateOne({ _id: id }, { $pull: { categories: { id: idCategorie } } });
+            await User.updateOne({ _id: userID }, { $pull: { categories: { id: categorieID } } });
         }
         catch (error) {
             throw error;

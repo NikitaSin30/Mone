@@ -1,15 +1,11 @@
-import { ITask } from 'features/addTasks/service/interfaces';
-
-
-export interface ITaskWithID extends ITask {
-  id:string
-}
+import { IResponseTask } from 'interfaces';
 
 export interface ITodoStore {
-  tasks: ITaskWithID[];
-  addTask: (task: ITaskWithID) => void;
-  deleteTask: (id: string) => void;
-  deleteAllTasks: () => void;
-  setTasksFromdDB: (tasks: ITaskWithID[]) => void;
-  switchIsDoneTask:(id:string) => void
+  tasks: IResponseTask[];
+  add: (task: IResponseTask) => void;
+  delete: (id: string) => void;
+  deleteAll: () => void;
+  getTask: (id: string) => IResponseTask | void;
+  setTasksFromdDB: (tasks: IResponseTask[]) => void;
+  switchIsDone:(id:string) => void
 }

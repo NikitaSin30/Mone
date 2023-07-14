@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { Input } from 'widgets/inputs/Input';
 import { Button } from 'widgets/modals/ui/button/Button';
 import { CloseIcon } from 'widgets/modals/assets/CloseIcon';
-import { IFormIncome } from './interfaces';
+import { IFormIncome } from 'interfaces';
 import { IContextMain } from 'pages/main/context/interfaces';
 import { ContextMain } from 'pages/main/context/context';
 import { CASE_TYPE_NUMBER, CASE_TYPE_TEXT_RUS } from 'widgets/inputs/validation/constans';
@@ -14,7 +14,7 @@ import { TITLE_BUTTON_ADD } from 'widgets/modals/ui/button/constans';
 import { useToggle } from 'shared/hooks/useToggle/useToggle';
 import { SubtitleResponse } from 'widgets/errorResponse/SubtitleResponse';
 import { showErrorFromDB } from 'shared/service/helpers/showErrorFromDB';
-import { ioContainer } from 'api/IoC/ioc';
+import { services } from 'service/ioC/ioc';
 
 
 const ModalIncome = () => {
@@ -33,7 +33,7 @@ const ModalIncome = () => {
 
     const onAddIncome = async(dataForm:IFormIncome) =>{
         try {
-            await ioContainer.incomeService.addIncome(dataForm);
+            await services.income.add(dataForm);
             switchIsModalActiveIncome();
         }
         catch (error) {

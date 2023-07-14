@@ -1,23 +1,25 @@
 import { makeAutoObservable } from 'mobx';
-import { ICategoriesStore, ICategorieWithID } from './interfaces';
-import { ISpendingOperationWithID } from '../cashFlowStore/spendingStore/interfaces';
+import { ICategoriesStore } from './interfaces';
+import { IResponseCategorie } from 'interfaces';
+import { IFormSpending } from 'interfaces';
 
 
 
 class CategoriesStore implements ICategoriesStore {
-    categories: ICategorieWithID[] = [];
+    public categories: IResponseCategorie[] = [];
 
     constructor() {
         makeAutoObservable(this);
     }
-    addCatigorie(categorie: ICategorieWithID): void {
+
+    public add(categorie: IResponseCategorie): void {
         this.categories.push(categorie);
     }
-    deleteCategorie(id: string): void {
+    public delete(id: string): void {
         this.categories = this.categories.filter((categorie) => categorie.id !== id);
     }
 
-    getCategorie(id: string) {
+    public getCategorie(id: string) {
         const categorie = this.categories.find((categorie) => categorie.id === id);
 
         if (!categorie) {
@@ -27,11 +29,10 @@ class CategoriesStore implements ICategoriesStore {
         return categorie ;
     }
 
-    setCategoriesFromDB(categories: ICategorieWithID[]) {
+    public setCategoriesFromDB(categories: IResponseCategorie[]) {
         this.categories = categories;
     }
-
-    updateSpendingInCategorie(newSpending: ISpendingOperationWithID): void {
+    public updateSpendingInCategorie(newSpending: IFormSpending): void {
         this.categories = this.categories.map((categorie) =>
             categorie.categorie === newSpending.categorie
                 ? {

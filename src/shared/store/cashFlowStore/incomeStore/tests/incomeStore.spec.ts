@@ -1,20 +1,24 @@
 import { IncomeStore } from '../IncomeStore';
-import { IIncomeOperationWithID,IIncomeStore } from '../interfaces';
+import { EOperationType } from 'enum';
+import { IResponseIncomeOperation } from 'interfaces';
+import { IIncomeStore } from '../../interfaces';
 import { balanceStore } from '../../balanceStore/BalanceStore';
 
 
 
 describe('class IncomeStore', ()=>{
 
-    const incomeOperation: IIncomeOperationWithID  = {
+    const incomeOperation: IResponseIncomeOperation  = {
         income : 100,
         sphere : 'IT',
+        type   : EOperationType.Income,
         date   : new Date().toLocaleDateString(),
-        id     : '312',
+        id     : '1',
     };
 
     const income = 100;
     let incomeStore : IIncomeStore | null;
+
     const mockupdateCashAccountSpy = jest.spyOn(balanceStore, 'updateCashAccount');
 
     beforeEach(() => {

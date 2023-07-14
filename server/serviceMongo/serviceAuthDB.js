@@ -25,7 +25,7 @@ class ServiceAuthDB {
     async checkEmail(email) {
         try {
 
-            const hasEmail = await this.DB.findOne({ email });
+            const hasEmail = await User.findOne( { email } );
 
             if (hasEmail) {
                 throw ApiError.createBadRequestError(`Пользователь c email: ${email} уже существует`);
@@ -36,9 +36,9 @@ class ServiceAuthDB {
         }
     }
 
-    async checkNickmane(nickname) {
+    async checkNickname(nickname) {
         try {
-            const hasNickname = await this.DB.findOne({ nickname });
+            const hasNickname = await User.findOne({ nickname });
 
             if (hasNickname) {
                 throw ApiError.createBadRequestError(`Пользователь c nickname: ${nickname} уже существует`);
@@ -52,7 +52,7 @@ class ServiceAuthDB {
 
     async saveUser(email,country, nickname,hashPassword) {
         try {
-            const user =  new this.DB({
+            const user = new User({
                 email,
                 country,
                 nickname,
@@ -77,18 +77,18 @@ class ServiceAuthDB {
 
     }
 
-    async logout(id) {
+    async logout(userID) {
         try {
-            await User.updateOne({ _id: id }, { $set: { isAuth: false } });
+            await User.updateOne({ _id: userID }, { $set: { isAuth: false } });
         }
         catch (error) {
             throw error;
         }
     }
 
-    async authenticate(id) {
+    async authenticate(userID) {
         try {
-            const user = await User.findOne({ _id: id });
+            const user = await User.findOne({ _id: userID });
 
             return user;
         }

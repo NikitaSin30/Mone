@@ -1,17 +1,19 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { IFormAuth } from 'features/auth/interfaces';
+import { IFormAuth } from 'interfaces';
 import { Input } from 'widgets/inputs/Input';
 import { Button } from 'widgets/modals/ui/button/Button';
 import { CASE_TYPE_EMAIL, CASE_TYPE_PASSWORD, CASE_TYPE_COUNTRY, CASE_TYPE_NICKNAME } from 'widgets/inputs/validation/constans';
-import { TITLE_REGISTOR_COUNTRY,
+import {
+    TITLE_REGISTOR_COUNTRY,
     TITLE_REGISTOR_EMAIL,
     TITLE_REGISTOR_NICKNAME,
-    TITLE_REGISTOR_PASSWORD } from 'widgets/inputs/validation/constans';
+    TITLE_REGISTOR_PASSWORD,
+} from 'widgets/inputs/validation/constans';
 import { TITLE_LABEL_EMAIL,TITLE_LABEL_PASSWORD,TITLE_LABEL_COUNTRY,TITLE_LABEL_NICKNAME } from 'widgets/inputs/label/constans';
 import { TITLE_BUTTON_REGISTRATION } from 'widgets/modals/ui/button/constans';
 import { useToggle } from 'shared/hooks/useToggle/useToggle';
-import { ioContainer } from 'api/IoC/ioc';
+import { services } from 'service/ioC/ioc';
 import { useNavigate } from 'react-router';
 import { LOGIN } from 'shared/routes/path';
 import { SubtitleResponse } from 'widgets/subtitleResponse/SubtitleResponse';
@@ -33,7 +35,7 @@ function FormRegistrationNewUser(): React.ReactElement {
 
     const onRegistration = async(formData:IFormAuth) => {
         try {
-            await ioContainer.authService.registration(formData);
+            await services.auth.registration(formData);
 
             navigate(LOGIN);
 

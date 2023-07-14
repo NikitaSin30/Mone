@@ -7,6 +7,7 @@ const categorieRouter = require('./router/categoriesRouter');
 const cashRouter = require('./router/cashFlowRouter');
 const tasksRouter = require('./router/tasksRouter');
 const middlewareErr = require('./middlewares/middlewareErr');
+const ApiError = require('./apiError/ApiError');
 
 const PORT = 3002;
 
@@ -18,6 +19,9 @@ app.use('/cash', cashRouter);
 app.use('/auth' , authRouter);
 app.use('/categories', categorieRouter);
 app.use('/tasks',tasksRouter);
+app.use('*',(req,res) =>{
+    throw ApiError.createBadRequestError('пиздец');
+});
 app.use(middlewareErr);
 
 
