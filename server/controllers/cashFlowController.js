@@ -1,5 +1,6 @@
 const serviceCashDB = require('../serviceMongo/seviceCashDB');
 
+
 class CashFlowController {
 
     async addIncome(req, res,next) {
