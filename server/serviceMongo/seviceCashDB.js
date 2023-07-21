@@ -84,7 +84,7 @@ class ServiceCashDB {
                 }
             );
 
-            return modifiedSpendingOperation;
+            return spendingOperation;
         }
         catch (error) {
             throw error;

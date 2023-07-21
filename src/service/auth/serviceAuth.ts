@@ -3,7 +3,7 @@ import { IDataFromDB, IDataResponse, IFormAuth } from 'interfaces';
 import { IAuthService } from './interfaces';
 import { accumulationStore } from 'shared/store/cashFlowStore/acuumulationStore/AccumulationStore';
 import { incomeStore } from 'shared/store/cashFlowStore/incomeStore/IncomeStore';
-import { spendingStore } from 'shared/store/cashFlowStore/spendingStore/SpendingStore';
+import { spendingStore } from 'shared/store/cashFlowStore/spendingStore';
 import { balanceStore } from 'shared/store/cashFlowStore/balanceStore/BalanceStore';
 import { categoriesStore } from 'shared/store/categoriesStore/CategoriesStore';
 import { IAuthAPI } from 'api/interfaces';
@@ -53,7 +53,7 @@ export class AuthService implements IAuthService {
 
         localStorage.removeItem('wallet');
         userStore.setIsAuth(false);
-        
+
     }
 
     private getToken():string {

@@ -1,7 +1,7 @@
 import { IAccumulationOperation } from 'interfaces';
-import { ADD_ACCUMULATION_URL } from './path';
-import { request } from './request/request';
-import { AbstractOperationAPI } from './abstractClasses/AbstractOperationAPI';
+import { ADD_ACCUMULATION_URL } from 'api/path';
+import { request } from 'api/request';
+import { AbstractOperationAPI } from 'api/abstractClasses/AbstractOperationAPI';
 
 
 

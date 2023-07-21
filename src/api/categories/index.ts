@@ -1,7 +1,7 @@
 import { ICategorie } from 'interfaces';
-import { ICategoriesAPI } from './interfaces';
-import { ADD_CATEGORIE_URL,DELETE_CATEGORIE_URL } from './path';
-import { request } from './request/request';
+import { ICategoriesAPI } from 'api/interfaces';
+import { ADD_CATEGORIE_URL,DELETE_CATEGORIE_URL } from 'api/path';
+import { request } from 'api/request';
 
 
 
@@ -21,7 +21,7 @@ export class CategoriesAPI implements ICategoriesAPI {
                 throw new Error(error.message);
             }
 
-            return response.json();
+            return await response.json();
 
         }
         catch (error) {

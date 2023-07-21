@@ -4,22 +4,24 @@ import { IFormAuth } from 'interfaces';
 import { Input } from 'widgets/inputs/Input';
 import { Button } from 'widgets/modals/ui/button/Button';
 import { CASE_TYPE_EMAIL, CASE_TYPE_PASSWORD, CASE_TYPE_COUNTRY, CASE_TYPE_NICKNAME } from 'widgets/inputs/validation/constans';
-import { TITLE_REGISTOR_COUNTRY,
+import {
+    TITLE_REGISTOR_COUNTRY,
     TITLE_REGISTOR_EMAIL,
     TITLE_REGISTOR_NICKNAME,
-    TITLE_REGISTOR_PASSWORD } from 'widgets/inputs/validation/constans';
+    TITLE_REGISTOR_PASSWORD,
+} from 'widgets/inputs/validation/constans';
 import { TITLE_LABEL_EMAIL,TITLE_LABEL_PASSWORD,TITLE_LABEL_COUNTRY,TITLE_LABEL_NICKNAME } from 'widgets/inputs/label/constans';
 import { TITLE_BUTTON_REGISTRATION } from 'widgets/modals/ui/button/constans';
 import { useToggle } from 'shared/hooks/useToggle/useToggle';
 import { services } from 'service/ioC/ioc';
 import { useNavigate } from 'react-router';
 import { LOGIN } from 'shared/routes/path';
-import { SubtitleResponse } from 'widgets/errorResponse/SubtitleResponse';
+import { SubtitleResponse } from 'widgets/subtitleResponse/SubtitleResponse';
 
 
 function FormRegistrationNewUser(): React.ReactElement {
     const [messageFromDB, setmessageFromDB] = React.useState('');
-    const { value: isStatusResponse, toggle:setIsStatusResponse } = useToggle(false);
+    const { value: isErrorVisible, toggle:setIsErrorVisible } = useToggle(false);
 
     const navigate = useNavigate();
 
@@ -33,14 +35,9 @@ function FormRegistrationNewUser(): React.ReactElement {
 
     const onRegistration = async(formData:IFormAuth) => {
         try {
-            const { message }  = await services.auth.registration(formData);
+            await services.auth.registration(formData);
 
-            setmessageFromDB(message);
-            setIsStatusResponse();
-
-            setTimeout(()=>{
-                navigate(LOGIN);
-            },3000);
+            navigate(LOGIN);
 
             reset();
         }
@@ -48,11 +45,11 @@ function FormRegistrationNewUser(): React.ReactElement {
             if (error instanceof Error) {
 
                 setmessageFromDB(error.message);
-                setIsStatusResponse();
+                setIsErrorVisible();
 
                 setTimeout(()=>{
                     setmessageFromDB('');
-                    setIsStatusResponse();
+                    setIsErrorVisible();
                 },3000);
             }
 
@@ -63,7 +60,7 @@ function FormRegistrationNewUser(): React.ReactElement {
         <form
             className="flex gap-1 w-full  flex-col  bg text-white bg-slate-900 py-6 px-8 rounded-md shadow-lg md:w-1/2"
             onSubmit={handleSubmit(onRegistration)}>
-            <SubtitleResponse isStatusResponse={isStatusResponse} messageFromDB={messageFromDB}/>
+            <SubtitleResponse isErrorVisible={isErrorVisible} messageFromDB={messageFromDB}/>
             <h2 className="text-xl font-bold text-center">Регистрация</h2>
             <Input
                 caseType={CASE_TYPE_EMAIL}

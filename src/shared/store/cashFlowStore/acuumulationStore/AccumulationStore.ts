@@ -1,6 +1,6 @@
 import { makeAutoObservable } from 'mobx';
 import { balanceStore } from '../balanceStore/BalanceStore';
-import { IAccumulationOperation, IResponseAccumulationOperation } from 'interfaces';
+import { IResponseAccumulationOperation } from 'interfaces';
 import { IAccumulationStore } from '../interfaces';
 
 

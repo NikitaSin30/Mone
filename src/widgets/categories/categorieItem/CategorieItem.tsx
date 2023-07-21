@@ -1,11 +1,11 @@
 import React from 'react';
 import { DeleteModal } from 'widgets/modals/DeleteModal';
-import { ICategorie, IResponseCategorie } from 'interfaces';
 import { observer } from 'mobx-react-lite';
 import { DeleteIcon } from 'widgets/todo/assets/DeleteIcon';
 import { useToggle } from 'shared/hooks/useToggle/useToggle';
 import { services } from 'service/ioC/ioc';
 import ErrorModal from 'widgets/modals/ErrorModal';
+
 
 interface ICategorieItem {
     categorie:string,
@@ -46,7 +46,7 @@ export const CategorieItem = observer(({ categorie,id,spending }:ICategorieItem)
                     {DeleteIcon}
                 </button>
             </li>
-            {isModalActive && <DeleteModal id={id!} categorie={categorie} onSuccesDelete={onSuccesDelete} switchShowModal={switchShowModal} />}
+            {isModalActive && <DeleteModal id={id} categorie={categorie} onSuccesDelete={onSuccesDelete} switchShowModal={switchShowModal} />}
             {isErrorModal && <ErrorModal title={messageError} switchShowModalErr={switchIsErrorModal}/>}
         </>
     );

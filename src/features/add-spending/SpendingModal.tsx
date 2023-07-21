@@ -19,6 +19,7 @@ import { services } from 'service/ioC/ioc';
 
 
 const SpendingModal = () => {
+
     const { isModalActiveSpending,switchIsModalActiveSpending } = React.useContext<IContextMain>(ContextMain);
     const { value: isActiveSelect, toggle: toggleActiveSelect } = useToggle(false);
     const { value: isError, toggle:setIsError } = useToggle(false);

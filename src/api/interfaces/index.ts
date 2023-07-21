@@ -4,8 +4,8 @@ import {
     IIncomeOperation,
     ISpendingOperation,
     ITask,ICategorie,
-    IFormAuth
-    } from 'interfaces';
+    IFormAuth,
+} from 'interfaces';
 
 
 

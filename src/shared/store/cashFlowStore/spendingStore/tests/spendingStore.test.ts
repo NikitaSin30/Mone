@@ -1,7 +1,7 @@
 import { IResponseSpendingOperation } from 'interfaces';
-import { ISpendingStore } from '../interfaces';
-import { SpendingStore } from './SpendingStore';
-import { balanceStore } from '../balanceStore/BalanceStore';
+import { ISpendingStore } from '../../interfaces';
+import { SpendingStore } from '..';
+import { balanceStore } from '../../balanceStore/BalanceStore';
 import { EOperationType } from 'enum';
 
 

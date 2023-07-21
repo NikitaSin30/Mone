@@ -1,5 +1,5 @@
 import { userStore } from 'shared/store/userStore/UserStore';
-import { spendingStore } from 'shared/store/cashFlowStore/spendingStore/SpendingStore';
+import { spendingStore } from 'shared/store/cashFlowStore/spendingStore';
 import { categoriesStore } from 'shared/store/categoriesStore/CategoriesStore';
 import { IFormSpending, IDataResponse, IResponseSpendingOperation } from 'interfaces';
 import { operationsStore } from 'shared/store/cashFlowStore/operationsStore/OperationsStore';

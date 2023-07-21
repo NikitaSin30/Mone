@@ -5,6 +5,7 @@ import { observer } from 'mobx-react-lite';
 
 
 export const CatagoriesList = observer(() => {
+
     const { categories } = categoriesStore;
 
     return (

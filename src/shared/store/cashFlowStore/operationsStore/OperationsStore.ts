@@ -1,6 +1,7 @@
 import { makeAutoObservable } from 'mobx';
 import { TAllOperations } from 'types';
-import { IOperationStore } from './interfaces';
+import { IOperationStore } from '../interfaces';
+
 
 
 

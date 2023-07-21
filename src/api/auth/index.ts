@@ -1,7 +1,7 @@
 import { IFormAuth } from 'interfaces';
-import { IAuthAPI } from './interfaces';
-import { REGISTRATION_URL,LOGIN_URL,LOGOUT_URL,AUTHENTICATION_URL } from './path';
-import { request } from './request/request';
+import { IAuthAPI } from '../interfaces';
+import { REGISTRATION_URL,LOGIN_URL,LOGOUT_URL,AUTHENTICATION_URL } from '../path';
+import { request } from '../request';
 
 
 export class AuthAPI implements IAuthAPI {

@@ -1,7 +1,7 @@
 import { ISpendingOperation } from 'interfaces';
-import { ADD_SPENDING_URL } from './path';
-import { request } from './request/request';
-import { AbstractOperationAPI } from './abstractClasses/AbstractOperationAPI';
+import { ADD_SPENDING_URL } from 'api/path';
+import { request } from 'api/request';
+import { AbstractOperationAPI } from 'api/abstractClasses/AbstractOperationAPI';
 
 
 
@@ -18,9 +18,9 @@ export class SpendingAPI extends AbstractOperationAPI {
 
                 throw new Error(error.message);
             }
-            const result = response.json();
 
-            return result;
+            return await response.json();
+
 
         }
         catch (error) {

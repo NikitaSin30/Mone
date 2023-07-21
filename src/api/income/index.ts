@@ -1,8 +1,8 @@
 import { IIncomeOperation } from 'interfaces';
-import { ADD_INCOME_URL } from './path';
-import { request } from './request/request';
+import { ADD_INCOME_URL } from 'api/path';
+import { request } from 'api/request';
 
-import { AbstractOperationAPI } from './abstractClasses/AbstractOperationAPI';
+import { AbstractOperationAPI } from 'api/abstractClasses/AbstractOperationAPI';
 
 
 
@@ -22,7 +22,8 @@ export class IncomeAPI extends AbstractOperationAPI {
                 throw new Error(error.message);
             }
 
-            return response.json();
+            return await response.json();
+
         }
         catch (error) {
             if (error instanceof Error) {

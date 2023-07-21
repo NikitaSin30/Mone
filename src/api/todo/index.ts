@@ -1,10 +1,12 @@
-
 import { ITask } from 'interfaces';
-import { ITodoAPI } from './interfaces';
-import { DELETE_TASK_URL, DELETE_ALL_TASKS_URL, SWITCH_IS_DONE_URL,ADD_TASK_URL } from './path/index';
-import { request } from './request/request';
-
-
+import { ITodoAPI } from 'api/interfaces';
+import {
+    DELETE_TASK_URL,
+    DELETE_ALL_TASKS_URL,
+    SWITCH_IS_DONE_URL,
+    ADD_TASK_URL,
+} from '../path/index';
+import { request } from 'api/request';
 
 
 export class TodoAPI implements ITodoAPI {
@@ -24,7 +26,7 @@ export class TodoAPI implements ITodoAPI {
                 throw new Error(error.message);
             }
 
-            return response.json();
+            return await response.json();
 
         }
         catch (error) {
