@@ -8,6 +8,12 @@ module.exports = {
                 'main' : '#4D5474',
                 'card' : '#383E57',
             },
+            topSelect : {
+                'select' : '110%',
+            },
+            leftSelect : {
+                'select' : '95%',
+            },
         },
     },
     plugins : [],

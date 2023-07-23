@@ -1,42 +1,44 @@
-import { IAccumulationOperationWithID } from 'shared/store/cashFlowStore/acuumulationStore/interfaces';
-import { IIncomeOperationWithID } from 'shared/store/cashFlowStore/incomeStore/interfaces';
-import { ITaskWithID } from 'shared/store/toDoStore/interfaces';
-import { IFormAuth } from '../../features/auth/interfaces';
-import { ITaskForm } from 'features/addTasks/interfaces';
-import { TAllOperations } from 'shared/store/cashFlowStore/operationsStore/types';
-import { ISpendingOperationWithID } from 'shared/store/cashFlowStore/spendingStore/interfaces';
-import { ICategorieWithID } from 'shared/store/categoriesStore/interfaces';
+import {
+    IAccumulationOperation,
+    IBaseResponse,
+    IIncomeOperation,
+    ISpendingOperation,
+    ITask,ICategorie,
+    IFormAuth,
+} from 'interfaces';
 
 
-export interface IResponseMessage {message:string}
 
-export interface IDataUserFromDB {
- email : string,
- country : string,
- nickname : string,
- password : string,
- _id : string,
- balance : number,
- income : number,
- incomeOperations : IIncomeOperationWithID[],
- spending : number,
- spendingOperations : ISpendingOperationWithID[],
- accumulation : number,
- accumulationOperations : IAccumulationOperationWithID[],
- allOperations: TAllOperations[]
- categories : ICategorieWithID[],
- tasks : ITaskWithID[],
+export interface IAuthAPI {
+    registration:(user: IFormAuth) => Promise<IBaseResponse>;
+    login:<T>(dataLogin:IFormAuth) => Promise<T>
+    authenticate:<T>(token:string) => Promise<T>
+    logout:(userID:string) => Promise<IBaseResponse>
 }
 
-export interface IDataFromDB {
-  user: IDataUserFromDB,
-  token : string,
+export interface ICategoriesAPI {
+  add:<T>(categorie: ICategorie, userID: string) => Promise<T>;
+  delete: (categorieID:string, userID:string) => Promise<void>
 }
 
+export interface ITodoAPI {
+  add: <T>(task: ITask, userID: string) => Promise<T>;
+  delete:(taskID:string, userID:string) => Promise<void>
+  deleteAll:(id:string) => Promise<void>
+  switchIsDoneTask:(taskID:string, userID:string) => Promise<void>
+}
 
-export interface IAuthApi {
-    registration:(user: IFormAuth) => Promise<IResponseMessage>;
-    login:(dataLogin:IFormAuth) => Promise<IDataFromDB>
-    authenticate:(token:string) => Promise<IDataFromDB>
-    logout:(id:string) => Promise<void>
+export interface IIncomeAPI{
+    add:<T>( userID: string,incomeOperation: IIncomeOperation) => Promise<T>
+    delete:<T>(operationID:string,userID:string)=>Promise<T>
+}
+
+export interface IAccumulationAPI{
+    add:<T>(userID: string, accumulationOperation: IAccumulationOperation) => Promise<T>
+    delete:<T>(operationID:string,userID:string)=> Promise<T>
+}
+
+export interface ISpendingAPI {
+    add:<T>(userID: string, spendingOperation: ISpendingOperation) => Promise<T>
+    delete:<T>(operationID:string,userID:string) => Promise<T>
 }

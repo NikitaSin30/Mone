@@ -1,17 +1,18 @@
-import { ISpendingStore } from '../interfaces';
-import { ISpendingOperationWithID } from '../interfaces';
-import { SpendingStore } from '../SpendingStore';
+import { IResponseSpendingOperation } from 'interfaces';
+import { ISpendingStore } from '../../interfaces';
+import { SpendingStore } from '..';
 import { balanceStore } from '../../balanceStore/BalanceStore';
-
+import { EOperationType } from 'enum';
 
 
 describe('Class SpendingStore',() => {
 
-    const spendingOperations : ISpendingOperationWithID = {
+    const spendingOperations : IResponseSpendingOperation = {
         spending  : 100,
         categorie : 'Медицина',
-        date      : new Date().toLocaleDateString(),
-        id        : '123',
+        type      : EOperationType.Spending,
+        date      : new Date().toDateString(),
+        id        : '1',
     };
 
     const spending = 100;

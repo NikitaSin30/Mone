@@ -15,11 +15,13 @@ export const CategorieItem = observer(({ categorie,onSuccesDelete }:ICategorieIt
     } = React.useContext<IGlobalContext>(Context);
 
 
+
+
     return (
         <>
             <li
-                className=" max-h-[40px] flex px-4 py-2 text-white bg-slate-900  items-center
-                          justify-between rounded-md shadow-lg "
+                className="max-h-[40px] flex px-4 py-2 text-white bg-slate-900  items-center
+                          justify-between rounded-md shadow-lg"
             >
                 <h2 className="font-semibold text-md">{categorie.categorie} : {categorie.spending}</h2>
                 <button onClick={switchIsShowDeleteModal} className="hover:scale-110">

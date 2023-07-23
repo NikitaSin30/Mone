@@ -1,18 +1,18 @@
 import { makeAutoObservable } from 'mobx';
 import { balanceStore } from '../balanceStore/BalanceStore';
-import { IIncomeOperationWithID,IIncomeStore } from './interfaces';
-
+import { IIncomeStore } from '../interfaces';
+import { IResponseIncomeOperation } from 'interfaces';
 
 
 export class IncomeStore implements IIncomeStore {
-    incomeOperations:IIncomeOperationWithID[] = [];
-    income:number = 0;
+    public incomeOperations:IResponseIncomeOperation[] = [];
+    public income:number = 0;
 
     constructor() {
         makeAutoObservable(this);
     }
 
-    addIncome(operation: IIncomeOperationWithID) {
+    public addIncome(operation: IResponseIncomeOperation) {
         this.income = this.income + operation.income;
         const updatedBalance = balanceStore.moneyAccount + operation.income;
 
@@ -22,11 +22,11 @@ export class IncomeStore implements IIncomeStore {
         balanceStore.updateCashAccount(updatedBalance);
     }
 
-    setIncomeFromDB(income:number, operations:IIncomeOperationWithID[]) {
+    public setIncomeFromDB(income:number, operations:IResponseIncomeOperation[]) {
         this.income = income;
         this.incomeOperations = operations;
     }
-    deleteOperation({ id }:IIncomeOperationWithID) {
+    deleteOperation(id:string) {
         this.incomeOperations = this.incomeOperations.filter(operation => operation.id !== id);
     }
     updateAfterDeleteOperation(sum:number) {

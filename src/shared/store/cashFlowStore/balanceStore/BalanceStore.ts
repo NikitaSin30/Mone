@@ -1,22 +1,21 @@
 import { makeAutoObservable } from 'mobx';
-import { IBalanceStore } from './interfaces';
-import { OPERATION_INCOME } from 'shared/service/factory/constants';
+import { OPERATION_INCOME } from 'shared/constants';
+import { IBalanceStore } from '../interfaces';
 
 
 
 export class BalanceStore implements IBalanceStore {
-    moneyAccount = 0;
-
+    public moneyAccount = 0;
 
     constructor() {
         makeAutoObservable(this);
     }
 
-    updateCashAccount(newBalance: number ) {
+    public updateCashAccount(newBalance: number ) {
         this.moneyAccount = newBalance;
     }
 
-    setBalanceFromDB(balance:number) {
+    public setBalanceFromDB(balance:number) {
         this.moneyAccount = balance;
     }
     updateAfterDeleteOperation(sum:number, typeOperation:string) {

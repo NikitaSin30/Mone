@@ -1,18 +1,16 @@
 import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { IFormAuth } from 'features/auth/interfaces';
+import { IFormAuth } from 'interfaces';
 import { Input } from 'widgets/inputs/Input';
 import { Button } from 'widgets/modals/ui/button/Button';
-import { useService } from 'shared/hooks/useService/useService';
-import { CASE_USESERVICE_LOGIN } from 'shared/hooks/useService/constans';
 import { CASE_TYPE_EMAIL, CASE_TYPE_PASSWORD } from 'widgets/inputs/validation/constans';
 import { TITLE_REGISTOR_PASSWORD,TITLE_REGISTOR_EMAIL } from 'widgets/inputs/validation/constans';
 import { TITLE_LABEL_PASSWORD, TITLE_LABEL_EMAIL } from 'widgets/inputs/label/constans';
 import { TITLE_BUTTON_LOGIN } from 'widgets/modals/ui/button/constans';
-import { ioContainer } from 'api/IoC/ioc';
+import { services } from 'service/ioC/ioc';
 import { useToggle } from 'shared/hooks/useToggle/useToggle';
-import { userStore } from 'shared/store/userStore/UserStore';
+
 
 
 
@@ -36,7 +34,7 @@ const FormLogin = (): React.ReactElement => {
 
     const onLogin = async(data : IFormAuth) => {
         try {
-            await ioContainer.authService.login(data);
+            await services.auth.login(data);
             navigate(fromPage);
             reset();
         }

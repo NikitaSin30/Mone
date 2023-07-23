@@ -1,16 +1,18 @@
-const ServiceCashDB = require('../serviceMongo/seviceCashDB');
+const serviceCashDB = require('../serviceMongo/seviceCashDB');
+
 
 class CashFlowController {
 
     async addIncome(req, res,next) {
-        const { incomeOperation, id } = req.body;
+        const { incomeOperation, userID } = req.body;
 
         try {
-            const incomeOperationWithID  = await ServiceCashDB.addIncome(incomeOperation,id);
+            const modifiedIncomeOperation  = await serviceCashDB.addIncome(incomeOperation,userID);
 
             res.json({
-                incomeOperationWithID ,
+                data    : modifiedIncomeOperation ,
                 message : 'Доход добавлен',
+                success : true,
             });
         }
         catch (error) {
@@ -19,14 +21,15 @@ class CashFlowController {
     }
 
     async addSpending(req, res,next) {
-        const { id, spendingOperation } = req.body;
+        const { userID, spendingOperation } = req.body;
 
         try {
-            const spendingOperationWithID = await ServiceCashDB.addSpending(spendingOperation,id);
+            const modifiedSpendingOperation = await serviceCashDB.addSpending(spendingOperation,userID);
 
             res.json({
-                spendingOperationWithID,
+                data    : modifiedSpendingOperation,
                 message : 'Расход добавлен',
+                success : true,
             });
         }
         catch (error) {
@@ -34,14 +37,15 @@ class CashFlowController {
         }
     }
     async addAccumulation(req, res,next) {
-        const { accumulationOperation,id } = req.body;
+        const { accumulationOperation,userID } = req.body;
 
         try {
-            const accumulationOperationWithID =  await ServiceCashDB.addAccumulation(accumulationOperation,id);
+            const modifiedAccumulationOperation =  await serviceCashDB.addAccumulation(accumulationOperation,userID);
 
             res.json({
-                accumulationOperationWithID,
+                data    : modifiedAccumulationOperation,
                 message : 'Накопление добавлено',
+                success : true,
             });
         }
         catch (error) {

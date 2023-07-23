@@ -1,5 +1,5 @@
 
-import { TAllOperations } from '../types';
+import { TAllOperations } from 'types';
 
 export interface IOperationsStore {
     addOperation:(operation : TAllOperations) => void

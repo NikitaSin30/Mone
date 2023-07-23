@@ -3,7 +3,7 @@ import { categoriesStore } from 'shared/store/categoriesStore/CategoriesStore';
 import { CategorieItem } from '../categorieItem/CategorieItem';
 import { observer } from 'mobx-react-lite';
 import { Context, IGlobalContext } from 'shared/context/context';
-import { ioContainer } from 'api/IoC/ioc';
+import { services } from 'service/ioC/ioc';
 import ErrorModal from 'widgets/modals/ErrorModal';
 
 
@@ -19,7 +19,7 @@ export const CatagoriesList = observer(() => {
 
     const onSuccesDelete = async(id:string) => {
         try {
-            await ioContainer.categoriesService.deleteCategorie(id);
+            await services.categories.delete(id);
             switchIsShowDeleteModal();
         }
         catch (error) {
@@ -42,4 +42,3 @@ export const CatagoriesList = observer(() => {
         </>
     );
 });
-

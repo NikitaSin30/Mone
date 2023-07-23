@@ -1,23 +1,34 @@
 import { makeAutoObservable } from 'mobx';
-import { TAllOperations } from './types';
-import { IOperationsStore } from './interfaces';
+import { TAllOperations } from 'types';
+import { IOperationStore } from '../interfaces';
 
-class OperationsStore implements IOperationsStore {
-    allOperations : TAllOperations[];
+
+
+
+class OperationsStore implements IOperationStore {
+    public allOperations : TAllOperations[];
 
     constructor() {
         makeAutoObservable(this);
     }
 
-    addOperation(operation : TAllOperations) {
+    public addOperation(operation : TAllOperations) {
         this.allOperations.push(operation);
     }
 
-    setAllOperationsFromDB(allOperations : TAllOperations[]) {
+    public setAllOperationsFromDB(allOperations : TAllOperations[]) {
         this.allOperations = allOperations;
     }
-    deleteOperation({ id }:TAllOperations) {
+    public deleteOperation(id : string) {
         this.allOperations = this.allOperations.filter(operation => operation.id !== id);
+    }
+
+    public getOperation(id:string) {
+        const operation = this.allOperations.find(operation => operation.id === id);
+
+        if (!operation) throw new Error('приносим извенения. Произошла');
+
+        return operation;
     }
 }
 

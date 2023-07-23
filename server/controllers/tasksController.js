@@ -2,14 +2,15 @@ const serviceTasksDB = require('../serviceMongo/serviceTasks/serviceTasksDB');
 
 class TasksController {
     async addTask(req,res,next) {
-        const { task, id } = req.body;
+        const { task, userID } = req.body;
 
         try {
-            const taskWithID =  await serviceTasksDB.addTask(id,task);
+            const modifiedTask =  await serviceTasksDB.addTask(userID,task);
 
             res.json({
-                taskWithID ,
+                data    : modifiedTask ,
                 message : 'Задача добавлена',
+                success : true,
             });
         }
         catch (error) {
@@ -18,11 +19,14 @@ class TasksController {
     }
 
     async deleteTask(req,res,next) {
-        const { id,idTask } = req.body;
+        const { userID,taskID } = req.body;
 
         try {
-            await serviceTasksDB.deleteTask(id,idTask);
-            res.json({ message: 'Задача удалена' });
+            await serviceTasksDB.deleteTask(userID,taskID);
+            res.json({
+                message : 'Задача удалена',
+                success : true,
+            });
         }
         catch (error) {
             next(error);
@@ -30,23 +34,29 @@ class TasksController {
     }
 
     async deleteAllTasks(req,res,next) {
-        const { id } = req.body;
+        const { userID } = req.body;
 
 
         try {
-            await serviceTasksDB.deleteAllTasks(id);
-            res.json({ message: 'Все задачи удалены' });
+            await serviceTasksDB.deleteAllTasks(userID);
+            res.json({
+                message : 'Все задачи удалены',
+                success : true,
+            });
         }
         catch (error) {
             next(error);
         }
     }
     async switchIsDone(req,res,next) {
-        const { id,idTask } = req.body;
+        const { idUser,idTask } = req.body;
 
         try {
-            await serviceTasksDB.switchIsDone(id,idTask);
-            res.json({ message: 'Статус выполнения задачи изменен' });
+            await serviceTasksDB.switchIsDone(idUser,idTask);
+            res.json({
+                message : 'Статус выполнения задачи изменен',
+                success : true,
+            });
         }
         catch (error) {
             next(error);

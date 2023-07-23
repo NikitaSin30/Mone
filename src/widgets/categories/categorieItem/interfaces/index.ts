@@ -1,6 +1,6 @@
-import { ICategorieWithID } from 'shared/store/categoriesStore/interfaces';
+import { IResponseCategorie } from 'interfaces';
 
 export interface ICategorieItem {
-    categorie : ICategorieWithID,
+    categorie : IResponseCategorie,
     onSuccesDelete : (id:string) => void
 }

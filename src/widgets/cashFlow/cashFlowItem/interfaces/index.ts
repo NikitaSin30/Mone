@@ -1,6 +1,6 @@
-import { TAllOperations } from 'shared/store/cashFlowStore/operationsStore/types';
+import { TAllOperations } from 'types';
 
-export interface ICashFlowItem {
+export interface IOperationItem {
     operation : TAllOperations
     onSuccessDelete: (id:string) => Promise<void>
 }

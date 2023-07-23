@@ -14,10 +14,10 @@ export const Select = (props:ISelect) => {
         <>
             <div
                 onClick={toggleActiveSelect}
-                className="flex-1 cursor-pointer bg-white h-8
-                         text-black font-semibold rounded-md shadow-lg py-1"
+                className="flex-1 relative  cursor-pointer bg-white
+                         text-black font-semibold rounded-md shadow-lg  mb-3"
             >
-                <div {...register(titleRegister, validation?.validation)}>{selected}</div>
+                <div {...register(titleRegister, validation?.validation)} className='shadow-lg px-2 py-1 h-8'>{selected}</div>
                 <SelectList style={style} getValueSelect={getValueSelect}/>
             </div>
         </>
