@@ -20,7 +20,7 @@ export const OperationList = observer(() => {
     const onSuccessDeleteOperation = async(id:string) =>{
         try {
 
-            await mediatorOperations.delete(id);
+            await mediatorOperations.deleteSelectedOperation(id);
             switchIsShowDeleteModal();
         }
         catch (error) {
