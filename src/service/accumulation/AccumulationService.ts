@@ -7,6 +7,7 @@ import { IAccumulationAPI } from 'api/interfaces';
 import { AbstractOperationService } from 'service/abstractClasses/AbstractOperationService';
 import { IAccumulationOperation } from 'interfaces';
 import { EOperationType } from 'enum';
+import { OPERATION_ACCUMULATION } from 'shared/constants';
 
 
 
@@ -27,6 +28,15 @@ export class AccumulationService extends AbstractOperationService {
 
         accumulationStore.addAccumulation(data);
         operationsStore.addOperation(data);
+    }
+
+    async delete(accumulationID:string) {
+        const { data:deletedOperation } = await this.accumulutionAPI.delete<IDataResponse<IResponseAccumulationOperation>>(accumulationID,userStore.userID);
+
+        accumulationStore.updateAfterDeleteOperation(deletedOperation.accumulation);
+        balanceStore.updateAfterDeleteOperation(deletedOperation.accumulation,OPERATION_ACCUMULATION);
+        accumulationStore.deleteOperation(accumulationID);
+        operationsStore.deleteOperation(accumulationID);
     }
 
     createOperation({ accumulation } : IFormAccumulation):IAccumulationOperation {

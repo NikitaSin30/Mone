@@ -10,4 +10,5 @@ type TCreatedOperation = IAccumulationOperation | ISpendingOperation | IIncomeOp
 export abstract class AbstractOperationService {
     protected abstract createOperation(data:TDataForm) : TCreatedOperation
     protected abstract add(data: TDataForm): Promise<void>;
+    protected abstract delete(id:string):Promise<void>
 }

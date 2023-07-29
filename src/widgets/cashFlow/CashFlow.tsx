@@ -5,6 +5,7 @@ import { OperationList } from './cashFlowList/OperationList';
 const CashFlow = () => {
 
 
+
     return (
         <aside
             className=" bg-card flex-initial text-black  rounded-2xl shadow-black shadow-md h-80 w-full flex flex-col  overflow-hidden  px-2

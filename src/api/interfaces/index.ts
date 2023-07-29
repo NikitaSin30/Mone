@@ -30,12 +30,15 @@ export interface ITodoAPI {
 
 export interface IIncomeAPI{
     add:<T>( userID: string,incomeOperation: IIncomeOperation) => Promise<T>
+    delete:<T>(operationID:string,userID:string)=>Promise<T>
 }
 
 export interface IAccumulationAPI{
     add:<T>(userID: string, accumulationOperation: IAccumulationOperation) => Promise<T>
+    delete:<T>(operationID:string,userID:string)=> Promise<T>
 }
 
 export interface ISpendingAPI {
     add:<T>(userID: string, spendingOperation: ISpendingOperation) => Promise<T>
+    delete:<T>(operationID:string,userID:string) => Promise<T>
 }

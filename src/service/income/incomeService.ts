@@ -7,6 +7,8 @@ import { AbstractOperationService } from 'service/abstractClasses/AbstractOperat
 import { IIncomeOperation } from 'interfaces';
 import { EOperationType } from 'enum';
 import { validateString } from 'shared/mappers/validateString';
+import { OPERATION_INCOME } from 'shared/constants';
+import { balanceStore } from 'shared/store/cashFlowStore/balanceStore/BalanceStore';
 
 
 
@@ -28,6 +30,14 @@ export class IncomeService extends AbstractOperationService {
 
     }
 
+    async delete(incomeID:string) {
+        const { data:deletedOperation } = await this.incomeAPI.delete<IDataResponse<IResponseIncomeOperation>>(incomeID,userStore.userID);
+
+        incomeStore.updateAfterDeleteOperation(deletedOperation.income);
+        balanceStore.updateAfterDeleteOperation(deletedOperation.income,OPERATION_INCOME);
+        incomeStore.deleteOperation(incomeID);
+        operationsStore.deleteOperation(incomeID);
+    }
     createOperation({ income,sphere } : IFormIncome):IIncomeOperation {
         const validatedCategorie = validateString(sphere);
 

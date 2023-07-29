@@ -7,6 +7,6 @@ export interface IError {
 export interface IDeleteModal {
   onSuccesDelete: (id: string) => void;
   switchShowModal: () => void;
-  categorie: string;
+  title: string;
   id: string;
 }

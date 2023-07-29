@@ -27,6 +27,13 @@ export class SpendingStore implements ISpendingStore {
         this.spendingOperations = spendingOperations;
     }
 
+    public deleteOperation( id :string) {
+        this.spendingOperations = this.spendingOperations.filter(operation => operation.id !== id);
+    }
+    public updateAfterDeleteOperation(sum:number) {
+        this.spending -= sum;
+    }
+
 }
 
 export const spendingStore = new SpendingStore();

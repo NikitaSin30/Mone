@@ -36,4 +36,5 @@ export interface IOperationStore{
     allOperations : TAllOperations[]
     addOperation: (operation : TAllOperations) => void
     setAllOperationsFromDB: (allOperations : TAllOperations[]) => void
+    getOperation:(id:string) => TAllOperations
 }

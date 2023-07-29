@@ -24,6 +24,13 @@ export class AccumulationStore implements IAccumulationStore {
         this.accumulation = accumulation;
         this.accumulationOperations = operations;
     }
+
+    deleteOperation(id:string) {
+        this.accumulationOperations = this.accumulationOperations.filter(operation => operation.id !== id);
+    }
+    updateAfterDeleteOperation(sum:number) {
+        this.accumulation -= sum;
+    }
 }
 
 export const accumulationStore = new AccumulationStore();

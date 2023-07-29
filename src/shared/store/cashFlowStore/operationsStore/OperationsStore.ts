@@ -19,6 +19,17 @@ class OperationsStore implements IOperationStore {
     public setAllOperationsFromDB(allOperations : TAllOperations[]) {
         this.allOperations = allOperations;
     }
+    public deleteOperation(id : string) {
+        this.allOperations = this.allOperations.filter(operation => operation.id !== id);
+    }
+
+    public getOperation(id:string) {
+        const operation = this.allOperations.find(operation => operation.id === id);
+
+        if (!operation) throw new Error('приносим извенения. Произошла');
+
+        return operation;
+    }
 }
 
 export const operationsStore = new OperationsStore();

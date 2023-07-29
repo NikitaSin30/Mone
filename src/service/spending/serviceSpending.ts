@@ -8,6 +8,8 @@ import { AbstractOperationService } from 'service/abstractClasses/AbstractOperat
 import { ISpendingOperation } from 'interfaces';
 import { EOperationType } from 'enum';
 import { validateString } from 'shared/mappers/validateString';
+import { OPERATION_SPENDING } from 'shared/constants';
+import { balanceStore } from 'shared/store/cashFlowStore/balanceStore/BalanceStore';
 
 
 
@@ -28,6 +30,15 @@ export class SpendingService extends AbstractOperationService {
         operationsStore.addOperation(data);
         categoriesStore.updateSpendingInCategorie(data);
 
+    }
+
+    async delete(spendingID:string) {
+        const { data:deletedOperation } = await this.spendingAPI.delete<IDataResponse<IResponseSpendingOperation>>(spendingID,userStore.userID);
+
+        spendingStore.updateAfterDeleteOperation(deletedOperation.spending);
+        balanceStore.updateAfterDeleteOperation(deletedOperation.spending,OPERATION_SPENDING);
+        spendingStore.deleteOperation(spendingID);
+        operationsStore.deleteOperation(spendingID);
     }
 
     createOperation({ spending,categorie } : IFormSpending): ISpendingOperation {

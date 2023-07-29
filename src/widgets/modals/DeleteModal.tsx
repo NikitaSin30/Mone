@@ -4,7 +4,7 @@ import { CloseIcon } from './assets/CloseIcon';
 
 
 export const DeleteModal = (props:IDeleteModal) => {
-    const { switchShowModal, onSuccesDelete, categorie, id } = props;
+    const { switchShowModal, onSuccesDelete, title, id } = props;
 
 
     return (
@@ -19,7 +19,7 @@ export const DeleteModal = (props:IDeleteModal) => {
                     </button>
                 </div>
                 <h2>
-            Удалить категорию <b>{categorie}</b> ?
+            Удалить категорию <b>{title}</b> ?
                 </h2>
                 <button
                     onClick={() => onSuccesDelete(id)}
