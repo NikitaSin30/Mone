@@ -19,5 +19,5 @@
     "baseUrl": "src",
   },
 
-  "include": ["src/**/*"]
+  "include": ["src/**/*", "front/AbstractOperationAPI.ts", "front/src/modules/analysis/index.tsx"]
 }
