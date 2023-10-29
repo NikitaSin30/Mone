@@ -1,15 +1,9 @@
-import { Outlet } from "react-router";
-import {Link} from 'react-router-dom'
-
-
+import { Outlet } from 'react-router'
 
 export const Root = () => {
-    return (
-        <>
-           {/* <Header/> */}
-           <div>
-           </div>
-           <Outlet/>
-        </>
-    )
+  return (
+    <>
+      <Outlet />
+    </>
+  )
 }

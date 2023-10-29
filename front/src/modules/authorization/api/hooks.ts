@@ -1,13 +1,12 @@
-import { useMutation } from "@tanstack/react-query";
-import { loginQuery } from "./request";
-import { redirect } from "react-router";
+import { useMutation } from '@tanstack/react-query'
+import { loginQuery } from './request'
+import { redirect } from 'react-router'
 
 export const useMutationLogin = () => {
-
-   return useMutation({
+  return useMutation({
     mutationFn: loginQuery,
-    onSuccess:() => {
-     redirect('/')
+    onSuccess: () => {
+      redirect('/')
     }
-   })
+  })
 }

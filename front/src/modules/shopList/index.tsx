@@ -1,10 +1,3 @@
-
-
-
 export const ShopList = () => {
-
-    return (
-        <>
-        </>
-    )
+  return <></>
 }

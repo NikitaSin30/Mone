@@ -1,8 +1,3 @@
-
-
-
-export const  Main = () => {
-    return (
-        <></>
-    )
+export const Main = () => {
+  return <></>
 }

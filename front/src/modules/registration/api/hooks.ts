@@ -1,19 +1,17 @@
-import { useMutation } from "@tanstack/react-query";
-import { registrationQuery } from "./request";
-import { useNavigate } from "react-router-dom";
-
-
+import { useMutation } from '@tanstack/react-query'
+import { registrationQuery } from './request'
+import { useNavigate } from 'react-router-dom'
 
 export const useMutationLogin = () => {
-   const navigate = useNavigate()
+  const navigate = useNavigate()
 
-   return useMutation({
+  return useMutation({
     mutationFn: registrationQuery,
-    onSuccess:() => {
-      console.log('ewrwrw');
+    onSuccess: () => {
+      console.log('ewrwrw')
 
-      navigate('/login');
+      navigate('/login')
     },
-    onError: (err : unknown) => console.log(err)
-   })
+    onError: (err: unknown) => console.log(err)
+  })
 }

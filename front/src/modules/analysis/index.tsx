@@ -1,10 +1,3 @@
-
-
-
 export const Analysis = () => {
-
-    return (
-        <>
-        </>
-    )
-};
+  return <></>
+}
