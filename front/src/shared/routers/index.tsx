@@ -1,28 +1,49 @@
-import {
-  createBrowserRouter,
-  createRoutesFromElements,
-  Route
-} from 'react-router-dom'
-import { Root } from './Root'
+import { createBrowserRouter } from "react-router-dom";
+import { Root } from "./Root";
+import { Authorization } from "../../modules/authorization";
+import { Main } from "../../modules/main";
+import { LOGIN, REGISTRATION } from "./path";
+import { Registration } from "../../modules/registration";
 
-import { Main } from '../../modules/main'
-import { Profile } from '../../modules/profile'
-import { ShopList } from '../../modules/shopList'
-import { Analysis } from '../../modules/analysis'
-import { Registration } from '../../modules/registration'
-import { Authorization } from '../../modules/authorization'
+// export const router = createBrowserRouter(
+//   createRoutesFromElements(
+//     <Route path="/" element={<Root />}>
+//       <Route index element={<Main />} />
+//       {/*<Route path={URL.ACCOUNT} element={<Profile />} />*/}
+//       {/*<Route path={URL.ANALYSIS} element={<Analysis />} />*/}
+//       {/*<Route path={URL.SHOPLIST} element={<ShopList />} />*/}
+//       <Route path="/login" element={<Authorization />} />
+//       {/*<Route path={URL.REGISTRATION} element={<Registration />} />*/}
+//     </Route>
+//   )
+// );
 
-import * as URL from './path'
-
-export const router = createBrowserRouter(
-  createRoutesFromElements(
-    <Route path={URL.BASIC} element={<Root />}>
-      <Route index element={<Main />} />
-      <Route path={URL.ACCOUNT} element={<Profile />} />
-      <Route path={URL.ANALYSIS} element={<Analysis />} />
-      <Route path={URL.SHOPLIST} element={<ShopList />} />
-      <Route path={URL.LOGIN} element={<Authorization />} />
-      <Route path={URL.REGISTRATION} element={<Registration />} />
-    </Route>
-  )
-)
+export const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Root />,
+    errorElement: <div>404</div>,
+    children: [
+      {
+        index: true,
+        element: <Main />,
+      },
+      {
+        path: '/login',
+        element: <Authorization />,
+      },
+      {
+        path: '/registration',
+        element: <Registration />,
+      },
+      // {
+      //   path: "/login",
+      //   element: <Authorization />,
+      // },
+      // {
+      //   path: "/login",
+      //   element: <Authorization />,
+      // },
+    ],
+  },
+]);
