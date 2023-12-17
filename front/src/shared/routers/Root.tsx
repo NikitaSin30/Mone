@@ -1,5 +1,5 @@
-import { Outlet } from "react-router";
-import { Link } from "react-router-dom";
+import { Outlet } from 'react-router'
+import { Link } from 'react-router-dom'
 
 export const Root = () => {
   return (
@@ -9,5 +9,5 @@ export const Root = () => {
 
       <Outlet />
     </>
-  );
-};
+  )
+}

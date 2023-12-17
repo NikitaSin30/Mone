@@ -1,51 +1,57 @@
-import React from "react";
-import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
-import { useMutationLogin } from "./api/hooks";
-import { zodResolver } from "@hookform/resolvers/zod";
+import React from 'react'
+import { useForm } from 'react-hook-form'
+import { Link, useNavigate } from 'react-router-dom'
+import { useMutationLogin } from './api/hooks'
+import { zodResolver } from '@hookform/resolvers/zod'
 
-import { Input } from "../../shared/ui/input";
-import { registrationSchema,RegistrationSchema } from "../../shared/zodSchema";
-import { LOGIN } from "../../shared/routers/path";
+import { Input } from '../../shared/ui/input'
+import { registrationSchema, RegistrationSchema } from '../../shared/zodSchema'
+import { LOGIN } from '../../shared/routers/path'
 
 export const Registration = () => {
   // @ts-ignore
-  const { mutateAsync, isSuccess, isError, isLoading } = useMutationLogin();
+  const { mutateAsync, isSuccess, isError, isLoading } = useMutationLogin()
   const {
     register,
-    formState: { errors, isSubmitting, },
+    formState: { errors, isSubmitting },
     handleSubmit,
     reset,
   } = useForm<RegistrationSchema>({
-    mode: "onBlur",
+    mode: 'onBlur',
     resolver: zodResolver(registrationSchema),
-  });
+  })
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const onSubmit = async (dataForm: RegistrationSchema) => {
     // try {
     await mutateAsync(dataForm, {
       onError: (err: unknown) => console.log(err),
-    });
-    reset();
-    console.log(isSuccess);
+    })
+    reset()
+    console.log(isSuccess)
 
     // } catch (error: unknown) {
     //   console.log(error);
 
     // }
-  };
+  }
 
   return (
-    <>      
+    <>
       <form onSubmit={handleSubmit(onSubmit)}>
-         <Input name='email' type="text" placeholder="Введите email" errors={errors} register={register} />
-         <Input name='password' type="text" placeholder="Введите пароль" errors={errors} register={register} />
-         <Input name='confirmPassword' type="text" placeholder="Подтвердите пароль" errors={errors} register={register} />
-         <Button isDisable={isSubmitting} textContent="Зарегистрироваться"/>
+        <Input name="email" type="text" placeholder="Введите email" errors={errors} register={register} />
+        <Input name="password" type="text" placeholder="Введите пароль" errors={errors} register={register} />
+        <Input
+          name="confirmPassword"
+          type="text"
+          placeholder="Подтвердите пароль"
+          errors={errors}
+          register={register}
+        />
+        <Button isDisable={isSubmitting} textContent="Зарегистрироваться" />
         <Link to={LOGIN}></Link>
       </form>
     </>
-  );
-};
+  )
+}

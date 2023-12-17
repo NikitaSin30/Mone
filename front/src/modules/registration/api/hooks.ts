@@ -10,6 +10,6 @@ export const useMutationLogin = () => {
     onSuccess: () => {
       navigate('/login')
     },
-    onError: (err: unknown) => console.log(err)
+    onError: (err: unknown) => console.log(err),
   })
 }
