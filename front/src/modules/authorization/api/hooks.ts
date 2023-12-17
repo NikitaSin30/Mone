@@ -7,6 +7,6 @@ export const useMutationLogin = () => {
     mutationFn: loginQuery,
     onSuccess: () => {
       redirect('/')
-    }
+    },
   })
 }
