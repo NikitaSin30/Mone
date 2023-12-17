@@ -1,54 +1,51 @@
-import { useForm } from 'react-hook-form'
-import { Link, useNavigate } from 'react-router-dom'
-import { useMutationLogin } from './api/hooks'
-import { zodResolver } from '@hookform/resolvers/zod'
+import React from "react";
+import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
+import { useMutationLogin } from "./api/hooks";
+import { zodResolver } from "@hookform/resolvers/zod";
 
-import { authSchema, TAuthSchema } from '../../shared/zodSchema'
-import { LOGIN } from '../../shared/routers/path'
+import { Input } from "../../shared/ui/input";
+import { registrationSchema,RegistrationSchema } from "../../shared/zodSchema";
+import { LOGIN } from "../../shared/routers/path";
 
 export const Registration = () => {
-  const { mutateAsync, isSuccess, isError, isLoading } = useMutationLogin()
+  // @ts-ignore
+  const { mutateAsync, isSuccess, isError, isLoading } = useMutationLogin();
   const {
     register,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting, },
     handleSubmit,
-    reset
-  } = useForm<TAuthSchema>({
-    mode: 'onBlur',
-    resolver: zodResolver(authSchema)
-  })
+    reset,
+  } = useForm<RegistrationSchema>({
+    mode: "onBlur",
+    resolver: zodResolver(registrationSchema),
+  });
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const onSubmit = async (dataForm: TAuthSchema) => {
+  const onSubmit = async (dataForm: RegistrationSchema) => {
     // try {
     await mutateAsync(dataForm, {
-      onError: (err: unknown) => console.log(err)
-    })
-    reset()
-    console.log(isSuccess)
+      onError: (err: unknown) => console.log(err),
+    });
+    reset();
+    console.log(isSuccess);
 
     // } catch (error: unknown) {
     //   console.log(error);
 
     // }
-  }
+  };
 
   return (
-    <>
-      {isError && <div>Pidaras</div>}
-      {isSuccess && <div>Zaebesya</div>}
-      {isLoading && <div>Gryzim</div>}
-
-      <div></div>
+    <>      
       <form onSubmit={handleSubmit(onSubmit)}>
-        <input {...register('email')} type="text" />
-        {errors.email && <span>{`${errors.email.message}`}</span>}
-        <input type="text" {...register('password')} />
-        {errors.password && <span>{`${errors.password.message}`}</span>}
-        <button disabled={isSubmitting}>Логин</button>
+         <Input name='email' type="text" placeholder="Введите email" errors={errors} register={register} />
+         <Input name='password' type="text" placeholder="Введите пароль" errors={errors} register={register} />
+         <Input name='confirmPassword' type="text" placeholder="Подтвердите пароль" errors={errors} register={register} />
+         <Button isDisable={isSubmitting} textContent="Зарегистрироваться"/>
         <Link to={LOGIN}></Link>
       </form>
     </>
-  )
-}
+  );
+};

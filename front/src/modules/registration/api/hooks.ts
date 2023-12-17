@@ -8,8 +8,6 @@ export const useMutationLogin = () => {
   return useMutation({
     mutationFn: registrationQuery,
     onSuccess: () => {
-      console.log('ewrwrw')
-
       navigate('/login')
     },
     onError: (err: unknown) => console.log(err)
