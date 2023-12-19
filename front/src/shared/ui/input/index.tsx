@@ -1,18 +1,20 @@
 import React from 'react'
 import { FieldErrors, UseFormRegister, Path, FieldValues } from 'react-hook-form'
 
+type InputType = JSX.IntrinsicElements['input']['type']
+
 export const Input = <T extends FieldValues>({
-  type,
   name,
   placeholder,
   errors,
   register,
+  type = 'text',
 }: {
-  type: string
   name: Path<T>
   placeholder: string
   errors: FieldErrors<T>
   register: UseFormRegister<T>
+  type: InputType
 }) => {
   return (
     <>
