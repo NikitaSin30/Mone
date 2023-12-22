@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "target": "ES2017",
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -20,11 +16,8 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "baseUrl": "src"
+    "baseUrl": "src",
+    "types": ["node", "jest"]
   },
-  "include": [
-    "src/**/*",
-    "front/AbstractOperationAPI.ts",
-    "front/src/modules/analysis/index.tsx"
-  ]
+  "include": ["src/**/*", "front/AbstractOperationAPI.ts", "front/src/modules/analysis/index.tsx"]
 }

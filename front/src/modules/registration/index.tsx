@@ -7,9 +7,9 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Input } from '../../shared/ui/input'
 import { registrationSchema, RegistrationSchema } from '../../shared/zodSchema'
 import { LOGIN } from '../../shared/routers/path'
+import { Button } from 'shared/ui/button'
 
 export const Registration = () => {
-  // @ts-ignore
   const { mutateAsync, isSuccess, isError, isLoading } = useMutationLogin()
   const {
     register,
@@ -39,7 +39,7 @@ export const Registration = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form className="a" onSubmit={handleSubmit(onSubmit)}>
         <Input name="email" type="text" placeholder="Введите email" errors={errors} register={register} />
         <Input name="password" type="text" placeholder="Введите пароль" errors={errors} register={register} />
         <Input
@@ -49,7 +49,7 @@ export const Registration = () => {
           errors={errors}
           register={register}
         />
-        <Button isDisable={isSubmitting} textContent="Зарегистрироваться" />
+        <Button type="submit" isDisable={isSubmitting} textContent="Зарегистрироваться" />
         <Link to={LOGIN}></Link>
       </form>
     </>
