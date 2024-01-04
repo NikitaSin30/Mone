@@ -1,0 +1,55 @@
+.input {
+  width: 375px;
+  height: 55px;
+  border-radius: 10px;
+  border: 1px solid #dddddd;
+  &-warning {
+    border: 1px solid #bc0000;
+  }
+  &-sm {
+    width: 304px;
+    height: 40px;
+    padding: 0px 12px;
+  }
+  &-lg {
+    width: 375px;
+    height: 55px;
+    padding: 0px 16px;
+  }
+}
+
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+}
+
+input:focus {
+  border: 1px solid black;
+}
+
+.span-warning {
+  color: #bc0000;
+  height: 16px;
+  font-size: 14px;
+}
+.hidden {
+  visibility: hidden;
+}
+
+.input-wrapper {
+  position: relative;
+}
+
+.input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.eye-icon {
+  position: absolute;
+  right: 17px;
+  cursor: pointer;
+}
