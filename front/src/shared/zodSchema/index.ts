@@ -17,18 +17,19 @@ export const registrationSchema = z
     email: z.string().min(1, 'Поле не должно быть пустым').email('Некорректны email'),
     password: z
       .string()
-      .min(1, 'Поле не должно быть пустым')
+      .min(1, 'Заполните пустое поле')
       .regex(/^[0-9a-zA-Z]+$/, 'Недопустимые символы')
-      .min(6, 'Минимум 6 символов')
-      .max(20, 'Максимум 20 символов'),
+      .min(6, 'Длина пароля должна быть не менее 6 символов')
+      .max(20, 'Длина пароля должна быть более 20 символов'),
     confirmPassword: z
       .string()
-      .min(1, 'Поле не должно быть пустым')
+      .min(1, 'Заполните пустое поле')
       .regex(/^[0-9a-zA-Z]+$/, 'Недопустимые символы')
-      .min(6, 'Минимум 6 символов')
-      .max(20, 'Максимум 20 символов'),
+      .min(6, 'Длина пароля должна быть не менее 6 символов')
+      .max(20, 'Длина пароля должна быть более 20 символов'),
   })
   .refine(data => data.password === data.confirmPassword, {
-    message: 'Пароли должны совпадать',
+    message: 'Пароль не совпадает',
+    path: ['confirmPassword'],
   })
 export type RegistrationSchema = z.infer<typeof registrationSchema>

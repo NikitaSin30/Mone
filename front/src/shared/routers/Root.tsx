@@ -1,11 +1,12 @@
+import React from 'react'
 import { Outlet } from 'react-router'
 import { Link } from 'react-router-dom'
+import { Sidebar } from '../ui/sidebar'
 
 export const Root = () => {
   return (
     <>
-      <Link to="login">login</Link>
-      <Link to="/">main</Link>
+      <Sidebar />
 
       <Outlet />
     </>

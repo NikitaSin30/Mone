@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import './index.less'
 import { router } from './shared/routers'
 import { RouterProvider } from 'react-router-dom'
+// import 'normalize.css' // Подключение Normalize.css
 
 const queryClient = new QueryClient()
 
