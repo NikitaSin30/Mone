@@ -62,7 +62,7 @@ export const Registration = () => {
         <div className={styles['registration-form__group']}>
           <Input
             name="email"
-            type="text"
+            type="email"
             placeholder="Введите email"
             errors={errors}
             size="lg"
