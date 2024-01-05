@@ -16,15 +16,30 @@ export const Registration = () => {
   const { mutateAsync, isSuccess, isError, isLoading } = useMutationLogin()
   const {
     register,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting, isValid },
     handleSubmit,
+    watch,
+    setError,
+    clearErrors,
     reset,
   } = useForm<RegistrationSchema>({
-    mode: 'onBlur',
+    mode: 'all',
     resolver: zodResolver(registrationSchema),
   })
 
+  const password = watch('password')
+  const confirmPassword = watch('confirmPassword')
+
   const navigate = useNavigate()
+
+  React.useEffect(() => {
+    if (confirmPassword !== password) {
+      clearErrors('confirmPassword')
+      setError('confirmPassword', { type: 'manual', message: 'Пароли не совпадают' })
+    } else {
+      clearErrors('confirmPassword')
+    }
+  }, [password, confirmPassword])
 
   const onSubmit = async (dataForm: RegistrationSchema) => {
     // try {
@@ -71,8 +86,11 @@ export const Registration = () => {
           />
         </div>
 
-        <Button isDisable={isSubmitting} textContent="Зарегистрироваться" />
-        <Link to={LOGIN}></Link>
+        <Button isDisable={isSubmitting || !isValid} textContent="Зарегистрироваться" size="lg" />
+        <div className={styles['registration-form__navigation']}>
+          <span>Уже есть аккаунт?</span>
+          <Link to={LOGIN}>Войти</Link>
+        </div>
       </form>
     </>
   )

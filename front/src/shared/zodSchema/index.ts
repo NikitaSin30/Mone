@@ -14,7 +14,7 @@ export type LoginSchema = z.infer<typeof loginSchema>
 
 export const registrationSchema = z
   .object({
-    email: z.string().min(1, 'Поле не должно быть пустым').email('Некорректны email'),
+    email: z.string().min(1, 'Заполните пустое поле').email('Некорректный email'),
     password: z
       .string()
       .min(1, 'Заполните пустое поле')
@@ -28,8 +28,14 @@ export const registrationSchema = z
       .min(6, 'Длина пароля должна быть не менее 6 символов')
       .max(20, 'Длина пароля должна быть более 20 символов'),
   })
-  .refine(data => data.password === data.confirmPassword, {
-    message: 'Пароль не совпадает',
-    path: ['confirmPassword'],
+  .superRefine(({ confirmPassword, password }, ctx) => {
+    if (confirmPassword !== password) {
+      ctx.addIssue({
+        code: 'custom',
+        message: 'Пароль не совпадает',
+        path: ['confirmPassword'],
+      })
+    }
   })
+
 export type RegistrationSchema = z.infer<typeof registrationSchema>
