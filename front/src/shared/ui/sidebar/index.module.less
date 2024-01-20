@@ -1,5 +1,70 @@
 .sidebar {
+  flex: 0 0 220px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 40px 24px 40px;
   background-color: #222223;
-  width: 280px;
-  height: 300px;
+  &__logo {
+    margin-bottom: 80px;
+  }
+  &__list,
+  &__botton {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: center;
+    gap: 20px;
+  }
+  &__botton {
+    margin-top: auto;
+  }
+  &__item {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    padding: 6px 15px;
+    height: 28px;
+    gap: 8px;
+    &_active {
+      background-color: #2d2d2d;
+      border-radius: 6px;
+    }
+  }
+  &__icon {
+    width: 20px;
+    height: 20px;
+  }
+  &__checkbox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px;
+    margin-left: 7px;
+    height: 32px;
+    width: 64px;
+    gap: 8px;
+    border-radius: 4.7px;
+    background-color: #2d2d2d;
+  }
+  &__checkbox-wrapper-icon {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &_active-bright,
+    &_active-dark {
+      background-color: #222223;
+    }
+  }
+  &__checkbox-bright-icon {
+    width: 14px;
+    height: 14px;
+  }
+  &__checkbox-dark-icon {
+    width: 14px;
+    height: 14px;
+  }
 }

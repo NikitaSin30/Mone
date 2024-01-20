@@ -6,6 +6,13 @@ module.exports = {
   entry: path.resolve(__dirname, '..', './src/index.tsx'),
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
+    alias: {
+      Modules: path.resolve(__dirname, 'src/modules'),
+      Assets: path.resolve(__dirname, 'src/assets'),
+      Ui: path.resolve(__dirname, 'src/shared/ui'),
+      Constans: path.resolve(__dirname, 'src/shared/constans'),
+      ZodSchema: path.resolve(__dirname, 'src/shared/zodSchema'),
+    },
   },
   module: {
     rules: [
