@@ -87,6 +87,8 @@ export const Registration = () => {
         </div>
 
         <Button isDisable={isSubmitting || !isValid} textContent="Зарегистрироваться" size="lg" />
+        <Link to={LOGIN}>Войти</Link>
+
         <div className={styles['registration-form__navigation']}>
           <span>Уже есть аккаунт?</span>
           <Link to={LOGIN}>Войти</Link>
