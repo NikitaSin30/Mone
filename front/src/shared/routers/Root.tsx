@@ -1,16 +1,23 @@
-import React from 'react'
 import { Outlet } from 'react-router'
-import { Link } from 'react-router-dom'
-import { Sidebar } from '../ui/sidebar'
-import { WrapperPage } from '../ui/wrapper-page'
+import { useLocation } from 'react-router-dom'
+import { AppContext } from 'shared/context'
+import { Sidebar } from 'shared/ui/sidebar'
+import { Header } from 'shared/ui/header'
+
+const pathNotAuth = ['/login', '/registration']
 
 export const Root = () => {
+  const location = useLocation()
+  const isAuth = !pathNotAuth.includes(location.pathname)
+  const AppDataContext = {
+    isAuth,
+  }
   return (
     <>
-      <Sidebar />
-      <WrapperPage>
+      <AppContext.Provider value={AppDataContext}>
+        {isAuth ? <Sidebar /> : <Header />}
         <Outlet />
-      </WrapperPage>
+      </AppContext.Provider>
     </>
   )
 }

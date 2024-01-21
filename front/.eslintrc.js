@@ -24,6 +24,7 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
+    jsx: 'react',
   },
   plugins: ['@typescript-eslint', 'react'],
   rules: {
@@ -33,5 +34,6 @@ module.exports = {
         endOfLine: 'auto',
       },
     ],
+    'react/react-in-jsx-scope': 'off',
   },
 }

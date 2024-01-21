@@ -1,4 +1,3 @@
-import React from 'react'
 import { Link } from 'react-router-dom'
 import style from './index.module.less'
 
@@ -10,7 +9,7 @@ export const A = ({
 }: {
   to: string
   title: string
-  color?: 'white' | 'dark'
+  color?: 'white' | 'litleGrey' | 'grey' | 'dark'
   size?: 'sm' | 'md' | 'lg'
 }) => {
   const stylyLink = `${style[`link-${size}`]} ${style[`link-${color}`]}`

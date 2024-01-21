@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from '../index.module.less'
-import DarkThemeIcon from '../../../../assets/DarkThemeIcon.svg'
-import BrightThemeIcon from '../../../../assets/BrightThemeIcon.svg'
+import DarkThemeIcon from 'assets/DarkThemeIcon.svg'
+import BrightThemeIcon from 'assets/BrightThemeIcon.svg'
 
 export const SidebarCheckbox = () => {
   const [isBrightTheme, setIsBrightTheme] = React.useState(true)

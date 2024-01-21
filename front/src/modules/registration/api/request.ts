@@ -1,8 +1,8 @@
-import { TAuthSchema } from '../../../shared/zodSchema'
+import { RegistrationSchema } from 'shared/zodSchema'
 
 export const REGISTRATION_URL = '/auth/registratio'
 
-export const registrationQuery = async (data: TAuthSchema) => {
+export const registrationQuery = async (data: RegistrationSchema) => {
   const response = await fetch(`http://localhost:3002${REGISTRATION_URL}`, {
     method: 'POST',
     headers: {
