@@ -16,7 +16,12 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "baseUrl": "src"
+    "baseUrl": "src/",
+    "paths": {
+      "modules/*": ["modules/*"],
+      "shared/*": ["shared/*"],
+      "assets/*": ["assets/*"]
+    }
   },
-  "include": ["src/**/*", "front/AbstractOperationAPI.ts", "front/src/modules/analysis/index.tsx"]
+  "include": ["src/**/*"]
 }

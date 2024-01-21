@@ -3,16 +3,14 @@ import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
 import { useMutationLogin } from './api/hooks'
 import { zodResolver } from '@hookform/resolvers/zod'
-
-import { Input } from '../../shared/ui/input'
-import { registrationSchema, RegistrationSchema } from '../../shared/zodSchema'
-import { LOGIN } from '../../shared/routers/path'
-import { Button } from '../../shared/ui/button'
-
+import { Input } from 'shared/ui/input'
+import { registrationSchema, RegistrationSchema } from 'shared/zodSchema'
+import { LOGIN } from 'shared/routers/path'
+import { Button } from 'shared/ui/button'
 import styles from './index.module.less'
+import { Header } from 'shared/ui/header'
 
 export const Registration = () => {
-  // @ts-ignore
   const { mutateAsync, isSuccess, isError, isLoading } = useMutationLogin()
   const {
     register,
@@ -57,43 +55,42 @@ export const Registration = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)} className={styles['registration-form']}>
-        <h3 className={styles['registration-form__title']}>Регистрация</h3>
-        <div className={styles['registration-form__group']}>
-          <Input
-            name="email"
-            type="email"
-            placeholder="Введите email"
-            errors={errors}
-            size="lg"
-            register={register}
-          />
-          <Input
-            name="password"
-            type="password"
-            placeholder="Введите пароль"
-            errors={errors}
-            size="lg"
-            register={register}
-          />
-          <Input
-            name="confirmPassword"
-            type="password"
-            placeholder="Подтвердите пароль"
-            errors={errors}
-            size="lg"
-            register={register}
-          />
-        </div>
-
-        <Button isDisable={isSubmitting || !isValid} textContent="Зарегистрироваться" size="lg" />
-        <Link to={LOGIN}>Войти</Link>
-
-        <div className={styles['registration-form__navigation']}>
-          <span>Уже есть аккаунт?</span>
-          <Link to={LOGIN}>Войти</Link>
-        </div>
-      </form>
+      <div className={styles['registration']}>
+        <form onSubmit={handleSubmit(onSubmit)} className={styles['registration__form']}>
+          <h3 className={styles['registration__form-title']}>Регистрация</h3>
+          <div className={styles['registration__form-group']}>
+            <Input
+              name="email"
+              type="email"
+              placeholder="Введите email"
+              errors={errors}
+              size="lg"
+              register={register}
+            />
+            <Input
+              name="password"
+              type="password"
+              placeholder="Введите пароль"
+              errors={errors}
+              size="lg"
+              register={register}
+            />
+            <Input
+              name="confirmPassword"
+              type="password"
+              placeholder="Подтвердите пароль"
+              errors={errors}
+              size="lg"
+              register={register}
+            />
+          </div>
+          <Button isDisable={isSubmitting || !isValid} textContent="Зарегистрироваться" size="lg" />
+          <div className={styles['registration__form-navigation']}>
+            <span>Уже есть аккаунт?</span>
+            <Link to={LOGIN}>Войти</Link>
+          </div>
+        </form>
+      </div>
     </>
   )
 }

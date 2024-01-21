@@ -54,6 +54,7 @@
     "react-hook-form": "^7.46.2",
     "react-query": "^3.39.3",
     "react-router-dom": "^6.21.3",
+    "tsconfig-paths-webpack-plugin": "^4.1.0",
     "webpack-merge": "^5.10.0",
     "zod": "^3.22.2"
   }

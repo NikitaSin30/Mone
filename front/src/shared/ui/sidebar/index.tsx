@@ -1,14 +1,12 @@
-import React from 'react'
-import { A } from '../a'
 import styles from './index.module.less'
 import { ACCOUNTS, ANALYTICS, ASSETS, DASHBOARD, LOGIN, PROFILE, SETTINGS } from '../../routers/path'
-import DashbordIcon from '../../../assets/DashbordIcon.svg'
-import AccountsIcon from '../../../assets/AccountsIcon.svg'
-import AnalyticsIcon from '../../../assets/AnalyticsIcon.svg'
-import AssetsIcon from '../../../assets/AssetsIcon.svg'
-import ProfileIcon from '../../../assets/ProfileIcon.svg'
-import SettingsIcon from '../../../assets/SettingsIcon.svg'
-import SignOutIcon from '../../../assets/SignOutIcon.svg'
+import DashbordIcon from 'assets/DashbordIcon.svg'
+import AccountsIcon from 'assets/AccountsIcon.svg'
+import AnalyticsIcon from 'assets/AnalyticsIcon.svg'
+import AssetsIcon from 'assets/AssetsIcon.svg'
+import ProfileIcon from 'assets/ProfileIcon.svg'
+import SettingsIcon from 'assets/SettingsIcon.svg'
+import SignOutIcon from 'assets/SignOutIcon.svg'
 
 import { SidebarItem } from './sidebar-item'
 import { SidebarCheckbox } from './sidebar-chexbox'
@@ -16,7 +14,7 @@ import { SidebarCheckbox } from './sidebar-chexbox'
 export const Sidebar = () => {
   return (
     <nav className={styles.sidebar}>
-      <h1 className={styles['sidebar__logo']}>Logo</h1>
+      <h1 className={styles['sidebar__logo']}>LOGO</h1>
       <ul className={styles['sidebar__list']}>
         <SidebarItem path={DASHBOARD} iconPath={DashbordIcon} title="Дашборд" />
         <SidebarItem path={ACCOUNTS} iconPath={AccountsIcon} title="Счета" />
