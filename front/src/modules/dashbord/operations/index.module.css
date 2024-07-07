@@ -1,0 +1,6 @@
+.dashbord__history-operation {
+  grid-column: 9 / -1;
+  border-radius: 16px;
+  background-color: #f9f9f9;
+  padding: 18px;
+}

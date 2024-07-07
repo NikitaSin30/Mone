@@ -1,0 +1,45 @@
+.dashbord__header-item {
+  grid-column: span 3;
+  height: 100%;
+  background-color: #f9f9f9;
+  padding: 18px;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  &-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 16px;
+    height: 18px;
+  }
+  &-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  &-icon {
+    width: 17.6px;
+    height: 17.6px;
+  }
+  &-sum {
+    font-size: 20px;
+    font-weight: 600;
+    color: #000000;
+  }
+  &-dynamyc {
+    display: flex;
+    align-items: end;
+    gap: 4px;
+  }
+  &-percent {
+    font-size: 14px;
+    &_up {
+      color: #219464;
+    }
+    &_down {
+      color: #bc0000;
+    }
+  }
+}

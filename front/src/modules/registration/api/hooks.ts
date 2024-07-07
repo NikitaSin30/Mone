@@ -1,8 +1,8 @@
-import { useMutation } from '@tanstack/react-query'
+import { useMutation } from 'react-query'
 import { registrationQuery } from './request'
 import { useNavigate } from 'react-router-dom'
 
-export const useMutationLogin = () => {
+export const useMutationSignup = () => {
   const navigate = useNavigate()
 
   return useMutation({

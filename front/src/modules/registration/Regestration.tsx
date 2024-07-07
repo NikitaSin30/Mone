@@ -1,17 +1,18 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
-import { useMutationLogin } from './api/hooks'
+import { useMutationLogin, useMutationSignup } from './api/hooks'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Input } from 'shared/ui/input'
-import { registrationSchema, RegistrationSchema } from 'shared/zodSchema'
+import { RegistrationForma, RegistrationFormaSchema } from 'shared/zodSchema'
 import { LOGIN } from 'shared/routers/path'
 import { Button } from 'shared/ui/button'
 import styles from './index.module.less'
 import { Header } from 'shared/ui/header'
+import { H } from 'shared/ui/h'
 
 export const Registration = () => {
-  const { mutateAsync, isSuccess, isError, isLoading } = useMutationLogin()
+  const { mutateAsync, isSuccess, isError } = useMutationSignup()
   const {
     register,
     formState: { errors, isSubmitting, isValid },
@@ -20,15 +21,15 @@ export const Registration = () => {
     setError,
     clearErrors,
     reset,
-  } = useForm<RegistrationSchema>({
+  } = useForm<RegistrationForma>({
     mode: 'all',
-    resolver: zodResolver(registrationSchema),
+    resolver: zodResolver(RegistrationFormaSchema),
   })
 
   const password = watch('password')
   const confirmPassword = watch('confirmPassword')
 
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
 
   React.useEffect(() => {
     if (confirmPassword !== password) {
@@ -39,25 +40,21 @@ export const Registration = () => {
     }
   }, [password, confirmPassword])
 
-  const onSubmit = async (dataForm: RegistrationSchema) => {
+  const onSubmit = async (dataForm: RegistrationForma) => {
     // try {
     await mutateAsync(dataForm, {
       onError: (err: unknown) => console.log(err),
     })
     reset()
-    console.log(isSuccess)
-
-    // } catch (error: unknown) {
-    //   console.log(error);
-
-    // }
   }
 
   return (
     <>
       <div className={styles['registration']}>
         <form onSubmit={handleSubmit(onSubmit)} className={styles['registration__form']}>
-          <h3 className={styles['registration__form-title']}>Регистрация</h3>
+          <div className={styles['registration__form-title']}>
+            <H HSize="h2" content="Регистрация" fontSize="42" fontWeight="600" color="#222223" />
+          </div>
           <div className={styles['registration__form-group']}>
             <Input
               name="email"

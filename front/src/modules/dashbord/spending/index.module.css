@@ -1,0 +1,6 @@
+.dashbord__diagram-spending {
+  grid-column: 1 / span 8;
+  border-radius: 16px;
+  background-color: #f9f9f9;
+  padding: 18px;
+}

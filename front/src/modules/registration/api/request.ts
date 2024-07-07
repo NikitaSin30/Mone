@@ -1,9 +1,9 @@
-import { RegistrationSchema } from 'shared/zodSchema'
+import { RegistrationForma } from 'shared/zodSchema'
 
-export const REGISTRATION_URL = '/auth/registratio'
+export const REGISTRATION_URL = '/auth/sigup'
 
-export const registrationQuery = async (data: RegistrationSchema) => {
-  const response = await fetch(`http://localhost:3002${REGISTRATION_URL}`, {
+export const registrationQuery = async (data: RegistrationForma) => {
+  const response = await fetch(`http://localhost:3003${REGISTRATION_URL}`, {
     method: 'POST',
     headers: {
       'Content-type': 'application/json',

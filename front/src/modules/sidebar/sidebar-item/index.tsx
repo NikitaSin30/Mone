@@ -1,6 +1,6 @@
 import styles from '../index.module.less'
 import { useMatchesRoutePath } from 'shared/hooks/useMatchesRoutePath'
-import { A } from '../../a'
+import { A } from 'shared/ui/a'
 
 export const SidebarItem = ({ path, iconPath, title }: { path: string; iconPath: string; title: string }) => {
   const isMatchesPath = useMatchesRoutePath(path)
@@ -10,7 +10,7 @@ export const SidebarItem = ({ path, iconPath, title }: { path: string; iconPath:
   return (
     <li className={`${styles['sidebar__item']} ${isActive}`}>
       <img className={styles['sidebar__icon']} src={iconPath} />
-      <A to={path} title={title} color={fontColor} />
+      <A to={path} title={title} color={fontColor}></A>
     </li>
   )
 }

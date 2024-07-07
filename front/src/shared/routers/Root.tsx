@@ -1,16 +1,15 @@
 import { Outlet } from 'react-router'
 import { useLocation } from 'react-router-dom'
 import { AppContext } from 'shared/context'
-import { Sidebar } from 'shared/ui/sidebar'
+import { Sidebar } from 'modules/sidebar'
 import { Header } from 'shared/ui/header'
-
-const pathNotAuth = ['/login', '/registration']
+import React from 'react'
 
 export const Root = () => {
-  const location = useLocation()
-  const isAuth = !pathNotAuth.includes(location.pathname)
+  const [isAuth, setIsAuth] = React.useState(localStorage.getItem('accessToken') ? true : false)
   const AppDataContext = {
     isAuth,
+    setIsAuth,
   }
   return (
     <>

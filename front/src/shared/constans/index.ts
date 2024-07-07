@@ -1,5 +1,5 @@
-export const colorWhite = 'white'
-export const colorDark = 'dark'
+export const COLOR_WHITE = 'white'
+export const COLOR_DARK = 'dark'
 
 export const sizeSM = 'sm'
 export const sizeMD = 'md'
