@@ -1,15 +1,15 @@
 version: '3.9'
-
 services:
-  db:
-    image: postgres:14.1-alpine
+  top-api.mongo:
+    image: mongo
     restart: always
+    container_name: top-api.mongo
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
     ports:
-      - '5432:5432'
+      - 27017:27017
+
     volumes:
-      - db:/var/lib/postgres/data
-volumes:
-  db:
+      - ./mongo-data:/data/db
+    command: --wiredTigerCacheSizeGB 1.5
