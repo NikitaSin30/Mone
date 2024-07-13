@@ -3,8 +3,9 @@ import { NestFactory } from '@nestjs/core'
 import { AppModule } from './app.module'
 import { ZodValidationPipe } from 'nestjs-zod'
 import { AppExceptionFilter } from './filters/AppExceptionFilter'
-import { AuthGuard } from './auth/guards/auth-guard'
+import { AuthGuard } from './auth/guards/auth.guard'
 import { NestExpressApplication } from '@nestjs/platform-express'
+import { JwtModule, JwtService } from '@nestjs/jwt'
 
 async function bootstrap() {
   const PORT = process.env.PORT || 5432
@@ -17,7 +18,6 @@ async function bootstrap() {
     credentials: true
   })
   app.use(cookieParser())
-  app.useGlobalGuards(new AuthGuard())
   app.useGlobalPipes(new ZodValidationPipe())
   app.useGlobalFilters(new AppExceptionFilter())
   console.log('listen', PORT)

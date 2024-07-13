@@ -20,12 +20,7 @@ import { UserService } from './services/user.service'
         schema: UserSchema
       }
     ]),
-    ConfigModule,
-    JwtModule.register({
-      global: true,
-      secret: env.JWT_SECRET,
-      signOptions: { expiresIn: '1800s' }
-    })
+    ConfigModule
   ]
 })
 export class AuthModule {}

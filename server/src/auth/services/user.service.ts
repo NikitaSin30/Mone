@@ -18,6 +18,7 @@ export class UserService {
     @InjectModel(User.name) private readonly user: Model<UserDocument>,
     private readonly passwordService: PasswordService
   ) {}
+
   async create(email: string, password: string) {
     await this.checkUniqueEmail(email)
 
@@ -30,6 +31,7 @@ export class UserService {
 
     await user.save()
   }
+
   async saveRefreshTokenInDB(email: string, hashedRefreshToken: string) {
     await this.user.updateOne(
       { email: email },
@@ -42,16 +44,14 @@ export class UserService {
   }
 
   async findUser(email: string) {
-    const user = await this.user.findOne({ email }).exec()
-
-    if (!user) {
-      throw new UnauthorizedException(USER_NOT_FOUND_ERROR)
-    }
-    return user
+    return await this.user.findOne({ email }).exec()
   }
 
   async validateLoginData(email: string, password: string) {
     const user = await this.findUser(email)
+    if (!user) {
+      throw new UnauthorizedException(USER_NOT_FOUND_ERROR)
+    }
     await this.passwordService.compare(password, user.password)
   }
 

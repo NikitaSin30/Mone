@@ -12,10 +12,12 @@ export class AuthService {
   ) {}
 
   async sigup({ password, email }: RegisterAuthDto): Promise<void> {
+    console.log(12)
+
     await this.userService.create(email, password)
   }
 
-  async sigin(
+  async login(
     loginAuthDto: LoginAuthDto
   ): Promise<{ accessToken: string; refreshToken: string }> {
     await this.userService.validateLoginData(
